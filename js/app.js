@@ -1,6 +1,6 @@
 import { initLayers }  from "../modules/layers.js";
-import { createTranslator } from "../modules/translater.js";
-
+import { createTranslator, toggleLanguage } from "../modules/translater.js";
+import { app } from "../data/data.js";
 
 const translator = createTranslator({
   languages: ["de", "en"],
@@ -8,8 +8,11 @@ const translator = createTranslator({
 });
 
 
-translator.load("en");
+translator.load(app.language);
 
+console.log(app.language)
+console.log("app.language")
 
+el('#language-switch .switch').addEventListener('click', toggleLanguage)
 
 initLayers()

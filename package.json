@@ -1,0 +1,15 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "An interactive 4K touch-table PWA designed for a 65\" museum exhibit. This application simulates a situational awareness center where users collaboratively manage disaster scenarios (e.g., floods, industrial accidents) using a fictional city map.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
