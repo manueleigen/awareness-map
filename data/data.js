@@ -11,66 +11,7 @@ export const app = {
   ],
 
   "scenarios": [
-    {
-      "name": "urban-flood",
-      "challenges": [
-        {
-          "name": "fire-brigade-deployment",
-          "startTime": "2026-03-08T14:30:00.000Z",
-          "endTime": "2026-03-08T22:00:00.000Z",
-          "object-layers": [
-            { "id": "flood-zone" },
-            { "id": "emergency-calls" }
-          ],
-          "story-points": [
-            {
-              "name": "mission-intro",
-              "type": "info",
-              "solution": "" 
-            },
-            {
-              "name": "evacuation-area-selection",
-              "type": "area-select",
-              "solution": "A1, A5, A9",
-              "object-layers": [
-                {
-                  "id": "emergency-calls",
-                  "filter": [
-                    {
-                      "type": "area",
-                      "queries": ["A1", "A3"]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "name": "situation-quiz",
-              "type": "quiz",
-              "solution": "Q1:A, Q2:C"
-            }
-          ]
-        },
-        {
-          "name": "sandbag-logistics",
-          "startTime": "2026-03-09T08:00:00.000Z",
-          "endTime": "2026-03-09T15:00:00.000Z",
-          "object-layers": [{ "id": "traffic-grid" }],
-          "story-points": [
-            { "name": "start", "type": "info", "solution": "" }
-          ]
-        },
-        {
-          "name": "hospital-evacuation",
-          "startTime": "2026-03-09T16:00:00.000Z",
-          "endTime": "2026-03-10T04:00:00.000Z",
-          "object-layers": [{ "id": "hospitals" }, { "id": "flood-zone" }],
-          "story-points": [
-            { "name": "identify-at-risk", "type": "point-select", "solution": "click:#hosp_north" }
-          ]
-        }
-      ]
-    },
+    
     {
       "name": "industrial-explosion",
       "challenges": [
@@ -123,29 +64,7 @@ export const app = {
         }
       ]
     }
-  ],
+  ]
 
-  "layer-collection": {
-    "base-map": {
-      "id": "base-map",
-      "type": "image",
-      "file": "media/maps/city_base.jpg"
-    },
-    "emergency-calls": {
-      "id": "emergency-calls",
-      "type": "coords",
-      "file": "data/layers/calls.json"
-    },
-    "flood-zone": {
-      "id": "flood-zone",
-      "type": "animated",
-      "file": "media/animations/flood.json"
-    },
-    "population-density": {
-      "id": "population-density",
-      "type": "image",
-      "file": "media/layers/pop_density.png"
-    }
-    // ... weitere Layer Definitionen
-  }
+
 };

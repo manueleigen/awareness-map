@@ -14,22 +14,22 @@
         {
             "id": "base-map-bg",
             "type": "color",
-            "code": "#000126",
+            "background": "#000126",
             "subLayer": "true"
         },{
             "id": "base-map-river",
             "type": "image",
-            "path": "images/layers/base-map-river.svg",
+            "file": "images/layers/base-map-river.svg",
             "subLayer": "true"
         },{
             "id": "base-map-strees",
             "type": "image",
-            "path": "images/layers/base-map-streets.svg",
+            "file": "images/layers/base-map-streets.svg",
             "subLayer": "true"
         },{
             "id": "base-map-buildings",
             "type": "image",
-            "path": "images/layers/base-map-buildings.svg",
+            "file": "images/layers/base-map-buildings.svg",
             "subLayer": "true"
         }
     ]

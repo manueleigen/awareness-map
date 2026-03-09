@@ -13,12 +13,12 @@
         {
             "id": "base-map-strees",
             "type": "image",
-            "path": "images/layers/base-map-streets.svg",
+            "file": "images/layers/base-map-streets.svg",
             "subLayer": "true"
         },{
             "id": "base-map-buildings",
             "type": "image",
-            "path": "images/layers/base-map-buildings.svg",
+            "file": "images/layers/base-map-buildings.svg",
             "subLayer": "true"
         }
     ],

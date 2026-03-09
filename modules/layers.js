@@ -87,11 +87,11 @@ function buildLayer(layer, parent){
     switch(layer.type){
         case "color":
             layerElement = create("div")
-            layerElement.style.backgroundColor = layer.code
+            layerElement.style.backgroundColor = layer.background
             break;
         case "image":
             layerElement = create("img")
-            layerElement.src = layer.path;
+            layerElement.src = layer.file;
             break;
         case "layergroup":
             layerElement = create("div")
@@ -102,6 +102,7 @@ function buildLayer(layer, parent){
         default:
             layerElement = create("div")
             layerElement.innerText = "Type-Mismatch"
+            break;
     }
     
     if(layer.css){
@@ -120,5 +121,5 @@ function buildLayer(layer, parent){
 
 function handletoggle(toggleBtn){
     toggleBtn.classList.toggle("active")
-    
+
 }
