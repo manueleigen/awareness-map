@@ -1,23 +1,37 @@
-* {
-	padding: 0;
-	margin: 0;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: 500;
-	letter-spacing: 0.12em;
-}
+
 
 :root {
 	--bg-color: #000126;
     --cd-light-blue: #00C2D0;
     --cd-dark-blue: #0004A0;
     
+    --screen-width: 3840px; 
+    --screen-height: 2160px; 
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.12em;
+}
+
+html {
+   /* clamp(MIN, FLEXIBEL, MAX) */
+   font-size: clamp(20px, 0.6vw, 40px); /* temporär */
 }
 
 body {
+    width: var(--screen-width); 
+	height: var(--screen-height); 
+    overflow: hidden;
+    zoom:.5; /* for development */
+    background-color: var(--bg-color);
 }
-#layers {
-	position: relative;
-}
+
+
+
 #layer-control {
 	position: absolute;
 	display: flex;
@@ -27,24 +41,33 @@ body {
 	z-index: 100;
 }
 #info-box {
-	position: absolute;
+	position: fixed;
 	bottom: 50px;
 	left: 50px;
-	width: 300px;
-	height: 200px;
+	width: 870px;
+	height: 500px;
+    padding: 50px;
+    box-sizing: border-box;
 	background-color: white;
 }
-#slider {
-}
-.layer,
-.layer-content {
-	width: 3840px; /* vielleicht besser 100vw */
-	height: 2160px; /* vielleicht besser 100vh */
-	width: 1920px;
-	height: 1080px;
-	position: absolute;
+
+
+#layers {
+	position: relative;
 }
 
+.layer,
+.layer-content {
+
+    width: var(--screen-width); 
+	height: var(--screen-height); 
+	position: absolute;
+    transition: all ease-in-out 300ms;
+    opacity: 1;
+}
+.layer.hidden{
+    opacity: 0!important;
+}
 .toggleSwitch {
 	cursor: pointer;
 	display: grid;
@@ -65,8 +88,7 @@ body {
 .toggleSwitch.hidden {
 	display: none;
 }
-.toggleSwitch.deactivated {
-}
+
 
 #language-switch{
     display: flex;

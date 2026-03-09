@@ -1,47 +1,45 @@
 export type Language = 'de' | 'en';
 
-export interface Translations {
-  [key: string]: {
-    [key in Language]: string;
-  };
-}
-
-export interface Layer {
+export interface LayerConfig {
   id: string;
-  type: 'color' | 'image' | 'layergroup' | 'lottie';
-  toggle: 'true' | 'false' | 'hidden';
-  translations: {
-    name: { [key in Language]: string };
-  };
+  type: 'static-image' | 'dynamic-image' | 'locations';
+  title_key: string;
+  description_key: string;
+  toggleable: boolean;
+  always_available?: boolean;
+  available_from?: 'scenario' | 'role';
+  interaction: string;
+  opacity_control?: boolean;
+  playback_control?: boolean;
+  icon_mode?: string;
+}
+
+export interface ContextLayer {
+  src: string;
   icon?: string;
-  background?: string;
-  file?: string;
-  layers?: Layer[];
-  subLayer?: boolean;
-  css?: string;
+  always_visible: boolean;
 }
 
-export interface StoryPoint {
-  type: 'info' | 'areaselect' | 'pointselect' | 'quiz';
-  content: string;
-  // Weitere spezifische Felder je nach Typ können hier ergänzt werden
+export interface Role {
+  layers: Record<string, ContextLayer>;
 }
 
-export interface Challenge {
-  name: string;
-  startTime: string;
-  endTime: string;
-  'object-layers': { id: string }[];
-  'story-points': StoryPoint[];
+export interface ScenarioContext {
+  layers: Record<string, ContextLayer>;
+  roles: Record<string, Role>;
 }
 
-export interface Scenario {
-  name: string;
-  challenges: Challenge[];
+export interface ProjectContext {
+  global: {
+    layers: Record<string, ContextLayer>;
+  };
+  scenarios: Record<string, ScenarioContext>;
 }
 
 export interface AppState {
   language: Language;
-  'global-layers': { id: string }[];
-  scenarios: Scenario[];
+  currentScenario: string | null;
+  currentRole: string | null;
+  activeLayers: Set<string>;
+  view: 'home' | 'scenario-select' | 'role-select' | 'map';
 }

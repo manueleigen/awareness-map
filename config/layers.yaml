@@ -1,0 +1,86 @@
+layers:
+  - id: base_layer_buildings
+    type: static-image
+    toggleable: false
+    interaction: none
+
+  - id: base_layer_streets
+    type: static-image
+    toggleable: false
+    interaction: none
+
+  - id: base_layer_river
+    type: static-image
+    toggleable: false
+    interaction: none
+
+  - id: critical_places
+    type: locations
+    title_key: layers.critical_places.title
+    description_key: layers.critical_places.description
+    toggleable: true
+    always_available: true
+    interaction: inspect-location
+    icon_mode: per-location
+
+  - id: population_density
+    type: static-image
+    title_key: layers.population_density.title
+    description_key: layers.population_density.description
+    toggleable: true
+    always_available: true
+    interaction: none
+    opacity_control: true
+
+  - id: flood_simulation
+    type: dynamic-image
+    title_key: layers.flood_simulation.title
+    description_key: layers.flood_simulation.description
+    toggleable: true
+    available_from: scenario
+    interaction: timeline
+    playback_control: true
+
+  - id: emergency_vehicles
+    type: locations
+    title_key: layers.emergency_vehicles.title
+    description_key: layers.emergency_vehicles.description
+    toggleable: true
+    available_from: role
+    interaction: inspect-location
+    icon_mode: per-location
+
+  - id: emergency_calls
+    type: locations
+    title_key: layers.emergency_calls.title
+    description_key: layers.emergency_calls.description
+    toggleable: true
+    available_from: role
+    interaction: inspect-location
+    icon_mode: per-location
+
+  - id: social_media
+    type: locations
+    title_key: layers.social_media.title
+    description_key: layers.social_media.description
+    toggleable: true
+    available_from: role
+    interaction: inspect-location
+    icon_mode: per-location
+
+  - id: evacuation_zones
+    type: static-image
+    title_key: layers.evacuation_zones.title
+    description_key: layers.evacuation_zones.description
+    toggleable: true
+    available_from: role
+    interaction: none
+    opacity_control: true
+
+  - id: drone_feed
+    type: static-image
+    title_key: layers.drone_feed.title
+    description_key: layers.drone_feed.description
+    toggleable: true
+    available_from: role
+    interaction: inspect-area

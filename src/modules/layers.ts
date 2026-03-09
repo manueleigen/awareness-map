@@ -1,121 +1,145 @@
 import { app } from '../data/data.js';
-import { create, el, loadJSON } from './lib.js';
-import { Layer } from './types.js';
+import { create, el, loadYAML } from './lib.js';
+import { t } from './translater.js';
+import { LayerConfig, ProjectContext, ContextLayer } from './types.js';
 
-const layers: { [key: string]: Layer } = {};
+let layerDefinitions: LayerConfig[] = [];
+let context: ProjectContext | null = null;
 
 export async function initLayers(): Promise<void> {
-    await buildBaseLayers();
+    try {
+        const [layerData, ctxWrapper] = await Promise.all([
+            loadYAML<{ layers: LayerConfig[] }>('/config/layers.yaml'),
+            loadYAML<{ contexts: ProjectContext }>('/config/context.yaml')
+        ]);
+        
+        layerDefinitions = layerData.layers;
+        context = ctxWrapper.contexts;
+        
+        renderLayers();
+    } catch (error) {
+        console.error("Fehler beim Initialisieren der Layer:", error);
+    }
 }
 
-export async function buildBaseLayers(): Promise<void> {
+export function renderLayers(): void {
     const layerContainer = el('#layers');
-    if (!layerContainer) return;
+    const layerControl = el('#layer-control');
+    if (!layerContainer || !layerControl || !context) return;
 
-    for (const obj of app['global-layers']) {
-        const currentLayer = await loadLayer(obj.id);
-        if (currentLayer) {
-            buildLayer(currentLayer, layerContainer);
+    layerContainer.innerHTML = '';
+    layerControl.innerHTML = '';
+
+    const availableLayers = getAvailableLayers();
+
+    availableLayers.forEach(config => {
+        const ctxLayer = getContextLayer(config.id);
+        if (ctxLayer || config.always_available) {
+            buildLayerUI(config, ctxLayer, layerContainer, layerControl);
         }
-    }
+    });
 }
 
-function t(obj: Layer, string: 'name'): string {
-    return obj.translations[string][app.language];
-}
+function getAvailableLayers(): LayerConfig[] {
+    if (!context) return [];
+    const availableIds = new Set<string>();
 
-async function loadLayer(id: string): Promise<Layer> {
-    const data = await loadJSON<Layer>(`data/layers/${id}.json`);
-    layers[data.id] = data;
-    return data;
-}
+    const globalLayers = context.global?.layers || {};
+    Object.keys(globalLayers).forEach(id => availableIds.add(id));
 
-function buildLayer(layer: Layer, parent: HTMLElement): void {
-    // Build Layer toggle
-    if (!layer.subLayer) {
-        const toggleSwitch = create('div');
-        toggleSwitch.classList.add('toggleSwitch');
+    if (app.currentScenario && context.scenarios?.[app.currentScenario]) {
+        const scenarioLayers = context.scenarios[app.currentScenario].layers || {};
+        Object.keys(scenarioLayers).forEach(id => availableIds.add(id));
 
-        const toggleIcon = create('img');
-        toggleIcon.src = layer.icon ? layer.icon : "images/layer-icons/location.svg";
-        toggleSwitch.append(toggleIcon);
-
-        const toggleBtn = create('label');
-        toggleBtn.innerText = t(layer, 'name');
-        toggleBtn.dataset.translations = JSON.stringify(layer.translations.name)
-        toggleBtn.className = "lm-swap"
-        console.log(layer)
-        toggleSwitch.append(toggleBtn);
-
-        const layerControl = el('#layer-control');
-        if (layerControl) {
-            switch (layer.toggle) {
-                case "false":
-                    toggleSwitch.classList.add('deactivated');
-                    break;
-                case "hidden":
-                    toggleSwitch.classList.add('hidden');
-                    break;
-                case "true":
-                    toggleSwitch.addEventListener('click', () => handletoggle(toggleSwitch, layer.id));
-                    break;
-            }
-            layerControl.append(toggleSwitch);
+        const currentRole = app.currentRole;
+        if (currentRole && context.scenarios[app.currentScenario].roles?.[currentRole]) {
+            const roleLayers = context.scenarios[app.currentScenario].roles[currentRole].layers || {};
+            Object.keys(roleLayers).forEach(id => availableIds.add(id));
         }
     }
 
-    const wrapper = create("div");
-    wrapper.className = "layer";
-    wrapper.id = layer.id;
+    return layerDefinitions.filter(d => availableIds.has(d.id));
+}
 
-    // Build Layer Object
-    let layerElement: HTMLElement | undefined;
+function getContextLayer(id: string): ContextLayer | null {
+    if (!context) return null;
     
-    switch (layer.type) {
-        case "color":
-            layerElement = create("div");
-            if (layer.background) layerElement.style.backgroundColor = layer.background;
-            break;
-        case "image":
-            const img = create("img");
-            if (layer.file) img.src = layer.file;
-            layerElement = img;
-            break;
-        case "layergroup":
-            layerElement = create("div");
-            if (layer.layers) {
-                layer.layers.forEach((subLayer) => {
-                    buildLayer({ ...subLayer, subLayer: true }, wrapper);
-                });
-            }
-            break;
-        case "lottie":
-            layerElement = create("div");
-            layerElement.innerText = "Lottie Placeholder";
-            break;
-        default:
-            layerElement = create("div");
-            layerElement.innerText = "Type-Mismatch";
-            break;
+    if (app.currentScenario && app.currentRole) {
+        const roleLayer = context.scenarios[app.currentScenario]?.roles?.[app.currentRole]?.layers?.[id];
+        if (roleLayer) return roleLayer;
     }
 
-    if (layer.css) {
-        wrapper.setAttribute('style', layer.css);
+    if (app.currentScenario) {
+        const scenarioLayer = context.scenarios[app.currentScenario]?.layers?.[id];
+        if (scenarioLayer) return scenarioLayer;
     }
 
-    if (layerElement) {
-        layerElement.classList.add('layer-content');
-        wrapper.append(layerElement);
-    }
-
-    wrapper.classList.add(`layer-${layer.type}`);
-    parent.append(wrapper);
+    return context.global?.layers?.[id] || null;
 }
 
-function handletoggle(toggleBtn: HTMLElement, layerId: string): void {
-    toggleBtn.classList.toggle("active");
-    const layer = document.getElementById(layerId);
-    if (layer) {
-        layer.classList.toggle("hidden");
+function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, parent: HTMLElement, controlParent: HTMLElement): void {
+    const isVisible = ctxLayer?.always_visible || app.activeLayers.has(config.id);
+    
+    const wrapper = create("div");
+    wrapper.className = `layer ${isVisible ? '' : 'hidden'}`;
+    wrapper.id = `layer-${config.id}`;
+
+    // Pfad-Logik: IMMER aus dem context.yaml nehmen
+    const src = ctxLayer?.src;
+
+    if (src) {
+        switch(config.type) {
+            case 'static-image':
+                const img = create("img");
+                img.src = src;
+                img.onerror = () => console.warn(`Bild fehlt: ${src}`);
+                wrapper.append(img);
+                break;
+
+            case 'dynamic-image':
+                const player = create('dotlottie-wc' as any);
+                player.setAttribute('src', src);
+                player.setAttribute('autoplay', 'true');
+                player.setAttribute('loop', 'true');
+                wrapper.append(player);
+                break;
+
+            case 'locations':
+                const poiContainer = create("div");
+                poiContainer.className = "poi-container";
+                poiContainer.innerText = `[POI Layer: ${config.id}]`;
+                wrapper.append(poiContainer);
+                break;
+        }
+        parent.append(wrapper);
     }
+
+    // Toggle-Schalter
+    if (config.toggleable) {
+        const toggle = create('div');
+        toggle.className = `toggleSwitch ${isVisible ? 'active' : ''}`;
+        
+        const icon = create('img');
+        // Icon ebenfalls aus dem Context nehmen, sonst Fallback
+        icon.src = ctxLayer?.icon || '/assets/global/default_icon.svg';
+        icon.onerror = () => icon.src = '/assets/global/default_icon.svg';
+        toggle.append(icon);
+
+        const label = create('label');
+        label.innerText = t(config.title_key);
+        toggle.append(label);
+
+        toggle.addEventListener('click', () => {
+            const nowActive = !app.activeLayers.has(config.id);
+            if (nowActive) app.activeLayers.add(config.id);
+            else app.activeLayers.delete(config.id);
+
+            toggle.classList.toggle('active', nowActive);
+            wrapper.classList.toggle('hidden', !nowActive);
+        });
+
+        controlParent.append(toggle);
+    }
+
+    if (isVisible) app.activeLayers.add(config.id);
 }

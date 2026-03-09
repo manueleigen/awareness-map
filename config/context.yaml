@@ -1,0 +1,90 @@
+contexts:
+  global:
+    layers:
+      base_layer_buildings:
+        src: /assets/global/base_map/base-layer_buildings_optimiert.svg
+        icon: /assets/global/base_map/layer-icon.svg
+        always_visible: true
+
+      base_layer_streets:
+        src: /assets/global/base_map/base-layer_streets.svg
+        icon: /assets/global/base_map/layer-icon.svg
+        always_visible: true
+
+      base_layer_river:
+        src: /assets/global/base_map/base-layer_streets.svg # River file kommt von Änias
+        icon: /assets/global/base_map/layer-icon.svg
+        always_visible: true
+
+      critical_places:
+        src: /assets/critical_places/locations.json
+        icon: /assets/critical_places/layer-icon.svg
+        always_visible: false
+
+      population_density:
+        src: /assets/population_density/density.png
+        icon: /assets/population_density/layer-icon.svg
+        always_visible: false
+
+  scenarios:
+    flood:
+      layers:
+        flood_simulation:
+          src: /assets/flood/flood_simulation/animation.lottie
+          icon: /assets/flood/flood_simulation/layer-icon.svg
+          always_visible: false
+
+      roles:
+        fire_brigade:
+          layers:
+            emergency_calls:
+              src: /assets/flood/fire_brigade/emergency_calls/locations.json
+              icon: /assets/flood/fire_brigade/emergency_calls/layer-icon.svg
+              always_visible: false
+
+            social_media:
+              src: /assets/flood/fire_brigade/social_media/locations.json
+              icon: /assets/flood/fire_brigade/social_media/layer-icon.svg
+              always_visible: false
+
+        police:
+          layers:
+            social_media:
+              src: /assets/flood/police/social_media/locations.json
+              icon: /assets/flood/police/social_media/layer-icon.svg
+              always_visible: false
+
+            evacuation_zones:
+              src: /assets/flood/police/evacuation_zones/zones.svg
+              icon: /assets/flood/police/evacuation_zones/layer-icon.svg
+              always_visible: false
+
+            road_closures:
+              src: /assets/flood/police/road_closures/locations.json
+              icon: /assets/flood/police/road_closures/layer-icon.svg
+              always_visible: false
+
+        crisis_staff:
+          layers:
+            social_media:
+              src: /assets/flood/crisis_staff/social_media/locations.json
+              icon: /assets/flood/crisis_staff/social_media/layer-icon.svg
+              always_visible: false
+
+            drone_feed:
+              src: /assets/flood/crisis_staff/drone_feed/areas.svg
+              icon: /assets/flood/crisis_staff/drone_feed/layer-icon.svg
+              always_visible: false
+
+            infrastructure_status:
+              src: /assets/flood/crisis_staff/infrastructure_status/status.json
+              icon: /assets/flood/crisis_staff/infrastructure_status/layer-icon.svg
+              always_visible: false
+
+    blackout:
+      layers: {}
+      roles: {}
+
+    mass_event:
+      layers: {}
+      roles: {}

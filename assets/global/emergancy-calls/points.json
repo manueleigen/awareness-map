@@ -1,0 +1,16 @@
+{
+    "id": "P1",
+    "x":"200",
+    "y":"332",
+    "translations":{
+        "en": {
+            "title":"Some Location",
+            "text":"With Description"
+        },
+        "de": {
+            "title":"Ein Ort",
+            "text":"Mit Beschreibung"
+        }
+    }
+    
+}
