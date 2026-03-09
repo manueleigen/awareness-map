@@ -1,0 +1,90 @@
+
+// ######## main data object ########
+app: {
+	global-layers: [
+		{ id: "emergency-calls" },
+		{ ... }
+	],
+	scenarios: [
+		{
+			name: "urban-flood"
+			challenges: [
+				{
+					name: "fire-brigade",
+					startTime: "2026-03-08T14:30:00.000Z",
+					endTime:  "2026-03-08T22:00:00.000Z",
+					object-layers: [
+						{ id: "flood" },
+						{ id: "emergency-calls" },
+						{ ... }
+					],
+					story-points: [
+						{
+							name: "evacuation-area-selection"
+							type: "info" || 
+							      "quiz" || 
+							      "area-select" || 
+							      "point-select"
+							solution: "A1, A5, A9" ||
+							          "Q1:A, Q2:C, Q3:B" || 
+							          "click:#id" ||
+							object-layers: [
+								{ 
+									id: "emergency-calls",
+									filter: [
+										{
+											type: "area",
+											queries: [ "A1", "A3"]
+										},
+										{ ... }
+									]
+								},
+								{ ... }		 
+							],
+						},
+						{ ... }
+					]
+				},
+				{ ... }
+			]
+		},
+		{ ... }
+	],
+	layer-collection: {
+		emergency-calls: {
+			id: "emergency-calls",
+			type: "coords",
+			file: "url/to/file.json",
+		},
+		layer-name: { ... }	 
+	}
+}
+
+// ######## layer-information JSON-files ########
+coords: 
+[
+	{
+		id: "P1",
+		x: 0-1920,
+		y: 0-1920,
+		text: "String"
+	},
+	{ ... }
+]
+
+
+areas: 
+[
+	{
+		id: "A1",
+		points: [
+			{
+				x: 0-1920,
+				y: 0-1920,
+			},
+			{ ... }
+		],
+	},
+	{ ... }
+]
+

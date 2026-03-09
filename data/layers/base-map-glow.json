@@ -1,0 +1,30 @@
+{
+    "id": "base-map-glow",
+    "type": "layergroup",
+    "file": "url/to/file.json",
+    "toggle": "hidden",
+    "translations": {
+        "name": {
+            "de": "Basis Map Glow",
+            "en": "Base-Map Glow"
+        }
+    },
+    "layers": [
+        {
+            "id": "base-map-strees",
+            "type": "image",
+            "path": "images/layers/base-map-streets.svg",
+            "subLayer": "true"
+        },{
+            "id": "base-map-buildings",
+            "type": "image",
+            "path": "images/layers/base-map-buildings.svg",
+            "subLayer": "true"
+        }
+    ],
+    "css": [
+        "filter: blur(30px);",
+        "opacity: .5; ",
+        "mix-blend-mode: add;"
+    ]
+}

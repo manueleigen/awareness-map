@@ -1,0 +1,36 @@
+{
+    "id": "base-map",
+    "type": "layergroup",
+    "file": "url/to/file.json",
+    "toggle": "true",
+    "icon": "images/layer-icons/location.svg",
+    "translations": {
+        "name": {
+            "de": "Basis Map",
+            "en": "Base-Map"
+        }
+    },
+    "layers": [
+        {
+            "id": "base-map-bg",
+            "type": "color",
+            "code": "#000126",
+            "subLayer": "true"
+        },{
+            "id": "base-map-river",
+            "type": "image",
+            "path": "images/layers/base-map-river.svg",
+            "subLayer": "true"
+        },{
+            "id": "base-map-strees",
+            "type": "image",
+            "path": "images/layers/base-map-streets.svg",
+            "subLayer": "true"
+        },{
+            "id": "base-map-buildings",
+            "type": "image",
+            "path": "images/layers/base-map-buildings.svg",
+            "subLayer": "true"
+        }
+    ]
+}

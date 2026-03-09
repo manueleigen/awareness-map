@@ -1,0 +1,31 @@
+Kern-Anforderungen Missionen / UI:
+
+- Zeit-Slider
+	- Zeit basierte Lottie Animationen die per slider gesteuert werden. 
+	- Start und End-Zeit des Szenarios wird angezeigt.
+- Layer:
+	- Globale und Objekt-Spezifische Layer
+	- Layer werden ausgewählt je nach Scenario, Challenge, Story-Point
+	- Layer haben areas oder coords die angewählt werden können,
+	- Layer könnten gefiltert sein (je story)
+	- Haben verschiedene Typen: 
+			- "coord"-Layer:
+					- besteht aus Koordinaten die angeklickt werden können und infos haben
+					- kann eine story-point Lösung sein
+			- "area"-Layer
+					- besteht aus Flächen die ausgewählt werden können
+					- kann eine story-point Lösung sein
+			- ...
+- Scenarios (3):
+	- können in der info-box ausgewählt werden 
+	- haben Challenges (3):
+		- können in der info-box ausgewählt werden 
+		- haben Story-Points (n):
+			- Beispielhafte Anreihung von story-points:
+				- info: "Intro-Text"
+				- area-select: richtige areas auswählen und Auswahl abschicken. -> kann weiteren layer  freischalten ( gefiltert durch Auswahl)
+				- info: "Zwischenstand-Text"
+				- quiz: user muss eine oder mehrere fragen anhand von Informationen beantworten.
+				- info: gewonnen / verloren
+
+
