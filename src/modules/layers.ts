@@ -1,5 +1,5 @@
-import { app } from '../data/data.js';
-import { create, loadJSON, loadYAML, el } from './lib.js';
+import { app } from './state.js';
+import { create, loadJSON, loadYAML, loadTEXT, el } from './lib.js';
 import { t } from './translater.js';
 import { LayerConfig, ContextLayer, ProjectContext } from './types.js';
 
@@ -74,12 +74,13 @@ function getContextLayer(id: string): ContextLayer | null {
     return context.global?.layers?.[id] || null;
 }
 
-function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, parent: HTMLElement, controlParent: HTMLElement): void {
+async function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, parent: HTMLElement, controlParent: HTMLElement): Promise<void> {
     const isVisible = ctxLayer?.always_visible || app.activeLayers.has(config.id);
     
     const wrapper = create("div");
     // @ts-ignore
     wrapper.className = `layer ${isVisible ? '' : 'hidden'} ${config.class? config.class : ''}`;
+    wrapper.className += ` layer-${config.type}`
     wrapper.id = `layer-${config.id}`;
 
 
@@ -92,6 +93,23 @@ function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, parent
                 img.src = src;
                 img.onerror = () => console.warn(`Bild fehlt: ${src}`);
                 wrapper.append(img);
+                break;
+
+            case 'areas':
+                const areaWrapper = create("div");
+                const svg = await loadTEXT(src) as string;
+                areaWrapper.innerHTML = svg;
+                const polygons = areaWrapper.querySelectorAll('polygon')
+
+                polygons.forEach(obj => {
+                    obj.addEventListener('click', function(){
+                        obj.classList.toggle('active')
+                    })
+                });
+
+                areaWrapper.onerror = () => console.warn(`Bild fehlt: ${src}`);
+                wrapper.append(areaWrapper);
+                
                 break;
 
             case 'dynamic-image':

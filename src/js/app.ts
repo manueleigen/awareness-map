@@ -2,7 +2,7 @@ import { initApp, updateView, resetApp } from "../modules/main.js";
 import { setLanguage } from "../modules/translater.js";
 import { renderLayers } from "../modules/layers.js";
 import { Language } from "../modules/types.js";
-import { app } from "../data/data.js";
+import { app } from "../modules/state.js";
 
 function setupGlobalListeners(): void {
     const { languageSwitch, escapeBtn } = app.ui;
@@ -26,6 +26,8 @@ function setupGlobalListeners(): void {
             resetApp();
         });
     }
+
+    
 }
 
 // Start the app

@@ -78,7 +78,7 @@ layers:
     icon_mode: per-location
 
   - id: evacuation_zones
-    type: static-image
+    type: areas
     title_key: layers.evacuation_zones.title
     description_key: layers.evacuation_zones.description
     toggle: available

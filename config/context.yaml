@@ -29,6 +29,11 @@ contexts:
         always_visible: false
         class: blend-layer
 
+      evacuation_zones:
+        src: /assets/evacuation_zones/areas-dummy.svg
+        icon: /assets/evacuation_zones/layer-icon.svg
+        always_visible: false
+
   scenarios:
     flood:
       layers:

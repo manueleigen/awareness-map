@@ -20,3 +20,12 @@ export const loadYAML = async <T>(url: string): Promise<T> => {
     const text = await response.text();
     return yaml.load(text) as T;
 };
+
+
+
+export const loadTEXT = async <T>(url: string): Promise<T> => {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Failed to load TEXT from ${url}`);
+    const text = await response.text();
+    return text as T;
+};

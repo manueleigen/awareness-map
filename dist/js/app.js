@@ -1,7 +1,7 @@
 import { initApp, updateView, resetApp } from "../modules/main.js";
 import { setLanguage } from "../modules/translater.js";
 import { renderLayers } from "../modules/layers.js";
-import { app } from "../data/data.js";
+import { app } from "../modules/state.js";
 function setupGlobalListeners() {
     const { languageSwitch, escapeBtn } = app.ui;
     if (languageSwitch) {

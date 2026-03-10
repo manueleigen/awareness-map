@@ -1,5 +1,5 @@
-import { app } from '../data/data.js';
-import { create, loadJSON, loadYAML } from './lib.js';
+import { app } from './state.js';
+import { create, loadJSON, loadYAML, loadTEXT } from './lib.js';
 import { t } from './translater.js';
 let layerDefinitions = [];
 let context = null;
@@ -61,11 +61,12 @@ function getContextLayer(id) {
     }
     return context.global?.layers?.[id] || null;
 }
-function buildLayerUI(config, ctxLayer, parent, controlParent) {
+async function buildLayerUI(config, ctxLayer, parent, controlParent) {
     const isVisible = ctxLayer?.always_visible || app.activeLayers.has(config.id);
     const wrapper = create("div");
     // @ts-ignore
     wrapper.className = `layer ${isVisible ? '' : 'hidden'} ${config.class ? config.class : ''}`;
+    wrapper.className += ` layer-${config.type}`;
     wrapper.id = `layer-${config.id}`;
     const src = ctxLayer?.src;
     if (src) {
@@ -75,6 +76,19 @@ function buildLayerUI(config, ctxLayer, parent, controlParent) {
                 img.src = src;
                 img.onerror = () => console.warn(`Bild fehlt: ${src}`);
                 wrapper.append(img);
+                break;
+            case 'areas':
+                const areaWrapper = create("div");
+                const svg = await loadTEXT(src);
+                areaWrapper.innerHTML = svg;
+                const polygons = areaWrapper.querySelectorAll('polygon');
+                polygons.forEach(obj => {
+                    obj.addEventListener('click', function () {
+                        obj.classList.toggle('active');
+                    });
+                });
+                areaWrapper.onerror = () => console.warn(`Bild fehlt: ${src}`);
+                wrapper.append(areaWrapper);
                 break;
             case 'dynamic-image':
                 const player = create('dotlottie-wc');

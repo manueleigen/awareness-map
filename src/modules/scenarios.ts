@@ -1,4 +1,4 @@
-import { app } from '../data/data.js';
+import { app } from './state.js';
 import { create, loadYAML } from './lib.js';
 import { t } from './translater.js';
 import { ProjectContext } from './types.js';

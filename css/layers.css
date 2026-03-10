@@ -8,3 +8,8 @@
     mix-blend-mode: lighten;
     opacity: .8;
 }
+
+polygon.active{
+    stroke-width: 12px;
+    stroke:  var(--cd-dark-blue);
+}

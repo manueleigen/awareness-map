@@ -1,4 +1,4 @@
-import { app } from '../data/data.js';
+import { app } from './state.js';
 import { loadYAML, group } from "./lib.js";
 import { Language } from './types.js';
 

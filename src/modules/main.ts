@@ -2,7 +2,7 @@ import { initLayers, renderLayers } from "./layers.js";
 import { initTranslator, t } from "./translater.js";
 import { initScenarios, renderScenarioSelection, renderRoleSelection } from "./scenarios.js";
 import { Language } from "./types.js";
-import { app } from "../data/data.js";
+import { app } from "./state.js";
 import { el, create } from "./lib.js";
 
 export function initUIReferences(): void {
