@@ -1,27 +1,52 @@
+@use 'mixins' as *;
+
 #layer-control {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 40px;
   right: 0;
-  top: 300px;
+  top: 0;
   z-index: 100;
-}
+  width: 360px;
+  height: 100%;
 
-.toggleSwitch {
-  cursor: pointer;
-  display: grid;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
-  color: white;
-  position: relative;
+  .toggleSwitch {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    position: relative;
+    height: fit-content;
 
-  label {
-    position: absolute;
-    bottom: 0;
-    background-color: var(--backdrop-dark);
-    padding: 3px 7px;
-    border-radius: 3px;
-    box-shadow: 0 0 20px var(--backdrop-dark);
+    img {
+      width: 165px;
+      height: 165px;
+      @include drop-shadow-svg();
+    }
+
+    label {
+      bottom: 0;
+      background-color: var(--backdrop-dark);
+      padding: 7px 10px 9px 10px;
+      margin-top: 15px;
+      border-radius: 3px;
+      text-align: center;
+      @include drop-shadow();
+    }
+
+    &.active {
+      img {
+        @include drop-shadow-svg-active();
+      }
+
+      label {
+        @include drop-shadow-active();
+      }
+    }
   }
+
 }

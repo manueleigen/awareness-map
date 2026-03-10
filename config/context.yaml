@@ -16,23 +16,28 @@ contexts:
 
       base_layer_glow:
         src: /assets/global/base_map/base-layer_buildings_optimiert.svg 
-        icon: /assets/critical_places/layer-icon.svg
+        icon: /assets/global/default_icon.svg
         always_visible: true
+
+      weather_data:
+        src: /assets/global/weather_data.json
+        icon: /assets/global/Weather.svg
+        always_visible: false
 
       critical_places:
         src: /assets/critical_places/locations.json
-        icon: /assets/critical_places/layer-icon.svg
+        icon: /assets/critical_places/Places.svg
         always_visible: false
 
       population_density:
         src: /assets/population_density/density.png
-        icon: /assets/population_density/layer-icon.svg
+        icon: /assets/population_density/Population.svg
         always_visible: false
         class: blend-layer
 
       evacuation_zones:
         src: /assets/evacuation_zones/areas-dummy.svg
-        icon: /assets/evacuation_zones/layer-icon.svg
+        icon: /assets/global/default_icon.svg
         always_visible: false
 
   scenarios:
@@ -40,32 +45,37 @@ contexts:
       layers:
         flood_simulation:
           src: /assets/flood/flood_simulation/animation.lottie
-          icon: /assets/flood/flood_simulation/layer-icon.svg
+          icon: /assets/flood/Flood.svg
           always_visible: false
 
       roles:
         fire_brigade:
           layers:
+            emergency_vehicles:
+              src: /assets/global/emergancy-calls/locations.json
+              icon: /assets/global/RTW.svg
+              always_visible: false
+
             emergency_calls:
-              src: /assets/flood/fire_brigade/emergency_calls/locations.json
-              icon: /assets/flood/fire_brigade/emergency_calls/layer-icon.svg
+              src: /assets/global/emergancy-calls/points.json
+              icon: /assets/global/emergancy-calls/EmergencyCall.svg
               always_visible: false
 
             social_media:
               src: /assets/flood/fire_brigade/social_media/locations.json
-              icon: /assets/flood/fire_brigade/social_media/layer-icon.svg
+              icon: /assets/global/Socials.svg
               always_visible: false
 
         police:
           layers:
             social_media:
               src: /assets/flood/police/social_media/locations.json
-              icon: /assets/flood/police/social_media/layer-icon.svg
+              icon: /assets/global/Socials.svg
               always_visible: false
 
             evacuation_zones:
               src: /assets/flood/police/evacuation_zones/zones.svg
-              icon: /assets/flood/police/evacuation_zones/layer-icon.svg
+              icon: /assets/global/default_icon.svg
               always_visible: false
 
             road_closures:
@@ -77,7 +87,7 @@ contexts:
           layers:
             social_media:
               src: /assets/flood/crisis_staff/social_media/locations.json
-              icon: /assets/flood/crisis_staff/social_media/layer-icon.svg
+              icon: /assets/global/Socials.svg
               always_visible: false
 
             drone_feed:

@@ -287,6 +287,16 @@ layers:
     description: >
       Ein visueller Effekt, der wichtige Gebäude hervorhebt und die Lesbarkeit der Karte bei Dunkelheit verbessert.
 
+  weather_data:
+    title: Wetterdaten
+    description: >
+      Aktuelle Wetterdaten und -prognosen zur Einschätzung der Lageentwicklung.
+
+  emergency_vehicles:
+    title: Einsatzkräfte
+    description: >
+      Positionen und Status von Einsatzfahrzeugen im betroffenen Gebiet.
+
   critical_places:
     title: Kritische Orte
     description: >
@@ -294,7 +304,9 @@ layers:
       und Krisenstab, sekundär für polizeiliche Entscheidungen.
 
   population_density:
-    title: Bevölkerungsdichte
+    title: |-
+      Bevölkerungs
+      dichte
     description: >
       Zeigt, wo sich besonders viele Menschen aufhalten. Relevant für
       Lebensrisiko, Evakuierungsplanung und Priorisierung.
@@ -318,7 +330,9 @@ layers:
       Polizei und Krisenstab.
 
   evacuation_zones:
-    title: Evakuierungszonen
+    title: |-
+      Evakuierungs
+      Zonen
     description: >
       Markierte oder festgelegte Bereiche für Evakuierung und Schutzmaßnahmen.
 

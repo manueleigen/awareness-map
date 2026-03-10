@@ -68,13 +68,14 @@ h3, label, .overline {
   font-size: 25px;
   font-style: normal;
   font-weight: 800;
-  line-height: 23px; /* 92% */
+  line-height: 23px;
   letter-spacing: 3.5px;
   text-transform: uppercase;
 }
 
 label {
   text-align: center;
+  line-height: 28px;
 }
 
 button {
@@ -148,6 +149,10 @@ body {
   overflow: hidden;
   zoom: 0.5;
   background-color: var(--backdrop-dark);
+}
+body #app {
+  position: relative;
+  height: 100%;
 }
 
 .hidden {
@@ -325,30 +330,46 @@ body {
 }
 
 #layer-control {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 40px;
   right: 0;
-  top: 300px;
+  top: 0;
   z-index: 100;
+  width: 360px;
+  height: 100%;
 }
-
-.toggleSwitch {
+#layer-control .toggleSwitch {
   cursor: pointer;
-  display: grid;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
+  justify-content: space-between;
   color: white;
   position: relative;
+  height: fit-content;
 }
-.toggleSwitch label {
-  position: absolute;
+#layer-control .toggleSwitch img {
+  width: 165px;
+  height: 165px;
+  filter: drop-shadow(0 0 30px rgba(0, 4, 160, 0.55));
+}
+#layer-control .toggleSwitch label {
   bottom: 0;
   background-color: var(--backdrop-dark);
-  padding: 3px 7px;
+  padding: 7px 10px 9px 10px;
+  margin-top: 15px;
   border-radius: 3px;
-  box-shadow: 0 0 20px var(--backdrop-dark);
+  text-align: center;
+  box-shadow: 0 0 30px 0 rgba(0, 4, 160, 0.55);
+}
+#layer-control .toggleSwitch.active img {
+  filter: drop-shadow(0 0 30px rgba(209, 245, 248, 0.55));
+}
+#layer-control .toggleSwitch.active label {
+  box-shadow: 0 0 30px 0 rgba(209, 245, 248, 0.55);
 }
 
 :root {
@@ -410,14 +431,11 @@ body {
   justify-content: space-between;
   padding-top: 20px;
 }
-
 .slider-label-container label {
   background: white;
-  font-family: National Park;
+  font-family: "National Park", sans-serif;
   font-weight: 800;
-  font-style: ExtraBold;
   font-size: 25px;
-  leading-trim: NONE;
   line-height: 23px;
   letter-spacing: 3.5px;
   text-align: center;

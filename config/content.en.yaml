@@ -284,6 +284,16 @@ layers:
     description: >
       A visual effect that highlights important buildings and improves map readability in dark mode.
 
+  weather_data:
+    title: Weather Data
+    description: >
+      Current weather data and forecasts to support situation assessment.
+
+  emergency_vehicles:
+    title: Emergency Vehicles
+    description: >
+      Positions and status of emergency vehicles in the affected area.
+
   critical_places:
     title: Critical Places
     description: >

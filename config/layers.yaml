@@ -22,6 +22,14 @@ layers:
     toggle: available
     interaction: none
 
+  - id: weather_data
+    type: static-image
+    title_key: layers.weather_data.title
+    description_key: layers.weather_data.description
+    toggle: available
+    always_available: true
+    interaction: none
+
   - id: critical_places
     type: locations
     title_key: layers.critical_places.title

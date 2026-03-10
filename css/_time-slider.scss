@@ -59,25 +59,22 @@
   width: 100%;
   justify-content: space-between;
   padding-top: 20px;
-}
-.slider-label-container label{
-  background: white;
-  font-family: National Park;
-  font-weight: 800;
-  font-style: ExtraBold;
-  font-size: 25px;
-  leading-trim: NONE;
-  line-height: 23px;
-  letter-spacing: 3.5px;
-  text-align: center;
-  text-transform: uppercase;
- 
- 
-  border-radius: 7px;
-  padding-top: 7px;
-  padding-right: 10px;
-  padding-bottom: 9px;
-  padding-left: 10px;
 
+  label{
+    background: white;
+    font-family: 'National Park', sans-serif;
+    font-weight: 800;
+    font-size: 25px;
+    line-height: 23px;
+    letter-spacing: 3.5px;
+    text-align: center;
+    text-transform: uppercase;
+
+    border-radius: 7px;
+    padding-top: 7px;
+    padding-right: 10px;
+    padding-bottom: 9px;
+    padding-left: 10px;
+  }
 }
 

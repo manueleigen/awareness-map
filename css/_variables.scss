@@ -1,4 +1,4 @@
-// Farb- und Layout-Variablen
+// Farben
 :root {
   --primary: #0004A0;
   --primary-inactive: #666784;
@@ -15,17 +15,4 @@
   --dropshadow-wide-blue: 0 0 30px rgba(0, 4, 160, 0.75);;
   --screen-width: 3840px;
   --screen-height: 2160px;
-}
-
-// Drop-Shadow-Mixins (global nutzbar)
-@mixin drop-shadow() {
-  box-shadow: 0 0 30px 0 rgba(0, 4, 160, 0.55);
-}
-
-@mixin drop-shadow-svg() {
-  filter: drop-shadow(0 0 30px rgba(0, 4, 160, 0.55));
-}
-
-@mixin drop-shadow-active() {
-  box-shadow: 0 0 30px 0 rgba(209, 245, 248, 0.55);
 }
