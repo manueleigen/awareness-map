@@ -2,6 +2,7 @@ export type Language = 'de' | 'en';
 
 export interface LayerConfig {
   id: string;
+  class: string;
   type: 'static-image' | 'dynamic-image' | 'locations';
   title_key: string;
   description_key: string;

@@ -1,40 +1,31 @@
-# Projektkonzept: Awareness Map
+# Concept: Awareness Map
 
-**Anwendung:** PWA für 4K Touch-Exponat (65" Display)
-**Kontext:** Museumsexponat zur Vermittlung von Lagebild-Kompetenz im Katastrophenschutz
-**Stack:** TypeScript (ESNext), CSS3, Lottie, YAML
+This document outlines the vision and user experience goals for the museum exhibit.
 
-## 1. Vision & Zielsetzung
-Die "Awareness Map" simuliert die Arbeitsweise eines modernen Lagezentrums. Ziel ist es, Besuchern die Komplexität eines „Common Operational Picture“ (COP) nahezubringen. In Krisensituationen müssen heterogene Datenströme (Sensoren, soziale Medien, Luftbilder) in Echtzeit korreliert werden. Das Exponat ermöglicht kollaborative Entscheidungsfindung durch Überlagerung informativer Layer.
+## 1. Vision
+The Awareness Map simulates the workflow of a modern emergency operations center. It teaches visitors how to create a "Common Operational Picture" (COP) by correlating heterogeneous data streams (sensors, social media, aerial imagery) in real-time.
 
-## 2. Technischer Ansatz: Context-Aware Media GIS
-Anstelle einer ressourcenintensiven GIS-Engine nutzt die Applikation ein performantes, medienbasiertes Schichtsystem:
-- **Hierarchische Struktur:** Szenarien (z.B. Flut) -> Rollen (z.B. Feuerwehr) -> Kontext-Layer.
-- **Konfigurationsgetrieben:** Alle Pfade und Verknüpfungen werden in `config/context.yaml` definiert.
-- **Dynamic Overlays:** Lottie-Animationen für Schadstoffwolken oder Flutwellen.
-- **Interaktive Vektoren:** JSON-basierte Koordinaten für klickbare Zonen (POIs).
+## 2. Storytelling & User Flow
+The application follows a hierarchical narrative structure:
+1. **Home:** Introduction to the exhibit and scenario selection.
+2. **Scenario Entry:** Background information on the specific disaster (e.g., Flood).
+3. **Role Selection:** Users choose a perspective (Fire Brigade, Police, or Crisis Staff).
+4. **Interactive Map:** Situational analysis through layer toggling and data inspection.
 
-## 3. Systemarchitektur & Module
-Die Anwendung folgt einem strikten **Source-to-Distribution** Workflow:
-- **`src/js/app.ts`**: Zentraler Einstiegspunkt, View-Management und State.
-- **`src/modules/layers.ts`**: Kontextsensitives Rendering der Kartenschichten.
-- **`src/modules/translater.ts`**: Internationalisierungs-Modul (DE/EN) auf Basis von YAML.
-- **`config/`**: Zentrale YAML-Dateien zur Konfiguration von Inhalten, Layern und Asset-Mappings.
+## 3. UI/UX Design (4K Optimization)
+The interface is purpose-built for a 65-inch touch table:
+- **Proportional Scaling:** Uses `vw` and `rem` units to ensure consistent layout across large displays.
+- **Context-Aware Controls:** The layer panel only displays tools relevant to the selected scenario and role.
+- **Collaborative Interaction:** Large UI elements allow multiple users to interact with the map simultaneously.
 
-## 4. Inhaltsstruktur (Storytelling)
-Die Anwendung folgt einer hierarchischen Struktur:
-1.  **Home:** Intro und Auswahl des Szenarios.
-2.  **Szenario-Einstieg:** Hintergrundinformationen zum gewählten Katastrophenereignis.
-3.  **Rollen-Auswahl:** Entscheidung für eine Perspektive (Feuerwehr, Polizei, Krisenstab).
-4.  **Interaktive Karte:** Analyse der Lage durch Ein- und Ausblenden spezifischer Datenebenen.
+## 4. Museum Constraints
+- **Offline Reliability:** All assets are stored locally for 100% uptime without internet.
+- **High Visual Impact:** Uses Lottie animations and SVG filters to create a "living" map that attracts visitors.
+- **Ease of Content Updates:** Non-developers can update stories or swap assets via YAML configuration files.
 
-## 5. UI/UX Design (4K Optimierung)
-Das Interface ist für die Bedienung an einem 65-Zoll-Touch-Tisch optimiert:
-- **Proportionale Skalierung:** Nutzung von `vw` und `rem` Einheiten für ein konsistentes Design über alle Bildschirmgrößen.
-- **Layer-Panel:** Seitliches Kontrollzentrum, das nur die für den aktuellen Kontext relevanten Layer anzeigt.
-- **Info-Box:** Modulares Overlay für Storytelling, Instruktionen und Evaluation.
-
-## 6. Harte Constraints (Museums-Betrieb)
-- **Offline-Fähigkeit:** Alle Assets werden lokal vorgehalten.
-- **Build-to-Dist:** Entwicklung in TypeScript, Ausführung als ESNext-Module aus dem `dist/` Ordner.
-- **YAML-Flexibilität:** Inhaltsänderungen und Asset-Täusche erfolgen rein über Konfigurationsdateien ohne Code-Eingriff.
+---
+**Project Documentation:**
+- **Readme:** Overview, installation, and project structure.
+- **Context:** Technical architecture, state management, and module logic.
+- **Concept:** Vision, storytelling, and UI/UX design goals.
+- **Todo:** Current status, milestones, and upcoming tasks.

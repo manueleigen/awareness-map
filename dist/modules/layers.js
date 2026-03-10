@@ -1,5 +1,5 @@
 import { app } from '../data/data.js';
-import { create, el, loadYAML } from './lib.js';
+import { create, el, loadYAML, loadJSON } from './lib.js';
 import { t } from './translater.js';
 let layerDefinitions = [];
 let context = null;
@@ -67,9 +67,9 @@ function getContextLayer(id) {
 function buildLayerUI(config, ctxLayer, parent, controlParent) {
     const isVisible = ctxLayer?.always_visible || app.activeLayers.has(config.id);
     const wrapper = create("div");
-    wrapper.className = `layer ${isVisible ? '' : 'hidden'}`;
+    // @ts-ignore
+    wrapper.className = `layer ${isVisible ? '' : 'hidden'} ${config.class ? config.class : ''}`;
     wrapper.id = `layer-${config.id}`;
-    // Pfad-Logik: IMMER aus dem context.yaml nehmen
     const src = ctxLayer?.src;
     if (src) {
         switch (config.type) {
@@ -89,7 +89,23 @@ function buildLayerUI(config, ctxLayer, parent, controlParent) {
             case 'locations':
                 const poiContainer = create("div");
                 poiContainer.className = "poi-container";
-                poiContainer.innerText = `[POI Layer: ${config.id}]`;
+                // Asynchrones Laden der Standorte
+                loadJSON(src).then(data => {
+                    data.locations.forEach(loc => {
+                        const marker = create("div");
+                        marker.className = "poi-marker";
+                        marker.style.left = `${loc.x}px`;
+                        marker.style.top = `${loc.y}px`;
+                        marker.title = loc.translations.name[app.language];
+                        // Klick-Event für spätere Detailansicht
+                        marker.addEventListener('click', () => {
+                            console.log("POI ausgewählt:", loc.translations.name[app.language]);
+                        });
+                        poiContainer.append(marker);
+                    });
+                }).catch(err => {
+                    console.warn(`Fehler beim Laden der POIs für ${config.id}:`, err);
+                });
                 wrapper.append(poiContainer);
                 break;
         }

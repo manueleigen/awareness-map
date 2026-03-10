@@ -24,6 +24,7 @@ layers:
     icon_mode: per-location
 
   - id: population_density
+    class: blend-layer
     type: static-image
     title_key: layers.population_density.title
     description_key: layers.population_density.description

@@ -25,6 +25,7 @@ contexts:
         src: /assets/population_density/density.png
         icon: /assets/population_density/layer-icon.svg
         always_visible: false
+        class: blend-layer
 
   scenarios:
     flood:
