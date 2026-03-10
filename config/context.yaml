@@ -5,13 +5,14 @@ contexts:
         src: /assets/global/base_map/base-layer_buildings_optimiert.svg
         always_visible: true
 
+      base_layer_river:
+        src: /assets/global/base_map/base-layer_river.svg 
+        always_visible: true
+        
       base_layer_streets:
         src: /assets/global/base_map/base-layer_streets.svg
         always_visible: true
 
-      base_layer_river:
-        src: /assets/global/base_map/base-layer_streets.svg # River file kommt
-        always_visible: true
 
       base_layer_glow:
         src: /assets/global/base_map/base-layer_buildings_optimiert.svg 

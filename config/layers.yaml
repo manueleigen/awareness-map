@@ -1,15 +1,15 @@
 layers:
+  - id: base_layer_river
+    type: static-image
+    toggle: hidden
+    interaction: none
+
   - id: base_layer_buildings
     type: static-image
     toggle: hidden
     interaction: none
 
   - id: base_layer_streets
-    type: static-image
-    toggle: hidden
-    interaction: none
-
-  - id: base_layer_river
     type: static-image
     toggle: hidden
     interaction: none

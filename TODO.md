@@ -1,4 +1,4 @@
-# TODO: Awareness Map
+# TODO: Awareness Map (DEV)
 
 Current task list and development milestones.
 
@@ -7,6 +7,7 @@ Current task list and development milestones.
 - [ ] Implement Quiz-Logic
 - [x] Sync AppState with Layer rendering
 - [ ] Build POI detail overlays
+- [ ] Build animation slider-ui and logic
 
 ## Phase 2: Map Controls
 - [ ] Build Opacity & Playback controllers
