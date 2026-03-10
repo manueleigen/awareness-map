@@ -278,6 +278,11 @@ layers:
       Räumlicher Kontext und Orientierung. Basis für die Interpretation aller
       anderen Ebenen.
 
+  base_layer_glow:
+    title: Gebäude-Glow
+    description: >
+      Ein visueller Effekt, der wichtige Gebäude hervorhebt und die Lesbarkeit der Karte bei Dunkelheit verbessert.
+
   critical_places:
     title: Kritische Orte
     description: >

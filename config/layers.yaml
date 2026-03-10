@@ -1,24 +1,32 @@
 layers:
   - id: base_layer_buildings
     type: static-image
-    toggleable: false
+    toggle: hidden
     interaction: none
 
   - id: base_layer_streets
     type: static-image
-    toggleable: false
+    toggle: hidden
     interaction: none
 
   - id: base_layer_river
     type: static-image
-    toggleable: false
+    toggle: hidden
+    interaction: none
+
+  - id: base_layer_glow
+    class: glow-layer
+    type: static-image
+    title_key: layers.base_layer_glow.title
+    description_key: layers.base_layer_glow.description
+    toggle: available
     interaction: none
 
   - id: critical_places
     type: locations
     title_key: layers.critical_places.title
     description_key: layers.critical_places.description
-    toggleable: true
+    toggle: available
     always_available: true
     interaction: inspect-location
     icon_mode: per-location
@@ -28,7 +36,7 @@ layers:
     type: static-image
     title_key: layers.population_density.title
     description_key: layers.population_density.description
-    toggleable: true
+    toggle: available
     always_available: true
     interaction: none
     opacity_control: true
@@ -37,7 +45,7 @@ layers:
     type: dynamic-image
     title_key: layers.flood_simulation.title
     description_key: layers.flood_simulation.description
-    toggleable: true
+    toggle: available
     available_from: scenario
     interaction: timeline
     playback_control: true
@@ -46,7 +54,7 @@ layers:
     type: locations
     title_key: layers.emergency_vehicles.title
     description_key: layers.emergency_vehicles.description
-    toggleable: true
+    toggle: available
     available_from: role
     interaction: inspect-location
     icon_mode: per-location
@@ -55,7 +63,7 @@ layers:
     type: locations
     title_key: layers.emergency_calls.title
     description_key: layers.emergency_calls.description
-    toggleable: true
+    toggle: available
     available_from: role
     interaction: inspect-location
     icon_mode: per-location
@@ -64,7 +72,7 @@ layers:
     type: locations
     title_key: layers.social_media.title
     description_key: layers.social_media.description
-    toggleable: true
+    toggle: available
     available_from: role
     interaction: inspect-location
     icon_mode: per-location
@@ -73,7 +81,7 @@ layers:
     type: static-image
     title_key: layers.evacuation_zones.title
     description_key: layers.evacuation_zones.description
-    toggleable: true
+    toggle: available
     available_from: role
     interaction: none
     opacity_control: true
@@ -82,6 +90,6 @@ layers:
     type: static-image
     title_key: layers.drone_feed.title
     description_key: layers.drone_feed.description
-    toggleable: true
+    toggle: available
     available_from: role
     interaction: inspect-area

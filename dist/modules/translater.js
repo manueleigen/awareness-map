@@ -10,14 +10,17 @@ export async function initTranslator(lang) {
 /**
  * Translates a key using the loaded YAML content.
  * Supports nested keys like "home.headline".
+ * @param key The translation key
+ * @param fallback The value to return if key is not found (optional)
  */
-export function t(key) {
+export function t(key, fallback) {
     if (!content)
-        return key;
+        return fallback ?? key;
     const value = key.split('.').reduce((obj, i) => obj?.[i], content);
     if (typeof value !== 'string') {
-        console.warn(`Translation key not found or not a string: ${key}`);
-        return key;
+        if (!fallback)
+            console.warn(`Translation key not found or not a string: ${key}`);
+        return fallback ?? key;
     }
     return value;
 }

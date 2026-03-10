@@ -2,3 +2,9 @@
     mix-blend-mode: color; 
     opacity: 1;
 }
+
+.glow-layer{
+    filter: blur(20px);
+    mix-blend-mode: lighten;
+    opacity: .8;
+}

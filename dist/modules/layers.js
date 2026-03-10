@@ -68,9 +68,10 @@ function buildLayerUI(config, ctxLayer, parent, controlParent) {
     const isVisible = ctxLayer?.always_visible || app.activeLayers.has(config.id);
     const wrapper = create("div");
     // @ts-ignore
+    console.log(ctxLayer);
     wrapper.className = `layer ${isVisible ? '' : 'hidden'} ${config.class ? config.class : ''}`;
     wrapper.id = `layer-${config.id}`;
-    const src = ctxLayer?.src;
+    const src = ctxLayer?.src ? ctxLayer?.src : 'no-image';
     if (src) {
         switch (config.type) {
             case 'static-image':
@@ -112,26 +113,29 @@ function buildLayerUI(config, ctxLayer, parent, controlParent) {
         parent.append(wrapper);
     }
     // Toggle-Schalter
-    if (config.toggleable) {
+    if (config.toggle == 'available' || config.toggle == 'deactivated') {
         const toggle = create('div');
         toggle.className = `toggleSwitch ${isVisible ? 'active' : ''}`;
+        toggle.classList.add(config.toggle);
         const icon = create('img');
         // Icon ebenfalls aus dem Context nehmen, sonst Fallback
         icon.src = ctxLayer?.icon || '/assets/global/default_icon.svg';
         icon.onerror = () => icon.src = '/assets/global/default_icon.svg';
         toggle.append(icon);
         const label = create('label');
-        label.innerText = t(config.title_key);
+        label.innerText = config.title_key ? t(config.title_key, "Layer") : "Layer";
         toggle.append(label);
-        toggle.addEventListener('click', () => {
-            const nowActive = !app.activeLayers.has(config.id);
-            if (nowActive)
-                app.activeLayers.add(config.id);
-            else
-                app.activeLayers.delete(config.id);
-            toggle.classList.toggle('active', nowActive);
-            wrapper.classList.toggle('hidden', !nowActive);
-        });
+        if (config.toggle == 'available') {
+            toggle.addEventListener('click', () => {
+                const nowActive = !app.activeLayers.has(config.id);
+                if (nowActive)
+                    app.activeLayers.add(config.id);
+                else
+                    app.activeLayers.delete(config.id);
+                toggle.classList.toggle('active', nowActive);
+                wrapper.classList.toggle('hidden', !nowActive);
+            });
+        }
         controlParent.append(toggle);
     }
     if (isVisible)

@@ -4,9 +4,9 @@ export interface LayerConfig {
   id: string;
   class: string;
   type: 'static-image' | 'dynamic-image' | 'locations';
-  title_key: string;
-  description_key: string;
-  toggleable: boolean;
+  title_key?: string;
+  description_key?: string;
+  toggle: 'available' | 'deactivated' | 'hidden';
   always_available?: boolean;
   available_from?: 'scenario' | 'role';
   interaction: string;

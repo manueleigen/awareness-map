@@ -275,6 +275,11 @@ layers:
     description: >
       Spatial context and orientation. The basis for interpreting all other layers.
 
+  base_layer_glow:
+    title: Building Glow
+    description: >
+      A visual effect that highlights important buildings and improves map readability in dark mode.
+
   critical_places:
     title: Critical Places
     description: >
