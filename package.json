@@ -4,13 +4,16 @@
   "description": "An interactive 4K touch-table PWA designed for a 65\" museum exhibit. This application simulates a situational awareness center where users collaboratively manage disaster scenarios (e.g., floods, industrial accidents) using a fictional city map.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass:watch": "sass css/style.scss css/style.css --watch --poll",
+    "sass:build": "sass css/style.scss css/style.css --no-source-map --style=compressed"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
+    "sass": "^1.83.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
