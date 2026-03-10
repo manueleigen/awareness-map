@@ -1,0 +1,102 @@
+// Inter – Regular (400)
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/global/fonts/Inter-Regular.woff2') format('woff2');
+}
+
+// Inter – Bold Italic (700)
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/global/fonts/Inter-BoldItalic.woff2') format('woff2');
+}
+
+// National Park – Light (300)
+@font-face {
+  font-family: 'National Park';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/global/fonts/NationalPark-Variable.woff2') format('woff2');
+}
+
+// National Park – Semi Bold (600)
+@font-face {
+  font-family: 'National Park';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/global/fonts/NationalPark-Variable.woff2') format('woff2');
+}
+
+// National Park – Extra Bold (800)
+@font-face {
+  font-family: 'National Park';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../assets/global/fonts/NationalPark-Variable.woff2') format('woff2');
+}
+
+
+/* Copy */
+
+body, p {
+  font-family: 'National Park', sans-serif;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 189.474% */
+  letter-spacing: 0.5px;
+  color: var(--primary);
+}
+
+h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 47px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 55px; /* 117.021% */
+  letter-spacing: -0.3px;
+  padding-bottom: 15px;
+}
+
+h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 47px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 55px; /* 117.021% */
+  letter-spacing: -0.3px;
+}
+
+h3, label, .overline {
+font-family: 'National Park', sans-serif;
+font-size: 25px;
+font-style: normal;
+font-weight: 800;
+line-height: 23px; /* 92% */
+letter-spacing: 3.5px;
+text-transform: uppercase;
+}
+
+label {
+  text-align: center;
+}
+
+
+
+button {
+  font-family: 'National Park', sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 39px; /* 156% */
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+}
