@@ -44,3 +44,4 @@ lerna-debug.log*
 .gemini/
 .temp/
 tmp/
+.DS_Store
