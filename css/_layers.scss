@@ -8,3 +8,11 @@
   mix-blend-mode: lighten;
   opacity: 0.8;
 }
+
+.layer-areas polygon.active{
+  stroke-width: 10px;
+  stroke:  white;
+}
+.layer-areas {
+  opacity: .7;
+}

@@ -1,3 +1,83 @@
-#slider {
-  /* Placeholder for the timeline/time-slider styles */
+// Farb- und Layout-Variablen
+:root {
+  --slider-height: 50px;
 }
+
+#slider {
+  position: absolute;
+  bottom: 50px;
+  left:40%;
+  width:1380px;
+}
+
+
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: var(--slider-height);
+  border-radius:  var(--slider-height);  
+  background: white;
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  box-shadow: var(--dropshadow-wide-blue);
+
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width:  calc( var(--slider-height) * 1.5 );
+  height:  calc( var(--slider-height) * 1.5 );
+  border-radius: 50%; 
+  background-color: var(--primary);
+  /*background-image: url('contrasticon.png');*/
+  cursor: pointer;
+  box-shadow: var(--dropshadow-wide-blue);
+  border: 5px white solid
+}
+
+.range-slider::-moz-range-thumb {
+  width:  calc( var(--slider-height) * 1.5 );
+  height:  calc( var(--slider-height) * 1.5 );
+  border-radius: 50%;
+  background-color: var(--primary);
+  /*background-image: url('contrasticon.png');*/
+  cursor: pointer;
+  box-shadow: var(--dropshadow-wide-blue);
+}
+
+.slider-label-container{
+  display:flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.slider-label-container label{
+  background: white;
+  font-family: National Park;
+  font-weight: 800;
+  font-style: ExtraBold;
+  font-size: 25px;
+  leading-trim: NONE;
+  line-height: 23px;
+  letter-spacing: 3.5px;
+  text-align: center;
+  text-transform: uppercase;
+ 
+ 
+  border-radius: 7px;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 9px;
+  padding-left: 10px;
+
+}
+
