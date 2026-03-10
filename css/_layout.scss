@@ -1,0 +1,17 @@
+// Layer-Layout
+#layers {
+  position: relative;
+}
+
+.layer,
+.layer-content {
+  width: var(--screen-width);
+  height: var(--screen-height);
+  position: absolute;
+  transition: all ease-in-out 300ms;
+  opacity: 1;
+}
+
+.layer.hidden {
+  opacity: 0 !important;
+}

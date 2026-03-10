@@ -1,0 +1,13 @@
+@use 'variables';
+@use 'base';
+@use 'layout';
+@use 'poi';
+@use 'layers';
+@use 'info-box';
+@use 'language-select';
+@use 'layer-control';
+@use 'time-slider';
+
+// Hinweis:
+// - Aus dieser SCSS-Datei kompiliert dein Build-Tool die finale style.css.
+// - Alle bisherigen CSS-Dateien wurden in SCSS-Partials überführt.

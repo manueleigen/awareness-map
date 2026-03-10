@@ -1,0 +1,31 @@
+#layer-control {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  top: 300px;
+  z-index: 100;
+}
+
+.toggleSwitch {
+  cursor: pointer;
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  color: white;
+  position: relative;
+}
+
+.toggleSwitch label {
+  position: absolute;
+  bottom: 0;
+  background-color: var(--bg-color);
+  padding: 3px 7px;
+  border-radius: 3px;
+  box-shadow: 0 0 20px var(--bg-color);
+}
+
+.toggleSwitch.hidden {
+  display: none;
+}
