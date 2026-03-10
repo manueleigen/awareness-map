@@ -52,4 +52,5 @@ function applyDOMTranslations(): void {
 
 export async function setLanguage(lang: Language): Promise<void> {
     await initTranslator(lang);
+    applyDOMTranslations();
 }

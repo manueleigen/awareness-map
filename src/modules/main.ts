@@ -39,8 +39,18 @@ export async function initApp() {
 }
 
 export function updateView(): void {
-    const infoBox = el('#info-box-content');
-    if (!infoBox) return;
+    const infoBoxContent = el('#info-box-content');
+    const escapeBtn = el('#escape-btn');
+    if (!infoBoxContent) return;
+
+    // Toggle escape button visibility: hidden on home, visible otherwise
+    if (escapeBtn) {
+        if (app.view === 'home') {
+            escapeBtn.classList.add('hidden');
+        } else {
+            escapeBtn.classList.remove('hidden');
+        }
+    }
     
     switch(app.view) {
         case 'home':
@@ -59,10 +69,10 @@ export function updateView(): void {
 }
 
 export function renderHome(): void {
-    const infoBox = el('#info-box-content');
-    if (!infoBox) return;
+    const infoBoxContent = el('#info-box-content');
+    if (!infoBoxContent) return;
 
-    infoBox.innerHTML = '';
+    infoBoxContent.innerHTML = '';
 
     const title = create('h1');
     title.id = 'app-title';
@@ -78,18 +88,18 @@ export function renderHome(): void {
         updateView();
     });
 
-    infoBox.append(title, text, btn);
+    infoBoxContent.append(title, text, btn);
 }
 
 export function renderMapUI(): void {
-    const infoBox = el('#info-box-content');
-    if (!infoBox) return;
+    const infoBoxContent = el('#info-box-content');
+    if (!infoBoxContent) return;
 
-    infoBox.innerHTML = '';
-    
+    infoBoxContent.innerHTML = '';
+
     const title = create('h2');
     title.innerText = t(`roles.${app.currentRole}.title`);
-    
+
     const desc = create('p');
     desc.innerText = t(`roles.${app.currentRole}.short_description`);
 
@@ -101,6 +111,15 @@ export function renderMapUI(): void {
         updateView();
     });
 
-    infoBox.append(title, desc, backBtn);
+    infoBoxContent.append(title, desc, backBtn);
     renderLayers(); // Ensure layers are updated for the new role/scenario
+}
+
+export function resetApp(): void {
+    app.currentScenario = null;
+    app.currentRole = null;
+    app.activeLayers.clear();
+    app.view = 'home';
+    updateView();
+    renderLayers();
 }

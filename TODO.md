@@ -4,19 +4,22 @@ Current task list and development milestones.
 
 ## Phase 1: Navigation & Logic
 - [x] Implement Scenario/Role selection flow
-- [ ] Implement Quiz-Logik
+- [ ] Implement Quiz-Logic
 - [x] Sync AppState with Layer rendering
 - [ ] Build POI detail overlays
 
 ## Phase 2: Map Controls
 - [ ] Build Opacity & Playback controllers
 - [ ] Implement Lottie Timeline sync
-- [ ] Refine SVG Blending & POI styling
 
 ## Phase 3: Technical & Assets
 - [ ] Setup PWA & Offline support
 - [ ] Add Asset fallbacks & Error handling
 - [ ] Finalize 4K Assets & YAML content
+
+## Offene Fragen:
+- [ ] Reload lieber in der App regeln statt über den browser? Reload könnte zu glitches führen.
+
 
 ---
 **Project Documentation:**

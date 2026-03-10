@@ -9,6 +9,27 @@
     background-color: white;
 }
 
+#info-box-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#escape-btn {
+    cursor: pointer;
+    background: #eee;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    color: var(--cd-dark-blue);
+    transition: background 0.2s;
+}
+
+#escape-btn:hover {
+    background: #ddd;
+}
+
 .horizontal-slider {
     display: flex;
     overflow-x: auto;

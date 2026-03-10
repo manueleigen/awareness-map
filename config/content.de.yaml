@@ -2,11 +2,15 @@ app:
   title: Awareness Map
 
 navigation:
+  languages:
+    en: English
+    de: Deutsch
   back: Zurück
   next: Weiter
   start: Start
   close: Schließen
   restart: Neu starten
+  escape: Abbrechen
   home: Start
   scenario: Szenario
   role: Rolle

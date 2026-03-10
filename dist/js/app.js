@@ -1,4 +1,4 @@
-import { initApp, updateView } from "../modules/main.js";
+import { initApp, updateView, resetApp } from "../modules/main.js";
 import { setLanguage } from "../modules/translater.js";
 import { renderLayers } from "../modules/layers.js";
 import { app } from "../data/data.js";
@@ -17,6 +17,12 @@ function setupGlobalListeners() {
             catch (err) {
                 console.error("Fehler beim Sprachwechsel:", err);
             }
+        });
+    }
+    const escapeBtn = el('#escape-btn');
+    if (escapeBtn) {
+        escapeBtn.addEventListener('click', () => {
+            resetApp();
         });
     }
 }

@@ -46,6 +46,10 @@ body {
 	opacity: 0!important;
 }
 
+.hidden {
+    display: none !important;
+}
+
 /* POI / Location Layer Styles */
 .poi-container {
     position: absolute;

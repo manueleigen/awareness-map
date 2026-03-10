@@ -44,4 +44,5 @@ function applyDOMTranslations() {
 }
 export async function setLanguage(lang) {
     await initTranslator(lang);
+    applyDOMTranslations();
 }
