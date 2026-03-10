@@ -1,5 +1,5 @@
 import { app } from '../data/data.js';
-import { create, el, loadYAML, loadJSON } from './lib.js';
+import { create, loadJSON, loadYAML } from './lib.js';
 import { t } from './translater.js';
 let layerDefinitions = [];
 let context = null;
@@ -18,8 +18,7 @@ export async function initLayers() {
     }
 }
 export function renderLayers() {
-    const layerContainer = el('#layers');
-    const layerControl = el('#layer-control');
+    const { layers: layerContainer, layerControl } = app.ui;
     if (!layerContainer || !layerControl || !context)
         return;
     layerContainer.innerHTML = '';
@@ -27,9 +26,7 @@ export function renderLayers() {
     const availableLayers = getAvailableLayers();
     availableLayers.forEach(config => {
         const ctxLayer = getContextLayer(config.id);
-        if (ctxLayer || config.always_available) {
-            buildLayerUI(config, ctxLayer, layerContainer, layerControl);
-        }
+        buildLayerUI(config, ctxLayer, layerContainer, layerControl);
     });
 }
 function getAvailableLayers() {
@@ -68,10 +65,9 @@ function buildLayerUI(config, ctxLayer, parent, controlParent) {
     const isVisible = ctxLayer?.always_visible || app.activeLayers.has(config.id);
     const wrapper = create("div");
     // @ts-ignore
-    console.log(ctxLayer);
     wrapper.className = `layer ${isVisible ? '' : 'hidden'} ${config.class ? config.class : ''}`;
     wrapper.id = `layer-${config.id}`;
-    const src = ctxLayer?.src ? ctxLayer?.src : 'no-image';
+    const src = ctxLayer?.src;
     if (src) {
         switch (config.type) {
             case 'static-image':
@@ -116,7 +112,6 @@ function buildLayerUI(config, ctxLayer, parent, controlParent) {
     if (config.toggle == 'available' || config.toggle == 'deactivated') {
         const toggle = create('div');
         toggle.className = `toggleSwitch ${isVisible ? 'active' : ''}`;
-        toggle.classList.add(config.toggle);
         const icon = create('img');
         // Icon ebenfalls aus dem Context nehmen, sonst Fallback
         icon.src = ctxLayer?.icon || '/assets/global/default_icon.svg';

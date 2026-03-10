@@ -1,5 +1,5 @@
 import { app } from '../data/data.js';
-import { el, create, loadYAML } from './lib.js';
+import { create, loadYAML } from './lib.js';
 import { t } from './translater.js';
 import { ProjectContext } from './types.js';
 import { updateView } from './main.js';
@@ -12,14 +12,14 @@ export async function initScenarios(): Promise<void> {
 }
 
 export function renderScenarioSelection(): void {
-    const infoBox = el('#info-box-content');
-    if (!infoBox || !context) return;
+    const { infoBoxContent } = app.ui;
+    if (!infoBoxContent || !context) return;
 
-    infoBox.innerHTML = '';
+    infoBoxContent.innerHTML = '';
 
     const headline = create('h2');
     headline.innerText = t('home.scenario_selection_label');
-    infoBox.append(headline);
+    infoBoxContent.append(headline);
 
     const slider = create('div');
     slider.id = 'scenario-slider';
@@ -46,21 +46,21 @@ export function renderScenarioSelection(): void {
         slider.append(scenarioCard);
     });
 
-    infoBox.append(slider);
+    infoBoxContent.append(slider);
 }
 
 export function renderRoleSelection(): void {
-    const infoBox = el('#info-box-content');
-    if (!infoBox || !context || !app.currentScenario) return;
+    const { infoBoxContent } = app.ui;
+    if (!infoBoxContent || !context || !app.currentScenario) return;
 
     const scenario = context.scenarios[app.currentScenario];
     if (!scenario) return;
 
-    infoBox.innerHTML = '';
+    infoBoxContent.innerHTML = '';
 
     const headline = create('h2');
     headline.innerText = t(`scenarios.${app.currentScenario}.role_selection_label`);
-    infoBox.append(headline);
+    infoBoxContent.append(headline);
 
     const slider = create('div');
     slider.id = 'role-slider';
@@ -92,5 +92,5 @@ export function renderRoleSelection(): void {
         updateView();
     });
 
-    infoBox.append(slider, backBtn);
+    infoBoxContent.append(slider, backBtn);
 }

@@ -43,4 +43,14 @@ export interface AppState {
   currentRole: string | null;
   activeLayers: Set<string>;
   view: 'home' | 'scenario-select' | 'role-select' | 'map';
+  ui: {
+    app: HTMLElement | null;
+    infoBox: HTMLElement | null;
+    infoBoxContent: HTMLElement | null;
+    layerControl: HTMLElement | null;
+    slider: HTMLElement | null;
+    layers: HTMLElement | null;
+    escapeBtn: HTMLElement | null;
+    languageSwitch: HTMLInputElement | null;
+  };
 }

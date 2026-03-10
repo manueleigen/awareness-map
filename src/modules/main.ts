@@ -5,10 +5,24 @@ import { Language } from "./types.js";
 import { app } from "../data/data.js";
 import { el, create } from "./lib.js";
 
+export function initUIReferences(): void {
+    app.ui.app = el('#app');
+    app.ui.infoBox = el('#info-box');
+    app.ui.infoBoxContent = el('#info-box-content');
+    app.ui.layerControl = el('#layer-control');
+    app.ui.slider = el('#slider');
+    app.ui.layers = el('#layers');
+    app.ui.escapeBtn = el('#escape-btn');
+    app.ui.languageSwitch = el<HTMLInputElement>('#language-switch input');
+}
+
 export async function initApp() {
     try {
         console.log("App Initialisierung gestartet...");
         
+        // 0. UI References initialisieren
+        initUIReferences();
+
         // 1. Translator initialisieren
         await initTranslator(app.language as Language).catch(err => {
             console.error("Sprachdateien konnten nicht geladen werden:", err);
@@ -28,7 +42,7 @@ export async function initApp() {
         console.log("App erfolgreich initialisiert.");
     } catch (globalError) {
         console.error("Kritischer Fehler bei der App-Initialisierung:", globalError);
-        const appContainer = el('#app');
+        const appContainer = app.ui.app;
         if (appContainer) {
             appContainer.innerHTML = `<div style="color: white; padding: 20px;">
                 <h2>System-Fehler</h2>
@@ -39,8 +53,7 @@ export async function initApp() {
 }
 
 export function updateView(): void {
-    const infoBoxContent = el('#info-box-content');
-    const escapeBtn = el('#escape-btn');
+    const { infoBoxContent, escapeBtn } = app.ui;
     if (!infoBoxContent) return;
 
     // Toggle escape button visibility: hidden on home, visible otherwise
@@ -69,7 +82,7 @@ export function updateView(): void {
 }
 
 export function renderHome(): void {
-    const infoBoxContent = el('#info-box-content');
+    const { infoBoxContent } = app.ui;
     if (!infoBoxContent) return;
 
     infoBoxContent.innerHTML = '';
@@ -92,14 +105,14 @@ export function renderHome(): void {
 }
 
 export function renderMapUI(): void {
-    const infoBoxContent = el('#info-box-content');
+    const { infoBoxContent } = app.ui;
     if (!infoBoxContent) return;
 
     infoBoxContent.innerHTML = '';
-
+    
     const title = create('h2');
     title.innerText = t(`roles.${app.currentRole}.title`);
-
+    
     const desc = create('p');
     desc.innerText = t(`roles.${app.currentRole}.short_description`);
 
