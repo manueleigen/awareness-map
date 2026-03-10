@@ -12,79 +12,67 @@ export async function initScenarios(): Promise<void> {
 }
 
 export function renderScenarioSelection(): void {
-    const { infoBoxContent } = app.ui;
-    if (!infoBoxContent || !context) return;
+    const { infoBoxContent, infoBoxControls } = app.ui;
+    if (!infoBoxContent || !infoBoxControls || !context) return;
 
     infoBoxContent.innerHTML = '';
+    infoBoxControls.innerHTML = '';
 
     const headline = create('h2');
     headline.innerText = t('home.scenario_selection_label');
     infoBoxContent.append(headline);
 
-    const slider = create('div');
-    slider.id = 'scenario-slider';
-    slider.className = 'horizontal-slider';
+    const btnGroup = create('div');
+    btnGroup.className = 'button-group';
 
     Object.keys(context.scenarios).forEach(scenarioId => {
-        const scenarioCard = create('div');
-        scenarioCard.className = 'scenario-card';
-        
-        const title = create('h3');
-        title.innerText = t(`scenarios.${scenarioId}.title`);
-        
-        const desc = create('p');
-        desc.innerText = t(`scenarios.${scenarioId}.short_title`); // Using short title for cards
+        const btn = create('button');
+        btn.innerText = t(`scenarios.${scenarioId}.title`);
 
-        scenarioCard.append(title, desc);
-        
-        scenarioCard.addEventListener('click', () => {
+        btn.addEventListener('click', () => {
             app.currentScenario = scenarioId;
             app.view = 'role-select';
             updateView();
         });
 
-        slider.append(scenarioCard);
+        btnGroup.append(btn);
     });
 
-    infoBoxContent.append(slider);
+    infoBoxControls.append(btnGroup);
 }
 
 export function renderRoleSelection(): void {
-    const { infoBoxContent } = app.ui;
-    if (!infoBoxContent || !context || !app.currentScenario) return;
+    const { infoBoxContent, infoBoxControls } = app.ui;
+    if (!infoBoxContent || !infoBoxControls || !context || !app.currentScenario) return;
 
     const scenario = context.scenarios[app.currentScenario];
     if (!scenario) return;
 
     infoBoxContent.innerHTML = '';
+    infoBoxControls.innerHTML = '';
 
     const headline = create('h2');
     headline.innerText = t(`scenarios.${app.currentScenario}.role_selection_label`);
     infoBoxContent.append(headline);
 
-    const slider = create('div');
-    slider.id = 'role-slider';
-    slider.className = 'horizontal-slider';
+    const btnGroup = create('div');
+    btnGroup.className = 'button-group';
 
     Object.keys(scenario.roles).forEach(roleId => {
-        const roleCard = create('div');
-        roleCard.className = 'role-card';
+        const btn = create('button');
+        btn.innerText = t(`roles.${roleId}.title`);
 
-        const title = create('h3');
-        title.innerText = t(`roles.${roleId}.title`);
-
-        roleCard.append(title);
-
-        roleCard.addEventListener('click', () => {
+        btn.addEventListener('click', () => {
             app.currentRole = roleId;
             app.view = 'map';
             updateView();
         });
 
-        slider.append(roleCard);
+        btnGroup.append(btn);
     });
 
     const backBtn = create('button');
+    backBtn.className = 'back-btn';
     backBtn.innerText = t('navigation.back');
     backBtn.addEventListener('click', () => {
         app.currentScenario = null;
@@ -92,5 +80,5 @@ export function renderRoleSelection(): void {
         updateView();
     });
 
-    infoBoxContent.append(slider, backBtn);
+    infoBoxControls.append(btnGroup, backBtn);
 }

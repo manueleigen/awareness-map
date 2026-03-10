@@ -1,0 +1,33 @@
+button {
+  display: flex;
+  height: 60px;
+  padding: 4px 70px 8px 70px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 30px;
+  background: var(--button);
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+
+  &:active {
+    background: var(--secondary);
+  }
+}
+
+
+#escape-btn {
+  cursor: pointer;
+  background: #eee;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: var(--primary);
+  transition: background 0.2s;
+
+  &:hover {
+    background: #ddd;
+  }
+}

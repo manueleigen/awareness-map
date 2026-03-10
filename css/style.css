@@ -1,22 +1,144 @@
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/global/fonts/Inter-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/global/fonts/Inter-BoldItalic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "National Park";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../assets/global/fonts/NationalPark-Variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "National Park";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/global/fonts/NationalPark-Variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "National Park";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/global/fonts/NationalPark-Variable.woff2") format("woff2");
+}
+/* Copy */
+body, p {
+  font-family: "National Park", sans-serif;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px; /* 189.474% */
+  letter-spacing: 0.5px;
+  color: var(--primary);
+}
+
+h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 47px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 55px; /* 117.021% */
+  letter-spacing: -0.3px;
+  padding-bottom: 15px;
+}
+
+h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 47px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 55px; /* 117.021% */
+  letter-spacing: -0.3px;
+}
+
+h3, label, .overline {
+  font-family: "National Park", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 23px; /* 92% */
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+}
+
+label {
+  text-align: center;
+}
+
+button {
+  font-family: "National Park", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 39px; /* 156% */
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+}
+
 :root {
-  --bg-color: #000126;
-  --cd-light-blue: #00C2D0;
-  --cd-dark-blue: #0004A0;
+  --primary: #0004A0;
+  --primary-inactive: #666784;
+  --secondary: #FF4612;
+  --secondary-inactive: #FFCDCC;
+  --backdrop-dark: #000126;
+  --backdrop-light: #E3ECFF;
+  --white: #FFFFFF;
+  --button: #0DCEDC;
+  --button-inactive: #D1F5F8;
+  --buttontext-inactive: #88D5DB;
+  --card-inactive: #E7EEF7;
+  --backdrop-dark-75: rgba(0, 1, 38, 0.75);
   --screen-width: 3840px;
   --screen-height: 2160px;
+}
+
+button {
+  display: flex;
+  height: 60px;
+  padding: 4px 70px 8px 70px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 30px;
+  background: var(--button);
+  color: var(--white);
+  cursor: pointer;
+  border: none;
+}
+button:active {
+  background: var(--secondary);
+}
+
+#escape-btn {
+  cursor: pointer;
+  background: #eee;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: var(--primary);
+  transition: background 0.2s;
+}
+#escape-btn:hover {
+  background: #ddd;
 }
 
 * {
   padding: 0;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  line-height: 1.7em;
-}
-
-html {
-  font-size: clamp(20px, 0.6vw, 40px);
+  box-sizing: border-box;
 }
 
 body {
@@ -24,7 +146,7 @@ body {
   height: var(--screen-height);
   overflow: hidden;
   zoom: 0.5;
-  background-color: var(--bg-color);
+  background-color: var(--backdrop-dark);
 }
 
 .hidden {
@@ -63,7 +185,7 @@ body {
   height: 3rem;
   background: white;
   border-radius: 50%;
-  border: 0.2rem solid var(--cd-light-blue);
+  border: 0.2rem solid var(--button);
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.5);
   pointer-events: auto;
   transform: translate(-50%, -50%);
@@ -76,7 +198,7 @@ body {
 
 .poi-marker:hover {
   transform: translate(-50%, -50%) scale(1.2);
-  background-color: var(--cd-light-blue);
+  background-color: var(--button);
 }
 
 .blend-layer {
@@ -92,80 +214,41 @@ body {
 
 #info-box {
   position: fixed;
-  bottom: 50px;
-  left: 50px;
-  width: 870px;
-  height: 500px;
-  padding: 50px;
-  box-sizing: border-box;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  bottom: 60px;
+  left: 60px;
+  width: 850px;
+  height: 600px;
+  padding: 17px 7px 7px 7px;
+  border-radius: 32px;
+  background-color: var(--white);
 }
-
 #info-box-head {
   display: flex;
+  padding: 0 23px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
-
-#escape-btn {
-  cursor: pointer;
-  background: #eee;
-  padding: 5px 15px;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  color: var(--cd-dark-blue);
-  transition: background 0.2s;
+#info-box-content {
+  padding-left: 23px;
+  padding-right: 23px;
+}
+#info-box-controls {
+  width: 100%;
+}
+#info-box-controls button {
+  width: 100%;
 }
 
-#escape-btn:hover {
-  background: #ddd;
-}
-
-.horizontal-slider {
+.button-group {
   display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  padding: 20px 0;
-  scrollbar-width: thin;
-}
-
-.scenario-card,
-.role-card {
-  min-width: 250px;
-  background: #f0f0f0;
-  border: 2px solid var(--cd-light-blue);
-  padding: 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.scenario-card:hover,
-.role-card:hover {
-  transform: scale(1.05);
-  background: white;
-}
-
-.scenario-card h3,
-.role-card h3 {
-  margin-bottom: 10px;
-  color: var(--cd-dark-blue);
-}
-
-button {
-  padding: 10px 20px;
-  background: var(--cd-light-blue);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 20px;
-}
-
-button:hover {
-  background: var(--cd-dark-blue);
-  color: white;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 #language-switch {
@@ -196,7 +279,7 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--cd-light-blue);
+  background-color: var(--button);
   transition: 0.4s;
 }
 
@@ -212,11 +295,11 @@ button:hover {
 }
 
 #language-switch input:checked + .slider {
-  background-color: var(--cd-light-blue);
+  background-color: var(--button);
 }
 
 #language-switch input:focus + .slider {
-  box-shadow: 0 0 1px var(--cd-light-blue);
+  box-shadow: 0 0 1px var(--button);
 }
 
 #language-switch input:checked + .slider:before {
@@ -249,18 +332,13 @@ button:hover {
   color: white;
   position: relative;
 }
-
 .toggleSwitch label {
   position: absolute;
   bottom: 0;
-  background-color: var(--bg-color);
+  background-color: var(--backdrop-dark);
   padding: 3px 7px;
   border-radius: 3px;
-  box-shadow: 0 0 20px var(--bg-color);
-}
-
-.toggleSwitch.hidden {
-  display: none;
+  box-shadow: 0 0 20px var(--backdrop-dark);
 }
 
 #slider {

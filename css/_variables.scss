@@ -1,9 +1,31 @@
 // Farb- und Layout-Variablen
 :root {
-  --bg-color: #000126;
-  --cd-light-blue: #00C2D0;
-  --cd-dark-blue: #0004A0;
+  --primary: #0004A0;
+  --primary-inactive: #666784;
+  --secondary: #FF4612;
+  --secondary-inactive: #FFCDCC;
+  --backdrop-dark: #000126;
+  --backdrop-light: #E3ECFF;
+  --white: #FFFFFF;
+  --button: #0DCEDC;
+  --button-inactive: #D1F5F8;
+  --buttontext-inactive: #88D5DB;
+  --card-inactive: #E7EEF7;
+  --backdrop-dark-75: rgba(0, 1, 38, 0.75);
 
   --screen-width: 3840px;
   --screen-height: 2160px;
+}
+
+// Drop-Shadow-Mixins (global nutzbar)
+@mixin drop-shadow() {
+  box-shadow: 0 0 30px 0 rgba(0, 4, 160, 0.55);
+}
+
+@mixin drop-shadow-svg() {
+  filter: drop-shadow(0 0 30px rgba(0, 4, 160, 0.55));
+}
+
+@mixin drop-shadow-active() {
+  box-shadow: 0 0 30px 0 rgba(209, 245, 248, 0.55);
 }

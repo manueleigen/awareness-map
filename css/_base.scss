@@ -2,15 +2,7 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  line-height: 1.7em;
-}
-
-html {
-  // clamp(MIN, FLEXIBEL, MAX)
-  font-size: clamp(20px, 0.6vw, 40px); // temporär
+  box-sizing: border-box;
 }
 
 body {
@@ -18,7 +10,7 @@ body {
   height: var(--screen-height);
   overflow: hidden;
   zoom: 0.5; // for development
-  background-color: var(--bg-color);
+  background-color: var(--backdrop-dark);
 }
 
 .hidden {

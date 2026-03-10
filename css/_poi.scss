@@ -14,7 +14,7 @@
   height: 3rem;
   background: white;
   border-radius: 50%;
-  border: 0.2rem solid var(--cd-light-blue);
+  border: 0.2rem solid var(--button);
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.5);
   pointer-events: auto;
   transform: translate(-50%, -50%);
@@ -27,5 +27,5 @@
 
 .poi-marker:hover {
   transform: translate(-50%, -50%) scale(1.2);
-  background-color: var(--cd-light-blue);
+  background-color: var(--button);
 }

@@ -9,6 +9,7 @@ export function initUIReferences(): void {
     app.ui.app = el('#app');
     app.ui.infoBox = el('#info-box');
     app.ui.infoBoxContent = el('#info-box-content');
+    app.ui.infoBoxControls = el('#info-box-controls');
     app.ui.layerControl = el('#layer-control');
     app.ui.slider = el('#slider');
     app.ui.layers = el('#layers');
@@ -82,10 +83,11 @@ export function updateView(): void {
 }
 
 export function renderHome(): void {
-    const { infoBoxContent } = app.ui;
-    if (!infoBoxContent) return;
+    const { infoBoxContent, infoBoxControls } = app.ui;
+    if (!infoBoxContent || !infoBoxControls) return;
 
     infoBoxContent.innerHTML = '';
+    infoBoxControls.innerHTML = '';
 
     const title = create('h1');
     title.id = 'app-title';
@@ -101,14 +103,16 @@ export function renderHome(): void {
         updateView();
     });
 
-    infoBoxContent.append(title, text, btn);
+    infoBoxContent.append(title, text);
+    infoBoxControls.append(btn);
 }
 
 export function renderMapUI(): void {
-    const { infoBoxContent } = app.ui;
-    if (!infoBoxContent) return;
+    const { infoBoxContent, infoBoxControls } = app.ui;
+    if (!infoBoxContent || !infoBoxControls) return;
 
     infoBoxContent.innerHTML = '';
+    infoBoxControls.innerHTML = '';
     
     const title = create('h2');
     title.innerText = t(`roles.${app.currentRole}.title`);
@@ -124,8 +128,9 @@ export function renderMapUI(): void {
         updateView();
     });
 
-    infoBoxContent.append(title, desc, backBtn);
-    renderLayers(); // Ensure layers are updated for the new role/scenario
+    infoBoxContent.append(title, desc);
+    infoBoxControls.append(backBtn);
+    renderLayers();
 }
 
 export function resetApp(): void {

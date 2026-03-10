@@ -15,17 +15,13 @@
   justify-items: center;
   color: white;
   position: relative;
-}
 
-.toggleSwitch label {
-  position: absolute;
-  bottom: 0;
-  background-color: var(--bg-color);
-  padding: 3px 7px;
-  border-radius: 3px;
-  box-shadow: 0 0 20px var(--bg-color);
-}
-
-.toggleSwitch.hidden {
-  display: none;
+  label {
+    position: absolute;
+    bottom: 0;
+    background-color: var(--backdrop-dark);
+    padding: 3px 7px;
+    border-radius: 3px;
+    box-shadow: 0 0 20px var(--backdrop-dark);
+  }
 }

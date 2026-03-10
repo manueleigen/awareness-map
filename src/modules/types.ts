@@ -47,6 +47,7 @@ export interface AppState {
     app: HTMLElement | null;
     infoBox: HTMLElement | null;
     infoBoxContent: HTMLElement | null;
+    infoBoxControls: HTMLElement | null;
     layerControl: HTMLElement | null;
     slider: HTMLElement | null;
     layers: HTMLElement | null;
