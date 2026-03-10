@@ -3,8 +3,9 @@
 Current task list and development milestones.
 
 ## Phase 1: Navigation & Logic
-- [ ] Implement Scenario/Role selection flow
-- [ ] Sync AppState with Layer rendering
+- [x] Implement Scenario/Role selection flow
+- [ ] Implement Quiz-Logik
+- [x] Sync AppState with Layer rendering
 - [ ] Build POI detail overlays
 
 ## Phase 2: Map Controls
