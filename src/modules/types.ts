@@ -11,6 +11,8 @@ export interface LayerConfig {
   interaction: string;
   opacity_control?: boolean;
   playback_control?: boolean;
+  start_time?: string;
+  end_time?: string;
   icon_mode?: string;
 }
 

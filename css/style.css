@@ -377,7 +377,7 @@ body #app {
 }
 
 #slider-container {
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   left: 40%;
   width: 1380px;

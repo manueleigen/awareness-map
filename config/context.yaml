@@ -34,7 +34,7 @@ contexts:
         flood_simulation:
           src: /assets/layers/flood/flood_simulation.json
           icon: /assets/icons/flood.svg
-          slider_icon: /assets/icons/flood.svg
+          slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
 
       roles:
