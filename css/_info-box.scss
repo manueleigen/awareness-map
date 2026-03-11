@@ -23,8 +23,9 @@
     #escape-btn {
       display: flex;
       align-items: center;
+      transition: 200ms ease-out;
       gap: 6px;
-      font-family: National Park;
+      font-family: 'National Park' sans-serif;
       font-weight: 800;
       font-size: 25px;
       line-height: 39px;
@@ -33,14 +34,12 @@
       color: var(--secondary);
       cursor: pointer;
 
-      &::before {
-        content: '';
-        display: inline-block; // needed for width/height to apply
-        width: 22px;
-        height: 22px;
-        background-image: url('/assets/icons/ui/esc-btn-icon.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
+      &:active {
+        color: var(--primary);
+      }
+
+      svg {
+        flex-shrink: 0;
       }
     }
 

@@ -3,43 +3,57 @@
   align-items: center;
   flex-direction: row;
   padding: 10px;
+
+  > span {
+    transition: opacity 0.3s;
+  }
+
+  &:has(input:not(:checked)) > span:last-of-type {
+    opacity: 0.35;
+  }
+
+  &:has(input:checked) > span:first-of-type {
+    opacity: 0.35;
+  }
+
+  .switch {
+    margin: 0 10px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--button);
+    transition: 0.4s;
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+    }
+  }
 }
 
-#language-switch .switch {
-  margin: 0 10px;
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
 
-#language-switch .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-#language-switch .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--button);
-  transition: 0.4s;
-}
-
-#language-switch .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-}
 
 #language-switch input:checked + .slider {
   background-color: var(--button);

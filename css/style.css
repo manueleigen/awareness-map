@@ -63,7 +63,7 @@ h2 {
   letter-spacing: -0.3px;
 }
 
-h3, label, .overline {
+h3, label, .overline, #language-switch span {
   font-family: "National Park", sans-serif;
   font-size: 25px;
   font-style: normal;
@@ -156,6 +156,7 @@ body #app {
 
 .hidden {
   display: none !important;
+  opacity: 0 !important;
 }
 
 #layers {
@@ -299,7 +300,7 @@ body #app {
 .glow-layer {
   filter: blur(20px);
   mix-blend-mode: lighten;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .layer-areas polygon.active {
@@ -336,8 +337,9 @@ body #app {
 #info-box-head #escape-btn {
   display: flex;
   align-items: center;
+  transition: 200ms ease-out;
   gap: 6px;
-  font-family: National Park;
+  font-family: "National Park" sans-serif;
   font-weight: 800;
   font-size: 25px;
   line-height: 39px;
@@ -346,14 +348,11 @@ body #app {
   color: var(--secondary);
   cursor: pointer;
 }
-#info-box-head #escape-btn::before {
-  content: "";
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  background-image: url("/assets/icons/ui/esc-btn-icon.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
+#info-box-head #escape-btn:active {
+  color: var(--primary);
+}
+#info-box-head #escape-btn svg {
+  flex-shrink: 0;
 }
 #info-box-content {
   padding-left: 23px;
@@ -379,7 +378,15 @@ body #app {
   flex-direction: row;
   padding: 10px;
 }
-
+#language-switch > span {
+  transition: opacity 0.3s;
+}
+#language-switch:has(input:not(:checked)) > span:last-of-type {
+  opacity: 0.35;
+}
+#language-switch:has(input:checked) > span:first-of-type {
+  opacity: 0.35;
+}
 #language-switch .switch {
   margin: 0 10px;
   position: relative;
@@ -387,13 +394,11 @@ body #app {
   width: 60px;
   height: 34px;
 }
-
 #language-switch .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-
 #language-switch .slider {
   position: absolute;
   cursor: pointer;
@@ -404,8 +409,7 @@ body #app {
   background-color: var(--button);
   transition: 0.4s;
 }
-
-#language-switch .slider:before {
+#language-switch .slider::before {
   position: absolute;
   content: "";
   height: 26px;

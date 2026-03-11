@@ -1,6 +1,5 @@
 import { initApp, updateView, resetApp } from "../modules/main.js";
 import { setLanguage } from "../modules/translater.js";
-import { renderLayers } from "../modules/layers.js";
 import { app } from "../modules/state.js";
 function setupGlobalListeners() {
     const { languageSwitch, escapeBtn } = app.ui;
@@ -10,8 +9,7 @@ function setupGlobalListeners() {
             try {
                 const nextLang = languageSwitch.checked ? "de" : "en";
                 await setLanguage(nextLang);
-                renderLayers();
-                updateView();
+                await updateView();
             }
             catch (err) {
                 console.error("Fehler beim Sprachwechsel:", err);
