@@ -7,7 +7,6 @@ export interface LayerConfig {
   title_key?: string;
   description_key?: string;
   toggle: 'available' | 'deactivated' | 'hidden';
-  always_available?: boolean;
   available_from?: 'scenario' | 'role';
   interaction: string;
   opacity_control?: boolean;
@@ -18,7 +17,8 @@ export interface LayerConfig {
 export interface ContextLayer {
   src: string;
   icon?: string;
-  always_visible: boolean;
+  slider_icon?: string;
+  initially_visible?: boolean;
 }
 
 export interface Role {
@@ -49,7 +49,7 @@ export interface AppState {
     infoBoxContent: HTMLElement | null;
     infoBoxControls: HTMLElement | null;
     layerControl: HTMLElement | null;
-    slider: HTMLElement | null;
+    slidersContainer: HTMLElement | null;
     layers: HTMLElement | null;
     escapeBtn: HTMLElement | null;
     languageSwitch: HTMLInputElement | null;

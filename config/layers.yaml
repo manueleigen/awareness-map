@@ -17,25 +17,14 @@ layers:
   - id: base_layer_glow
     class: glow-layer
     type: static-image
-    title_key: layers.base_layer_glow.title
-    description_key: layers.base_layer_glow.description
-    toggle: available
+    toggle: hidden
     interaction: none
 
-  - id: weather_data
-    type: static-image
-    title_key: layers.weather_data.title
-    description_key: layers.weather_data.description
-    toggle: available
-    always_available: true
-    interaction: none
-
-  - id: critical_sites
+  - id: critical_places
     type: locations
-    title_key: layers.critical_sites.title
-    description_key: layers.critical_sites.description
+    title_key: layers.critical_places.title
+    description_key: layers.critical_places.description
     toggle: available
-    always_available: true
     interaction: inspect-location
     icon_mode: per-location
 
@@ -45,7 +34,6 @@ layers:
     title_key: layers.population_density.title
     description_key: layers.population_density.description
     toggle: available
-    always_available: true
     interaction: none
     opacity_control: true
 

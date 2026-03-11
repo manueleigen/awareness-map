@@ -12,7 +12,7 @@ export const app: AppState = {
     infoBoxContent: null,
     infoBoxControls: null,
     layerControl: null,
-    slider: null,
+    slidersContainer: null,
     layers: null,
     escapeBtn: null,
     languageSwitch: null

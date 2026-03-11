@@ -3,102 +3,71 @@ contexts:
     layers:
       base_layer_buildings:
         src: /assets/layers/base-layer_buildings_optimiert.svg
-        always_visible: true
+        initially_visible: true
 
       base_layer_river:
         src: /assets/layers/base-layer_river.svg 
-        always_visible: true
+        initially_visible: true
         
       base_layer_streets:
         src: /assets/layers/base-layer_streets.svg
-        always_visible: true
-
+        initially_visible: true
 
       base_layer_glow:
         src: /assets/layers/base-layer_buildings_optimiert.svg 
         icon: /assets/icons/default_icon.svg
-        always_visible: true
+        initially_visible: true
 
-      weather_data:
-        src: /assets/global/weather_data.json
-        icon: /assets/icons/weather.svg
-        always_visible: false
-
-      critical_sites:
+      critical_places:
         src: /assets/layers/flood/critical_sites.json
         icon: /assets/icons/critical_sites.svg
-        always_visible: false
+        initially_visible: false
 
       population_density:
         src: /assets/layers/population_density.png
         icon: /assets/icons/population_density.svg
-        always_visible: false
-        class: blend-layer
-
-      evacuation_zones:
-        src: /assets/layers/flood/evacuation_zones.svg
-        icon: /assets/icons/default_icon.svg
-        always_visible: false
+        initially_visible: false
 
   scenarios:
     flood:
       layers:
         flood_simulation:
-          src: /assets/flood/flood_simulation/animation.lottie
+          src: /assets/layers/flood/flood_simulation.json
           icon: /assets/icons/flood.svg
-          always_visible: false
+          slider_icon: /assets/icons/flood.svg
+          initially_visible: true
 
       roles:
         fire_brigade:
           layers:
-            emergency_vehicles:
-              src: /assets/global/emergancy-calls/locations.json
-              icon: /assets/icons/emergency_vehicles.svg
-              always_visible: false
-
             emergency_calls:
               src: /assets/layers/flood/emergency_calls.json
               icon: /assets/icons/emergency_calls.svg
-              always_visible: false
+              initially_visible: false
 
             social_media:
-              src: /assets/flood/fire_brigade/social_media/locations.json
+              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
               icon: /assets/icons/social_media.svg
-              always_visible: false
+              initially_visible: false
 
         police:
           layers:
             social_media:
-              src: /assets/flood/police/social_media/locations.json
+              src: /assets/layers/flood/emergency_calls.json # Placeholder
               icon: /assets/icons/social_media.svg
-              always_visible: false
+              initially_visible: false
 
             evacuation_zones:
-              src: /assets/flood/police/evacuation_zones/zones.svg
+              src: /assets/layers/flood/evacuation_zones.svg
               icon: /assets/icons/default_icon.svg
-              always_visible: false
-
-            road_closures:
-              src: /assets/flood/police/road_closures/locations.json
-              icon: /assets/flood/police/road_closures/layer-icon.svg
-              always_visible: false
+              initially_visible: false
 
         crisis_staff:
           layers:
             social_media:
-              src: /assets/flood/crisis_staff/social_media/locations.json
+              src: /assets/layers/flood/emergency_calls.json # Placeholder
               icon: /assets/icons/social_media.svg
-              always_visible: false
-
-            drone_feed:
-              src: /assets/flood/crisis_staff/drone_feed/areas.svg
-              icon: /assets/flood/crisis_staff/drone_feed/layer-icon.svg
-              always_visible: false
-
-            infrastructure_status:
-              src: /assets/flood/crisis_staff/infrastructure_status/status.json
-              icon: /assets/flood/crisis_staff/infrastructure_status/layer-icon.svg
-              always_visible: false
+              initially_visible: false
 
     blackout:
       layers: {}

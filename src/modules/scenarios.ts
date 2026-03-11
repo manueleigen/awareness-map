@@ -8,7 +8,9 @@ let context: ProjectContext | null = null;
 
 export async function initScenarios(): Promise<void> {
     const ctxWrapper = await loadYAML<{ contexts: ProjectContext }>('/config/context.yaml');
-    context = ctxWrapper.contexts;
+    if (ctxWrapper) {
+        context = ctxWrapper.contexts;
+    }
 }
 
 export function renderScenarioSelection(): void {
@@ -29,10 +31,10 @@ export function renderScenarioSelection(): void {
         const btn = create('button');
         btn.innerText = t(`scenarios.${scenarioId}.title`);
 
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             app.currentScenario = scenarioId;
             app.view = 'role-select';
-            updateView();
+            await updateView();
         });
 
         btnGroup.append(btn);
@@ -62,10 +64,10 @@ export function renderRoleSelection(): void {
         const btn = create('button');
         btn.innerText = t(`roles.${roleId}.title`);
 
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             app.currentRole = roleId;
             app.view = 'map';
-            updateView();
+            await updateView();
         });
 
         btnGroup.append(btn);
@@ -74,10 +76,10 @@ export function renderRoleSelection(): void {
     const backBtn = create('button');
     backBtn.className = 'back-btn';
     backBtn.innerText = t('navigation.back');
-    backBtn.addEventListener('click', () => {
+    backBtn.addEventListener('click', async () => {
         app.currentScenario = null;
         app.view = 'scenario-select';
-        updateView();
+        await updateView();
     });
 
     infoBoxControls.append(btnGroup, backBtn);

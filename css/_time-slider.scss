@@ -3,64 +3,90 @@
   --slider-height: 50px;
 }
 
-#slider {
+#slider-container {
   position: absolute;
   bottom: 50px;
-  left:40%;
-  width:1380px;
+  left: 40%;
+  width: 1380px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  pointer-events: none; // Let clicks through to the map if not on a slider
+  z-index: 100;
 }
 
+.slider-wrapper {
+  width: 100%;
+  pointer-events: auto;
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: calc(var(--slider-height) * 1.8);
+  display: flex;
+  align-items: center;
+}
 
 .range-slider {
   -webkit-appearance: none;
   width: 100%;
   height: var(--slider-height);
-  border-radius:  var(--slider-height);  
+  border-radius: var(--slider-height);  
   background: white;
   outline: none;
   opacity: 1;
   -webkit-transition: .2s;
   transition: opacity .2s;
   box-shadow: var(--dropshadow-wide-blue);
-
+  cursor: pointer;
 }
 
 .range-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-}
-
-.range-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width:  calc( var(--slider-height) * 1.5 );
-  height:  calc( var(--slider-height) * 1.5 );
+  width: calc(var(--slider-height) * 1.8);
+  height: calc(var(--slider-height) * 1.8);
   border-radius: 50%; 
-  background-color: var(--primary);
-  /*background-image: url('contrasticon.png');*/
+  background-color: transparent; // We use the custom icon instead
   cursor: pointer;
-  box-shadow: var(--dropshadow-wide-blue);
-  border: 5px white solid
 }
 
-.range-slider::-moz-range-thumb {
-  width:  calc( var(--slider-height) * 1.5 );
-  height:  calc( var(--slider-height) * 1.5 );
+.slider-thumb-icon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  width: calc(var(--slider-height) * 1.8);
+  height: calc(var(--slider-height) * 1.8);
+  background-color: var(--primary);
+  border: 5px white solid;
   border-radius: 50%;
-  background-color: var(--primary);
-  /*background-image: url('contrasticon.png');*/
-  cursor: pointer;
   box-shadow: var(--dropshadow-wide-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; // Let interactions through to the range input below
+
+  img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
 }
 
-.slider-label-container{
-  display:flex;
+.slider-label-container {
+  display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
   padding-top: 20px;
 
-  label{
+  label {
     background: white;
     font-family: 'National Park', sans-serif;
     font-weight: 800;
@@ -75,6 +101,6 @@
     padding-right: 10px;
     padding-bottom: 9px;
     padding-left: 10px;
+    box-shadow: var(--dropshadow-wide-blue);
   }
 }
-

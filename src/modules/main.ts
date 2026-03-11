@@ -11,7 +11,7 @@ export function initUIReferences(): void {
     app.ui.infoBoxContent = el('#info-box-content');
     app.ui.infoBoxControls = el('#info-box-controls');
     app.ui.layerControl = el('#layer-control');
-    app.ui.slider = el('#slider');
+    app.ui.slidersContainer = el('#slider-container');
     app.ui.layers = el('#layers');
     app.ui.escapeBtn = el('#escape-btn');
     app.ui.languageSwitch = el<HTMLInputElement>('#language-switch input');
@@ -23,7 +23,6 @@ export async function initApp() {
         
         // 0. UI References initialisieren
         initUIReferences();
-
         // 1. Translator initialisieren
         await initTranslator(app.language as Language).catch(err => {
             console.error("Sprachdateien konnten nicht geladen werden:", err);
@@ -38,7 +37,7 @@ export async function initApp() {
         });
 
         // 4. Initialer Render
-        updateView();
+        await updateView();
         
         console.log("App erfolgreich initialisiert.");
     } catch (globalError) {
@@ -53,7 +52,7 @@ export async function initApp() {
     }
 }
 
-export function updateView(): void {
+export async function updateView(): Promise<void> {
     const { infoBoxContent, escapeBtn } = app.ui;
     if (!infoBoxContent) return;
 
@@ -80,6 +79,9 @@ export function updateView(): void {
             renderMapUI();
             break;
     }
+
+    // Ensure layers are always synced with the current view
+    await renderLayers();
 }
 
 export function renderHome(): void {
@@ -98,9 +100,9 @@ export function renderHome(): void {
 
     const btn = create('button');
     btn.innerText = t('navigation.start');
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
         app.view = 'scenario-select';
-        updateView();
+        await updateView();
     });
 
     infoBoxContent.append(title, text);
@@ -122,22 +124,20 @@ export function renderMapUI(): void {
 
     const backBtn = create('button');
     backBtn.innerText = t('navigation.back');
-    backBtn.addEventListener('click', () => {
+    backBtn.addEventListener('click', async () => {
         app.currentRole = null;
         app.view = 'role-select';
-        updateView();
+        await updateView();
     });
 
     infoBoxContent.append(title, desc);
     infoBoxControls.append(backBtn);
-    renderLayers();
 }
 
-export function resetApp(): void {
+export async function resetApp(): Promise<void> {
     app.currentScenario = null;
     app.currentRole = null;
     app.activeLayers.clear();
     app.view = 'home';
-    updateView();
-    renderLayers();
+    await updateView();
 }
