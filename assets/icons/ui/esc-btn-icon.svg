@@ -4,7 +4,7 @@
   <defs>
     <style>
       .st0 {
-        fill: #ff4612;
+        fill: currentColor;
       }
     </style>
   </defs>

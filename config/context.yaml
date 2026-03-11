@@ -21,7 +21,7 @@ contexts:
       critical_places:
         src: /assets/layers/flood/critical_sites.json
         icon: /assets/icons/critical_sites.svg
-        poi_icon: /assets/icons/ambulance.svg
+        poi_icon: /assets/icons/marker_poi.svg
         initially_visible: true
 
       population_density:

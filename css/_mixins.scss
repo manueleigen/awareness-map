@@ -1,9 +1,9 @@
 @mixin drop-shadow() {
-  box-shadow: 0 0 30px 0 rgba(0, 4, 160, 0.55);
+  box-shadow: 0 0 20px 0 rgba(0, 4, 160, 0.55);
 }
 
 @mixin drop-shadow-svg() {
-  filter: drop-shadow(0 0 30px rgba(0, 4, 160, 0.55));
+  filter: drop-shadow(0 0 20px rgba(0, 4, 160, 0.55));
 }
 
 @mixin drop-shadow-active() {
