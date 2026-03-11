@@ -157,8 +157,8 @@ async function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, 
         
         const icon = create('img');
         // Icon ebenfalls aus dem Context nehmen, sonst Fallback
-        icon.src = ctxLayer?.icon || '/assets/global/default_icon.svg';
-        icon.onerror = () => icon.src = '/assets/global/default_icon.svg';
+        icon.src = ctxLayer?.icon || '/assets/global/icons/default_icon.svg';
+        icon.onerror = () => icon.src = '/assets/global/icons/default_icon.svg';
         toggle.append(icon);
 
         const label = create('label');
