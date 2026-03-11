@@ -11,6 +11,7 @@ Instead of using Leaflet, this project uses a custom-built engine to maximize 4K
 - **`app.ts`**: Entry point. Manages high-level global listeners.
 - **`main.ts`**: Handles view routing and UI updates.
 - **`layers.ts`**: Core rendering engine. Handles dynamic layer creation and context-aware visibility syncing.
+- **`poi.ts`**: Handles point-of-interest (POI) rendering, markers, and local overlays.
 - **`time-slider.ts`**: Optimized playback controller for Lottie layers. Uses `requestAnimationFrame` for performance.
 - **`translater.ts`**: Handles i18n using YAML files.
 - **`lib.ts`**: Resilient loader utility (JSON, YAML, TEXT) with error fallbacks.

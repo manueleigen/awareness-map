@@ -10,7 +10,6 @@ Current task list and development milestones.
 - [x] Build animation slider-ui and logic (Optimized for 4K)
 
 ## Prio 2
-- [ ] Build Opacity controllers for blend-layers
 - [x] Implement Lottie Timeline sync (Seek/Pause logic)
 - [x] Implement initially_visible logic in context.yaml
 

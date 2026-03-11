@@ -5,6 +5,7 @@ jspm_packages/
 # Build Output
 dist/
 build/
+/QUIZ
 *.tsbuildinfo
 
 # Operating System Files
