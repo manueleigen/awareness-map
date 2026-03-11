@@ -294,8 +294,8 @@ layers:
     description: >
       Positions and status of emergency vehicles in the affected area.
 
-  critical_places:
-    title: Critical Places
+  critical_sites:
+    title: Critical Sites
     description: >
       Important reference points in the urban area. Especially relevant for the
       fire brigade and crisis staff, secondarily for police decisions.

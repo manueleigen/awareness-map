@@ -1,8 +1,8 @@
 {
-  "layer_id": "critical_places",
+  "layer_id": "critical_sites",
   "locations": [
     {
-      "id": "poi_hospital_01",
+      "id": "cs_hospital_01",
       "type": "hospital",
       "x": 1240,
       "y": 850,
@@ -12,7 +12,7 @@
       }
     },
     {
-      "id": "poi_power_station",
+      "id": "cs_power_station",
       "type": "infrastructure",
       "x": 2800,
       "y": 1420,
@@ -22,7 +22,7 @@
       }
     },
     {
-      "id": "poi_bridge_main",
+      "id": "cs_bridge_main",
       "type": "bridge",
       "x": 1920,
       "y": 1080,
@@ -32,7 +32,7 @@
       }
     },
     {
-      "id": "poi_fire_station",
+      "id": "cs_fire_station",
       "type": "fire_station",
       "x": 850,
       "y": 1600,

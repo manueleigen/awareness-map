@@ -297,8 +297,8 @@ layers:
     description: >
       Positionen und Status von Einsatzfahrzeugen im betroffenen Gebiet.
 
-  critical_places:
-    title: Kritische Orte
+  critical_sites:
+    title: Kritische Infrastruktur
     description: >
       Wichtige Referenzpunkte im Stadtgebiet. Relevant besonders für Feuerwehr
       und Krisenstab, sekundär für polizeiliche Entscheidungen.

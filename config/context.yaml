@@ -24,9 +24,9 @@ contexts:
         icon: /assets/global/Weather.svg
         always_visible: false
 
-      critical_places:
-        src: /assets/critical_places/locations.json
-        icon: /assets/critical_places/Places.svg
+      critical_sites:
+        src: /assets/critical_sites/locations.json
+        icon: /assets/critical_sites/Places.svg
         always_visible: false
 
       population_density:
