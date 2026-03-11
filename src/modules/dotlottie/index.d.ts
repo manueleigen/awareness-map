@@ -1,0 +1,9 @@
+import "./index-Bqq1Mn32.js";
+import { DotLottieWC } from "./dotlottie-wc.js";
+import { DotLottieWorkerWC } from "./dotlottie-worker-wc.js";
+
+//#region src/index.d.ts
+declare const setWasmUrl: (url: string) => void;
+//#endregion
+export { DotLottieWC, DotLottieWorkerWC, setWasmUrl };
+//# sourceMappingURL=index.d.ts.map
