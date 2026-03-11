@@ -48,7 +48,6 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     const labels = create('div');
     labels.className = 'slider-label-container';
     
-    // Dynamic labels based on start_time and end_time with sensible hour steps
     const timeSteps = calculateTimeSteps(config.start_time || '00:00', config.end_time || '24:00');
     timeSteps.forEach(time => {
         const lbl = create('label');
@@ -58,32 +57,52 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 
     sliderWrapper.append(container, labels);
 
-    range.addEventListener('input', () => {
-        const player = document.getElementById(`player-${config.id}`) as any;
-        if (!player) return;
+    // Performance Optimization: Throttle updates using requestAnimationFrame
+    let ticking = false;
+    let cachedCore: any = null;
+    let cachedWidth: number = 0;
 
-        const update = (core: any) => {
-            const val = parseFloat(range.value);
-            if (typeof core.setFrame === 'function') {
-                const totalFrames = core.totalFrames || 100;
-                core.setFrame((val / 100) * totalFrames);
-            } else if (typeof core.seek === 'function') {
-                core.seek(val);
+    const performUpdate = () => {
+        const val = parseFloat(range.value);
+        
+        // 1. Update Lottie
+        if (cachedCore) {
+            if (typeof cachedCore.setFrame === 'function') {
+                const totalFrames = cachedCore.totalFrames || 100;
+                cachedCore.setFrame((val / 100) * totalFrames);
+            } else if (typeof cachedCore.seek === 'function') {
+                cachedCore.seek(val);
             }
-            core.pause();
-        };
-
-        if (player.dotLottie && player.dotLottie.isLoaded) {
-            update(player.dotLottie);
-        } else {
-            waitForPlayerReady(player).then(update).catch(() => {});
+            // Only call pause if it's actually playing to save cycles
+            if (cachedCore.isPlaying) cachedCore.pause();
         }
-        updateThumbPosition(range, thumbIcon);
+
+        // 2. Update UI (Thumb)
+        if (cachedWidth === 0) cachedWidth = range.offsetWidth || 1380;
+        updateThumbPosition(range, thumbIcon, cachedWidth);
+        
+        ticking = false;
+    };
+
+    range.addEventListener('input', () => {
+        if (!ticking) {
+            requestAnimationFrame(performUpdate);
+            ticking = true;
+        }
     });
 
-    // Initial positioning after DOM attachment
-    setTimeout(() => updateThumbPosition(range, thumbIcon), 100);
-    
+    // Reset cached width on window resize
+    window.addEventListener('resize', () => { cachedWidth = 0; });
+
+    // Initial load of the Lottie core
+    const player = document.getElementById(`player-${config.id}`) as any;
+    if (player) {
+        waitForPlayerReady(player).then(core => {
+            cachedCore = core;
+            performUpdate(); // Sync initial state
+        }).catch(() => {});
+    }
+
     return sliderWrapper;
 }
 
@@ -100,11 +119,8 @@ function calculateTimeSteps(start: string, end: string): string[] {
 
     if (diff <= 0) return [formatH(s)];
 
-    // Sensible steps for hours
     const niceSteps = [1, 2, 3, 4, 6, 12];
     let step = 1;
-    
-    // Pick a step that results in roughly 4-6 labels
     for (const candidate of niceSteps) {
         step = candidate;
         if (diff / candidate <= 5) break;
@@ -114,29 +130,27 @@ function calculateTimeSteps(start: string, end: string): string[] {
     for (let h = s; h < e; h += step) {
         labels.push(formatH(h));
     }
-    
-    // Always ensure the exact end hour is included
     const lastLabel = formatH(e);
     if (labels[labels.length - 1] !== lastLabel) {
         labels.push(lastLabel);
     }
-
     return labels;
 }
 
 /**
  * Calculates and updates the custom thumb icon position.
+ * @param width Optional pre-calculated width to avoid layout thrashing
  */
-export function updateThumbPosition(range: HTMLInputElement, thumbIcon: HTMLElement) {
+export function updateThumbPosition(range: HTMLInputElement, thumbIcon: HTMLElement, width?: number) {
     const val = parseFloat(range.value);
     const min = parseFloat(range.min);
     const max = parseFloat(range.max);
     const percent = (val - min) / (max - min);
     
-    const width = range.offsetWidth || 1380;
+    const trackWidth = width || range.offsetWidth || 1380;
     const thumbWidth = 90;
     const padding = thumbWidth / 2;
-    const usableWidth = width - thumbWidth;
+    const usableWidth = trackWidth - thumbWidth;
     const thumbPos = (percent * usableWidth) + padding;
     
     thumbIcon.style.left = `${thumbPos}px`;
