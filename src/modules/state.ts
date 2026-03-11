@@ -15,6 +15,7 @@ export const app: AppState = {
     slidersContainer: null,
     layers: null,
     escapeBtn: null,
-    languageSwitch: null
+    languageSwitch: null,
+    poiOverlay: null
   }
 };

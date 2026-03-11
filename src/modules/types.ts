@@ -20,6 +20,7 @@ export interface ContextLayer {
   src: string;
   icon?: string;
   slider_icon?: string;
+  poi_icon?: string;
   initially_visible?: boolean;
 }
 
@@ -55,5 +56,6 @@ export interface AppState {
     layers: HTMLElement | null;
     escapeBtn: HTMLElement | null;
     languageSwitch: HTMLInputElement | null;
+    poiOverlay: HTMLElement | null;
   };
 }

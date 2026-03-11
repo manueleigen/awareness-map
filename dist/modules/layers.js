@@ -1,7 +1,8 @@
 import { app } from './state.js';
-import { create, loadJSON, loadYAML, loadTEXT } from './lib.js';
+import { create, loadYAML, loadTEXT } from './lib.js';
 import { t } from './translater.js';
 import { buildSlider, updateThumbPosition, waitForPlayerReady } from './time-slider.js';
+import { renderPOILayer } from './poi.js';
 let layerDefinitions = [];
 let context = null;
 export async function initLayers() {
@@ -144,20 +145,7 @@ async function buildLayerUI(config, ctxLayer, parent, controlParent) {
                 wrapper.append(player);
                 break;
             case 'locations':
-                const poiContainer = create("div");
-                poiContainer.className = "poi-container";
-                const data = await loadJSON(src);
-                if (data && data.locations) {
-                    data.locations.forEach(loc => {
-                        const marker = create("div");
-                        marker.className = "poi-marker";
-                        marker.style.left = `${loc.x}px`;
-                        marker.style.top = `${loc.y}px`;
-                        marker.title = loc.translations?.name?.[app.language] || "POI";
-                        marker.addEventListener('click', () => console.log("POI ausgewählt:", marker.title));
-                        poiContainer.append(marker);
-                    });
-                }
+                const poiContainer = await renderPOILayer(src, ctxLayer);
                 wrapper.append(poiContainer);
                 break;
         }

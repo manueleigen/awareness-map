@@ -15,6 +15,7 @@ export function initUIReferences(): void {
     app.ui.layers = el('#layers');
     app.ui.escapeBtn = el('#escape-btn');
     app.ui.languageSwitch = el<HTMLInputElement>('#language-switch input');
+    app.ui.poiOverlay = el('#poi-overlay');
 }
 
 export async function initApp() {
