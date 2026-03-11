@@ -2,19 +2,19 @@
 
 Current task list and development milestones.
 
-## Phase 1: Navigation & Logic
+## Prio 1
 - [x] Implement Scenario/Role selection flow
 - [ ] Implement Quiz-Logic (Outcomes based on scenario progress)
 - [x] Sync AppState with Layer rendering (View-aware)
-- [ ] Build POI detail overlays (Modals for data inspection)
+- [x] Build POI detail overlays (Modals for data inspection)
 - [x] Build animation slider-ui and logic (Optimized for 4K)
 
-## Phase 2: Map Controls
+## Prio 2
 - [ ] Build Opacity controllers for blend-layers
 - [x] Implement Lottie Timeline sync (Seek/Pause logic)
 - [x] Implement initially_visible logic in context.yaml
 
-## Phase 3: Technical & Assets
+## Prio 3
 - [ ] Setup PWA & Offline support (Service Worker)
 - [x] Add Asset fallbacks & Error handling (Resilient loading)
 - [x] Finalize 4K Assets & YAML content (Migrated to central folders)

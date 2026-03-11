@@ -31,7 +31,7 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
             marker.title = loc.translations?.name?.[app.language] || "POI";
             marker.addEventListener('click', (e) => {
                 e.stopPropagation();
-                showPOIOverlay(loc, poiSize, marker);
+                showPOIOverlay(poiContainer, loc, poiSize, marker);
             });
             poiContainer.append(marker);
         });
@@ -40,13 +40,15 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
     return poiContainer;
 }
 
-export function showPOIOverlay(loc: any, poiSize: number, marker: HTMLDivElement): void {
-    const { poiOverlay } = app.ui;
-    if (!poiOverlay) return;
+export function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiSize: number, marker: HTMLDivElement): void {
 
     // Reset/Close any existing overlay
-    poiOverlay.innerHTML = '';
-    poiOverlay.classList.remove('hidden');
+    app.ui.poiOverlay?.remove();
+    console.log(app.ui.poiOverlay)
+
+    
+    const poiOverlay = create('div')
+    poiOverlay.setAttribute ('id', 'poi-overlay');
 
     // Position at marker coordinates
     poiOverlay.style.left = `${loc.x - (poiSize)}px`;
@@ -83,11 +85,13 @@ export function showPOIOverlay(loc: any, poiSize: number, marker: HTMLDivElement
 
     content.append(head, statusValue);
     poiOverlay.append(content);
+    poiContainer.append(poiOverlay);
+    app.ui.poiOverlay = poiOverlay;
 }
 
 export function hidePOIOverlay(): void {
     if (app.ui.poiOverlay) {
-        app.ui.poiOverlay.classList.add('hidden');
+        app.ui.poiOverlay.remove();
         app.ui.poiOverlay.innerHTML = '';
     }
 }
