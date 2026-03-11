@@ -124,7 +124,7 @@ button:active {
   background: var(--secondary);
 }
 
-#escape-btn {
+#back-btn {
   cursor: pointer;
   background: #eee;
   padding: 5px 15px;
@@ -133,7 +133,7 @@ button:active {
   color: var(--primary);
   transition: background 0.2s;
 }
-#escape-btn:hover {
+#back-btn:hover {
   background: #ddd;
 }
 
@@ -243,10 +243,33 @@ body #app {
 }
 #info-box-head {
   display: flex;
+  width: 100%;
   padding: 0 23px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+#info-box-head #escape-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: National Park;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 39px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--secondary);
+  cursor: pointer;
+}
+#info-box-head #escape-btn::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-image: url("/assets/icons/ui/esc-btn-icon.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #info-box-content {
   padding-left: 23px;

@@ -56,6 +56,7 @@ export async function updateView(): Promise<void> {
     const { infoBoxContent, escapeBtn } = app.ui;
     if (!infoBoxContent) return;
 
+    console.log("view", app.view)
     // Toggle escape button visibility: hidden on home, visible otherwise
     if (escapeBtn) {
         if (app.view === 'home') {

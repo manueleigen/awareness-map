@@ -82,5 +82,7 @@ export function renderRoleSelection(): void {
         await updateView();
     });
 
-    infoBoxControls.append(btnGroup, backBtn);
+
+
+    infoBoxControls.append(btnGroup);//, backBtn
 }

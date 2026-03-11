@@ -22,8 +22,8 @@ layers:
 
   - id: critical_places
     type: locations
-    title_key: layers.critical_places.title
-    description_key: layers.critical_places.description
+    title_key: layers.critical_sites.title
+    description_key: layers.critical_sites.description
     toggle: available
     interaction: inspect-location
     icon_mode: per-location
