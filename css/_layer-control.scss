@@ -22,29 +22,104 @@
     position: relative;
     height: fit-content;
 
-    img {
+    .toggle-icon {
       width: 165px;
       height: 165px;
+      cursor: pointer;
+      transition: 200ms ease-out;
       @include drop-shadow-svg();
+
+      svg {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        transition: 200ms ease-out;
+      }
+
+      .toggle {
+        &__border {
+          transition: 200ms ease-out;
+        }
+        &__backdrop {
+          transition: 200ms ease-out;
+        }
+        &__icon {
+          transition: 200ms ease-out;
+        }
+      }
     }
 
     label {
       bottom: 0;
-      background-color: var(--backdrop-dark);
+      background-color: var(--backdrop-dark-75);
       padding: 7px 10px 9px 10px;
       margin-top: 15px;
-      border-radius: 3px;
+      border-radius: 7px;
       text-align: center;
+      cursor: pointer;
+      transition: 200ms ease-out;
       @include drop-shadow();
     }
 
+    &:active {
+      .toggle-icon {
+        .toggle {
+          &__border {
+            fill: var(--white);
+          }
+          &__backdrop {
+            fill: var(--button);
+          }
+        }
+      }
+
+      label {
+        background-color: var(--white);
+        color: var(--primary);
+      }
+
+    }
+
     &.active {
-      img {
+      .toggle-icon {
         @include drop-shadow-svg-active();
+
+        .toggle {
+          &__border {
+            fill: var(--white);
+          }
+          &__backdrop {
+            fill: var(--primary);
+          }
+          &__icon {
+            fill: var(--button);
+          }
+        }
+      }
+
+      &:active {
+        .toggle-icon {
+          .toggle {
+            &__backdrop {
+              fill: var(--secondary);
+            }
+            &__icon {
+              fill: var(--white);
+            }
+          }
+        }
+
+        label {
+          background-color: var(--secondary);
+          color: var(--white);
+        }
       }
 
       label {
         @include drop-shadow-active();
+
+        background-color: var(--white);
+        color: var(--primary);
       }
     }
   }

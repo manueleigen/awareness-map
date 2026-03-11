@@ -450,25 +450,75 @@ body #app {
   position: relative;
   height: fit-content;
 }
-#layer-control .toggleSwitch img {
+#layer-control .toggleSwitch .toggle-icon {
   width: 165px;
   height: 165px;
+  cursor: pointer;
+  transition: 200ms ease-out;
   filter: drop-shadow(0 0 30px rgba(0, 4, 160, 0.55));
+}
+#layer-control .toggleSwitch .toggle-icon svg {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: 200ms ease-out;
+}
+#layer-control .toggleSwitch .toggle-icon .toggle__border {
+  transition: 200ms ease-out;
+}
+#layer-control .toggleSwitch .toggle-icon .toggle__backdrop {
+  transition: 200ms ease-out;
+}
+#layer-control .toggleSwitch .toggle-icon .toggle__icon {
+  transition: 200ms ease-out;
 }
 #layer-control .toggleSwitch label {
   bottom: 0;
-  background-color: var(--backdrop-dark);
+  background-color: var(--backdrop-dark-75);
   padding: 7px 10px 9px 10px;
   margin-top: 15px;
-  border-radius: 3px;
+  border-radius: 7px;
   text-align: center;
+  cursor: pointer;
+  transition: 200ms ease-out;
   box-shadow: 0 0 30px 0 rgba(0, 4, 160, 0.55);
 }
-#layer-control .toggleSwitch.active img {
+#layer-control .toggleSwitch:active .toggle-icon .toggle__border {
+  fill: var(--white);
+}
+#layer-control .toggleSwitch:active .toggle-icon .toggle__backdrop {
+  fill: var(--button);
+}
+#layer-control .toggleSwitch:active label {
+  background-color: var(--white);
+  color: var(--primary);
+}
+#layer-control .toggleSwitch.active .toggle-icon {
   filter: drop-shadow(0 0 30px rgba(209, 245, 248, 0.55));
+}
+#layer-control .toggleSwitch.active .toggle-icon .toggle__border {
+  fill: var(--white);
+}
+#layer-control .toggleSwitch.active .toggle-icon .toggle__backdrop {
+  fill: var(--primary);
+}
+#layer-control .toggleSwitch.active .toggle-icon .toggle__icon {
+  fill: var(--button);
+}
+#layer-control .toggleSwitch.active:active .toggle-icon .toggle__backdrop {
+  fill: var(--secondary);
+}
+#layer-control .toggleSwitch.active:active .toggle-icon .toggle__icon {
+  fill: var(--white);
+}
+#layer-control .toggleSwitch.active:active label {
+  background-color: var(--secondary);
+  color: var(--white);
 }
 #layer-control .toggleSwitch.active label {
   box-shadow: 0 0 30px 0 rgba(209, 245, 248, 0.55);
+  background-color: var(--white);
+  color: var(--primary);
 }
 
 :root {

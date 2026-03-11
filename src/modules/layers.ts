@@ -178,11 +178,17 @@ async function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, 
         const toggle = create('div');
         toggle.className = `toggleSwitch ${isVisible ? 'active' : ''}`;
         
-        const icon = create('img');
+        const iconWrapper = create('div');
+        iconWrapper.className = 'toggle-icon';
         const iconSrc = ctxLayer?.icon || '/assets/icons/default_icon.svg';
-        icon.src = iconSrc;
-        icon.onerror = () => { icon.src = '/assets/icons/default_icon.svg'; };
-        toggle.append(icon);
+        try {
+            const svgText = await loadTEXT<string>(iconSrc);
+            iconWrapper.innerHTML = svgText;
+        } catch {
+            const fallbackSvg = await loadTEXT<string>('/assets/icons/default_icon.svg').catch(() => '');
+            iconWrapper.innerHTML = fallbackSvg;
+        }
+        toggle.append(iconWrapper);
 
         const label = create('label');
         label.innerText = config.title_key ? t(config.title_key, "Layer") : "Layer";
