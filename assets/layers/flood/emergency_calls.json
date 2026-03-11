@@ -1,16 +1,59 @@
 {
-    "id": "P1",
-    "x":"200",
-    "y":"332",
-    "translations":{
-        "en": {
-            "title":"Some Location",
-            "text":"With Description"
-        },
-        "de": {
-            "title":"Ein Ort",
-            "text":"Mit Beschreibung"
-        }
+  "layer_id": "emergency_calls",
+  "locations": [
+    {
+      "id": "flood_emergency_call_01",
+      "x": 1579,
+      "y": 487,
+      "translations": {
+        "name": { "de": "Call 1", "en": "Call 1" },
+        "status": { "de": "Betriebsbereit", "en": "Operational" }
+      }
+    },
+    {
+      "id": "flood_emergency_call_02",
+      "x": 2440,
+      "y": 730,
+      "translations": {
+        "name": { "de": "Call 2", "en": "Call 2" },
+        "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
+      }
+    },
+    {
+      "id": "flood_emergency_call_03",
+      "x": 1044,
+      "y": 1080,
+      "translations": {
+        "name": { "de": "Call 3", "en": "Call 3" },
+        "status": { "de": "Gesperrt", "en": "Closed" }
+      }
+    },
+    {
+      "id": "flood_emergency_call_04",
+      "x": 1968,
+      "y": 1271,
+      "translations": {
+        "name": { "de": "Call 4", "en": "Call 4" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    },
+    {
+      "id": "flood_emergency_call_05",
+      "x": 2911,
+      "y": 1210,
+      "translations": {
+        "name": { "de": "Call 5", "en": "Call 5" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    },
+    {
+      "id": "flood_emergency_call_06",  
+      "x": 1283,
+      "y": 2032,
+      "translations": {
+        "name": { "de": "Call 6", "en": "Call 6" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
     }
-    
+  ]
 }

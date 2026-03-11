@@ -2,42 +2,56 @@
   "layer_id": "critical_sites",
   "locations": [
     {
-      "id": "cs_hospital_01",
-      "type": "hospital",
-      "x": 1240,
-      "y": 850,
+      "id": "critical_site1_1",
+      "x": 264,
+      "y": 896,
       "translations": {
-        "name": { "de": "Zentralklinikum Nord", "en": "Central Hospital North" },
+        "name": { "de": "Umspannwerk", "en": "Substation" },
         "status": { "de": "Betriebsbereit", "en": "Operational" }
       }
     },
     {
-      "id": "cs_power_station",
-      "type": "infrastructure",
-      "x": 2800,
-      "y": 1420,
+      "id": "critical_site_2",
+      "x": 1920,
+      "y": 608,
       "translations": {
-        "name": { "de": "Umspannwerk Süd", "en": "Substation South" },
+        "name": { "de": "Oberschule", "en": "High School" },
         "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
       }
     },
     {
-      "id": "cs_bridge_main",
-      "type": "bridge",
-      "x": 1920,
-      "y": 1080,
+      "id": "critical_site_3",
+      "x": 3139,
+      "y": 976,
       "translations": {
-        "name": { "de": "Hauptbrücke (Zentrum)", "en": "Main Bridge (Center)" },
+        "name": { "de": "Hauptbahnhof", "en": "Main Railway Station" },
         "status": { "de": "Gesperrt", "en": "Closed" }
       }
     },
     {
-      "id": "cs_fire_station",
-      "type": "fire_station",
-      "x": 850,
-      "y": 1600,
+      "id": "critical_site_4",
+      "x": 1585,
+      "y": 1680,
       "translations": {
-        "name": { "de": "Feuerwache 1", "en": "Fire Station 1" },
+        "name": { "de": "Krankenhaus", "en": "Hospital" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    },
+    {
+      "id": "critical_site_5",
+      "x": 2336,
+      "y": 1419,
+      "translations": {
+        "name": { "de": "Veranstaltungsort", "en": "Event Venue" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    },
+    {
+      "id": "critical_site_6s",
+      "x": 2993,
+      "y": 1516,
+      "translations": {
+        "name": { "de": "Polizeihauptwache", "en": "Main Police Station" },
         "status": { "de": "Im Einsatz", "en": "Deployed" }
       }
     }
