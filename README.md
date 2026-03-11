@@ -9,11 +9,17 @@ This interactive PWA is designed for a 65" 4K touch-table, simulating a disaster
 4. **Access:** Open `index.html` in a Chromium-based browser (optimized for 3840x2160).
 
 ## Project Structure
-- **/assets/**: Media assets (SVG, Lottie, JSON) organized by scenario.
+- **/assets/layers/**: Core map assets (SVG, PNG, JSON).
+- **/assets/icons/**: UI and marker icons.
 - **/config/**: YAML files for layers, context mappings, and translations.
 - **/css/**: 4K-optimized stylesheets using `vw` and `rem` units.
-- **/src/**: TypeScript source code (Logic, State, Rendering).
-- **/dist/**: Compiled JavaScript output for production.
+- **/src/modules/**: TypeScript source code (Logic, State, Rendering).
+- **/src/modules/dotlottie/**: Local Lottie Web Component libraries.
+
+## Key Technical Concepts
+- **Offline Reliability:** All libraries and assets are bundled locally.
+- **Context-Driven:** Visibility and availability of layers are controlled via `config/context.yaml` using the `initially_visible` flag.
+- **Performance:** Time-sliders are optimized with `requestAnimationFrame` to ensure 60fps on 4K displays.
 
 ---
 **Project Documentation:**

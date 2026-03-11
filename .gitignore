@@ -45,3 +45,5 @@ lerna-debug.log*
 .temp/
 tmp/
 .DS_Store
+GEMINI.md
+wrap-up.md

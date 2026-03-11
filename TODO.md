@@ -4,19 +4,20 @@ Current task list and development milestones.
 
 ## Phase 1: Navigation & Logic
 - [x] Implement Scenario/Role selection flow
-- [ ] Implement Quiz-Logic
-- [x] Sync AppState with Layer rendering
-- [ ] Build POI detail overlays
-- [ ] Build animation slider-ui and logic
+- [ ] Implement Quiz-Logic (Outcomes based on scenario progress)
+- [x] Sync AppState with Layer rendering (View-aware)
+- [ ] Build POI detail overlays (Modals for data inspection)
+- [x] Build animation slider-ui and logic (Optimized for 4K)
 
 ## Phase 2: Map Controls
-- [ ] Build Opacity & Playback controllers
-- [ ] Implement Lottie Timeline sync
+- [ ] Build Opacity controllers for blend-layers
+- [x] Implement Lottie Timeline sync (Seek/Pause logic)
+- [x] Implement initially_visible logic in context.yaml
 
 ## Phase 3: Technical & Assets
-- [ ] Setup PWA & Offline support
-- [ ] Add Asset fallbacks & Error handling
-- [ ] Finalize 4K Assets & YAML content
+- [ ] Setup PWA & Offline support (Service Worker)
+- [x] Add Asset fallbacks & Error handling (Resilient loading)
+- [x] Finalize 4K Assets & YAML content (Migrated to central folders)
 
 ## Offene Fragen:
 - [ ] Reload lieber in der App regeln statt über den browser? Reload könnte zu glitches führen.
