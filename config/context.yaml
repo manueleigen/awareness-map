@@ -2,42 +2,42 @@ contexts:
   global:
     layers:
       base_layer_buildings:
-        src: /assets/global/base_map/base-layer_buildings_optimiert.svg
+        src: /assets/layers/base-layer_buildings_optimiert.svg
         always_visible: true
 
       base_layer_river:
-        src: /assets/global/base_map/base-layer_river.svg 
+        src: /assets/layers/base-layer_river.svg 
         always_visible: true
         
       base_layer_streets:
-        src: /assets/global/base_map/base-layer_streets.svg
+        src: /assets/layers/base-layer_streets.svg
         always_visible: true
 
 
       base_layer_glow:
-        src: /assets/global/base_map/base-layer_buildings_optimiert.svg 
-        icon: /assets/global/icons/default_icon.svg
+        src: /assets/layers/base-layer_buildings_optimiert.svg 
+        icon: /assets/icons/default_icon.svg
         always_visible: true
 
       weather_data:
         src: /assets/global/weather_data.json
-        icon: /assets/global/icons/weather.svg
+        icon: /assets/icons/weather.svg
         always_visible: false
 
       critical_sites:
-        src: /assets/critical_sites/locations.json
-        icon: /assets/global/icons/critical_sites.svg
+        src: /assets/layers/flood/critical_sites.json
+        icon: /assets/icons/critical_sites.svg
         always_visible: false
 
       population_density:
-        src: /assets/population_density/density.png
-        icon: /assets/global/icons/population_density.svg
+        src: /assets/layers/population_density.png
+        icon: /assets/icons/population_density.svg
         always_visible: false
         class: blend-layer
 
       evacuation_zones:
-        src: /assets/evacuation_zones/areas-dummy.svg
-        icon: /assets/global/icons/default_icon.svg
+        src: /assets/layers/flood/evacuation_zones.svg
+        icon: /assets/icons/default_icon.svg
         always_visible: false
 
   scenarios:
@@ -45,7 +45,7 @@ contexts:
       layers:
         flood_simulation:
           src: /assets/flood/flood_simulation/animation.lottie
-          icon: /assets/global/icons/flood.svg
+          icon: /assets/icons/flood.svg
           always_visible: false
 
       roles:
@@ -53,29 +53,29 @@ contexts:
           layers:
             emergency_vehicles:
               src: /assets/global/emergancy-calls/locations.json
-              icon: /assets/global/icons/emergency_vehicles.svg
+              icon: /assets/icons/emergency_vehicles.svg
               always_visible: false
 
             emergency_calls:
-              src: /assets/global/emergancy-calls/points.json
-              icon: /assets/global/emergancy-calls/EmergencyCall.svg
+              src: /assets/layers/flood/emergency_calls.json
+              icon: /assets/icons/emergency_calls.svg
               always_visible: false
 
             social_media:
               src: /assets/flood/fire_brigade/social_media/locations.json
-              icon: /assets/global/icons/social_media.svg
+              icon: /assets/icons/social_media.svg
               always_visible: false
 
         police:
           layers:
             social_media:
               src: /assets/flood/police/social_media/locations.json
-              icon: /assets/global/icons/social_media.svg
+              icon: /assets/icons/social_media.svg
               always_visible: false
 
             evacuation_zones:
               src: /assets/flood/police/evacuation_zones/zones.svg
-              icon: /assets/global/icons/default_icon.svg
+              icon: /assets/icons/default_icon.svg
               always_visible: false
 
             road_closures:
@@ -87,7 +87,7 @@ contexts:
           layers:
             social_media:
               src: /assets/flood/crisis_staff/social_media/locations.json
-              icon: /assets/global/icons/social_media.svg
+              icon: /assets/icons/social_media.svg
               always_visible: false
 
             drone_feed:
