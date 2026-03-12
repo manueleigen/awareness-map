@@ -140,6 +140,7 @@ button:active {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
@@ -148,6 +149,8 @@ body {
   overflow: hidden;
   zoom: 0.5;
   background-color: var(--backdrop-dark);
+  touch-action: none;
+  -ms-touch-action: none;
 }
 body #app {
   position: relative;
@@ -221,7 +224,6 @@ body #app {
   position: absolute;
   z-index: 1005;
   pointer-events: none;
-  box-shadow: var(--dropshadow-wide-blue);
   max-width: 700px;
   display: inline-block;
   border-radius: 55px !important;
@@ -322,14 +324,14 @@ body #app {
   left: 60px;
   width: 850px;
   height: 600px;
-  padding: 17px 7px 7px 7px;
+  padding: 7px;
   border-radius: 32px;
   background-color: var(--white);
 }
 #info-box-head {
   display: flex;
   width: 100%;
-  padding: 0 23px;
+  padding: 0;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
@@ -339,7 +341,8 @@ body #app {
   align-items: center;
   transition: 200ms ease-out;
   gap: 6px;
-  font-family: "National Park" sans-serif;
+  padding: 20px 33px 10px 10px;
+  font-family: "National Park", sans-serif;
   font-weight: 800;
   font-size: 25px;
   line-height: 39px;
@@ -376,10 +379,13 @@ body #app {
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 10px;
+  padding: 20px 10px 10px 33px;
+  cursor: pointer;
 }
 #language-switch > span {
   transition: opacity 0.3s;
+  cursor: pointer;
+  user-select: none;
 }
 #language-switch:has(input:not(:checked)) > span:last-of-type {
   opacity: 0.35;
@@ -577,6 +583,7 @@ body #app {
   transition: opacity 0.2s;
   box-shadow: var(--dropshadow-wide-blue);
   cursor: pointer;
+  touch-action: auto;
 }
 
 .range-slider::-webkit-slider-thumb {

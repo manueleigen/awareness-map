@@ -8,14 +8,14 @@
   left: 60px;
   width: 850px;
   height: 600px;
-  padding: 17px 7px 7px 7px;
+  padding: 7px;
   border-radius: 32px;
   background-color: var(--white);
 
   &-head {
     display: flex;
     width:100%;
-    padding: 0 23px;
+    padding: 0;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -25,7 +25,8 @@
       align-items: center;
       transition: 200ms ease-out;
       gap: 6px;
-      font-family: 'National Park' sans-serif;
+      padding: 20px 33px 10px 10px;
+      font-family: 'National Park', sans-serif;
       font-weight: 800;
       font-size: 25px;
       line-height: 39px;

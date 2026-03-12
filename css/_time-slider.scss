@@ -44,6 +44,7 @@
   transition: opacity .2s;
   box-shadow: var(--dropshadow-wide-blue);
   cursor: pointer;
+  touch-action: auto;
 }
 
 .range-slider::-webkit-slider-thumb {
