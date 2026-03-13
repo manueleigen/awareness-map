@@ -5,7 +5,7 @@ import { Language } from "./types.js";
 import { app } from "./state.js";
 import { el, create } from "./lib.js";
 import { startQuiz } from "./engine.js";
-import { initCoverScale } from './screen-zoom.js';
+import { initDualScale } from './screen-zoom.js';
 import { hidePOIOverlay } from './poi.js';
 
 export function initUIReferences(): void {
@@ -55,9 +55,7 @@ export async function initApp() {
         });
 
         // 4. Scale app to screen
-        if(app.ui.app){
-            const scaler = initCoverScale( { element: app.ui.app }) ;
-        }
+        initDualScale();
 
         // 5. Initialer Render
         await updateView();

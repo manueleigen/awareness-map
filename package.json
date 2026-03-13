@@ -8,7 +8,9 @@
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json --watch",
     "sass:watch": "sass css/style.scss css/style.css --watch --poll",
-    "sass:build": "sass css/style.scss css/style.css --no-source-map --style=compressed"
+    "sass:build": "sass css/style.scss css/style.css --no-source-map --style=compressed",
+    "build:all": "npm run build && npm run sass:build",
+    "dev": "npm run build:watch & npm run sass:watch"
   },
   "keywords": [],
   "author": "",

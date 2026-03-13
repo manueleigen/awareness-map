@@ -1,15 +1,15 @@
-import { create } from '../lib.js';
+import { create, group } from '../lib.js';
 import { t } from '../translater.js';
 import { StoryPoint, BaseStoryPoint } from './types.js';
 
 export function clearQuizAnswers(): void {
-    document.querySelectorAll('.quiz-answer').forEach(el => el.classList.remove('quiz-answer'));
-    document.querySelectorAll('.quiz-option-btn.selected').forEach(el => el.classList.remove('selected'));
-    document.querySelectorAll('.quiz-pulse').forEach(el => el.classList.remove('quiz-pulse'));
-    document.querySelectorAll('.quiz-location-pulse').forEach(el => el.classList.remove('quiz-location-pulse'));
-    document.querySelectorAll('.quiz-location-marker').forEach(el => el.remove());
-    document.querySelectorAll('.quiz-solution-marker').forEach(el => el.remove());
-    document.querySelectorAll('.quiz-solution-radius').forEach(el => el.remove());
+    group('.quiz-answer').forEach(el => el.classList.remove('quiz-answer'));
+    group('.quiz-option-btn.selected').forEach(el => el.classList.remove('selected'));
+    group('.quiz-pulse').forEach(el => el.classList.remove('quiz-pulse'));
+    group('.quiz-location-pulse').forEach(el => el.classList.remove('quiz-location-pulse'));
+    group('.quiz-location-marker').forEach(el => el.remove());
+    group('.quiz-solution-marker').forEach(el => el.remove());
+    group('.quiz-solution-radius').forEach(el => el.remove());
 }
 
 export function renderProgress(container: HTMLElement, point: StoryPoint): void {

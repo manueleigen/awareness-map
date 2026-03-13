@@ -1,4 +1,4 @@
-import { create } from '../lib.js';
+import { create, el } from '../lib.js';
 import { t } from '../translater.js';
 import { LocationStoryPoint, SelectionStoryPoint } from './types.js';
 import { clearQuizAnswers } from './ui.js';
@@ -24,7 +24,7 @@ export function renderLocation(
     status.innerText = t('crises_challange.common.click_to_place', 'Klicke, um einen Punkt zu setzen.');
     content.append(question, status);
 
-    const target = document.querySelector<HTMLElement>(point.target);
+    const target = el<HTMLElement>(point.target);
     if (target) target.classList.add('quiz-location-pulse');
 
     let placed: { x: number; y: number } | null = null;
@@ -106,7 +106,7 @@ export function renderSelection(
     const status = create('p'); status.className = 'quiz-status';
     content.append(question, status);
 
-    const target = document.querySelector<HTMLElement>(point.target);
+    const target = el<HTMLElement>(point.target);
     clearQuizAnswers();
     const spatialFilter = getLastLocationResult();
 
