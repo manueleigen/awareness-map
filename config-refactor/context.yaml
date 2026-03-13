@@ -2,19 +2,19 @@ contexts:
   global:
     layers:
       base_layer_buildings:
-        src: /assets/layers/base-layer_buildings_optimiert.svg
+        src: /assets/layers/buildings.webp
         initially_visible: true
 
       base_layer_river:
-        src: /assets/layers/base-layer_river.svg 
+        src: /assets/layers/base-layer_river.webp
         initially_visible: true
         
       base_layer_streets:
-        src: /assets/layers/base-layer_streets.svg
+        src: /assets/layers/streets.webp
         initially_visible: true
 
       base_layer_glow:
-        src: /assets/layers/base-layer_buildings_optimiert.svg 
+        src: /assets/layers/glow.webp
         icon: /assets/icons/default_icon.svg
         initially_visible: true
 

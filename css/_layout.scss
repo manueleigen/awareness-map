@@ -1,6 +1,7 @@
 // Layer-Layout
 #layers {
   position: relative;
+  contain: layout style;
 }
 
 .layer,
@@ -8,10 +9,18 @@
   width: var(--screen-width);
   height: var(--screen-height);
   position: absolute;
-  transition: all ease-in-out 300ms;
+  transition: opacity ease-in-out 300ms;
   opacity: 1;
+  will-change: opacity;
+}
+
+.layer img {
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0);
 }
 
 .layer.hidden {
   opacity: 0 !important;
+  will-change: auto;
 }
