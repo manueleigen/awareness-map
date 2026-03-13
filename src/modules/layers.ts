@@ -149,7 +149,7 @@ async function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, 
                 const svg = await loadTEXT(src);
                 if (svg) {
                     areaWrapper.innerHTML = svg as string;
-                    areaWrapper.querySelectorAll('polygon').forEach(obj => {
+                    areaWrapper.querySelectorAll('polygon, path.st0').forEach(obj => {
                         obj.addEventListener('click', () => obj.classList.toggle('active'));
                     });
                     wrapper.append(areaWrapper);

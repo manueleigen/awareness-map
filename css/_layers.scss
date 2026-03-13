@@ -7,7 +7,8 @@
   mix-blend-mode: lighten;
 }
 
-.layer-areas polygon.active{
+.layer-areas polygon.active,
+.layer-areas path.st0.active {
   stroke-width: 10px;
   stroke:  white;
 }
