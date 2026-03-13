@@ -3,6 +3,10 @@ import { setLanguage } from "../modules/translater.js";
 import { Language } from "../modules/types.js";
 import { app } from "../modules/state.js";
 
+/**
+ * List of CSS selectors for elements that should remain interactive.
+ * All other areas will have touch events blocked to prevent accidental input.
+ */
 const INTERACTIVE_SELECTORS = [
     'button',
     'input',
@@ -19,22 +23,27 @@ const INTERACTIVE_SELECTORS = [
 ].join(',');
 
 /**
- * Blocks touch events on non-interactive areas so that
- * resting hands on the multitouch screen don't interfere.
- * Only whitelisted interactive elements receive touch input.
+ * Blocks touch events on non-interactive areas.
+ * This is crucial for large touch-tables to prevent resting hands 
+ * from interfering with the application.
  */
 function setupTouchGuard(): void {
     document.addEventListener('touchstart', (e: TouchEvent) => {
         const target = e.target as Element;
+        // If the touch target is not an interactive element, prevent the default behavior
         if (target && !target.closest(INTERACTIVE_SELECTORS)) {
             e.preventDefault();
         }
     }, { passive: false });
 }
 
+/**
+ * Initializes global UI listeners like the language switch and escape button.
+ */
 function setupGlobalListeners(): void {
     const { languageSwitch, escapeBtn } = app.ui;
 
+    // Handle language toggle (DE/EN)
     if (languageSwitch) {
         languageSwitch.checked = app.language === "de";
         languageSwitch.addEventListener('change', async () => {
@@ -43,10 +52,11 @@ function setupGlobalListeners(): void {
                 await setLanguage(nextLang);
                 await updateView();
             } catch (err) {
-                console.error("Fehler beim Sprachwechsel:", err);
+                console.error("Error during language switch:", err);
             }
         });
 
+        // Allow clicking the container to toggle the switch
         const langContainer = languageSwitch.closest('#language-switch');
         if (langContainer) {
             langContainer.addEventListener('click', (e) => {
@@ -57,6 +67,7 @@ function setupGlobalListeners(): void {
         }
     }
 
+    // Reset the application to the home screen
     if (escapeBtn) {
         escapeBtn.addEventListener('click', () => {
             resetApp();
@@ -64,7 +75,9 @@ function setupGlobalListeners(): void {
     }
 }
 
-// Start the app
+/**
+ * Main Entry Point: Initialize the application modules and setup global listeners.
+ */
 initApp().then(() => {
     setupTouchGuard();
     setupGlobalListeners();

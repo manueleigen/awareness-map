@@ -1,9 +1,14 @@
 import { AppState } from '../modules/types.js';
 
+/**
+ * Central State Object
+ * Holds the reactive state of the application, including current scenario,
+ * active layers, and UI references.
+ */
 export const app: AppState = {
   language: 'de',
-  width: 3840,
-  height: 2160,
+  width: 3840, // 2880, // 
+  height: 2160 , // 1620, // 
   currentScenario: null,
   currentRole: null,
   activeLayers: new Set(),

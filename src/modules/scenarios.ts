@@ -4,8 +4,12 @@ import { t } from './translater.js';
 import { ProjectContext } from './types.js';
 import { updateView } from './main.js';
 
+/** Local cache for project context data. */
 let context: ProjectContext | null = null;
 
+/**
+ * Loads the project context (scenarios and roles) from YAML.
+ */
 export async function initScenarios(): Promise<void> {
     const ctxWrapper = await loadYAML<{ contexts: ProjectContext }>('/config/context.yaml');
     if (ctxWrapper) {
@@ -13,6 +17,10 @@ export async function initScenarios(): Promise<void> {
     }
 }
 
+/**
+ * Renders the scenario selection screen.
+ * Lists all available scenarios as interactive buttons.
+ */
 export function renderScenarioSelection(): void {
     const { infoBoxContent, infoBoxControls } = app.ui;
     if (!infoBoxContent || !infoBoxControls || !context) return;
@@ -43,6 +51,9 @@ export function renderScenarioSelection(): void {
     infoBoxControls.append(btnGroup);
 }
 
+/**
+ * Renders the role selection screen for the currently active scenario.
+ */
 export function renderRoleSelection(): void {
     const { infoBoxContent, infoBoxControls } = app.ui;
     if (!infoBoxContent || !infoBoxControls || !context || !app.currentScenario) return;
@@ -73,6 +84,7 @@ export function renderRoleSelection(): void {
         btnGroup.append(btn);
     });
 
+    // Navigation back to scenario selection
     const backBtn = create('button');
     backBtn.className = 'back-btn';
     backBtn.innerText = t('navigation.back');
@@ -82,20 +94,23 @@ export function renderRoleSelection(): void {
         await updateView();
     });
 
-    infoBoxControls.append(btnGroup); //, backBtn
+    infoBoxControls.append(btnGroup);
 }
 
-
-
+/**
+ * Returns the file path for the quiz associated with the current scenario/role.
+ */
 export function getQuizPath(): string | null {
     if (!context || !app.currentScenario) return null;
     const scenario = context.scenarios[app.currentScenario];
     if (!scenario) return null;
 
+    // Check if role-specific quiz exists
     if (app.currentRole) {
         const role = scenario.roles[app.currentRole];
         if (role?.quiz) return role.quiz;
     }
 
+    // Fallback to scenario-level quiz
     return scenario.quiz || null;
 }

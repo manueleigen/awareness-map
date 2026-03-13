@@ -1,5 +1,7 @@
+/** Supported languages for the application. */
 export type Language = 'de' | 'en';
 
+/** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {
   id: string;
   class: string;
@@ -16,6 +18,7 @@ export interface LayerConfig {
   icon_mode?: string;
 }
 
+/** Specific layer data within a context (global, scenario, or role). */
 export interface ContextLayer {
   src: string;
   icon?: string;
@@ -24,17 +27,20 @@ export interface ContextLayer {
   initially_visible?: boolean;
 }
 
+/** A role within a scenario, containing its specific layers and an optional quiz. */
 export interface Role {
   layers: Record<string, ContextLayer>;
   quiz?: string;
 }
 
+/** A scenario context containing global layers and a set of roles. */
 export interface ScenarioContext {
   layers: Record<string, ContextLayer>;
   roles: Record<string, Role>;
   quiz?: string;
 }
 
+/** The root structure for context.yaml. */
 export interface ProjectContext {
   global: {
     layers: Record<string, ContextLayer>;
@@ -42,6 +48,7 @@ export interface ProjectContext {
   scenarios: Record<string, ScenarioContext>;
 }
 
+/** Stores the outcome of a completed challenge. */
 export interface ChallengeResult {
   scenarioId: string;
   roleId: string;
@@ -49,15 +56,21 @@ export interface ChallengeResult {
   score?: number;
 }
 
+/** The central Application State interface. */
 export interface AppState {
   language: Language;
-  width: number,
-  height: number,
+  /** Native resolution width of the application (3840px). */
+  width: number;
+  /** Native resolution height of the application (2160px). */
+  height: number;
   currentScenario: string | null;
   currentRole: string | null;
+  /** Set of IDs for layers currently visible on the map. */
   activeLayers: Set<string>;
   view: 'home' | 'scenario-select' | 'role-select' | 'map' | 'quiz';
+  /** Stores passed/failed status for challenges identified by "scenario_role". */
   challengeResults: Record<string, ChallengeResult>;
+  /** Cached DOM references for UI manipulation. */
   ui: {
     app: HTMLElement | null;
     infoBox: HTMLElement | null;
