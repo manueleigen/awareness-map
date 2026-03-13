@@ -1,0 +1,59 @@
+{
+  "layer_id": "social_media",
+  "locations": [
+    {
+      "id": "flood_social_media_1",
+      "x": 915,
+      "y": 918,
+      "translations": {
+        "name": { "de": "Mit dem Kayak im Garten", "en": "With the Kayak in the Garden" },
+        "status": { "de": "Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren.", "en": "One family is using the flood to pursue their favorite sport in the city: kayaking." }
+      }
+    },
+    {
+      "id": "flood_social_media_2",
+      "x": 1618,
+      "y": 800,
+      "translations": {
+        "name": { "de": "flood_social_media_2", "en": "flood_social_media_2" },
+        "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
+      }
+    },
+    {
+      "id": "flood_social_media_3",
+      "x": 2786,
+      "y": 858,
+      "translations": {
+        "name": { "de": "flood_social_media_3", "en": "flood_social_media_3" },
+        "status": { "de": "Gesperrt", "en": "Closed" }
+      }
+    },
+    {
+      "id": "flood_social_media_4",
+      "x": 2005,
+      "y": 1308,
+      "translations": {
+        "name": { "de": "flood_social_media_4", "en": "flood_social_media_4" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    },
+    {
+      "id": "flood_social_media_5",
+      "x": 1126,
+      "y": 1804,
+      "translations": {
+        "name": { "de": "flood_social_media_5", "en": "floodSocialMedia5" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    },
+    {
+      "id": "flood_social_media_6",
+      "x": 2246,
+      "y": 1935,
+      "translations": {
+        "name": { "de": "flood_social_media_6", "en": "flood_social_media_6" },
+        "status": { "de": "Im Einsatz", "en": "Deployed" }
+      }
+    }
+  ]
+}
