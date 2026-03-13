@@ -2,9 +2,9 @@
   "layer_id": "critical_sites",
   "locations": [
     {
-      "id": "critical_site1_1",
-      "x": 264,
-      "y": 896,
+      "id": "critical_site_1",
+      "x": 265,
+      "y": 798,
       "translations": {
         "name": { "de": "Umspannwerk", "en": "Substation" },
         "status": { "de": "Betriebsbereit", "en": "Operational" }
@@ -12,8 +12,8 @@
     },
     {
       "id": "critical_site_2",
-      "x": 1920,
-      "y": 608,
+      "x": 1950,
+      "y": 605,
       "translations": {
         "name": { "de": "Oberschule", "en": "High School" },
         "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
@@ -21,19 +21,19 @@
     },
     {
       "id": "critical_site_3",
-      "x": 3139,
-      "y": 976,
+      "x": 3144,
+      "y": 979,
       "translations": {
-        "name": { "de": "Hauptbahnhof", "en": "Main Railway Station" },
+        "name": { "de": "Polizeihauptwache", "en": "Main Police Station" },
         "status": { "de": "Gesperrt", "en": "Closed" }
       }
     },
     {
       "id": "critical_site_4",
-      "x": 1585,
-      "y": 1680,
+      "x": 1600,
+      "y": 1677,
       "translations": {
-        "name": { "de": "Krankenhaus", "en": "Hospital" },
+        "name": { "de": "Hauptbahnhof", "en": "Main Railway Station" },
         "status": { "de": "Im Einsatz", "en": "Deployed" }
       }
     },
@@ -42,16 +42,16 @@
       "x": 2336,
       "y": 1419,
       "translations": {
-        "name": { "de": "Veranstaltungsort", "en": "Event Venue" },
+        "name": { "de": "Krankenhaus", "en": "Hospital" },
         "status": { "de": "Im Einsatz", "en": "Deployed" }
       }
     },
     {
       "id": "critical_site_6s",
-      "x": 2993,
+      "x": 2995,
       "y": 1516,
       "translations": {
-        "name": { "de": "Polizeihauptwache", "en": "Main Police Station" },
+        "name": { "de": "Veranstaltungsort", "en": "Event Venue" },
         "status": { "de": "Im Einsatz", "en": "Deployed" }
       }
     }

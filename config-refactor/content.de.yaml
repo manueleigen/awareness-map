@@ -5,353 +5,13 @@ navigation:
   languages:
     en: English
     de: Deutsch
-  back: Zurück
-  next: Weiter
   start: Start
-  close: Schließen
-  restart: Neu starten
   escape: Abbrechen
-  home: Start
-  scenario: Szenario
-  role: Rolle
+  challenge-start: Challenge jetzt lösen
+  challenge-solved: Challenge gelöst
+  challenge-failed: Challenge nicht gelöst
+  challenge-next: Nächste Challenge
 
-home:
-  headline: Hast du die Lage im Blick?
-  description: >
-    Im Krisenfall ist es wichtig, basierend auf Daten gute Entscheidungen zu treffen.
-    Oft ist dabei entscheidend, wo etwas passiert ist, wo sich viele Menschen aufhalten
-    und welche Ressourcen zur Verfügung stehen. Wähle ein Szenario.
-  scenario_selection_label: Wähle ein Szenario
-
-scenarios:
-  flood:
-    title: Flut in der Stadt
-    short_title: Flut
-    description: >
-      Durch tagelange Regenfälle tritt der Fluss über die Ufer. Es ist zu erwarten,
-      dass der Wasserstand weiter steigt und die Schutzmaßnahmen nicht ausreichen.
-      Wähle deine Rolle.
-    role_selection_label: Wähle deine Rolle
-
-  blackout:
-    title: Blackout
-    short_title: Blackout
-    description: >
-      Ein großflächiger Stromausfall beeinträchtigt Kommunikation, Versorgung und
-      Mobilität. Informationen sind lückenhaft, digitale Systeme fallen teilweise aus,
-      und Entscheidungen müssen unter hohem Zeitdruck getroffen werden.
-    role_selection_label: Wähle deine Rolle
-
-  mass_event:
-    title: Großveranstaltung
-    short_title: Großveranstaltung
-    description: >
-      Eine Veranstaltung mit vielen Menschen erfordert laufenden Überblick über
-      Bewegungen, Engstellen, Risiken und verfügbare Ressourcen. Wähle deine Rolle.
-    role_selection_label: Wähle deine Rolle
-
-roles:
-  fire_brigade:
-    title: Feuerwehr
-    short_description: >
-      Du triffst operative Entscheidungen unter Zeitdruck und musst einschätzen,
-      wo Hilfe noch wirksam und erreichbar ist.
-
-  police:
-    title: Polizei
-    short_description: >
-      Du koordinierst Evakuierungen und musst dafür sorgen, dass Wege nutzbar
-      bleiben und kritische Infrastruktur erreichbar ist.
-
-  crisis_staff:
-    title: Krisenstab
-    short_description: >
-      Du behältst das Gesamtbild im Blick, reduzierst Unsicherheit und entscheidest,
-      wann Informationen intern oder öffentlich geteilt werden.
-
-role_intro:
-  flood:
-    fire_brigade:
-      headline: Rettung unter Zeitdruck
-      description: >
-        Mehrere Notruf-Hotspots erscheinen, während der Wasserstand steigt.
-        Einige Bereiche sind bereits zu gefährlich erreichbar, andere werden bald
-        unzugänglich, wieder andere sind dringend, aber noch machbar. Du kannst
-        nur zwei Hotspots bearbeiten.
-      role_label: Rolle
-      role_value: Operative Einheit der Feuerwehr
-      task_overview_label: Deine Aufgabe
-      task_overview: >
-        Gleiche Notrufe mit dem zeitlichen Verlauf der Überflutung ab und wähle
-        genau zwei erreichbare und dringliche Hotspots aus.
-      start_button: Als Feuerwehr starten
-
-    police:
-      headline: Evakuierung mit Folgen
-      description: >
-        Überflutungen bedrohen dicht besiedelte Gebiete. Ein Krankenhaus ist auf
-        ununterbrochene Straßenanbindung angewiesen. Mehrere Evakuierungsoptionen
-        wirken ähnlich dringend, doch nur eine Zone kann festgelegt werden.
-      role_label: Rolle
-      role_value: Polizeiliche Evakuierungs- und Sicherheitskoordination
-      task_overview_label: Deine Aufgabe
-      task_overview: >
-        Identifiziere ein gefährdetes Gebiet, lege eine Evakuierungszone fest
-        und prüfe, ob Routen passierbar bleiben und kritische Infrastruktur
-        erreichbar ist.
-      start_button: Als Polizei starten
-
-    crisis_staff:
-      headline: Entscheiden unter Unsicherheit
-      description: >
-        Während der laufenden Einsatzlage wird ein möglicher Deich- oder
-        Hochwasserschutz-Bruch gemeldet. Das Lagebild kann veraltet oder
-        irreführend sein. Du musst Unsicherheit reduzieren und entscheiden,
-        wann und mit wem Informationen geteilt werden.
-      role_label: Rolle
-      role_value: Zentrale Krisenkoordination und Entscheidungsunterstützung
-      task_overview_label: Deine Aufgabe
-      task_overview: >
-        Identifiziere die zentrale Unsicherheit, entsende eine Drohne zur
-        Datenerhebung und entscheide, wann unsichere oder bestätigte
-        Informationen an Feuerwehr, Polizei oder Öffentlichkeit kommuniziert
-        werden.
-      start_button: Als Krisenstab starten
-
-challenges:
-  flood:
-    fire_brigade:
-      headline: Rettung unter Zeitdruck
-      difficulty: leicht
-      key_insight_label: Zentrale Erkenntnis
-      key_insight: >
-        Rechtzeitiges Handeln erfordert die Antizipation von Machbarkeit –
-        nicht bloß die Reaktion auf hohe Anrufzahlen.
-      description: >
-        Mehrere Notruf-Hotspots erscheinen, während der Wasserstand steigt.
-        Einige Bereiche sind bereits zu gefährlich erreichbar, andere werden bald
-        unzugänglich, wieder andere sind dringend, aber noch machbar. Es können
-        nur zwei Hotspots bearbeitet werden.
-      tasks_label: Aufgaben
-      tasks:
-        - Notrufe mit dem zeitlichen Verlauf der Überflutung abgleichen.
-        - Erreichbare dringliche Bereiche identifizieren.
-        - Exakt zwei Hotspots auswählen.
-      map_instruction: Wähle genau zwei Hotspots.
-      hotspot_categories_label: Hotspot-Kategorien
-      hotspot_categories:
-        a:
-          title: Zu spät
-          description: >
-            Überflutet in etwa 30 Minuten. Nicht auswählen.
-          example: >
-            Erdgeschosse laufen voll, Zufahrtsstraßen bereits betroffen.
-        b:
-          title: Jetzt oder nie
-          description: >
-            In etwa 120 Minuten abgeschnitten. Auswählen.
-          example: >
-            Einzige Zufahrtsroute, vulnerable Bewohner:innen gemeldet.
-        c:
-          title: Dringend, aber machbar
-          description: >
-            Überflutet in etwa 60 bis 90 Minuten. Einen auswählen.
-          example: >
-            Keller laufen voll, steigendes Wasser auf Straßen.
-        d:
-          title: Laut, aber nicht dringend
-          description: >
-            Hohes Anrufaufkommen, aber noch mindestens 120 Minuten trocken.
-            Nicht auswählen.
-          example: >
-            Viele Anrufe, Wasser nähert sich, Gebiet noch sicher.
-      success_criteria_label: Erfolgskriterien
-      success_criteria:
-        - Kategorie B gewählt.
-        - Eine Kategorie C gewählt.
-        - Kategorien A und D vermieden.
-      success_feedback_label: Bei Erfolg
-      success_feedback: >
-        Du hast nicht nur auf Lautstärke reagiert, sondern das verbleibende
-        Zeitfenster richtig eingeschätzt. So können Einsatzkräfte dort
-        eingesetzt werden, wo sie noch wirksam helfen können.
-      failure_feedback_label: Bei Misserfolg
-      failure_feedback:
-        - Einsatzkräfte werden in Kategorie A vom Wasser überrascht.
-        - Zugangsfenster schließen sich, wenn Kategorie B ignoriert wird.
-        - Die Auswahl nur nicht dringlicher Hotspots macht verpasste Interventionschancen sichtbar.
-
-    police:
-      headline: Evakuierung mit Folgen
-      difficulty: mittel
-      key_insight_label: Zentrale Erkenntnis
-      key_insight: >
-        Evakuierungen funktionieren nur, wenn Routen nutzbar bleiben und
-        kritische Infrastruktur erreichbar ist. Starke Paniksignale weisen
-        nicht zwangsläufig auf die beste Evakuierungsentscheidung hin.
-      description: >
-        Überflutungen bedrohen dicht besiedelte Gebiete. Ein Krankenhaus ist auf
-        ununterbrochene Straßenanbindung angewiesen. Mehrere Evakuierungsoptionen
-        wirken anhand von Bevölkerungszahl und Flutrisiko gleich dringend, doch
-        es kann nur eine Evakuierungszone festgelegt werden.
-      tasks_label: Aufgaben
-      tasks:
-        - Kurzfristiges Flutrisiko und Bevölkerungsdichte identifizieren.
-        - Eine Evakuierungszone zeichnen.
-        - Routen-Machbarkeit prüfen.
-        - Auswirkungen auf Krankenhauszugang und öffentliche Reaktion berücksichtigen.
-      map_instruction: Lege eine Evakuierungszone fest.
-      success_criteria_label: Erfolgskriterien
-      success_criteria:
-        - Die Evakuierung umfasst ein Hochrisiko-Bevölkerungsgebiet.
-        - Routen bleiben passierbar.
-        - Der Krankenhauszugang ist gesichert.
-        - Die öffentliche Reaktion bleibt beherrschbar.
-      success_feedback_label: Bei Erfolg
-      success_feedback: >
-        Du hast Risiko, Erreichbarkeit und Systemfolgen gemeinsam betrachtet.
-        Die Zone schützt ein gefährdetes Gebiet, ohne zentrale Verbindungen
-        unnötig zu blockieren.
-      failure_feedback_label: Bei Misserfolg
-      failure_feedback:
-        - Die Evakuierungszone wird isoliert und Bewegung kommt zum Stillstand.
-        - Krankenhauszufahrten werden blockiert; umliegende Bereiche zeigen zunehmende Instabilität.
-        - Eine Evakuierung wird zu früh ausgelöst und Ressourcen werden vergeudet.
-
-    crisis_staff:
-      headline: Entscheiden unter Unsicherheit
-      difficulty: schwer
-      key_insight_label: Zentrale Erkenntnis
-      key_insight: >
-        Lagebewusstsein ist unvollständig und muss insbesondere unter
-        Unsicherheit aktiv kuratiert werden.
-      description: >
-        Während der laufenden Einsatzlage wird ein möglicher Deich- oder
-        Hochwasserschutz-Bruch gemeldet. Das Lagebild kann veraltet oder
-        irreführend sein. Der Krisenstab muss Unsicherheit reduzieren und
-        entscheiden, wann und mit wem Informationen geteilt werden.
-      tasks_label: Aufgaben
-      tasks:
-        - Hauptunsicherheit identifizieren.
-        - Eine Drohne zur Datenerhebung entsenden.
-        - Entscheiden, wann Informationen geteilt werden.
-        - Entscheiden, an wen Informationen kommuniziert werden.
-      map_instruction: Setze eine Drohne ein und entscheide über die Kommunikation.
-      success_criteria_label: Erfolgskriterien
-      success_criteria:
-        - Die Drohne wurde im relevanten Gebiet eingesetzt.
-        - Bestätigte Informationen wurden an operative Akteure geteilt.
-        - Öffentliche Kommunikation vermeidet unnötige Panik.
-        - Das Lagebild stabilisiert sich lokal.
-      success_feedback_label: Bei Erfolg
-      success_feedback: >
-        Du hast die richtige Informationslücke priorisiert, Daten nacherhoben
-        und Informationen so geteilt, dass operative Einheiten besser handeln
-        können, ohne die Lage unnötig zu verschärfen.
-      failure_feedback_label: Bei Misserfolg
-      failure_feedback:
-        - Frühe öffentliche Kommunikation verstärkt Panik.
-        - Frühes internes Teilen löst verfrühte oder fehlgeleitete Vorbereitungen aus.
-        - Das Zurückhalten bestätigter Informationen lässt Einsatzkräfte mit veralteten Annahmen handeln.
-
-interactions:
-  layer_toggle: Ebenen ein- und ausblenden
-  layer_read: Datenebenen lesen
-  layer_activate: Aktive Ebene wählen
-  inspect_location: Datenpunkte inspizieren
-  inspect_area: Bereich ansehen
-  adjust_time: Zeit per Slider anpassen
-  define_zone: Zone definieren
-  send_units: Einsatzkräfte entsenden
-  send_drone: Drohne entsenden
-  share_information: Informationen teilen
-
-map_ui:
-  active_layer_label: Aktive Ebene
-  no_active_layer: Keine aktive Ebene
-  layer_panel_title: Datenebenen
-  time_slider_label: Zeitverlauf
-  action_label: Aktion
-  confirm_action: Aktion bestätigen
-  cancel_action: Abbrechen
-
-layers:
-  base_map:
-    title: Stadtkarte
-    description: >
-      Räumlicher Kontext und Orientierung. Basis für die Interpretation aller
-      anderen Ebenen.
-
-  base_layer_glow:
-    title: Gebäude-Glow
-    description: >
-      Ein visueller Effekt, der wichtige Gebäude hervorhebt und die Lesbarkeit der Karte bei Dunkelheit verbessert.
-
-  weather_data:
-    title: Wetterdaten
-    description: >
-      Aktuelle Wetterdaten und -prognosen zur Einschätzung der Lageentwicklung.
-
-  emergency_vehicles:
-    title: Einsatzkräfte
-    description: >
-      Positionen und Status von Einsatzfahrzeugen im betroffenen Gebiet.
-
-  critical_sites:
-    title: |-
-      Kritische
-      Infrastruktur
-    description: >
-      Wichtige Referenzpunkte im Stadtgebiet. Relevant besonders für Feuerwehr
-      und Krisenstab, sekundär für polizeiliche Entscheidungen.
-
-  population_density:
-    title: |-
-      Bevölkerungs
-      dichte
-    description: >
-      Zeigt, wo sich besonders viele Menschen aufhalten. Relevant für
-      Lebensrisiko, Evakuierungsplanung und Priorisierung.
-
-  flood_simulation:
-    title: Flutsimulation
-    description: >
-      Zeigt die Entwicklung des Hochwassers über die Zeit und unterstützt die
-      Einschätzung von Zugangsverlusten und Risiken.
-
-  emergency_calls:
-    title: Notrufe
-    description: >
-      Ortsbezogene Meldungen aus betroffenen Gebieten. Zentrale Eingabe für die
-      Feuerwehr-Challenge.
-
-  social_media:
-    title: Social Media
-    description: >
-      Öffentliche Signale, Beobachtungen und Reaktionen. Besonders relevant für
-      Polizei und Krisenstab.
-
-  evacuation_zones:
-    title: |-
-      Evakuierungs
-      Zonen
-    description: >
-      Markierte oder festgelegte Bereiche für Evakuierung und Schutzmaßnahmen.
-
-  road_closures:
-    title: Straßennetz / Sperrungen
-    description: >
-      Informationen zu Erreichbarkeit, Blockaden und kritischen Verbindungen.
-
-  drone_feed:
-    title: Drohnendaten
-    description: >
-      Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.
-
-  infrastructure_status:
-    title: Infrastrukturstatus
-    description: >
-      Informationen zum Zustand wichtiger Einrichtungen und Schutzbauwerke.
 
 feedback:
   success_title: Aufgabe erfolgreich
@@ -359,11 +19,230 @@ feedback:
   retry: Erneut versuchen
   continue: Weiter
 
-completion:
-  headline: Lage bewertet
+
+home:
+  title: Hast du die Lage im Blick?
   description: >
-    Du hast Entscheidungen auf Basis einer dynamischen und unvollständigen Lage
-    getroffen. Lagebewusstsein ist nie vollständig, sondern muss aktiv hergestellt
-    und laufend angepasst werden.
-  restart_button: Szenario neu starten
-  home_button: Zurück zur Startseite
+    Im Krisenfall ist es wichtig, basierend auf möglichst aktuellen Informationen gute Entscheidungen zu treffen.
+    Oft ist dabei entscheidend, wo etwas passiert ist, wo sich viele Menschen aufhalten
+    und welche Ressourcen zur Verfügung stehen. Welches Szenario möchtest du erkunden?
+  scenario_1: Hochwasser
+  scenario_2: Blackout
+  scenario_3: Großveranstaltung
+
+scenarios:
+  flood:
+    title: Der Fluss tritt über die Ufer
+    description: >
+      Durch tagelange Regenfälle kommt steigt der Wasserpegel stetig an. Es ist zu erwarten, dass
+      der Fluss über die Ufer tritt und die üblichen Schutzmaßnahmen nicht ausreichen.
+      Nicht alle Beteiligten haben die gleichen Informationen, und die Lage entwickelt sich schnell.
+      Welche Rolle möchtest du übernehmen?
+    challenge_selection_1: Feuerwehr
+    challenge_selection_2: Polizei
+    challenge_selection_3: Krisenstab
+
+  blackout:
+    title: Der Strom fällt aus
+    description: >
+      Ein großflächiger Stromausfall beeinträchtigt Kommunikation, Versorgung und
+      Mobilität. Informationen sind lückenhaft, digitale Systeme fallen teilweise aus,
+      und Entscheidungen müssen unter hohem Zeitdruck getroffen werden.
+    challenge_selection_1: Feuerwehr
+    challenge_selection_2: Polizei
+    challenge_selection_3: Krisenstab
+
+  mass_event:
+    title: Großveranstaltung
+    description: >
+      Eine Veranstaltung mit vielen Menschen erfordert laufenden Überblick über
+      Bewegungen, Engstellen, Risiken und verfügbare Ressourcen. Wähle deine Rolle.
+    challenge_selection_1: Feuerwehr
+    challenge_selection_2: Polizei
+    challenge_selection_3: Krisenstab
+
+challenges:
+  flood:
+    fire_brigade:
+      title: Rettung unter Zeitdruck
+      intro: >
+        Viele Notrufe gehen ein, während der Wasserstand steigt. 
+        Gleiche Notrufe mit dem zeitlichen Verlauf der Überflutung ab und identifiziere
+        zwei erreichbare und dringliche Hotspots.
+      how-to: >
+        Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. 
+        Berücksichtige dabei, wie schnell sie überflutet werden, 
+        wie viele Menschen betroffen sind und wie erreichbar sie noch sind.
+      success_feedback: >
+        Du hast nicht nur auf Lautstärke reagiert, sondern das verbleibende
+        Zeitfenster richtig eingeschätzt. So können Einsatzkräfte dort
+        eingesetzt werden, wo sie noch wirksam helfen können.
+      failure_feedback_1:
+        Einsatzkräfte werden in Kategorie A vom Wasser überrascht.
+      failure_feedback_2:
+        Zugangsfenster schließen sich, wenn Kategorie B ignoriert wird.
+      failure_feedback_3:
+        Die Auswahl nur nicht dringlicher Hotspots macht verpasste Interventionschancen sichtbar.
+
+    police:
+      title: Evakuierung mit Folgen
+      intro: >
+        Überflutungen bedrohen dicht besiedelte Gebiete. Da die Resourcen der Polizei begrenzt sind, 
+        können zunächst nur zwei Zonen evakuiert werden. Identifiziere Flutrisiken und rette möglichst viele Menschen, 
+        ohne kritische Infrastruktur zu blockieren oder unnötige Panik auszulösen.
+      how-to: >
+        Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest. Berücksichtige dabei das Flutrisiko, die Bevölkerungsdichte,
+        und die Erreichbarkeit von kritischer Infrastruktur.
+      success_feedback: > 
+        Du hast Risiko, Erreichbarkeit und Systemfolgen gemeinsam betrachtet.
+        Die von dir gewählten Zonen schützen gefährdete Gebiete, ohne zentrale Verbindungen
+        unnötig zu blockieren.
+      failure_feedback_1:
+        Die Zone wird überflutet und Menschen werden in Gefahr gebracht.
+      failure_feedback_2: 
+        Durch die Evakuierung wird die Krankenhauszufahrte  blockiert; umliegende Bereiche zeigen zunehmende Instabilität.
+      failure_feedback_3:
+        Eine Evakuierung wird zu früh ausgelöst und Ressourcen werden vergeudet.
+
+    crisis_staff:
+      title: Entscheiden unter Unsicherheit
+      intro: >
+        Während der laufenden Einsatzlage kursieren auf Social Media Gerüchte über einen möglichen Deich- oder
+        Hochwasserschutz-Bruch. Entscheide, welche Informationen du teilst, und reduziere die Unsicherheit, indem du aktuelle Daten erhebst.
+      how-to: > 
+        keins?
+      feedback: >
+        Du kannst jederzeit Informationen teilen, zurückhalten oder neue Daten erheben. 
+        Überlege, welche Informationslücken am kritischsten sind und wie du sie am besten schließen kannst, um die Einsatzkräfte zu unterstützen, ohne unnötige Panik zu verursachen.
+      success_feedback: >
+        Du hast Informationen so geteilt, dass operative Einheiten besser handeln
+        können, ohne die Lage unnötig zu verschärfen und die Informationslücke Datenerhebung geschlossen.
+      failure_feedback_1:
+        Frühe öffentliche Kommunikation verstärkt Panik.
+        Frühes internes Teilen löst verfrühte oder fehlgeleitete Vorbereitungen aus.
+      failure_feedback_2:
+        Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit Ressourcen verschwendet.
+      failure_feedback_3:
+        Das Zurückhalten bestätigter Informationen lässt Einsatzkräfte mit veralteten Annahmen handeln.
+
+layers:
+  global:
+    critical_sites:
+      title: Kritische Infrastruktur
+      items:
+        critical_site_1:
+          title: Umspannwerk
+          description: Betriebsbereit
+        critical_site_2:
+          title: Oberschule
+          description: Kritischer Pegel
+        critical_site_3:
+          title: Polizeihauptwache
+          description: Gesperrt
+        critical_site_4:
+          title: Hauptbahnhof
+          description: Im Einsatz
+        critical_site_5:
+          title: Krankenhaus
+          description: Im Einsatz
+        critical_site_6s:
+          title: Veranstaltungsort
+          description: Im Einsatz
+    population_density:
+      title: Bevölkerungsdichte
+
+  scenarios:
+    flood:
+      layers:
+        flood_simulation:
+          title: Flutsimulation
+      roles:
+        fire_brigade:
+          layers:
+            emergency_calls:
+              title: Notrufe
+              items:
+                flood_emergency_call_01:
+                  title: Call 1
+                  description: Betriebsbereit
+                flood_emergency_call_02:
+                  title: Call 2
+                  description: Kritischer Pegel
+                flood_emergency_call_03:
+                  title: Call 3
+                  description: Gesperrt
+                flood_emergency_call_04:
+                  title: Call 4
+                  description: Im Einsatz
+                flood_emergency_call_05:
+                  title: Call 5
+                  description: Im Einsatz
+                flood_emergency_call_06:
+                  title: Call 6
+                  description: Im Einsatz
+            emergency_vehicles:
+              title: Einsatzkräfte
+              items:
+                flood_emergency_vehicle_01:
+                  title: Vehicle 1
+                  description: Betriebsbereit
+                flood_emergency_vehicle_02:
+                  title: Vehicle 2
+                  description: Kritischer Pegel
+                flood_emergency_vehicle_03:
+                  title: Vehicle 3
+                  description: Gesperrt
+                flood_emergency_vehicle_04:
+                  title: Vehicle 4
+                  description: Gesperrt
+        police:
+          layers:
+            social_media:
+              title: Social Media
+              items:
+                flood_social_media_1:
+                  title: Mit dem Kayak im Garten
+                  description: 'Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren.'
+                flood_social_media_2:
+                  title: flood_social_media_2
+                  description: Kritischer Pegel
+                flood_social_media_3:
+                  title: flood_social_media_3
+                  description: Gesperrt
+                flood_social_media_4:
+                  title: flood_social_media_4
+                  description: Im Einsatz
+                flood_social_media_5:
+                  title: flood_social_media_5
+                  description: Im Einsatz
+                flood_social_media_6:
+                  title: flood_social_media_6
+                  description: Im Einsatz
+            evacuation_zones:
+              title: Evakuierungs Zonen
+        crisis_staff:
+          layers:
+            social_media:
+              title: Social Media
+              items:
+                flood_social_media_1:
+                  title: Mit dem Kayak im Garten
+                  description: 'Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren.'
+                flood_social_media_2:
+                  title: flood_social_media_2
+                  description: Kritischer Pegel
+                flood_social_media_3:
+                  title: flood_social_media_3
+                  description: Gesperrt
+                flood_social_media_4:
+                  title: flood_social_media_4
+                  description: Im Einsatz
+                flood_social_media_5:
+                  title: flood_social_media_5
+                  description: Im Einsatz
+                flood_social_media_6:
+                  title: flood_social_media_6
+                  description: Im Einsatz
+            drone_feed:
+              title: Drohnendaten
+              description: Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.

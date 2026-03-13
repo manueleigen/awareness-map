@@ -3,8 +3,8 @@
   "locations": [
     {
       "id": "flood_emergency_call_01",
-      "x": 1579,
-      "y": 487,
+      "x": 1600,
+      "y": 496,
       "translations": {
         "name": { "de": "Call 1", "en": "Call 1" },
         "status": { "de": "Betriebsbereit", "en": "Operational" }
@@ -39,8 +39,8 @@
     },
     {
       "id": "flood_emergency_call_05",
-      "x": 2911,
-      "y": 1210,
+      "x": 2915,
+      "y": 1222,
       "translations": {
         "name": { "de": "Call 5", "en": "Call 5" },
         "status": { "de": "Im Einsatz", "en": "Deployed" }
@@ -48,8 +48,8 @@
     },
     {
       "id": "flood_emergency_call_06",  
-      "x": 1283,
-      "y": 2032,
+      "x": 1285,
+      "y": 2028,
       "translations": {
         "name": { "de": "Call 6", "en": "Call 6" },
         "status": { "de": "Im Einsatz", "en": "Deployed" }

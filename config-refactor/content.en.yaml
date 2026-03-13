@@ -5,346 +5,13 @@ navigation:
   languages:
     en: English
     de: Deutsch
-  back: Back
-  next: Next
   start: Start
-  close: Close
-  restart: Restart
   escape: Cancel
-  home: Home
-  scenario: Scenario
-  role: Role
+  challenge-start: Start challenge now
+  challenge-solved: Challenge solved
+  challenge-failed: Challenge failed
+  challenge-next: Next challenge
 
-home:
-  headline: Do you have the situation in view?
-  description: >
-    In a crisis, it is important to make good decisions based on data.
-    What matters is often where something has happened, where many people are
-    located, and which resources are available. Choose a scenario.
-  scenario_selection_label: Choose a scenario
-
-scenarios:
-  flood:
-    title: Flood in the City
-    short_title: Flood
-    description: >
-      After days of heavy rainfall, the river overflows its banks. Water levels
-      are expected to rise further, and existing protection measures may not be
-      sufficient. Choose your role.
-    role_selection_label: Choose your role
-
-  blackout:
-    title: Blackout
-    short_title: Blackout
-    description: >
-      A large-scale power outage affects communication, supply systems, and
-      mobility. Information is incomplete, digital systems partly fail, and
-      decisions must be made under high time pressure.
-    role_selection_label: Choose your role
-
-  mass_event:
-    title: Mass Event
-    short_title: Mass Event
-    description: >
-      A large event with many people requires continuous awareness of movement,
-      bottlenecks, risks, and available resources. Choose your role.
-    role_selection_label: Choose your role
-
-roles:
-  fire_brigade:
-    title: Fire Brigade
-    short_description: >
-      You make operational decisions under time pressure and must assess where
-      help can still be effective and reachable.
-
-  police:
-    title: Police
-    short_description: >
-      You coordinate evacuations and must ensure that routes remain usable and
-      critical infrastructure stays accessible.
-
-  crisis_staff:
-    title: Crisis Staff
-    short_description: >
-      You keep an overview of the overall situation, reduce uncertainty, and
-      decide when information should be shared internally or publicly.
-
-role_intro:
-  flood:
-    fire_brigade:
-      headline: Rescue Under Time Pressure
-      description: >
-        Multiple emergency-call hotspots appear while water levels are rising.
-        Some areas are already too dangerous to reach, others will soon become
-        inaccessible, while others are urgent but still manageable. You can only
-        handle two hotspots.
-      role_label: Role
-      role_value: Operational fire brigade unit
-      task_overview_label: Your task
-      task_overview: >
-        Compare emergency calls with the timeline of the flooding and select
-        exactly two reachable and urgent hotspots.
-      start_button: Start as Fire Brigade
-
-    police:
-      headline: Evacuation with Consequences
-      description: >
-        Flooding threatens densely populated areas. A hospital depends on
-        uninterrupted road access. Several evacuation options appear similarly
-        urgent, but only one zone can be defined.
-      role_label: Role
-      role_value: Police evacuation and safety coordination
-      task_overview_label: Your task
-      task_overview: >
-        Identify a threatened area, define an evacuation zone, and check whether
-        routes remain passable and critical infrastructure stays accessible.
-      start_button: Start as Police
-
-    crisis_staff:
-      headline: Deciding Under Uncertainty
-      description: >
-        During the ongoing response, a possible dike or flood protection breach
-        is reported. The situation picture may be outdated or misleading. You
-        need to reduce uncertainty and decide when and with whom information
-        should be shared.
-      role_label: Role
-      role_value: Central crisis coordination and decision support
-      task_overview_label: Your task
-      task_overview: >
-        Identify the main uncertainty, deploy a drone for data collection, and
-        decide when uncertain or confirmed information should be communicated to
-        fire brigade, police, or the public.
-      start_button: Start as Crisis Staff
-
-challenges:
-  flood:
-    fire_brigade:
-      headline: Rescue Under Time Pressure
-      difficulty: easy
-      key_insight_label: Key insight
-      key_insight: >
-        Acting in time requires anticipating what is still feasible, not simply
-        reacting to high call volumes.
-      description: >
-        Multiple emergency-call hotspots appear while water levels are rising.
-        Some areas are already too dangerous to reach, others will soon become
-        inaccessible, while others are urgent but still manageable. Only two
-        hotspots can be handled.
-      tasks_label: Tasks
-      tasks:
-        - Compare emergency calls with the timeline of the flooding.
-        - Identify reachable urgent areas.
-        - Select exactly two hotspots.
-      map_instruction: Select exactly two hotspots.
-      hotspot_categories_label: Hotspot categories
-      hotspot_categories:
-        a:
-          title: Too late
-          description: >
-            Flooded in about 30 minutes. Do not select.
-          example: >
-            Ground floors are filling with water, access roads already affected.
-        b:
-          title: Now or never
-          description: >
-            Cut off in about 120 minutes. Select.
-          example: >
-            Only access route, vulnerable residents reported.
-        c:
-          title: Urgent but manageable
-          description: >
-            Flooded in about 60 to 90 minutes. Select one.
-          example: >
-            Basements filling up, rising water on streets.
-        d:
-          title: Loud but not urgent
-          description: >
-            High call volume, but still dry for at least 120 minutes.
-            Do not select.
-          example: >
-            Many calls, water approaching, area still safe.
-      success_criteria_label: Success criteria
-      success_criteria:
-        - Category B selected.
-        - One category C selected.
-        - Categories A and D avoided.
-      success_feedback_label: On success
-      success_feedback: >
-        You did not simply react to noise, but correctly assessed the remaining
-        time window. This allows response units to be deployed where they can
-        still make a difference.
-      failure_feedback_label: On failure
-      failure_feedback:
-        - Response units are surprised by the water in category A.
-        - Access windows close if category B is ignored.
-        - Selecting only non-urgent hotspots makes missed intervention opportunities visible.
-
-    police:
-      headline: Evacuation with Consequences
-      difficulty: medium
-      key_insight_label: Key insight
-      key_insight: >
-        Evacuations only work if routes remain usable and critical infrastructure
-        stays accessible. Strong panic signals do not necessarily point to the
-        best evacuation decision.
-      description: >
-        Flooding threatens densely populated areas. A hospital depends on
-        uninterrupted road access. Several evacuation options appear equally
-        urgent in terms of population and flood risk, but only one evacuation
-        zone can be defined.
-      tasks_label: Tasks
-      tasks:
-        - Identify short-term flood risk and population density.
-        - Draw an evacuation zone.
-        - Check route feasibility.
-        - Consider the impact on hospital access and public reaction.
-      map_instruction: Define one evacuation zone.
-      success_criteria_label: Success criteria
-      success_criteria:
-        - The evacuation covers a high-risk populated area.
-        - Routes remain passable.
-        - Hospital access is secured.
-        - Public reaction remains manageable.
-      success_feedback_label: On success
-      success_feedback: >
-        You considered risk, accessibility, and system effects together. The
-        zone protects a threatened area without unnecessarily blocking central
-        connections.
-      failure_feedback_label: On failure
-      failure_feedback:
-        - The evacuation zone becomes isolated and movement comes to a halt.
-        - Hospital access routes are blocked; surrounding areas show growing instability.
-        - Evacuation is triggered too early and resources are wasted.
-
-    crisis_staff:
-      headline: Deciding Under Uncertainty
-      difficulty: hard
-      key_insight_label: Key insight
-      key_insight: >
-        Situation awareness is incomplete and must be actively curated,
-        especially under uncertainty.
-      description: >
-        During the ongoing response, a possible dike or flood protection breach
-        is reported. The situation picture may be outdated or misleading. The
-        crisis staff must reduce uncertainty and decide when and with whom
-        information should be shared.
-      tasks_label: Tasks
-      tasks:
-        - Identify the main uncertainty.
-        - Deploy a drone for data collection.
-        - Decide when information should be shared.
-        - Decide with whom information should be communicated.
-      map_instruction: Deploy a drone and decide on communication.
-      success_criteria_label: Success criteria
-      success_criteria:
-        - The drone was deployed in the relevant area.
-        - Confirmed information was shared with operational actors.
-        - Public communication avoids unnecessary panic.
-        - The situation picture stabilizes locally.
-      success_feedback_label: On success
-      success_feedback: >
-        You prioritized the right information gap, gathered additional data, and
-        shared information in a way that helps operational units act more
-        effectively without unnecessarily escalating the situation.
-      failure_feedback_label: On failure
-      failure_feedback:
-        - Early public communication increases panic.
-        - Early internal sharing triggers premature or misdirected preparations.
-        - Withholding confirmed information leaves response units acting on outdated assumptions.
-
-interactions:
-  layer_toggle: Show and hide layers
-  layer_read: Read data layers
-  layer_activate: Select active layer
-  inspect_location: Inspect data points
-  inspect_area: Inspect area
-  adjust_time: Adjust time with slider
-  define_zone: Define zone
-  send_units: Deploy response units
-  send_drone: Deploy drone
-  share_information: Share information
-
-map_ui:
-  active_layer_label: Active layer
-  no_active_layer: No active layer
-  layer_panel_title: Data layers
-  time_slider_label: Timeline
-  action_label: Action
-  confirm_action: Confirm action
-  cancel_action: Cancel
-
-layers:
-  base_map:
-    title: City Map
-    description: >
-      Spatial context and orientation. The basis for interpreting all other layers.
-
-  base_layer_glow:
-    title: Building Glow
-    description: >
-      A visual effect that highlights important buildings and improves map readability in dark mode.
-
-  weather_data:
-    title: Weather Data
-    description: >
-      Current weather data and forecasts to support situation assessment.
-
-  emergency_vehicles:
-    title: Emergency Vehicles
-    description: >
-      Positions and status of emergency vehicles in the affected area.
-
-  critical_sites:
-    title: Critical Sites
-    description: >
-      Important reference points in the urban area. Especially relevant for the
-      fire brigade and crisis staff, secondarily for police decisions.
-
-  population_density:
-    title: |-
-      Population
-      Density
-    description: >
-      Shows where many people are located. Relevant for life risk, evacuation
-      planning, and prioritization.
-
-  flood_simulation:
-    title: Flood Simulation
-    description: >
-      Shows how the flooding develops over time and supports the assessment of
-      access loss and evolving risks.
-
-  emergency_calls:
-    title: Emergency Calls
-    description: >
-      Location-based reports from affected areas. The central input for the fire
-      brigade challenge.
-
-  social_media:
-    title: Social Media
-    description: >
-      Public signals, observations, and reactions. Especially relevant for
-      police and crisis staff.
-
-  evacuation_zones:
-    title: Evacuation Zones
-    description: >
-      Marked or defined areas for evacuation and protective measures.
-
-  road_closures:
-    title: Road Network / Closures
-    description: >
-      Information on accessibility, blockages, and critical connections.
-
-  drone_feed:
-    title: Drone Data
-    description: >
-      Additional aerial situation assessment to reduce uncertainty.
-
-  infrastructure_status:
-    title: Infrastructure Status
-    description: >
-      Information on the condition of important facilities and protective structures.
 
 feedback:
   success_title: Task completed successfully
@@ -352,11 +19,230 @@ feedback:
   retry: Try again
   continue: Continue
 
-completion:
-  headline: Situation Assessed
+
+home:
+  title: Do You Have the Situation in View?
   description: >
-    You made decisions based on a dynamic and incomplete situation picture.
-    Situation awareness is never complete; it must be actively constructed and
-    continuously updated.
-  restart_button: Restart scenario
-  home_button: Back to home
+    In a crisis, it is important to make good decisions based on the most current information possible.
+    What often matters is where something has happened, where many people are located,
+    and which resources are available. Which scenario would you like to explore?
+  scenario_1: Flood
+  scenario_2: Blackout
+  scenario_3: Mass Event
+
+scenarios:
+  flood:
+    title: The River Overflows Its Banks
+    description: >
+      After days of rainfall, the water level keeps rising. It is expected that
+      the river will overflow its banks and that the usual protection measures will not be enough.
+      Not everyone involved has the same information, and the situation is developing quickly.
+      Which role would you like to take on?
+    challenge_selection_1: Fire Brigade
+    challenge_selection_2: Police
+    challenge_selection_3: Crisis Staff
+
+  blackout:
+    title: The Power Goes Out
+    description: >
+      A large-scale power outage affects communication, supply systems, and
+      mobility. Information is incomplete, digital systems partly fail,
+      and decisions must be made under high time pressure.
+    challenge_selection_1: Fire Brigade
+    challenge_selection_2: Police
+    challenge_selection_3: Crisis Staff
+
+  mass_event:
+    title: Mass Event
+    description: >
+      An event with many people requires continuous awareness of
+      movement, bottlenecks, risks, and available resources. Choose your role.
+    challenge_selection_1: Fire Brigade
+    challenge_selection_2: Police
+    challenge_selection_3: Crisis Staff
+
+challenges:
+  flood:
+    fire_brigade:
+      title: Rescue Under Time Pressure
+      intro: >
+        Many emergency calls are coming in while the water level is rising.
+        Compare emergency calls with the temporal progression of the flooding and identify
+        two reachable and urgent hotspots.
+      how-to: >
+        Select exactly two hotspots that you want to handle.
+        Consider how quickly they will be flooded,
+        how many people are affected, and whether they are still reachable.
+      success_feedback: >
+        You did not simply react to volume, but correctly assessed the remaining
+        time window. This allows response units to be deployed where
+        they can still help effectively.
+      failure_feedback_1:
+        Response units are surprised by the water in category A.
+      failure_feedback_2:
+        Access windows close if category B is ignored.
+      failure_feedback_3:
+        Selecting only non-urgent hotspots makes missed intervention opportunities visible.
+
+    police:
+      title: Evacuation with Consequences
+      intro: >
+        Flooding threatens densely populated areas. Since police resources are limited,
+        only two zones can initially be evacuated. Identify flood risks and save as many people as possible
+        without blocking critical infrastructure or triggering unnecessary panic.
+      how-to: >
+        Select two zones on the map that you want to evacuate. Consider the flood risk, population density,
+        and the accessibility of critical infrastructure.
+      success_feedback: >
+        You considered risk, accessibility, and system-wide effects together.
+        The zones you selected protect endangered areas without unnecessarily
+        blocking central connections.
+      failure_feedback_1:
+        The zone is flooded and people are put in danger.
+      failure_feedback_2:
+        The evacuation blocks access to the hospital; surrounding areas show increasing instability.
+      failure_feedback_3:
+        An evacuation is triggered too early and resources are wasted.
+
+    crisis_staff:
+      title: Deciding Under Uncertainty
+      intro: >
+        During the ongoing response, rumors are circulating on social media about a possible dike or
+        flood protection breach. Decide which information to share and reduce uncertainty by collecting current data.
+      how-to: >
+        none?
+      feedback: >
+        You can share information, withhold it, or collect new data at any time.
+        Consider which information gaps are most critical and how you can best close them to support response units without causing unnecessary panic.
+      success_feedback: >
+        You shared information in a way that allowed operational units to act better
+        without unnecessarily escalating the situation, and you closed the information gap through data collection.
+      failure_feedback_1:
+        Early public communication increases panic.
+        Early internal sharing triggers premature or misdirected preparations.
+      failure_feedback_2:
+        You deployed the drone in an irrelevant area and wasted resources as a result.
+      failure_feedback_3:
+        Withholding confirmed information leaves response units acting on outdated assumptions.
+
+layers:
+  global:
+    critical_sites:
+      title: Critical Infrastructure
+      items:
+        critical_site_1:
+          title: Substation
+          description: Operational
+        critical_site_2:
+          title: High School
+          description: Critical Level
+        critical_site_3:
+          title: Main Police Station
+          description: Closed
+        critical_site_4:
+          title: Main Railway Station
+          description: Deployed
+        critical_site_5:
+          title: Hospital
+          description: Deployed
+        critical_site_6s:
+          title: Event Venue
+          description: Deployed
+    population_density:
+      title: Population Density
+
+  scenarios:
+    flood:
+      layers:
+        flood_simulation:
+          title: Flood Simulation
+      roles:
+        fire_brigade:
+          layers:
+            emergency_calls:
+              title: Emergency Calls
+              items:
+                flood_emergency_call_01:
+                  title: Call 1
+                  description: Operational
+                flood_emergency_call_02:
+                  title: Call 2
+                  description: Critical Level
+                flood_emergency_call_03:
+                  title: Call 3
+                  description: Closed
+                flood_emergency_call_04:
+                  title: Call 4
+                  description: Deployed
+                flood_emergency_call_05:
+                  title: Call 5
+                  description: Deployed
+                flood_emergency_call_06:
+                  title: Call 6
+                  description: Deployed
+            emergency_vehicles:
+              title: Emergency Vehicles
+              items:
+                flood_emergency_vehicle_01:
+                  title: Vehicle 1
+                  description: Operational
+                flood_emergency_vehicle_02:
+                  title: Vehicle 2
+                  description: Critical Level
+                flood_emergency_vehicle_03:
+                  title: Vehicle 3
+                  description: Closed
+                flood_emergency_vehicle_04:
+                  title: Vehicle 4
+                  description: Closed
+        police:
+          layers:
+            social_media:
+              title: Social Media
+              items:
+                flood_social_media_1:
+                  title: Kayak in the Garden
+                  description: 'A family is using the flood to pursue their favorite sport in the city: kayaking.'
+                flood_social_media_2:
+                  title: flood_social_media_2
+                  description: Critical Level
+                flood_social_media_3:
+                  title: flood_social_media_3
+                  description: Closed
+                flood_social_media_4:
+                  title: flood_social_media_4
+                  description: Deployed
+                flood_social_media_5:
+                  title: flood_social_media_5
+                  description: Deployed
+                flood_social_media_6:
+                  title: flood_social_media_6
+                  description: Deployed
+            evacuation_zones:
+              title: Evacuation Zones
+        crisis_staff:
+          layers:
+            social_media:
+              title: Social Media
+              items:
+                flood_social_media_1:
+                  title: Kayak in the Garden
+                  description: 'A family is using the flood to pursue their favorite sport in the city: kayaking.'
+                flood_social_media_2:
+                  title: flood_social_media_2
+                  description: Critical Level
+                flood_social_media_3:
+                  title: flood_social_media_3
+                  description: Closed
+                flood_social_media_4:
+                  title: flood_social_media_4
+                  description: Deployed
+                flood_social_media_5:
+                  title: flood_social_media_5
+                  description: Deployed
+                flood_social_media_6:
+                  title: flood_social_media_6
+                  description: Deployed
+            drone_feed:
+              title: Drone Data
+              description: Additional aerial situation assessment to reduce uncertainty.
