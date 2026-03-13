@@ -4,6 +4,7 @@ import { initScenarios, renderScenarioSelection, renderRoleSelection } from "./s
 import { Language } from "./types.js";
 import { app } from "./state.js";
 import { el, create } from "./lib.js";
+import { startCrisesChallangeQuiz } from "./quiz/engine.js";
 
 export function initUIReferences(): void {
     app.ui.app = el('#app');
@@ -124,16 +125,17 @@ export function renderMapUI(): void {
     const desc = create('p');
     desc.innerText = t(`roles.${app.currentRole}.short_description`);
 
-    const backBtn = create('button');
-    backBtn.innerText = t('navigation.back');
-    backBtn.addEventListener('click', async () => {
-        app.currentRole = null;
-        app.view = 'role-select';
-        await updateView();
-    });
-
     infoBoxContent.append(title, desc);
-    infoBoxControls.append(backBtn);
+
+    // Start crises_challange quiz for the flood / crisis_staff combination
+    if (app.currentScenario === 'flood' && app.currentRole === 'crisis_staff') {
+        const startQuizBtn = create('button');
+        startQuizBtn.innerText = t('challenges.flood.crisis_staff.start_button', 'Krisenstab-Challenge starten');
+        startQuizBtn.addEventListener('click', async () => {
+            await startCrisesChallangeQuiz();
+        });
+        infoBoxControls.append(startQuizBtn);
+    }
 }
 
 export async function resetApp(): Promise<void> {

@@ -1,6 +1,6 @@
 // Farben
 :root {
-  --primary: #0004A0;
+  --primary: rgb(0, 4, 160);
   --primary-inactive: #666784;
   --secondary: #FF4612;
   --secondary-inactive: #FFCDCC;
@@ -14,4 +14,5 @@
   --backdrop-dark-75: rgba(0, 1, 38, 0.75);
   --screen-width: 3840px;
   --screen-height: 2160px;
+  --dropshadow-wide-blue: 0 0 30px rgba(0, 4, 160, .8);
 }

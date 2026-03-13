@@ -6,11 +6,13 @@
   align-items: flex-start;
   bottom: 60px;
   left: 60px;
+  z-index: 2001;
   width: 850px;
   height: 600px;
   padding: 7px;
   border-radius: 32px;
   background-color: var(--white);
+  box-shadow: var(--dropshadow-wide-blue);
 
   &-head {
     display: flex;
@@ -49,6 +51,35 @@
   &-content {
       padding-left: 23px;
       padding-right: 23px;
+
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: grid;
+      flex-direction: column;
+      align-content: center;
+      .quiz-progress{
+        position: absolute;
+        width: 100%;
+        top: 0;
+        
+        .quiz-progress-bar-outer{
+            height: 10px;
+            background: var(--secondary);
+
+          .quiz-progress-bar-inner{
+            height: 10px;
+            background: var(--primary);
+          }
+        }
+        .quiz-progress-label{
+          display: none;
+        }
+
+      }
+
+
+
   }
 
   &-controls {
@@ -67,5 +98,28 @@
   gap: 10px;
   width: 100%;
 }
+
+.quiz-option-btn {
+    margin-top: 20px;
+}
+.poi-select-btn {
+    margin: 0 0 20px 35px;
+}
+.quiz-option-btn.selected,
+.poi-select-btn.active {
+    background-color: var(--secondary);
+}
+
+.poi-marker.quiz-answer  {
+  
+    path{
+      stroke: var(--secondary)
+    }
+    circle {
+      fill: var(--secondary)
+    }
+  
+}
+
 
 

@@ -10,9 +10,18 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
     
     const data = await loadJSON<{ locations: any[] }>(src);
     if (data && data.locations) {
-        data.locations.forEach(loc => {
+        data.locations.forEach((loc, index) => {
             const marker = create("div");
             marker.className = "poi-marker";
+            // Ensure each POI has a stable id so quizzes can reference it
+            if (!marker.id) {
+                const baseId =
+                    (typeof loc.id === 'string' && loc.id.trim().length > 0)
+                        ? loc.id
+                        : `poi-${index + 1}`;
+                marker.id = baseId;
+            }
+            marker.dataset.quizId = marker.id;
             marker.style.left = `${loc.x - (poiSize/2)}px`;
             marker.style.top = `${loc.y - (poiSize/2)}px`;
             marker.style.width = `${poiSize}px`;
@@ -88,6 +97,32 @@ export function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiSize: n
     statusValue.innerText = loc.translations?.status?.[app.language] || '-';
 
     content.append(head, statusValue);
+
+    // Quiz point-selection mode: allow selecting this POI as an answer
+    const quizPoiSelectMode = document.documentElement.dataset.quizPoiSelect === '1';
+    if (quizPoiSelectMode) {
+        const selectBtn = create('button');
+        selectBtn.className = 'poi-select-btn';
+
+        const updateLabel = () => {
+            const isSelected = marker.classList.contains('quiz-answer');
+            selectBtn.innerText = isSelected
+                ? t('crises_challange.common.deselect_poi', 'Abwählen')
+                : t('crises_challange.common.select_poi', 'Auswählen');
+            selectBtn.classList.toggle('active', isSelected);
+        };
+        updateLabel();
+
+        selectBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            marker.classList.toggle('quiz-answer');
+            updateLabel();
+            document.dispatchEvent(new CustomEvent('quiz-answer-changed', { detail: { id: marker.id } }));
+        });
+
+        // Place at end of overlay (below description)
+        content.append(selectBtn);
+    }
     poiOverlay.append(content);
     poiContainer.append(poiOverlay);
     app.ui.poiOverlay = poiOverlay;

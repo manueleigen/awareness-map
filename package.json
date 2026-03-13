@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json --watch",
     "sass:watch": "sass css/style.scss css/style.css --watch --poll",
     "sass:build": "sass css/style.scss css/style.css --no-source-map --style=compressed"
   },

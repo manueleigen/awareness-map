@@ -89,7 +89,7 @@ button {
 }
 
 :root {
-  --primary: #0004A0;
+  --primary: rgb(0, 4, 160);
   --primary-inactive: #666784;
   --secondary: #FF4612;
   --secondary-inactive: #FFCDCC;
@@ -103,6 +103,7 @@ button {
   --backdrop-dark-75: rgba(0, 1, 38, 0.75);
   --screen-width: 3840px;
   --screen-height: 2160px;
+  --dropshadow-wide-blue: 0 0 30px rgba(0, 4, 160, .8);
 }
 
 button {
@@ -322,11 +323,13 @@ body #app {
   align-items: flex-start;
   bottom: 60px;
   left: 60px;
+  z-index: 2001;
   width: 850px;
   height: 600px;
   padding: 7px;
   border-radius: 32px;
   background-color: var(--white);
+  box-shadow: var(--dropshadow-wide-blue);
 }
 #info-box-head {
   display: flex;
@@ -360,6 +363,28 @@ body #app {
 #info-box-content {
   padding-left: 23px;
   padding-right: 23px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  flex-direction: column;
+  align-content: center;
+}
+#info-box-content .quiz-progress {
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+#info-box-content .quiz-progress .quiz-progress-bar-outer {
+  height: 10px;
+  background: var(--secondary);
+}
+#info-box-content .quiz-progress .quiz-progress-bar-outer .quiz-progress-bar-inner {
+  height: 10px;
+  background: var(--primary);
+}
+#info-box-content .quiz-progress .quiz-progress-label {
+  display: none;
 }
 #info-box-controls {
   width: 100%;
@@ -373,6 +398,26 @@ body #app {
   flex-direction: column;
   gap: 10px;
   width: 100%;
+}
+
+.quiz-option-btn {
+  margin-top: 20px;
+}
+
+.poi-select-btn {
+  margin: 0 0 20px 35px;
+}
+
+.quiz-option-btn.selected,
+.poi-select-btn.active {
+  background-color: var(--secondary);
+}
+
+.poi-marker.quiz-answer path {
+  stroke: var(--secondary);
+}
+.poi-marker.quiz-answer circle {
+  fill: var(--secondary);
 }
 
 #language-switch {
@@ -454,7 +499,7 @@ body #app {
   gap: 40px;
   right: 0;
   top: 0;
-  z-index: 100;
+  z-index: 2001;
   width: 360px;
   height: 100%;
 }
@@ -552,7 +597,7 @@ body #app {
   flex-direction: column;
   gap: 40px;
   pointer-events: none;
-  z-index: 100;
+  z-index: 2001;
 }
 
 .slider-wrapper {

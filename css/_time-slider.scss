@@ -12,7 +12,8 @@
   flex-direction: column;
   gap: 40px;
   pointer-events: none; // Let clicks through to the map if not on a slider
-  z-index: 100;
+  z-index: 2001;
+  
 }
 
 .slider-wrapper {

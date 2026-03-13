@@ -367,3 +367,49 @@ completion:
     und laufend angepasst werden.
   restart_button: Szenario neu starten
   home_button: Zurück zur Startseite
+
+crises_challange:
+  intro:
+    title: Krisenstab-Challenge
+    question: Was willst du machen?
+    optionA: Informationen weiterleiten
+    optionB: Drohne entsenden
+
+  location:
+    title: Einsatzort wählen
+    question: Wähle den richtigen Ort auf der Karte aus (klicke in die Mitte).
+    question_detail: Wähle den Drohnen-Abwurfpunkt auf der Karte.
+
+  call:
+    title: Information weiterleiten
+    question: An wen sollen die Informationen weitergeleitet werden?
+    optionA: Einsatzkräfte
+    optionB: Öffentlichkeit
+    optionC: beide
+
+  win:
+    title: Gewonnen!
+    description: You win, yay...
+
+  fail:
+    title: Fehlgeschlagen
+    description: Das war leider die falsche Entscheidung.
+
+  common:
+    restart: Noch einmal von vorn
+    submit: Antwort prüfen
+    continue: Weiter
+    selection_hint: Wähle die passende Fläche oder den passenden Punkt in der Karte aus.
+    location_hint: Setze einen Punkt auf der Karte.
+    target_missing: "Zielbereich nicht gefunden: {target}"
+    selected_count: "Ausgewählt: {count}"
+    click_to_place: Klicke, um einen Punkt zu setzen.
+    location_selected: "Punkt gesetzt ({x}, {y})"
+    nothing_selected: ""
+    select_poi: Auswählen
+    deselect_poi: Abwählen
+
+  success_interlude:
+    title: Richtig!
+    description: Weiter…
+

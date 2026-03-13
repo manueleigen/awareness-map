@@ -358,3 +358,49 @@ completion:
     continuously updated.
   restart_button: Restart scenario
   home_button: Back to home
+
+crises_challange:
+  intro:
+    title: Crisis Staff Challenge
+    question: What do you want to do?
+    optionA: Forward information
+    optionB: Deploy drone
+
+  location:
+    title: Choose deployment location
+    question: Select the correct place on the map (click in the centre).
+    question_detail: Select the drone drop-off point on the map.
+
+  call:
+    title: Forward information
+    question: To whom should the information be forwarded?
+    optionA: Emergency services
+    optionB: Public
+    optionC: Both
+
+  win:
+    title: You win!
+    description: You win, yay...
+
+  fail:
+    title: Failed
+    description: That was unfortunately the wrong decision.
+
+  common:
+    restart: Start again
+    submit: Check answer
+    continue: Continue
+    selection_hint: Select the appropriate area or point on the map.
+    location_hint: Place a point on the map.
+    target_missing: "Target area not found: {target}"
+    selected_count: "Selected: {count}"
+    click_to_place: Click to place a point.
+    location_selected: "Point placed ({x}, {y})"
+    nothing_selected: ""
+    select_poi: Select
+    deselect_poi: Deselect
+
+  success_interlude:
+    title: Correct!
+    description: Continuing…
+
