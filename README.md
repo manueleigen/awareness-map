@@ -4,9 +4,15 @@ This interactive PWA is designed for a 65" 4K touch-table, simulating a disaster
 
 ## Quick Start
 1. **Install dependencies:** `npm install`
-2. **Start TypeScript compiler:** `npx tsc -w`
-3. **Run local server:** `npx serve .` (or any static server)
-4. **Access:** Open `index.html` in a Chromium-based browser (optimized for 3840x2160).
+2. **start SASS compiler:** `npm run sass:watch`
+3. **Start TypeScript compiler:** `npx tsc -w`
+
+## Option A: Kiosk-Browser
+4. **Run command:** `TBA` 
+
+## Option B: NPX Server
+4. **Run local server:** `npx serve .` (or any static server)
+5. **Access:** Open `http://localhost:3000/` in a Chromium-based browser (optimized for 3840x2160).
 
 ## Project Structure
 - **/assets/layers/**: Core map assets (SVG, PNG, JSON).
