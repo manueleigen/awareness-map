@@ -41,7 +41,9 @@ export async function initApp() {
         });
 
         // 4. Scale app to screen
-        const scaler = initCoverScale( { element: app.ui.app }) ;
+        if(app.ui.app){
+            const scaler = initCoverScale( { element: app.ui.app }) ;
+        }
 
         // 5. Initialer Render
         await updateView();
