@@ -301,7 +301,9 @@ layers:
       fire brigade and crisis staff, secondarily for police decisions.
 
   population_density:
-    title: Population Density
+    title: |-
+      Population
+      Density
     description: >
       Shows where many people are located. Relevant for life risk, evacuation
       planning, and prioritization.
