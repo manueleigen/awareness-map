@@ -117,6 +117,11 @@ role_intro:
       start_button: Start as Crisis Staff
 
 challenges:
+  common:
+    passed_msg: Challenge successfully completed!
+    failed_msg: Challenge unfortunately failed.
+    retry_button: Try again
+    start_button: Start challenge
   flood:
     fire_brigade:
       headline: Rescue Under Time Pressure

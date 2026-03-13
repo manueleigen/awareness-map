@@ -1,11 +1,12 @@
 import { initLayers, renderLayers } from "./layers.js";
 import { initTranslator, t } from "./translater.js";
-import { initScenarios, renderScenarioSelection, renderRoleSelection } from "./scenarios.js";
+import { initScenarios, renderScenarioSelection, renderRoleSelection, getQuizPath } from "./scenarios.js";
 import { Language } from "./types.js";
 import { app } from "./state.js";
 import { el, create } from "./lib.js";
-import { startCrisesChallangeQuiz } from "./engine.js";
+import { startQuiz } from "./engine.js";
 import { initCoverScale } from './screen-zoom.js';
+import { hidePOIOverlay } from './poi.js';
 
 export function initUIReferences(): void {
     app.ui.app = el('#app');
@@ -27,6 +28,19 @@ export async function initApp() {
         
         // 0. UI References initialisieren
         initUIReferences();
+
+        // Global Event Listeners
+        document.addEventListener('app-request-view-update', async () => {
+            await updateView();
+        });
+
+        // Global Click-to-close POI Overlay
+        document.addEventListener('click', (e) => {
+            if (app.ui.poiOverlay && !app.ui.poiOverlay.contains(e.target as Node)) {
+                hidePOIOverlay();
+            }
+        });
+
         // 1. Translator initialisieren
         await initTranslator(app.language as Language).catch(err => {
             console.error("Sprachdateien konnten nicht geladen werden:", err);
@@ -88,10 +102,17 @@ export async function updateView(): Promise<void> {
         case 'map':
             renderMapUI();
             break;
+        case 'quiz':
+            // Quiz UI is managed internally by QuizEngine, 
+            // but we want to allow renderLayers() to run below for layer sync.
+            break;
     }
 
     // Ensure layers are always synced with the current view
     await renderLayers();
+
+    // Signal completion
+    document.dispatchEvent(new CustomEvent('app-view-updated'));
 }
 
 export function renderHome(): void {
@@ -134,14 +155,30 @@ export function renderMapUI(): void {
 
     infoBoxContent.append(title, desc);
 
-    // Start crises_challange quiz for the flood / crisis_staff combination
-    // CHALLENGE ACTIVATED FOR ALL ROLES AND SCENARIOS (DUMMY)
-    //if (app.currentScenario === 'flood' && app.currentRole === 'crisis_staff') 
-    if(true){
+    const resultId = `${app.currentScenario}_${app.currentRole}`;
+    const result = app.challengeResults[resultId];
+
+    if (result) {
+        const statusMsg = create('div');
+        statusMsg.className = `challenge-status challenge-${result.status}`;
+        statusMsg.innerText = result.status === 'passed' 
+            ? t('challenges.common.passed_msg', 'Herausforderung erfolgreich abgeschlossen!')
+            : t('challenges.common.failed_msg', 'Herausforderung leider nicht bestanden.');
+        infoBoxContent.append(statusMsg);
+    }
+
+    // Start quiz if available for the current context
+    const quizPath = getQuizPath();
+    if (quizPath) {
         const startQuizBtn = create('button');
-        startQuizBtn.innerText = t('challenges.flood.crisis_staff.start_button', 'Krisenstab-Challenge starten');
+        const btnLabelKey = result 
+            ? 'challenges.common.retry_button' 
+            : 'challenges.flood.crisis_staff.start_button';
+        
+        startQuizBtn.innerText = t(btnLabelKey, result ? 'Erneut versuchen' : 'Herausforderung starten');
+        
         startQuizBtn.addEventListener('click', async () => {
-            await startCrisesChallangeQuiz();
+            await startQuiz(quizPath);
         });
         infoBoxControls.append(startQuizBtn);
     }

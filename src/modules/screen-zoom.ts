@@ -65,4 +65,24 @@ export function initCoverScale(options: CoverScaleOptions = {}): CoverScaleInsta
   update();
 
   return { update, destroy, getScale };
-}
+  }
+
+  /**
+  * Returns the current scale factor of the #app element.
+  * Fallback to 1 if not detectable.
+  */
+  export function getAppScale(): number {
+    const appEl = document.getElementById('app');
+    if (!appEl) return 1;
+
+    const style = window.getComputedStyle(appEl);
+    const transform = style.transform;
+
+    if (transform && transform !== 'none') {
+        const matrix = transform.match(/^matrix\((.+)\)$/);
+        if (matrix) {
+            return parseFloat(matrix[1].split(', ')[0]);
+        }
+    }
+    return 1;
+  }

@@ -26,11 +26,13 @@ export interface ContextLayer {
 
 export interface Role {
   layers: Record<string, ContextLayer>;
+  quiz?: string;
 }
 
 export interface ScenarioContext {
   layers: Record<string, ContextLayer>;
   roles: Record<string, Role>;
+  quiz?: string;
 }
 
 export interface ProjectContext {
@@ -40,6 +42,13 @@ export interface ProjectContext {
   scenarios: Record<string, ScenarioContext>;
 }
 
+export interface ChallengeResult {
+  scenarioId: string;
+  roleId: string;
+  status: 'passed' | 'failed';
+  score?: number;
+}
+
 export interface AppState {
   language: Language;
   width: number,
@@ -47,7 +56,8 @@ export interface AppState {
   currentScenario: string | null;
   currentRole: string | null;
   activeLayers: Set<string>;
-  view: 'home' | 'scenario-select' | 'role-select' | 'map';
+  view: 'home' | 'scenario-select' | 'role-select' | 'map' | 'quiz';
+  challengeResults: Record<string, ChallengeResult>;
   ui: {
     app: HTMLElement | null;
     infoBox: HTMLElement | null;

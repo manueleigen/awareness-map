@@ -119,6 +119,11 @@ role_intro:
       start_button: Als Krisenstab starten
 
 challenges:
+  common:
+    passed_msg: Herausforderung erfolgreich abgeschlossen!
+    failed_msg: Herausforderung leider nicht bestanden.
+    retry_button: Erneut versuchen
+    start_button: Herausforderung starten
   flood:
     fire_brigade:
       headline: Rettung unter Zeitdruck

@@ -82,7 +82,20 @@ export function renderRoleSelection(): void {
         await updateView();
     });
 
+    infoBoxControls.append(btnGroup); //, backBtn
+}
 
 
-    infoBoxControls.append(btnGroup);//, backBtn
+
+export function getQuizPath(): string | null {
+    if (!context || !app.currentScenario) return null;
+    const scenario = context.scenarios[app.currentScenario];
+    if (!scenario) return null;
+
+    if (app.currentRole) {
+        const role = scenario.roles[app.currentRole];
+        if (role?.quiz) return role.quiz;
+    }
+
+    return scenario.quiz || null;
 }

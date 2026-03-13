@@ -20,8 +20,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 200ms ease;
+  transition: transform 200ms ease, filter 200ms ease, opacity 200ms ease;
   z-index: 1001;
+
+  &.disabled {
+    filter: grayscale(1) brightness(0.7);
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.6);
+    pointer-events: none;
+  }
 }
 
 .poi-icon {

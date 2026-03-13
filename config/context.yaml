@@ -40,6 +40,7 @@ contexts:
 
       roles:
         fire_brigade:
+          quiz: /config/quizes/crises-challange.yaml
           layers:
             emergency_calls:
               src: /assets/layers/flood/emergency_calls.json
@@ -52,6 +53,7 @@ contexts:
               initially_visible: false
 
         police:
+          quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
               src: /assets/layers/flood/emergency_calls.json # Placeholder
@@ -64,16 +66,94 @@ contexts:
               initially_visible: false
 
         crisis_staff:
+          quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
               src: /assets/layers/flood/emergency_calls.json # Placeholder
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
+
+
     blackout:
-      layers: {}
-      roles: {}
+      src: /assets/layers/flood/flood_simulation.json
+      icon: /assets/icons/flood.svg
+      slider_icon: /assets/icons/flood-slider.svg
+      initially_visible: true
+
+      roles:
+        fire_brigade:
+          quiz: /config/quizes/crises-challange.yaml
+          layers:
+            emergency_calls:
+              src: /assets/layers/flood/emergency_calls.json
+              icon: /assets/icons/emergency_calls.svg
+              initially_visible: false
+
+            social_media:
+              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
+              icon: /assets/icons/social_media.svg
+              initially_visible: false
+
+        police:
+          quiz: /config/quizes/crises-challange.yaml
+          layers:
+            social_media:
+              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              icon: /assets/icons/social_media.svg
+              initially_visible: false
+
+            evacuation_zones:
+              src: /assets/layers/flood/evacuation_zones.svg
+              icon: /assets/icons/default_icon.svg
+              initially_visible: false
+
+        crisis_staff:
+          quiz: /config/quizes/crises-challange.yaml
+          layers:
+            social_media:
+              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              icon: /assets/icons/social_media.svg
+              initially_visible: false
 
     mass_event:
-      layers: {}
-      roles: {}
+      src: /assets/layers/flood/flood_simulation.json
+      icon: /assets/icons/flood.svg
+      slider_icon: /assets/icons/flood-slider.svg
+      initially_visible: true
+
+      roles:
+        fire_brigade:
+          quiz: /config/quizes/crises-challange.yaml
+          layers:
+            emergency_calls:
+              src: /assets/layers/flood/emergency_calls.json
+              icon: /assets/icons/emergency_calls.svg
+              initially_visible: false
+
+            social_media:
+              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
+              icon: /assets/icons/social_media.svg
+              initially_visible: false
+
+        police:
+          quiz: /config/quizes/crises-challange.yaml
+          layers:
+            social_media:
+              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              icon: /assets/icons/social_media.svg
+              initially_visible: false
+
+            evacuation_zones:
+              src: /assets/layers/flood/evacuation_zones.svg
+              icon: /assets/icons/default_icon.svg
+              initially_visible: false
+
+        crisis_staff:
+          quiz: /config/quizes/crises-challange.yaml
+          layers:
+            social_media:
+              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              icon: /assets/icons/social_media.svg
+              initially_visible: false
+

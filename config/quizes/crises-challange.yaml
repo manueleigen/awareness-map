@@ -22,14 +22,17 @@ story_points:
     title_key: crises_challange.location.title
     question_key: crises_challange.location.question
     target: "#layers"
-    # optional: selector for an inner element inside target
-    # selector: "#layer-someLayerId"
+    activeLayerId: drone_feed
     solution:
-      x: 150
-      y: 150
-    maxDistance: 1000
+      x: 1000
+      y: 1000
+    maxDistance: 800
     step: 2
     total_steps: 4
+    success_screen:
+      title_key: crises_challange.success_interlude.title
+      description_key: crises_challange.success_interlude.description
+      duration_ms: 900
     next:
       right: select-drone-drop-off
       wrong: fail-screen
@@ -40,8 +43,10 @@ story_points:
     question_key: crises_challange.location.question_detail
     target: "#layer-critical_places"
     selector: ".poi-marker"
-    # correct POI (by DOM id) – first POI is poi-1, second poi-2, etc.
+    activeLayerId: critical_places
+    # usesResultFrom: free-coord-selection (Logic will look at previous point's result)
     solution: ['critical_site_2']
+
     success_screen:
       title_key: crises_challange.success_interlude.title
       description_key: crises_challange.success_interlude.description
@@ -79,6 +84,7 @@ story_points:
     title_key: crises_challange.win.title
     description_key: crises_challange.win.description
     continue_button_key: crises_challange.common.restart
+    terminalStatus: passed
     next: intro
 
   - id: fail-screen
@@ -86,5 +92,6 @@ story_points:
     title_key: crises_challange.fail.title
     description_key: crises_challange.fail.description
     continue_button_key: crises_challange.common.restart
+    terminalStatus: failed
     next: intro
 

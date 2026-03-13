@@ -8,6 +8,7 @@ export const app: AppState = {
   currentRole: null,
   activeLayers: new Set(),
   view: 'home',
+  challengeResults: {},
   ui: {
     app: null,
     infoBox: null,
