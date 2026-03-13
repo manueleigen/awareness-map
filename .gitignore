@@ -4,8 +4,9 @@ jspm_packages/
 
 # Build Output
 dist/
+css/style.css
+css/style.css.map
 build/
-/QUIZ
 *.tsbuildinfo
 
 # Operating System Files
@@ -48,3 +49,4 @@ tmp/
 .DS_Store
 GEMINI.md
 wrap-up.md
+TODO.md
