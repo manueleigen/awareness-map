@@ -1,6 +1,7 @@
-import { create } from '../lib.js';
-import { t } from '../translater.js';
-import { app } from '../state.js';
+import { create } from './lib.js';
+import { t } from './translater.js';
+import { app } from './state.js';
+import { loadYAML } from './lib.js';
 
 type StoryPointType = 'info' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'location-quiz';
 
@@ -658,9 +659,8 @@ export async function startCrisesChallangeQuiz(): Promise<void> {
 
     engine.start();
 }
-
 async function loadCrisesChallangeStoryPoints(): Promise<StoryPoint[]> {
-    const { loadYAML } = await import('../lib.js');
+    
     const data = await loadYAML<{ story_points: StoryPoint[] }>(
         '/config/quizes/crises-challange/story-points.yaml'
     );

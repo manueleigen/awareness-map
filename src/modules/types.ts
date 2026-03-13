@@ -42,6 +42,8 @@ export interface ProjectContext {
 
 export interface AppState {
   language: Language;
+  width: number,
+  height: number,
   currentScenario: string | null;
   currentRole: string | null;
   activeLayers: Set<string>;

@@ -10,7 +10,7 @@ body {
   width: var(--screen-width);
   height: var(--screen-height);
   overflow: hidden;
-  zoom: 0.5; // for development
+  zoom: 1; // for development
   background-color: var(--backdrop-dark);
   touch-action: none;
   -ms-touch-action: none;

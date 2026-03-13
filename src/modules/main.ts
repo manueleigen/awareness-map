@@ -4,7 +4,8 @@ import { initScenarios, renderScenarioSelection, renderRoleSelection } from "./s
 import { Language } from "./types.js";
 import { app } from "./state.js";
 import { el, create } from "./lib.js";
-import { startCrisesChallangeQuiz } from "./quiz/engine.js";
+import { startCrisesChallangeQuiz } from "./engine.js";
+import { initCoverScale } from './screen-zoom.js';
 
 export function initUIReferences(): void {
     app.ui.app = el('#app');
@@ -18,6 +19,7 @@ export function initUIReferences(): void {
     app.ui.languageSwitch = el<HTMLInputElement>('#language-switch input');
     
 }
+
 
 export async function initApp() {
     try {
@@ -38,7 +40,10 @@ export async function initApp() {
             console.error("Layer-Konfiguration konnte nicht geladen werden:", err);
         });
 
-        // 4. Initialer Render
+        // 4. Scale app to screen
+        const scaler = initCoverScale( { element: app.ui.app }) ;
+
+        // 5. Initialer Render
         await updateView();
         
         console.log("App erfolgreich initialisiert.");
@@ -128,7 +133,9 @@ export function renderMapUI(): void {
     infoBoxContent.append(title, desc);
 
     // Start crises_challange quiz for the flood / crisis_staff combination
-    if (app.currentScenario === 'flood' && app.currentRole === 'crisis_staff') {
+    // CHALLENGE ACTIVATED FOR ALL ROLES AND SCENARIOS (DUMMY)
+    //if (app.currentScenario === 'flood' && app.currentRole === 'crisis_staff') 
+    if(true){
         const startQuizBtn = create('button');
         startQuizBtn.innerText = t('challenges.flood.crisis_staff.start_button', 'Krisenstab-Challenge starten');
         startQuizBtn.addEventListener('click', async () => {

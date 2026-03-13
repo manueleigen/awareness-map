@@ -2,6 +2,8 @@ import { AppState } from '../modules/types.js';
 
 export const app: AppState = {
   language: 'de',
+  width: 3840,
+  height: 2160,
   currentScenario: null,
   currentRole: null,
   activeLayers: new Set(),
