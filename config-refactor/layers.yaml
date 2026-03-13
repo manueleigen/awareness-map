@@ -20,10 +20,9 @@ layers:
     toggle: hidden
     interaction: none
 
-  - id: critical_places
+  - id: critical_sites
     type: locations
-    title_key: layers.critical_sites.title
-    description_key: layers.critical_sites.description
+    title_key: layers.global.critical_sites.title
     toggle: available
     interaction: inspect-location
     icon_mode: per-location
@@ -31,16 +30,14 @@ layers:
   - id: population_density
     class: blend-layer
     type: static-image
-    title_key: layers.population_density.title
-    description_key: layers.population_density.description
+    title_key: layers.global.population_density.title
     toggle: available
     interaction: none
     opacity_control: true
 
   - id: flood_simulation
     type: dynamic-image
-    title_key: layers.flood_simulation.title
-    description_key: layers.flood_simulation.description
+    title_key: layers.scenarios.flood.layers.flood_simulation.title
     toggle: available
     available_from: scenario
     interaction: timeline
@@ -50,8 +47,7 @@ layers:
 
   - id: emergency_vehicles
     type: locations
-    title_key: layers.emergency_vehicles.title
-    description_key: layers.emergency_vehicles.description
+    title_key: layers.scenarios.flood.roles.fire_brigade.layers.emergency_vehicles.title
     toggle: available
     available_from: role
     interaction: inspect-location
@@ -59,8 +55,7 @@ layers:
 
   - id: emergency_calls
     type: locations
-    title_key: layers.emergency_calls.title
-    description_key: layers.emergency_calls.description
+    title_key: layers.scenarios.flood.roles.fire_brigade.layers.emergency_calls.title
     toggle: available
     available_from: role
     interaction: inspect-location
@@ -68,8 +63,7 @@ layers:
 
   - id: social_media
     type: locations
-    title_key: layers.social_media.title
-    description_key: layers.social_media.description
+    title_key: layers.scenarios.flood.roles.police.layers.social_media.title
     toggle: available
     available_from: role
     interaction: inspect-location
@@ -77,8 +71,7 @@ layers:
 
   - id: evacuation_zones
     type: areas
-    title_key: layers.evacuation_zones.title
-    description_key: layers.evacuation_zones.description
+    title_key: layers.scenarios.flood.roles.police.layers.evacuation_zones.title
     toggle: available
     available_from: role
     interaction: none
@@ -86,8 +79,8 @@ layers:
 
   - id: drone_feed
     type: static-image
-    title_key: layers.drone_feed.title
-    description_key: layers.drone_feed.description
+    title_key: layers.scenarios.flood.roles.crisis_staff.layers.drone_feed.title
+    description_key: layers.scenarios.flood.roles.crisis_staff.layers.drone_feed.description
     toggle: available
     available_from: role
     interaction: inspect-area

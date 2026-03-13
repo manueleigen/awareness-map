@@ -18,15 +18,12 @@ contexts:
         icon: /assets/icons/default_icon.svg
         initially_visible: true
 
-      critical_places:
+      critical_sites:
         src: /assets/layers/flood/critical_sites.json
-        icon: /assets/icons/critical_sites.svg
-        poi_icon: /assets/icons/marker_poi.svg
         initially_visible: true
 
       population_density:
         src: /assets/layers/population_density.png
-        icon: /assets/icons/population_density.svg
         initially_visible: false
 
   scenarios:
@@ -42,32 +39,27 @@ contexts:
         fire_brigade:
           layers:
             emergency_calls:
-              src: /assets/layers/flood/emergency_calls.json
-              icon: /assets/icons/emergency_calls.svg
+              src: /assets/layers/flood/fire_brigade/emergency_calls.json
               initially_visible: false
 
-            social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
-              icon: /assets/icons/social_media.svg
+            emergency_vehicles:
+              src: /assets/layers/flood/fire_brigade/emergency_vehicles.json
               initially_visible: false
 
         police:
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
-              icon: /assets/icons/social_media.svg
+              src: /assets/layers/flood/police/social_media.json
               initially_visible: false
 
             evacuation_zones:
-              src: /assets/layers/flood/evacuation_zones.svg
-              icon: /assets/icons/default_icon.svg
+              src: /assets/layers/flood/police/evacuation_zones.svg
               initially_visible: false
 
         crisis_staff:
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
-              icon: /assets/icons/social_media.svg
+              src: /assets/layers/flood/crisis_staff/social_media.json
               initially_visible: false
 
     blackout:
