@@ -75,6 +75,7 @@
   background: var(--bg);
   pointer-events: auto;
   position: relative;
+  cursor: pointer;
   
   // Triangle pointing down
   &::after {

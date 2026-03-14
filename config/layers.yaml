@@ -1,41 +1,10 @@
 layers:
+  # --- z-index: lowest (bottom) → highest (top) ---
+
   - id: base_layer_river
     type: static-image
     toggle: hidden
     interaction: none
-
-  - id: base_layer_buildings
-    type: static-image
-    toggle: hidden
-    interaction: none
-
-  - id: base_layer_streets
-    type: static-image
-    toggle: hidden
-    interaction: none
-
-  - id: base_layer_glow
-    class: glow-layer
-    type: static-image
-    toggle: hidden
-    interaction: none
-
-  - id: critical_places
-    type: locations
-    title_key: layers.critical_sites.title
-    description_key: layers.critical_sites.description
-    toggle: available
-    interaction: inspect-location
-    icon_mode: per-location
-
-  - id: population_density
-    class: blend-layer
-    type: static-image
-    title_key: layers.population_density.title
-    description_key: layers.population_density.description
-    toggle: available
-    interaction: none
-    opacity_control: true
 
   - id: flood_simulation
     type: dynamic-image
@@ -48,10 +17,52 @@ layers:
     start_time: "08:00"
     end_time: "18:00"
 
-  - id: emergency_vehicles
+  - id: base_layer_streets
+    type: static-image
+    toggle: hidden
+    interaction: none
+
+  - id: base_layer_glow
+    class: glow-layer
+    type: static-image
+    toggle: hidden
+    interaction: none
+
+  - id: base_layer_buildings
+    type: static-image
+    toggle: hidden
+    interaction: none
+
+  - id: population_density
+    class: blend-layer
+    type: static-image
+    title_key: layers.population_density.title
+    description_key: layers.population_density.description
+    toggle: available
+    interaction: none
+    opacity_control: true
+
+  - id: evacuation_zones
+    type: areas
+    title_key: layers.evacuation_zones.title
+    description_key: layers.evacuation_zones.description
+    toggle: available
+    available_from: role
+    interaction: none
+    opacity_control: true
+
+  - id: critical_places
     type: locations
-    title_key: layers.emergency_vehicles.title
-    description_key: layers.emergency_vehicles.description
+    title_key: layers.critical_sites.title
+    description_key: layers.critical_sites.description
+    toggle: available
+    interaction: inspect-location
+    icon_mode: per-location
+
+  - id: social_media
+    type: locations
+    title_key: layers.social_media.title
+    description_key: layers.social_media.description
     toggle: available
     available_from: role
     interaction: inspect-location
@@ -66,23 +77,14 @@ layers:
     interaction: inspect-location
     icon_mode: per-location
 
-  - id: social_media
+  - id: emergency_vehicles
     type: locations
-    title_key: layers.social_media.title
-    description_key: layers.social_media.description
+    title_key: layers.emergency_vehicles.title
+    description_key: layers.emergency_vehicles.description
     toggle: available
     available_from: role
     interaction: inspect-location
     icon_mode: per-location
-
-  - id: evacuation_zones
-    type: areas
-    title_key: layers.evacuation_zones.title
-    description_key: layers.evacuation_zones.description
-    toggle: available
-    available_from: role
-    interaction: none
-    opacity_control: true
 
   - id: drone_feed
     type: static-image
@@ -91,3 +93,13 @@ layers:
     toggle: available
     available_from: role
     interaction: inspect-area
+
+  - id: quiz_location_marker
+    type: locations
+    toggle: hidden
+    interaction: none
+
+  - id: quiz_location_radius
+    type: static-image
+    toggle: hidden
+    interaction: none

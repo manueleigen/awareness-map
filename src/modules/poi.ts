@@ -65,9 +65,8 @@ export async function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiS
 
     const content = create('div');
     content.className = 'poi-overlay-content';
-    content.addEventListener('click', (e) => {
-        // Prevent clicking inside the overlay from closing it via the outside listener
-        e.stopPropagation();
+    content.addEventListener('click', () => {
+        hidePOIOverlay();
     });
 
     const head = create('div');

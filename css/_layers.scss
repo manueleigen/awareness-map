@@ -7,6 +7,10 @@
   mix-blend-mode: lighten;
 }
 
+.layer-locations {
+  pointer-events: none;
+}
+
 .layer-areas {
   .st1 {
     opacity: 1;
