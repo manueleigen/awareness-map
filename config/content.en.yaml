@@ -314,7 +314,9 @@ layers:
       planning, and prioritization.
 
   flood_simulation:
-    title: Flood Simulation
+    title: |-
+      Flood
+      Simulation
     description: >
       Shows how the flooding develops over time and supports the assessment of
       access loss and evolving risks.
@@ -332,7 +334,9 @@ layers:
       police and crisis staff.
 
   evacuation_zones:
-    title: Evacuation Zones
+    title: |-
+      Evacuation
+      Zones
     description: >
       Marked or defined areas for evacuation and protective measures.
 

@@ -319,7 +319,9 @@ layers:
       Lebensrisiko, Evakuierungsplanung und Priorisierung.
 
   flood_simulation:
-    title: Flutsimulation
+    title: |-
+      Flut
+      Simulation
     description: >
       Zeigt die Entwicklung des Hochwassers über die Zeit und unterstützt die
       Einschätzung von Zugangsverlusten und Risiken.

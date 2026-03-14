@@ -7,11 +7,31 @@
   mix-blend-mode: lighten;
 }
 
-.layer-areas polygon.active,
-.layer-areas path.st0.active {
-  stroke-width: 10px;
-  stroke:  white;
-}
 .layer-areas {
-  opacity: .7;
+  .st1 {
+    opacity: 1;
+  }
+
+  polygon,
+  path.st0 {
+    fill: var(--secondary-70);
+    stroke: var(--primary);
+    stroke-width: 2px;
+    cursor: pointer;
+    transition: fill 200ms ease-out;
+
+    &.active {
+      fill: var(--button-90);
+    }
+
+    &:active {
+      fill: var(--secondary-inactive-90);
+    }
+  }
+
+  path.st2 {
+    fill: var(--primary);
+    pointer-events: none;
+    transition: fill 200ms ease-out;
+  }
 }

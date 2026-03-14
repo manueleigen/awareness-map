@@ -6,13 +6,15 @@
   flex-direction: column;
   justify-content: center;
   gap: 40px;
-  right: 0;
+  right: 60px;
   top: 0;
   z-index: 100;
-  width: 360px;
+  width: fit-content;
   height: 100%;
+  pointer-events: none;
 
   .toggleSwitch {
+    pointer-events: auto;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -21,6 +23,8 @@
     color: white;
     position: relative;
     height: fit-content;
+    width: fit-content;
+    align-self: center;
 
     .toggle-icon {
       width: 165px;

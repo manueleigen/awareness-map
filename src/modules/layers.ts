@@ -150,7 +150,13 @@ async function buildLayerUI(config: LayerConfig, ctxLayer: ContextLayer | null, 
                 if (svg) {
                     areaWrapper.innerHTML = svg as string;
                     areaWrapper.querySelectorAll('polygon, path.st0').forEach(obj => {
-                        obj.addEventListener('click', () => obj.classList.toggle('active'));
+                        obj.addEventListener('click', () => {
+                            obj.classList.toggle('active');
+                            const g = obj.closest('g');
+                            if (g?.parentElement && obj.classList.contains('active')) {
+                                g.parentElement.appendChild(g);
+                            }
+                        });
                     });
                     wrapper.append(areaWrapper);
                 }
