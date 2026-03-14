@@ -3,17 +3,24 @@ import { create, loadJSON, loadTEXT } from './lib.js';
 import { t } from './translater.js';
 import { ContextLayer } from './types.js';
 
+/**
+ * Renders a layer containing Point of Interest (POI) markers.
+ * @param src Path to the JSON file containing location data.
+ * @param ctxLayer Context configuration for this layer (icons, etc.).
+ */
 export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null): Promise<HTMLElement> {
     const poiSize = 150;
     const poiContainer = create("div");
-    poiContainer.className = "poi-container";
+    poiContainer.className = "poi-container layer-locations"; // Added layer-locations class for CSS targeting
     
     const data = await loadJSON<{ locations: any[] }>(src);
     if (data && data.locations) {
+        console.log(`[POI] ${src.split('/').pop()} loaded`);
         data.locations.forEach((loc, index) => {
             const marker = create("div");
             marker.className = "poi-marker";
-            // Ensure each POI has a stable id so quizzes can reference it
+            
+            // Assign a stable ID for quiz interactions
             if (!marker.id) {
                 const baseId =
                     (typeof loc.id === 'string' && loc.id.trim().length > 0)
@@ -22,12 +29,14 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
                 marker.id = baseId;
             }
             marker.dataset.quizId = marker.id;
+            
+            // Position the marker (centered on coordinate)
             marker.style.left = `${loc.x - (poiSize/2)}px`;
             marker.style.top = `${loc.y - (poiSize/2)}px`;
             marker.style.width = `${poiSize}px`;
             marker.style.height = `${poiSize}px`;
             
-            // Add Icon if available in context
+            // Inject SVG icon if configured
             if (ctxLayer?.poi_icon) {
                 const iconWrapper = create('div');
                 iconWrapper.className = 'poi-icon';
@@ -38,10 +47,13 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
             }
 
             marker.title = loc.translations?.name?.[app.language] || "POI";
+            
+            // Handle click to open detail overlay
             marker.addEventListener('click', (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent map click listeners from firing
                 showPOIOverlay(poiContainer, loc, poiSize, marker);
             });
+            
             poiContainer.append(marker);
         });
     }
@@ -49,26 +61,31 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
     return poiContainer;
 }
 
-export async function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiSize: number, marker: HTMLDivElement):  Promise<void> {
+/**
+ * Displays a detail overlay next to a specific POI marker.
+ */
+export async function showPOIOverlay(poiContainer: HTMLDivElement, loc: any, poiSize: number, marker: HTMLDivElement): Promise<void> {
 
-    // Reset/Close any existing overlay
+    // Close any currently open overlay first
     app.ui.poiOverlay?.remove();
 
-    
-    const poiOverlay = create('div')
-    poiOverlay.setAttribute ('id', 'poi-overlay');
+    const poiOverlay = create('div');
+    poiOverlay.setAttribute('id', 'poi-overlay');
 
-    // Position at marker coordinates
+    // Position overlay relative to the marker
     poiOverlay.style.left = `${loc.x - (poiSize)}px`;
     poiOverlay.style.top = `${loc.y - (poiSize)}px`;
     poiOverlay.style.borderRadius = `${ poiSize/2 }px`;
 
     const content = create('div');
     content.className = 'poi-overlay-content';
-    content.addEventListener('click', () => {
-        hidePOIOverlay();
+    
+    // Prevent clicks inside the content from triggering the global "close" listener
+    content.addEventListener('click', (e) => {
+        e.stopPropagation();
     });
 
+    // Header section (Icon + Title + Close Button)
     const head = create('div');
     head.className = 'poi-overlay-head';
 
@@ -81,7 +98,6 @@ export async function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiS
     const closeBtn = create('button');
     closeBtn.className = 'poi-close-btn';
     const closeBtnIcon = await loadTEXT('assets/icons/ui/esc-btn-icon.svg') as string;
-
     closeBtn.innerHTML = closeBtnIcon;
 
     closeBtn.addEventListener('click', (e) => {
@@ -91,15 +107,14 @@ export async function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiS
 
     head.append(icon, title, closeBtn);
 
-
-
+    // Body section (Status Text)
     const statusValue = create('p');
     statusValue.className = 'status-text';
     statusValue.innerText = loc.translations?.status?.[app.language] || '-';
 
     content.append(head, statusValue);
 
-    // Quiz point-selection mode: allow selecting this POI as an answer
+    // Inject "Select" button if we are in a quiz selection step
     const quizPoiSelectMode = document.documentElement.dataset.quizPoiSelect === '1';
     if (quizPoiSelectMode) {
         const selectBtn = create('button');
@@ -108,8 +123,8 @@ export async function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiS
         const updateLabel = () => {
             const isSelected = marker.classList.contains('quiz-answer');
             selectBtn.innerText = isSelected
-                ? t('crises_challange.common.deselect_poi', 'Abwählen')
-                : t('crises_challange.common.select_poi', 'Auswählen');
+                ? t('crises_challange.common.deselect_poi', 'Deselect')
+                : t('crises_challange.common.select_poi', 'Select');
             selectBtn.classList.toggle('active', isSelected);
         };
         updateLabel();
@@ -118,20 +133,25 @@ export async function showPOIOverlay(poiContainer:HTMLDivElement, loc: any, poiS
             e.stopPropagation();
             marker.classList.toggle('quiz-answer');
             updateLabel();
+            // Notify the quiz engine
             document.dispatchEvent(new CustomEvent('quiz-answer-changed', { detail: { id: marker.id } }));
         });
 
-        // Place at end of overlay (below description)
         content.append(selectBtn);
     }
+    
     poiOverlay.append(content);
     poiContainer.append(poiOverlay);
     app.ui.poiOverlay = poiOverlay;
 }
 
+/**
+ * Removes the currently visible POI overlay from the DOM.
+ */
 export function hidePOIOverlay(): void {
     if (app.ui.poiOverlay) {
         app.ui.poiOverlay.remove();
         app.ui.poiOverlay.innerHTML = '';
+        app.ui.poiOverlay = null;
     }
 }

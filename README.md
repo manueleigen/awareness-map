@@ -8,7 +8,9 @@ This interactive PWA is designed for a 65" 4K touch-table, simulating a disaster
 3. **Start TypeScript compiler:** `npx tsc -w`
 
 ## Option A: Kiosk-Browser
-4. **Run command:** `TBA` 
+4. **Run command:** `kiosk-browser -f -s /path/to/folder index.html` 
+https://github.com/IMAGINARY/kiosk-browser/releases/tag/v0.19.0-alpha.1
+-f : fullscreen; -s : serve; -d : developer-tools 
 
 ## Option B: NPX Server
 4. **Run local server:** `npx serve .` (or any static server)

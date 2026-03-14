@@ -24,8 +24,8 @@ story_points:
     target: "#layers"
     activeLayerId: drone_feed
     solution:
-      x: 1000
-      y: 1000
+      x: 1960
+      y: 1500
     maxDistance: 800
     step: 2
     total_steps: 4

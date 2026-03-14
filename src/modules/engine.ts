@@ -2,13 +2,17 @@ import { app } from './state.js';
 import { runQuiz } from './quiz/engine-core.js';
 
 /**
- * Public entry point for starting a quiz.
- * Manages the AppState and view transition on finish.
+ * Public entry point for starting a quiz/challenge.
+ * Manages the transition to the 'quiz' view and handles the completion logic.
+ * 
+ * @param quizPath Path to the quiz YAML definition.
  */
 export async function startQuiz(quizPath: string): Promise<void> {
     const { infoBoxContent, infoBoxControls } = app.ui;
+    // Ensure we have valid UI targets for the quiz engine
     if (!infoBoxContent || !infoBoxControls) return;
 
+    // Switch view to 'quiz' to lock certain UI updates
     app.view = 'quiz';
 
     await runQuiz(
@@ -16,6 +20,7 @@ export async function startQuiz(quizPath: string): Promise<void> {
         infoBoxContent,
         infoBoxControls,
         (status) => {
+            // Callback executed when the quiz reaches a terminal state (win/fail)
             if (app.currentScenario && app.currentRole) {
                 const resultId = `${app.currentScenario}_${app.currentRole}`;
                 app.challengeResults[resultId] = {
@@ -24,8 +29,11 @@ export async function startQuiz(quizPath: string): Promise<void> {
                     status: status
                 };
             }
+            
+            // Return to the map view
             app.view = 'map';
-            // Trigger UI update
+            
+            // Trigger a global UI update to show results and reset layers
             document.dispatchEvent(new CustomEvent('app-request-view-update'));
         }
     );

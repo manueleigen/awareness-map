@@ -3,6 +3,7 @@ import { LayerConfig, ContextLayer } from './types.js';
 
 /**
  * Helper to wait for the dotLottie instance to be fully initialized and loaded.
+ * Necessary because the Web Component initializes asynchronously.
  */
 export function waitForPlayerReady(player: any): Promise<any> {
     return new Promise((resolve) => {
@@ -10,6 +11,7 @@ export function waitForPlayerReady(player: any): Promise<any> {
             if (player.dotLottie && player.dotLottie.isLoaded) {
                 resolve(player.dotLottie);
             } else {
+                // Poll every 50ms until ready
                 setTimeout(check, 50);
             }
         };
@@ -18,7 +20,8 @@ export function waitForPlayerReady(player: any): Promise<any> {
 }
 
 /**
- * Builds a dynamic time slider for layers with playback_control.
+ * Builds a dynamic time slider UI for layers with playback_control enabled.
+ * Integrates with dotLottie players to control animation frames.
  */
 export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null): HTMLElement {
     const sliderWrapper = create('div');
@@ -39,12 +42,14 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     const thumbIcon = create('div');
     thumbIcon.className = 'slider-thumb-icon';
     const iconImg = create('img');
-    iconImg.src = ctxLayer?.slider_icon || ctxLayer?.icon || '/assets/icons/default_icon.svg';
+    // Priority: slider_icon > poi_icon > fallback
+    iconImg.src = ctxLayer?.slider_icon || ctxLayer?.poi_icon || '/assets/icons/default_icon.svg';
     iconImg.onerror = () => { iconImg.src = '/assets/icons/default_icon.svg'; };
     thumbIcon.append(iconImg);
 
     container.append(range, thumbIcon);
 
+    // Generate time labels (e.g., 08:00, 12:00...)
     const labels = create('div');
     labels.className = 'slider-label-container';
     
@@ -57,15 +62,19 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 
     sliderWrapper.append(container, labels);
 
-    // Performance Optimization: Throttle updates using requestAnimationFrame
+    // Performance Optimization Variables
     let ticking = false;
     let cachedCore: any = null;
     let cachedWidth: number = 0;
 
+    /**
+     * Updates both the Lottie animation and the visual thumb position.
+     * Uses requestAnimationFrame to stay synced with the display refresh rate.
+     */
     const performUpdate = () => {
         const val = parseFloat(range.value);
         
-        // 1. Update Lottie
+        // 1. Synchronize Lottie Animation
         if (cachedCore) {
             if (typeof cachedCore.setFrame === 'function') {
                 const totalFrames = cachedCore.totalFrames || 100;
@@ -73,17 +82,18 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
             } else if (typeof cachedCore.seek === 'function') {
                 cachedCore.seek(val);
             }
-            // Only call pause if it's actually playing to save cycles
+            // Ensure animation is paused while scrubbing
             if (cachedCore.isPlaying) cachedCore.pause();
         }
 
-        // 2. Update UI (Thumb)
+        // 2. Update UI (Thumb position)
         if (cachedWidth === 0) cachedWidth = range.offsetWidth || 1380;
         updateThumbPosition(range, thumbIcon, cachedWidth);
         
         ticking = false;
     };
 
+    // Throttle slider input events
     range.addEventListener('input', () => {
         if (!ticking) {
             requestAnimationFrame(performUpdate);
@@ -91,15 +101,15 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
         }
     });
 
-    // Reset cached width on window resize
+    // Handle layout changes
     window.addEventListener('resize', () => { cachedWidth = 0; });
 
-    // Initial load of the Lottie core
+    // Link slider to its corresponding Lottie player
     const player = document.getElementById(`player-${config.id}`) as any;
     if (player) {
         waitForPlayerReady(player).then(core => {
             cachedCore = core;
-            performUpdate(); // Sync initial state
+            performUpdate(); // Sync initial frame
         }).catch(() => {});
     }
 
@@ -107,7 +117,8 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 }
 
 /**
- * Calculates sensible full-hour time steps between start and end time.
+ * Calculates human-readable time steps for the slider labels.
+ * Automatically chooses a "nice" step interval (1h, 2h, 4h, etc.) to avoid crowding.
  */
 function calculateTimeSteps(start: string, end: string): string[] {
     const parseH = (t: string) => parseInt(t.split(':')[0], 10);
@@ -123,7 +134,7 @@ function calculateTimeSteps(start: string, end: string): string[] {
     let step = 1;
     for (const candidate of niceSteps) {
         step = candidate;
-        if (diff / candidate <= 5) break;
+        if (diff / candidate <= 5) break; // Aim for max 5-6 labels
     }
 
     const labels: string[] = [];
@@ -138,8 +149,7 @@ function calculateTimeSteps(start: string, end: string): string[] {
 }
 
 /**
- * Calculates and updates the custom thumb icon position.
- * @param width Optional pre-calculated width to avoid layout thrashing
+ * Calculates and updates the custom thumb icon's CSS position.
  */
 export function updateThumbPosition(range: HTMLInputElement, thumbIcon: HTMLElement, width?: number) {
     const val = parseFloat(range.value);
@@ -148,7 +158,7 @@ export function updateThumbPosition(range: HTMLInputElement, thumbIcon: HTMLElem
     const percent = (val - min) / (max - min);
     
     const trackWidth = width || range.offsetWidth || 1380;
-    const thumbWidth = 90;
+    const thumbWidth = 90; // Size defined in SCSS
     const padding = thumbWidth / 2;
     const usableWidth = trackWidth - thumbWidth;
     const thumbPos = (percent * usableWidth) + padding;

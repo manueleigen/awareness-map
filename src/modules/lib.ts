@@ -10,27 +10,40 @@ export const group = <T extends HTMLElement>(css: string): NodeListOf<T> => docu
 /** Shorthand for document.createElement */
 export const create = <K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K] => document.createElement(tagName);
 
-/** Loads a JSON file and returns its parsed content. */
+const cache = new Map<string, any>();
+
+/** Loads a JSON file and returns its parsed content (cached). */
 export const loadJSON = async <T>(url: string): Promise<T> => {
+    if (cache.has(url)) return cache.get(url);
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to load JSON from ${url}`);
-    return response.json();
+    const data = await response.json();
+    cache.set(url, data);
+    console.log(`[JSON] ${url.split('/').pop()} fetched`);
+    return data;
 };
 
 /**
- * Loads a YAML file and returns its parsed content as an object.
+ * Loads a YAML file and returns its parsed content as an object (cached).
  */
 export const loadYAML = async <T>(url: string): Promise<T> => {
+    if (cache.has(url)) return cache.get(url);
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to load YAML from ${url}`);
     const text = await response.text();
-    return yaml.load(text) as T;
+    const data = yaml.load(text) as T;
+    cache.set(url, data);
+    console.log(`[YAML] ${url.split('/').pop()} fetched`);
+    return data;
 };
 
-/** Loads a plain text file (e.g. SVG source). */
+/** Loads a plain text file (e.g. SVG source) (cached). */
 export const loadTEXT = async <T>(url: string): Promise<T> => {
+    if (cache.has(url)) return cache.get(url);
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to load TEXT from ${url}`);
     const text = await response.text();
-    return text as T;
+    cache.set(url, text);
+    console.log(`[SVG] ${url.split('/').pop()} fetched`);
+    return text as any;
 };

@@ -24,6 +24,12 @@ contexts:
         poi_icon: /assets/icons/marker_poi.svg
         initially_visible: false
 
+      emergency_vehicles:
+        src: /assets/layers/flood/emergency_vehicles.json
+        icon: /assets/icons/default_icon.svg
+        poi_icon: /assets/icons/marker_poi.svg
+        initially_visible: false
+
       population_density:
         src: /assets/layers/population_density.png
         icon: /assets/icons/population_density.svg
@@ -48,7 +54,7 @@ contexts:
               initially_visible: false
 
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -56,7 +62,7 @@ contexts:
           quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -69,7 +75,7 @@ contexts:
           quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -91,7 +97,7 @@ contexts:
               initially_visible: false
 
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -99,7 +105,7 @@ contexts:
           quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -112,7 +118,7 @@ contexts:
           quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -132,7 +138,7 @@ contexts:
               initially_visible: false
 
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder as it's missing in the new structure
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -140,7 +146,7 @@ contexts:
           quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 
@@ -153,7 +159,7 @@ contexts:
           quiz: /config/quizes/crises-challange.yaml
           layers:
             social_media:
-              src: /assets/layers/flood/emergency_calls.json # Placeholder
+              src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
 

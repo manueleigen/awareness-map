@@ -33,15 +33,6 @@ layers:
     toggle: hidden
     interaction: none
 
-  - id: population_density
-    class: blend-layer
-    type: static-image
-    title_key: layers.population_density.title
-    description_key: layers.population_density.description
-    toggle: available
-    interaction: none
-    opacity_control: true
-
   - id: evacuation_zones
     type: areas
     title_key: layers.evacuation_zones.title

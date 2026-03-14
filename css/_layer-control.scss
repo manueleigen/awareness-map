@@ -7,10 +7,10 @@
   justify-content: center;
   gap: 40px;
   right: 60px;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 100;
   width: fit-content;
-  height: 100%;
   pointer-events: none;
 
   .toggleSwitch {
