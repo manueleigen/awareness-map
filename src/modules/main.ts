@@ -3,10 +3,12 @@ import { initTranslator, t } from "./translater.js";
 import { initScenarios, renderScenarioSelection, renderRoleSelection, getQuizPath } from "./scenarios.js";
 import { Language } from "./types.js";
 import { app } from "./state.js";
-import { el, create, addPointerClick } from "./lib.js";
+import { el, create } from "./lib.js";
+import { addPointerClick } from './interactions.js';
 import { startQuiz } from "./engine.js";
 import { initDualScale } from './screen-zoom.js';
 import { hidePOIOverlay } from './poi.js';
+import { startBackgroundPreload } from './preloader.js';
 
 /**
  * Technical Implementation Guide (v2.3): Viewport "Ironclad" Lockdown.
@@ -141,6 +143,9 @@ export async function initApp() {
 
         // 5. Perform initial render based on default state
         await updateView();
+
+        // 6. Start background preloading of non-critical assets
+        startBackgroundPreload();
         
         console.log("Application successfully initialized.");
     } catch (globalError) {

@@ -1,4 +1,5 @@
-import { create, addPointerClick } from '../lib.js';
+import { create } from '../lib.js';
+import { addPointerClick } from '../interactions.js';
 import { t } from '../translater.js';
 import { InfoStoryPoint, QuizStoryPoint } from './types.js';
 

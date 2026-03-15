@@ -1,5 +1,6 @@
 import { app } from './state.js';
-import { create, loadYAML, addPointerClick } from './lib.js';
+import { create, loadYAML } from './lib.js';
+import { addPointerClick } from './interactions.js';
 import { t } from './translater.js';
 import { ProjectContext } from './types.js';
 import { updateView } from './main.js';

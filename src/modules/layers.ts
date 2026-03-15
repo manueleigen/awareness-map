@@ -1,13 +1,14 @@
 import { app } from './state.js';
-import { create, loadJSON, loadYAML, loadTEXT, addPointerClick } from './lib.js';
+import { create, loadJSON, loadYAML, loadTEXT } from './lib.js';
+import { addPointerClick } from './interactions.js';
 import { t } from './translater.js';
 import { LayerConfig, ContextLayer, ProjectContext } from './types.js';
 import { buildSlider, updateThumbPosition, waitForPlayerReady } from './time-slider.js';
 import { renderPOILayer } from './poi.js';
 
 /** Local cache for layer definitions and project context. */
-let layerDefinitions: LayerConfig[] = [];
-let context: ProjectContext | null = null;
+export let layerDefinitions: LayerConfig[] = [];
+export let context: ProjectContext | null = null;
 
 /** Map to store created layer DOM elements for reuse. */
 const layerElements = new Map<string, HTMLElement>();
@@ -37,7 +38,7 @@ export async function initLayers(): Promise<void> {
         await renderLayers();
 
         // 3. Queue remaining layers for background preloading
-        queueBackgroundPreload();
+        // queueBackgroundPreload(); // Moved to centralized preloader
     } catch (error) {
         console.error("Failed to initialize layers:", error);
     }
@@ -69,7 +70,7 @@ function queueBackgroundPreload(): void {
     preloadNext();
 }
 
-async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> {
+export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> {
     if (layerElements.has(id)) return layerElements.get(id)!;
 
     const config = layerDefinitions.find(d => d.id === id);
@@ -244,7 +245,7 @@ function getAvailableLayers(): LayerConfig[] {
     return layerDefinitions.filter(d => availableIds.has(d.id));
 }
 
-function findAnyContextLayer(id: string): ContextLayer | null {
+export function findAnyContextLayer(id: string): ContextLayer | null {
     if (!context) return null;
     if (context.global?.layers?.[id]) return context.global.layers[id];
     for (const sId in context.scenarios) {

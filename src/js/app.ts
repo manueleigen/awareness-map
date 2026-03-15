@@ -2,7 +2,7 @@ import { initApp, updateView, resetApp } from "../modules/main.js";
 import { setLanguage } from "../modules/translater.js";
 import { Language } from "../modules/types.js";
 import { app } from "../modules/state.js";
-import { addPointerClick } from "../modules/lib.js";
+import { addPointerClick } from '../modules/interactions.js';
 
 /**
  * List of CSS selectors for elements that should remain interactive.

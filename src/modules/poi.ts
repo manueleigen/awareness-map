@@ -1,5 +1,6 @@
 import { app } from './state.js';
-import { create, loadJSON, loadTEXT, addPointerClick } from './lib.js';
+import { create, loadJSON, loadTEXT } from './lib.js';
+import { addPointerClick } from './interactions.js';
 import { t } from './translater.js';
 import { ContextLayer } from './types.js';
 
@@ -40,9 +41,9 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
             if (ctxLayer?.poi_icon) {
                 const iconWrapper = create('div');
                 iconWrapper.className = 'poi-icon';
-                fetch(ctxLayer.poi_icon)
-                    .then(res => res.text())
-                    .then(svgText => { iconWrapper.innerHTML = svgText; });
+                loadTEXT<string>(ctxLayer.poi_icon)
+                    .then(svgText => { iconWrapper.innerHTML = svgText; })
+                    .catch(() => {});
                 marker.append(iconWrapper);
             }
 
