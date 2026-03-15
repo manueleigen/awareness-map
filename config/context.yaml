@@ -1,21 +1,15 @@
 # Project Context Mapping
-# Use z_index (1-1000) to control layer stacking order. 
-# Map layers should stay below UI elements (z-index 2000+).
-# Example: Base map (1), streets (10), markers/data (100).
+# z_index: Reihenfolge aus layers.yaml (1=unten, 14=oben).
+# Map layers unter UI-Elementen (z-index 2000+).
 
 contexts:
   global:
     layers:
-      base_layer_buildings:
-        src: /assets/layers/buildings.webp
-        initially_visible: true
-        z_index: 2
-
       base_layer_river:
         src: /assets/layers/base-layer_river.webp
         initially_visible: true
         z_index: 1
-        
+
       base_layer_streets:
         src: /assets/layers/streets.webp
         initially_visible: true
@@ -27,25 +21,30 @@ contexts:
         initially_visible: true
         z_index: 4
 
+      base_layer_buildings:
+        src: /assets/layers/buildings.webp
+        initially_visible: true
+        z_index: 5
+
+      population_density:
+        src: /assets/layers/population_density.png
+        icon: /assets/icons/population_density.svg
+        initially_visible: false
+        z_index: 6
+
       critical_places:
         src: /assets/layers/flood/critical_sites.json
         icon: /assets/icons/critical_sites.svg
         poi_icon: /assets/icons/marker_poi.svg
         initially_visible: false
-        z_index: 100
+        z_index: 11
 
       emergency_vehicles:
         src: /assets/layers/flood/emergency_vehicles.json
         icon: /assets/icons/default_icon.svg
         poi_icon: /assets/icons/marker_poi.svg
         initially_visible: false
-        z_index: 110
-
-      population_density:
-        src: /assets/layers/population_density.png
-        icon: /assets/icons/population_density.svg
-        initially_visible: false
-        z_index: 50
+        z_index: 9
 
   scenarios:
     flood:
@@ -55,7 +54,7 @@ contexts:
           icon: /assets/icons/flood.svg
           slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
-          z_index: 60
+          z_index: 2
 
       roles:
         fire_brigade:
@@ -65,15 +64,13 @@ contexts:
               src: /assets/layers/flood/emergency_calls.json
               icon: /assets/icons/emergency_calls.svg
               initially_visible: false
-              z_index: 111
-
+              z_index: 10
 
             social_media:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 112
-
+              z_index: 8
 
         police:
           quiz: /config/quizes/crises-challange.yaml
@@ -82,13 +79,13 @@ contexts:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 113
+              z_index: 8
 
             evacuation_zones:
               src: /assets/layers/flood/evacuation_zones.svg
               icon: /assets/icons/default_icon.svg
               initially_visible: false
-              z_index: 53
+              z_index: 7
 
         crisis_staff:
           quiz: /config/quizes/crises-challange.yaml
@@ -97,7 +94,7 @@ contexts:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 112
+              z_index: 8
 
 
 
@@ -108,7 +105,7 @@ contexts:
           icon: /assets/icons/flood.svg
           slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
-          z_index: 60
+          z_index: 2
 
       roles:
         fire_brigade:
@@ -118,15 +115,13 @@ contexts:
               src: /assets/layers/flood/emergency_calls.json
               icon: /assets/icons/emergency_calls.svg
               initially_visible: false
-              z_index: 111
-
+              z_index: 10
 
             social_media:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 112
-
+              z_index: 8
 
         police:
           quiz: /config/quizes/crises-challange.yaml
@@ -135,13 +130,13 @@ contexts:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 113
+              z_index: 8
 
             evacuation_zones:
               src: /assets/layers/flood/evacuation_zones.svg
               icon: /assets/icons/default_icon.svg
               initially_visible: false
-              z_index: 53
+              z_index: 7
 
         crisis_staff:
           quiz: /config/quizes/crises-challange.yaml
@@ -150,7 +145,7 @@ contexts:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 112
+              z_index: 8
 
     mass_event:
       layers:
@@ -159,7 +154,7 @@ contexts:
           icon: /assets/icons/flood.svg
           slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
-          z_index: 60
+          z_index: 2
 
       roles:
         fire_brigade:
@@ -169,15 +164,13 @@ contexts:
               src: /assets/layers/flood/emergency_calls.json
               icon: /assets/icons/emergency_calls.svg
               initially_visible: false
-              z_index: 111
-
+              z_index: 10
 
             social_media:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 112
-
+              z_index: 8
 
         police:
           quiz: /config/quizes/crises-challange.yaml
@@ -186,13 +179,13 @@ contexts:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 113
+              z_index: 8
 
             evacuation_zones:
               src: /assets/layers/flood/evacuation_zones.svg
               icon: /assets/icons/default_icon.svg
               initially_visible: false
-              z_index: 53
+              z_index: 7
 
         crisis_staff:
           quiz: /config/quizes/crises-challange.yaml
@@ -201,4 +194,4 @@ contexts:
               src: /assets/layers/flood/social_media.json 
               icon: /assets/icons/social_media.svg
               initially_visible: false
-              z_index: 112
+              z_index: 8

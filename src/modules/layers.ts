@@ -80,10 +80,6 @@ export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> 
     const wrapper = create("div");
     wrapper.className = `layer hidden ${config.class || ''} layer-${config.type}`;
     wrapper.id = `layer-${config.id}`;
-    
-    if (ctxLayer.z_index !== undefined) {
-        wrapper.style.zIndex = ctxLayer.z_index.toString();
-    }
 
     const src = ctxLayer?.src;
     if (src) {
@@ -174,12 +170,12 @@ export async function renderLayers(): Promise<void> {
             const isActive = app.activeLayers.has(config.id);
             layerEl.classList.toggle('hidden', !isActive);
             
-            // Sync z-index with current context (can change per scenario/role)
-            if (ctxLayer && ctxLayer.z_index !== undefined) {
-                layerEl.style.zIndex = ctxLayer.z_index.toString();
-            } else {
-                layerEl.style.zIndex = '1';
-            }
+            // z-index: ctxLayer.z_index wenn gesetzt, sonst Position aus layerDefinitions
+            const layerIndex = layerDefinitions.findIndex(d => d.id === config.id);
+            const z = (ctxLayer?.z_index !== undefined)
+                ? ctxLayer.z_index
+                : (layerIndex >= 0 ? layerIndex + 1 : 1);
+            layerEl.style.zIndex = String(z);
 
             await buildControlUI(config, ctxLayer, layerEl, layerControl);
         }
