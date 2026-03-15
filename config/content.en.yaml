@@ -295,7 +295,9 @@ layers:
       Current weather data and forecasts to support situation assessment.
 
   emergency_vehicles:
-    title: Emergency Vehicles
+    title: |-
+      Emergency
+      Vehicles
     description: >
       Positions and status of emergency vehicles in the affected area.
 
