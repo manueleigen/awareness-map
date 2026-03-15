@@ -3,10 +3,82 @@ import { initTranslator, t } from "./translater.js";
 import { initScenarios, renderScenarioSelection, renderRoleSelection, getQuizPath } from "./scenarios.js";
 import { Language } from "./types.js";
 import { app } from "./state.js";
-import { el, create } from "./lib.js";
+import { el, create, addPointerClick } from "./lib.js";
 import { startQuiz } from "./engine.js";
 import { initDualScale } from './screen-zoom.js';
 import { hidePOIOverlay } from './poi.js';
+
+/**
+ * Technical Implementation Guide (v2.3): Viewport "Ironclad" Lockdown.
+ * Prevents native browser behaviors from interfering with the custom 4K experience.
+ */
+function lockViewport(): void {
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    // Disable mouse wheel zoom (Ctrl + Scroll)
+    document.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+
+    // Disable iOS Safari pinch-to-zoom gestures
+    document.addEventListener('gesturestart', (e) => e.preventDefault());
+
+    // Ensure user-select is disabled globally
+    document.body.style.userSelect = 'none';
+}
+
+/**
+ * Environmental Stability: Stale Pointer Watchdog.
+ * Public screens experience sensor drift. If a pointer stays active for > 60s
+ * without movement, we force-release it.
+ */
+function initWatchdog(): void {
+    const activePointers = new Map<number, { lastMove: number, target: HTMLElement }>();
+    
+    document.addEventListener('pointerdown', (e) => {
+        activePointers.set(e.pointerId, { lastMove: Date.now(), target: e.target as HTMLElement });
+    }, true);
+
+    document.addEventListener('pointermove', (e) => {
+        if (activePointers.has(e.pointerId)) {
+            activePointers.get(e.pointerId)!.lastMove = Date.now();
+        }
+    }, true);
+
+    const cleanup = (id: number) => activePointers.delete(id);
+    document.addEventListener('pointerup', (e) => cleanup(e.pointerId), true);
+    document.addEventListener('pointercancel', (e) => cleanup(e.pointerId), true);
+
+    // Monitor stale pointers every 5 seconds
+    setInterval(() => {
+        const now = Date.now();
+        activePointers.forEach((data, id) => {
+            if (now - data.lastMove > 60000) { // 60 seconds
+                console.warn(`[Watchdog] Releasing stale pointer ${id} from`, data.target);
+                if (data.target && typeof data.target.releasePointerCapture === 'function') {
+                    try { data.target.releasePointerCapture(id); } catch(e) {}
+                }
+                activePointers.delete(id);
+            }
+        });
+    }, 5000);
+}
+
+/**
+ * Environmental Stability: Daily Refresh.
+ * Perform a full reload every 24 hours at 4:00 AM to clear GPU memory and JS heap.
+ */
+function initDailyRefresh(): void {
+    const checkTime = () => {
+        const now = new Date();
+        if (now.getHours() === 4 && now.getMinutes() === 0) {
+            console.log("[System] Scheduled daily refresh (4:00 AM). Reloading...");
+            window.location.reload();
+        }
+    };
+    setInterval(checkTime, 60000); // Check every minute
+}
 
 /**
  * Caches DOM references into the global app state for easy access.
@@ -30,6 +102,11 @@ export async function initApp() {
     try {
         console.log("Initializing application...");
         
+        // Technical Implementation Guide (v2.3) initialization
+        lockViewport();
+        initWatchdog();
+        initDailyRefresh();
+
         // 0. Cache UI References
         initUIReferences();
 
@@ -39,7 +116,8 @@ export async function initApp() {
         });
 
         // Global Click-to-close POI Overlay logic
-        document.addEventListener('click', (e) => {
+        // Technical Implementation Guide (v2.3): Standardize on Pointer API
+        document.addEventListener('pointerup', (e) => {
             if (app.ui.poiOverlay && !app.ui.poiOverlay.contains(e.target as Node)) {
                 hidePOIOverlay();
             }
@@ -137,7 +215,7 @@ export function renderHome(): void {
 
     const btn = create('button');
     btn.innerText = t('navigation.start');
-    btn.addEventListener('click', async () => {
+    addPointerClick(btn, async () => {
         app.view = 'scenario-select';
         await updateView();
     });
@@ -185,7 +263,7 @@ export function renderMapUI(): void {
         
         startQuizBtn.innerText = t(btnLabelKey, result ? 'Retry' : 'Start Challenge');
         
-        startQuizBtn.addEventListener('click', async () => {
+        addPointerClick(startQuizBtn, async () => {
             await startQuiz(quizPath);
         });
         infoBoxControls.append(startQuizBtn);

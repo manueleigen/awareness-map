@@ -1,5 +1,5 @@
 import { app } from './state.js';
-import { create, loadJSON, loadYAML, loadTEXT } from './lib.js';
+import { create, loadJSON, loadYAML, loadTEXT, addPointerClick } from './lib.js';
 import { t } from './translater.js';
 import { LayerConfig, ContextLayer, ProjectContext } from './types.js';
 import { buildSlider, updateThumbPosition, waitForPlayerReady } from './time-slider.js';
@@ -95,8 +95,16 @@ async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> {
                 if (svg) {
                     const areaWrapper = create('div')
                     areaWrapper.innerHTML = svg as string;
-                    wrapper.querySelectorAll('polygon').forEach(obj => {
-                        obj.addEventListener('click', () => obj.classList.toggle('active'));
+                    wrapper.append(areaWrapper);
+                    // Support both polygons and paths (often used for complex shapes in the middle)
+                    areaWrapper.querySelectorAll('polygon, path').forEach(obj => {
+                        // Only make elements with a fill or specific class interactive
+                        // to avoid clicking on transparent structural paths.
+                        const style = window.getComputedStyle(obj);
+                        if (style.fill !== 'none' || obj.classList.contains('st0')) {
+                            obj.classList.add('interactive-area');
+                            addPointerClick(obj as any, () => obj.classList.toggle('active'));
+                        }
                     });
                 }
                 break;
@@ -192,7 +200,7 @@ async function buildControlUI(config: LayerConfig, ctxLayer: ContextLayer | null
     }
 
     if (config.toggle === 'available') {
-        toggle.addEventListener('click', () => {
+        addPointerClick(toggle, () => {
             const nowActive = layerEl.classList.contains('hidden');
             if (nowActive) app.activeLayers.add(config.id);
             else app.activeLayers.delete(config.id);

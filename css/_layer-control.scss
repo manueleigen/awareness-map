@@ -92,7 +92,8 @@
       @include drop-shadow();
     }
 
-    &:active {
+    &:active,
+    &.is-pressing {
       .toggle-icon {
         .toggle {
           &__border {
@@ -139,7 +140,8 @@
         }
       }
 
-      &:active {
+      &:active,
+      &.is-pressing {
         .toggle-icon {
           .toggle {
             &__backdrop {

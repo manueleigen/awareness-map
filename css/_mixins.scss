@@ -8,8 +8,14 @@
 
 @mixin drop-shadow-active() {
   box-shadow: 0 0 30px 0 rgba(209, 245, 248, 0.55);
+  &.is-pressing {
+     box-shadow: 0 0 40px 0 rgba(209, 245, 248, 0.85);
+  }
 }
 
 @mixin drop-shadow-svg-active() {
   filter: drop-shadow(0 0 30px rgba(209, 245, 248, 0.55));
+  &.is-pressing {
+     filter: drop-shadow(0 0 40px rgba(209, 245, 248, 0.85));
+  }
 }

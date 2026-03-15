@@ -1,4 +1,4 @@
-import { create } from '../lib.js';
+import { create, addPointerClick } from '../lib.js';
 import { t } from '../translater.js';
 import { InfoStoryPoint, QuizStoryPoint } from './types.js';
 
@@ -26,7 +26,7 @@ export function renderInfo(
 
     const btn = create('button');
     btn.innerText = t(point.continue_button_key, t('feedback.continue', 'Continue'));
-    btn.addEventListener('click', () => onAction(true));
+    addPointerClick(btn, () => onAction(true));
     controls.append(btn);
 }
 
@@ -63,7 +63,7 @@ export function renderChoice(
         btn.className = 'quiz-option-btn';
         btn.innerText = t(opt.label_key);
         
-        btn.addEventListener('click', () => {
+        addPointerClick(btn, () => {
             const isMulti = (point.maxAnswers ?? point.solution.length) > 1;
             
             // Single selection mode logic
@@ -88,7 +88,7 @@ export function renderChoice(
 
     const submit = create('button');
     submit.innerText = t('crises_challange.common.submit', 'Check Answer');
-    submit.addEventListener('click', () => {
+    addPointerClick(submit, () => {
         // Enforce minimum required answers
         if (selected.size < (point.minAnswers ?? 1)) return;
         

@@ -1,5 +1,5 @@
 import { app } from './state.js';
-import { create, loadJSON, loadTEXT } from './lib.js';
+import { create, loadJSON, loadTEXT, addPointerClick } from './lib.js';
 import { t } from './translater.js';
 import { ContextLayer } from './types.js';
 
@@ -49,7 +49,7 @@ export async function renderPOILayer(src: string, ctxLayer: ContextLayer | null)
             marker.title = loc.translations?.name?.[app.language] || "POI";
             
             // Handle click to open detail overlay
-            marker.addEventListener('click', (e) => {
+            addPointerClick(marker, (e) => {
                 e.stopPropagation(); // Prevent map click listeners from firing
                 showPOIOverlay(poiContainer, loc, poiSize, marker);
             });
@@ -81,7 +81,7 @@ export async function showPOIOverlay(poiContainer: HTMLDivElement, loc: any, poi
     content.className = 'poi-overlay-content';
     
     // Prevent clicks inside the content from triggering the global "close" listener
-    content.addEventListener('click', (e) => {
+    content.addEventListener('pointerup', (e) => {
         e.stopPropagation();
     });
 
@@ -100,7 +100,7 @@ export async function showPOIOverlay(poiContainer: HTMLDivElement, loc: any, poi
     const closeBtnIcon = await loadTEXT('assets/icons/ui/esc-btn-icon.svg') as string;
     closeBtn.innerHTML = closeBtnIcon;
 
-    closeBtn.addEventListener('click', (e) => {
+    addPointerClick(closeBtn, (e) => {
         e.stopPropagation();
         hidePOIOverlay();
     });
@@ -129,7 +129,7 @@ export async function showPOIOverlay(poiContainer: HTMLDivElement, loc: any, poi
         };
         updateLabel();
 
-        selectBtn.addEventListener('click', (e) => {
+        addPointerClick(selectBtn, (e) => {
             e.stopPropagation();
             marker.classList.toggle('quiz-answer');
             updateLabel();

@@ -49,6 +49,29 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 
     container.append(range, thumbIcon);
 
+    // Technical Implementation Guide (v2.3): Component Hardening
+    // 1. Jump-to-Tap: Attach the pointerdown listener to the Slider Container (the track).
+    // This allows users to set a value instantly by tapping anywhere on the bar.
+    container.addEventListener('pointerdown', (e) => {
+        const rect = range.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const percent = Math.max(0, Math.min(1, offsetX / rect.width));
+        const min = parseFloat(range.min);
+        const max = parseFloat(range.max);
+        const val = (percent * (max - min)) + min;
+        
+        range.value = val.toString();
+        
+        // 2. Pointer Capture: Keeps the slider attached to the finger even if it slides far off-track.
+        try { range.setPointerCapture(e.pointerId); } catch(err) {}
+
+        // Trigger visual update
+        if (!ticking) {
+            requestAnimationFrame(performUpdate);
+            ticking = true;
+        }
+    });
+
     // Generate time labels (e.g., 08:00, 12:00...)
     const labels = create('div');
     labels.className = 'slider-label-container';

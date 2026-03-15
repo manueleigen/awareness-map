@@ -1,4 +1,4 @@
-import { create } from '../lib.js';
+import { create, addPointerClick } from '../lib.js';
 import { t } from '../translater.js';
 import { LocationStoryPoint, SelectionStoryPoint } from './types.js';
 import { clearQuizAnswers } from './ui.js';
@@ -38,7 +38,7 @@ export function renderLocation(
     let radiusMarker: HTMLDivElement | null = null;
 
     /** Handles clicks on the map target area. */
-    const clickHandler = (e: MouseEvent) => {
+    const clickHandler = (e: PointerEvent) => {
         if (!target) return;
         const scale = getAppScale();
         const rect = target.getBoundingClientRect();
@@ -74,11 +74,11 @@ export function renderLocation(
             ` (${Math.round(x)}, ${Math.round(y)})`;
     };
 
-    target?.addEventListener('click', clickHandler);
+    target?.addEventListener('pointerup', clickHandler as any);
 
     const btn = create('button');
     btn.innerText = t('crises_challange.common.submit', 'Check Answer');
-    btn.addEventListener('click', () => {
+    addPointerClick(btn, () => {
         if (!placed) return;
         
         // Calculate Euclidean distance to solution center
@@ -102,7 +102,7 @@ export function renderLocation(
         target?.append(solMarker);
 
         // Cleanup interaction
-        target?.removeEventListener('click', clickHandler);
+        target?.removeEventListener('pointerup', clickHandler as any);
         radiusMarker?.remove();
         
         onAction(isCorrect, placed);
@@ -189,15 +189,15 @@ export function renderSelection(
     // Listen for selection changes from POI detail overlays
     const externalHandler = () => refreshStatus();
     document.addEventListener('quiz-answer-changed', externalHandler);
-    target?.addEventListener('click', clickHandler);
+    target?.addEventListener('pointerup', clickHandler as any);
 
     const btn = create('button');
     btn.innerText = t('crises_challange.common.submit', 'Check Selection');
-    btn.addEventListener('click', () => {
+    addPointerClick(btn, () => {
         const selected = Array.from(target?.querySelectorAll(`${point.selector}.quiz-answer`) || []).map(el => el.id);
         if (selected.length < (point.minSelection ?? 1)) return;
         
-        target?.removeEventListener('click', clickHandler);
+        target?.removeEventListener('pointerup', clickHandler as any);
         document.removeEventListener('quiz-answer-changed', externalHandler);
         
         // Check if all correct IDs are selected and no wrong ones

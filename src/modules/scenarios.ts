@@ -1,5 +1,5 @@
 import { app } from './state.js';
-import { create, loadYAML } from './lib.js';
+import { create, loadYAML, addPointerClick } from './lib.js';
 import { t } from './translater.js';
 import { ProjectContext } from './types.js';
 import { updateView } from './main.js';
@@ -39,7 +39,7 @@ export function renderScenarioSelection(): void {
         const btn = create('button');
         btn.innerText = t(`scenarios.${scenarioId}.title`);
 
-        btn.addEventListener('click', async () => {
+        addPointerClick(btn, async () => {
             app.currentScenario = scenarioId;
             app.view = 'role-select';
             await updateView();
@@ -75,7 +75,7 @@ export function renderRoleSelection(): void {
         const btn = create('button');
         btn.innerText = t(`roles.${roleId}.title`);
 
-        btn.addEventListener('click', async () => {
+        addPointerClick(btn, async () => {
             app.currentRole = roleId;
             app.view = 'map';
             await updateView();
@@ -84,15 +84,15 @@ export function renderRoleSelection(): void {
         btnGroup.append(btn);
     });
 
-    // Navigation back to scenario selection
+    /* Navigation back to scenario selection - NOT USED FOR NOW
     const backBtn = create('button');
     backBtn.className = 'back-btn';
     backBtn.innerText = t('navigation.back');
-    backBtn.addEventListener('click', async () => {
+    addPointerClick(backBtn, async () => {
         app.currentScenario = null;
         app.view = 'scenario-select';
         await updateView();
-    });
+    });*/
 
     infoBoxControls.append(btnGroup);
 }

@@ -17,7 +17,8 @@
   }
 
   polygon,
-  path.st0 {
+  path.st0,
+  .interactive-area {
     fill: var(--secondary-70);
     stroke: var(--primary);
     stroke-width: 2px;
@@ -28,7 +29,8 @@
       fill: var(--button-90);
     }
 
-    &:active {
+    &:active,
+    &.is-pressing {
       fill: var(--secondary-inactive-90);
     }
   }

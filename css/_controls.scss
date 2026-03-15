@@ -12,8 +12,11 @@ button {
   cursor: pointer;
   border: none;
 
-  &:active {
+  &:active,
+  &.active,
+  &.is-pressing {
     background: var(--secondary);
+    transform: scale(0.98);
   }
 }
 
