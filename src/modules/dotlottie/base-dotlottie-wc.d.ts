@@ -1,8 +1,7 @@
-import { o as ne } from "./dotlottie-Cn4v_pQB-CBtBMv4n.js";
-import { i as CSSResult, n as LitElement, r as TemplateResult, t as m } from "./index-Bqq1Mn32.js";
+import { a as CSSResult, i as TemplateResult, n as ae, r as LitElement, t as $ } from "./index-Chv90kxo.js";
 
 //#region src/base-dotlottie-wc.d.ts
-declare abstract class BaseDotLottieWC<T extends ne | m> extends LitElement {
+declare abstract class BaseDotLottieWC<T extends ae | $> extends LitElement {
   animationId?: string;
   src: Config['src'];
   data: Config['data'];

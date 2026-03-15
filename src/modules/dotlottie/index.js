@@ -1,2 +1,2 @@
-import"./decorate-C0oFmnNg.js";import{o as e}from"./dotlottie-Cn4v_pQB-CBtBMv4n.js";import{t}from"./dist-BtTeeiEn.js";import{DotLottieWC as n}from"./dotlottie-wc.js";import{DotLottieWorkerWC as r}from"./dotlottie-worker-wc.js";const i=n=>{e.setWasmUrl(n),t.setWasmUrl(n)};export{n as DotLottieWC,r as DotLottieWorkerWC,i as setWasmUrl};
+import"./decorate-C0oFmnNg.js";import{n as e,t}from"./dist-BnVItZne.js";import{DotLottieWC as n}from"./dotlottie-wc.js";import{DotLottieWorkerWC as r}from"./dotlottie-worker-wc.js";const i=n=>{e.setWasmUrl(n),t.setWasmUrl(n)};export{n as DotLottieWC,r as DotLottieWorkerWC,i as setWasmUrl};
 //# sourceMappingURL=index.js.map

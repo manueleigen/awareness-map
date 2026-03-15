@@ -62,7 +62,9 @@
   position: absolute;
   top: 50%;
   left: 0;
-  transform: translate(-50%, -50%);
+  transform: translate(0px, -50%);
+  will-change: transform;
+  box-sizing: border-box;
   width: calc(var(--slider-height) * 1.8);
   height: calc(var(--slider-height) * 1.8);
   background-color: var(--primary);

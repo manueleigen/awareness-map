@@ -1,2 +1,2 @@
-import{a as e,t}from"./decorate-C0oFmnNg.js";import{BaseDotLottieWC as n}from"./base-dotlottie-wc.js";import{o as r}from"./dotlottie-Cn4v_pQB-CBtBMv4n.js";let i=class extends n{_createDotLottieInstance(e){return new r(e)}};i=t([e(`dotlottie-wc`)],i);export{i as DotLottieWC};
+import{a as e,t}from"./decorate-C0oFmnNg.js";import{BaseDotLottieWC as n}from"./base-dotlottie-wc.js";import{n as r}from"./dist-BnVItZne.js";let i=class extends n{_createDotLottieInstance(e){return new r(e)}};i=t([e(`dotlottie-wc`)],i);export{i as DotLottieWC};
 //# sourceMappingURL=dotlottie-wc.js.map

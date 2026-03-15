@@ -117,6 +117,7 @@ export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> 
                 player.setAttribute('src', src);
                 player.setAttribute('autoplay', 'true');
                 player.setAttribute('loop', 'true');
+                player.setAttribute('useFrameInterpolation', 'false');
                 wrapper.append(player);
                 break;
             case 'locations':

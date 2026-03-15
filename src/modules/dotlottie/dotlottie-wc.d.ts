@@ -1,10 +1,9 @@
-import { o as ne } from "./dotlottie-Cn4v_pQB-CBtBMv4n.js";
-import "./index-Bqq1Mn32.js";
+import { n as ae } from "./index-Chv90kxo.js";
 import { BaseDotLottieWC } from "./base-dotlottie-wc.js";
 
 //#region src/dotlottie-wc.d.ts
-declare class DotLottieWC extends BaseDotLottieWC<ne> {
-  protected _createDotLottieInstance(config: Config): ne;
+declare class DotLottieWC extends BaseDotLottieWC<ae> {
+  protected _createDotLottieInstance(config: Config): ae;
 }
 //#endregion
 export { DotLottieWC };

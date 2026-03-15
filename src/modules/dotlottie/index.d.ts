@@ -1,4 +1,4 @@
-import "./index-Bqq1Mn32.js";
+import "./index-Chv90kxo.js";
 import { DotLottieWC } from "./dotlottie-wc.js";
 import { DotLottieWorkerWC } from "./dotlottie-worker-wc.js";
 

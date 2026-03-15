@@ -21,6 +21,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-wc": "^0.9.7",
+    "@lottiefiles/dotlottie-web": "^0.66.2",
     "js-yaml": "^4.1.1"
   }
 }

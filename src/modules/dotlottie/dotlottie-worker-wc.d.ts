@@ -1,11 +1,11 @@
-import { t as m } from "./index-Bqq1Mn32.js";
+import { t as $ } from "./index-Chv90kxo.js";
 import { BaseDotLottieWC } from "./base-dotlottie-wc.js";
 
 //#region src/dotlottie-worker-wc.d.ts
-declare class DotLottieWorkerWC extends BaseDotLottieWC<m> {
+declare class DotLottieWorkerWC extends BaseDotLottieWC<$> {
   protected _createDotLottieInstance(config: Config & {
     workerId?: string;
-  }): m;
+  }): $;
 }
 //#endregion
 export { DotLottieWorkerWC };

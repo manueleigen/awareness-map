@@ -65,11 +65,9 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
         // 2. Pointer Capture: Keeps the slider attached to the finger even if it slides far off-track.
         try { range.setPointerCapture(e.pointerId); } catch(err) {}
 
-        // Trigger visual update
-        if (!ticking) {
-            requestAnimationFrame(performUpdate);
-            ticking = true;
-        }
+        if (cachedCore?.isPlaying) cachedCore.pause();
+
+        performUpdate();
     });
 
     // Generate time labels (e.g., 08:00, 12:00...)
@@ -85,42 +83,41 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 
     sliderWrapper.append(container, labels);
 
-    // Performance Optimization Variables
-    let ticking = false;
+    let lottieTicking = false;
     let cachedCore: any = null;
     let cachedWidth: number = 0;
 
-    /**
-     * Updates both the Lottie animation and the visual thumb position.
-     * Uses requestAnimationFrame to stay synced with the display refresh rate.
-     */
-    const performUpdate = () => {
-        const val = parseFloat(range.value);
-        
-        // 1. Synchronize Lottie Animation
+    const syncThumb = () => {
+        if (cachedWidth === 0) cachedWidth = range.offsetWidth || 1380;
+        updateThumbPosition(range, thumbIcon, cachedWidth);
+    };
+
+    const syncLottieFrame = () => {
         if (cachedCore) {
+            const val = parseFloat(range.value);
             if (typeof cachedCore.setFrame === 'function') {
                 const totalFrames = cachedCore.totalFrames || 100;
-                cachedCore.setFrame((val / 100) * totalFrames);
+                cachedCore.setFrame(Math.round((val / 100) * totalFrames));
             } else if (typeof cachedCore.seek === 'function') {
                 cachedCore.seek(val);
             }
-            // Ensure animation is paused while scrubbing
-            if (cachedCore.isPlaying) cachedCore.pause();
         }
-
-        // 2. Update UI (Thumb position)
-        if (cachedWidth === 0) cachedWidth = range.offsetWidth || 1380;
-        updateThumbPosition(range, thumbIcon, cachedWidth);
-        
-        ticking = false;
+        lottieTicking = false;
     };
 
-    // Throttle slider input events
+    const performUpdate = () => {
+        syncThumb();
+        if (!lottieTicking) {
+            requestAnimationFrame(syncLottieFrame);
+            lottieTicking = true;
+        }
+    };
+
     range.addEventListener('input', () => {
-        if (!ticking) {
-            requestAnimationFrame(performUpdate);
-            ticking = true;
+        syncThumb();
+        if (!lottieTicking) {
+            requestAnimationFrame(syncLottieFrame);
+            lottieTicking = true;
         }
     });
 
@@ -132,7 +129,8 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     if (player) {
         waitForPlayerReady(player).then(core => {
             cachedCore = core;
-            performUpdate(); // Sync initial frame
+            if (core.isPlaying) core.pause();
+            performUpdate();
         }).catch(() => {});
     }
 
@@ -182,9 +180,8 @@ export function updateThumbPosition(range: HTMLInputElement, thumbIcon: HTMLElem
     
     const trackWidth = width || range.offsetWidth || 1380;
     const thumbWidth = 90; // Size defined in SCSS
-    const padding = thumbWidth / 2;
     const usableWidth = trackWidth - thumbWidth;
-    const thumbPos = (percent * usableWidth) + padding;
+    const thumbPos = percent * usableWidth;
     
-    thumbIcon.style.left = `${thumbPos}px`;
+    thumbIcon.style.transform = `translate(${thumbPos}px, -50%)`;
 }
