@@ -86,6 +86,8 @@ export async function showPOIOverlay(poiContainer: HTMLDivElement, loc: any, poi
         e.stopPropagation();
     });
 
+
+
     // Header section (Icon + Title + Close Button)
     const head = create('div');
     head.className = 'poi-overlay-head';
@@ -141,6 +143,9 @@ export async function showPOIOverlay(poiContainer: HTMLDivElement, loc: any, poi
         content.append(selectBtn);
     }
     
+
+            console.log()
+
     poiOverlay.append(content);
     poiContainer.append(poiOverlay);
     app.ui.poiOverlay = poiOverlay;

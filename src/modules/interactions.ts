@@ -9,10 +9,13 @@ let lastBoostTime = 0;
  * Standardizes click behavior for multi-user touch tables.
  * Dispatches a manual "click" on pointerup to bypass browser-specific touch-click suppression.
  */
+
+const boostTimes = new WeakMap<HTMLElement, number>();
+
 export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | MouseEvent) => void): void {
-    // 1. Listen for pointerup to manually boost the click
     el.addEventListener('pointerup', (e) => {
-        lastBoostTime = Date.now();
+        boostTimes.set(el, Date.now()); // ← nur für dieses Element
+        e.stopPropagation();            // ← pointerup nicht nach oben bubbling lassen
         const clickEvent = new MouseEvent('click', {
             bubbles: true,
             cancelable: true,
@@ -22,16 +25,14 @@ export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | Mo
         el.dispatchEvent(clickEvent);
     });
 
-    // 2. Main click listener with 500ms deduplicator
     el.addEventListener('click', (e) => {
-        // If the browser fires a trusted click shortly after our booster, ignore it.
-        if (Date.now() - lastBoostTime < 500 && e.isTrusted) {
+        const lastBoost = boostTimes.get(el) ?? 0;
+        if (Date.now() - lastBoost < 500 && e.isTrusted) {
             e.stopImmediatePropagation();
             return;
         }
         callback(e as PointerEvent);
     });
-
     // 3. Visual "Active" states on pointerdown for responsiveness
     el.addEventListener('pointerdown', (e) => {
         // Technical Implementation Guide (v2.3): Component Hardening
