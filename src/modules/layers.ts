@@ -122,6 +122,7 @@ export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> 
                 player.setAttribute('autoplay', 'true');
                 player.setAttribute('loop', 'true');
                 player.setAttribute('useFrameInterpolation', 'false');
+                player.setAttribute('backgroundColor', 'transparent');
                 wrapper.append(player);
                 break;
             case 'locations':
@@ -131,7 +132,23 @@ export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> 
         }
     }
 
-    app.ui.layers.append(wrapper);
+    // Assign z-index based on position in layerDefinitions (lowest = 1, highest = n).
+    const currentIndex = layerDefinitions.findIndex(d => d.id === id);
+    wrapper.style.zIndex = String(currentIndex + 1);
+
+    // Insert at the correct DOM position to maintain order from layerDefinitions.
+    let inserted = false;
+    for (let i = currentIndex + 1; i < layerDefinitions.length; i++) {
+        const nextEl = layerElements.get(layerDefinitions[i].id);
+        if (nextEl && nextEl.parentElement === app.ui.layers) {
+            app.ui.layers.insertBefore(wrapper, nextEl);
+            inserted = true;
+            break;
+        }
+    }
+    if (!inserted) {
+        app.ui.layers.append(wrapper);
+    }
     layerElements.set(id, wrapper);
     
     console.log(`[Layer] ${id} ready`);

@@ -16,7 +16,6 @@
   visibility: visible;
   will-change: opacity;
   pointer-events: none;
-  z-index: 1;
 }
 
 
@@ -27,7 +26,8 @@
   pointer-events: auto;
 }
 
-.layer img {
+.layer img,
+.layer-dynamic-image dotlottie-wc {
   width: 100%;
   height: 100%;
   transform: translateZ(0);
