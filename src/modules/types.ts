@@ -25,6 +25,7 @@ export interface ContextLayer {
   slider_icon?: string;
   poi_icon?: string;
   initially_visible?: boolean;
+  z_index?: number;
 }
 
 /** A role within a scenario, containing its specific layers and an optional quiz. */

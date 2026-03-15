@@ -1,6 +1,6 @@
 import { layerDefinitions, ensureLayerBuilt, context, findAnyContextLayer } from './layers.js';
 import { loadYAML, loadJSON, loadTEXT, preloadIMAGE } from './lib.js';
-import { ContextLayer } from './types.js';
+import { ContextLayer, Language } from './types.js';
 
 /**
  * Technical Implementation Guide (v2.3): Environmental Stability & Performance.
@@ -60,7 +60,16 @@ async function processQueue() {
 export async function startBackgroundPreload() {
     console.log("[Preloader] Starting comprehensive background asset loading...");
 
-    // 0. Preload Critical UI Assets (Highest Priority)
+    // 0. Preload Language Files (Very High Priority)
+    const languages: Language[] = ['de', 'en'];
+    languages.forEach(lang => {
+        scheduleTask(async () => {
+            await loadYAML(`/config/content.${lang}.yaml`);
+            console.log(`[Preloader] Language file preloaded: ${lang}`);
+        });
+    });
+
+    // 1. Preload Critical UI Assets (Highest Priority)
     const uiAssets = [
         'assets/icons/ui/esc-btn-icon.svg',
         'assets/icons/default_icon.svg'

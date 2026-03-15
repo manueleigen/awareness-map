@@ -1,5 +1,5 @@
 // @ts-ignore
-import yaml from 'https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/+esm';
+import yaml from './vendor/js-yaml.js';
 
 /** Shorthand for document.querySelector */
 export const el = <T extends HTMLElement>(css: string): T | null => document.querySelector<T>(css);
