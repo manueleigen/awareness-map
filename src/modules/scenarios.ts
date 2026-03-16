@@ -4,6 +4,7 @@ import { addPointerClick } from './interactions.js';
 import { t } from './translater.js';
 import { ProjectContext } from './types.js';
 import { updateView } from './main.js';
+import { resetLayers } from './layers.js';
 
 /** Local cache for project context data. */
 let context: ProjectContext | null = null;
@@ -43,6 +44,7 @@ export function renderScenarioSelection(): void {
         addPointerClick(btn, async () => {
             app.currentScenario = scenarioId;
             app.view = 'role-select';
+            await resetLayers();
             await updateView();
         });
 
@@ -79,6 +81,7 @@ export function renderRoleSelection(): void {
         addPointerClick(btn, async () => {
             app.currentRole = roleId;
             app.view = 'map';
+            await resetLayers();
             await updateView();
         });
 

@@ -4,7 +4,8 @@ import { addPointerClick } from './interactions.js';
 import { t } from './translater.js';
 import { LayerConfig, ContextLayer, ProjectContext } from './types.js';
 import { buildSlider, updateThumbPosition, waitForPlayerReady } from './time-slider.js';
-import { renderPOILayer } from './poi.js';
+import { renderPOILayer, hidePOIOverlay } from './poi.js';
+import { clearQuizAnswers } from './quiz/ui.js';
 
 /** Local cache for layer definitions and project context. */
 export let layerDefinitions: LayerConfig[] = [];
@@ -37,8 +38,6 @@ export async function initLayers(): Promise<void> {
         // 2. Perform initial visibility sync
         await renderLayers();
 
-        // 3. Queue remaining layers for background preloading
-        // queueBackgroundPreload(); // Moved to centralized preloader
     } catch (error) {
         console.error("Failed to initialize layers:", error);
     }
@@ -53,23 +52,6 @@ async function buildInitialLayers(): Promise<void> {
     }
 }
 
-function queueBackgroundPreload(): void {
-    const remaining = layerDefinitions.filter(d => !layerElements.has(d.id));
-    
-    const preloadNext = () => {
-        if (remaining.length === 0) return;
-        const next = remaining.shift();
-        if (next) {
-            const schedule = (window as any).requestIdleCallback || ((cb: any) => setTimeout(cb, 500));
-            schedule(() => {
-                ensureLayerBuilt(next.id).then(() => preloadNext());
-            });
-        }
-    };
-    
-    preloadNext();
-}
-
 export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> {
     if (layerElements.has(id)) return layerElements.get(id)!;
 
@@ -80,6 +62,10 @@ export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> 
     const wrapper = create("div");
     wrapper.className = `layer hidden ${config.class || ''} layer-${config.type}`;
     wrapper.id = `layer-${config.id}`;
+
+    if (config.interaction === 'none') {
+        wrapper.classList.add('no-interaction');
+    }
 
     const src = ctxLayer?.src;
     if (src) {
@@ -294,4 +280,39 @@ function getContextLayer(id: string): ContextLayer | null {
         if (layer) return layer;
     }
     return context.global?.layers?.[id] || null;
+}
+
+/**
+ * Resets all layers to their initial state defined in context.yaml.
+ * Clears active selections and modifications.
+ */
+export async function resetLayers(): Promise<void> {
+    console.log("[Layers] Resetting all layers to initial state...");
+    
+    // 1. Clear active layers set
+    app.activeLayers.clear();
+    
+    // 2. Hide all open overlays (Modals)
+    hidePOIOverlay();
+
+    // 3. Reset quiz-specific visual states (selection, pulse, markers)
+    clearQuizAnswers();
+
+    // 4. Clear other visual modifications in the DOM
+    layerElements.forEach(wrapper => {
+        // Remove active states from interactive areas
+        wrapper.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
+        
+        // Remove disabled filters and custom pointer-events from POIs
+        wrapper.querySelectorAll('.poi-marker.disabled').forEach(el => {
+            el.classList.remove('disabled');
+            (el as HTMLElement).style.pointerEvents = '';
+        });
+    });
+
+    // 5. Re-sync with context (restores initially_visible layers)
+    syncActiveLayers();
+
+    // 6. Update the actual visibility and UI
+    await renderLayers();
 }

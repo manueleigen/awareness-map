@@ -13,6 +13,7 @@ export interface BaseStoryPoint {
     title_key?: string;
     next: NextConfig;
     activeLayerId?: string;
+    activeLayerIds?: string[];
     terminalStatus?: 'passed' | 'failed';
     success_screen?: {
         title_key?: string;

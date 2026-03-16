@@ -1,4 +1,4 @@
-import { initLayers, renderLayers } from "./layers.js";
+import { initLayers, renderLayers, resetLayers } from "./layers.js";
 import { initTranslator, t } from "./translater.js";
 import { initScenarios, renderScenarioSelection, renderRoleSelection, getQuizPath } from "./scenarios.js";
 import { Language } from "./types.js";
@@ -281,7 +281,10 @@ export function renderMapUI(): void {
 export async function resetApp(): Promise<void> {
     app.currentScenario = null;
     app.currentRole = null;
-    app.activeLayers.clear();
     app.view = 'home';
+    
+    // Comprehensive layer reset (clears areas, restores initial visibility)
+    await resetLayers();
+    
     await updateView();
 }

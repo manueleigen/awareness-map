@@ -34,6 +34,7 @@ layers:
     interaction: none
 
   - id: population_density
+    class: blend-layer
     type: static-image
     title_key: layers.population_density.title
     description_key: layers.population_density.description
@@ -46,7 +47,7 @@ layers:
     description_key: layers.evacuation_zones.description
     toggle: available
     available_from: role
-    interaction: none
+    interaction: inspect-area
     opacity_control: true
 
   - id: social_media
