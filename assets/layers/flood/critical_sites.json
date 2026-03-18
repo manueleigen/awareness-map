@@ -7,7 +7,8 @@
       "y": 798,
       "translations": {
         "name": { "de": "Umspannwerk", "en": "Substation" },
-        "status": { "de": "Betriebsbereit", "en": "Operational" }
+        "status": { "de": "Sichert die Stromversorgung großer Teile der Stadt.", 
+                    "en": "Secures the power supply for large parts of the city." }
       }
     },
     {
@@ -15,8 +16,9 @@
       "x": 1950,
       "y": 605,
       "translations": {
-        "name": { "de": "Oberschule", "en": "High School" },
-        "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
+        "name": { "de": "Rechenzentrum", "en": "Data Center" },
+        "status": { "de": "Hier laufen wichtige digitale Dienste der Stadt zusammen.", 
+                    "en": "Important digital services of the city are centralized here." }
       }
     },
     {
@@ -25,7 +27,8 @@
       "y": 979,
       "translations": {
         "name": { "de": "Polizeihauptwache", "en": "Main Police Station" },
-        "status": { "de": "Gesperrt", "en": "Closed" }
+        "status": { "de": "Wichtig für Sicherheit und Einsatzkoordination im Krisenfall.", 
+                    "en": "Important for security and emergency coordination in a crisis." }
       }
     },
     {
@@ -33,8 +36,8 @@
       "x": 1600,
       "y": 1677,
       "translations": {
-        "name": { "de": "Hauptbahnhof", "en": "Main Railway Station" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Hauptbahnhof", "en": "Central Station" },
+        "status": { "de": "Zentraler Verkehrsknotenpunkt, wichtig für Evakuierungen", "en": "Central transport hub, important for evacuations." }
       }
     },
     {
@@ -43,7 +46,7 @@
       "y": 1419,
       "translations": {
         "name": { "de": "Krankenhaus", "en": "Hospital" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "status": { "de": "Wichtig für die medizinische Versorgung im Notfall.", "en": "Important for emergency medical care." }
       }
     },
     {
@@ -51,8 +54,9 @@
       "x": 2995,
       "y": 1516,
       "translations": {
-        "name": { "de": "Veranstaltungsort", "en": "Event Venue" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Veranstaltungshalle", "en": "Event Venue" },
+        "status": { "de": "Ort mit vielen Menschen und hoher Relevanz im Krisenfall.", 
+                    "en": "A place with many people and high relevance in a crisis." }
       }
     }
   ]

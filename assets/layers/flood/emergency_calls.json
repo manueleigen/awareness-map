@@ -6,8 +6,9 @@
       "x": 1600,
       "y": 496,
       "translations": {
-        "name": { "de": "Call 1", "en": "Call 1" },
-        "status": { "de": "Betriebsbereit", "en": "Operational" }
+        "name": { "de": "Keller überflutet", "en": "Basements Flooded" },
+        "status": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
+                    "en": "Multiple reports of flooded basements" }
       }
     },
     {
@@ -15,8 +16,9 @@
       "x": 2440,
       "y": 730,
       "translations": {
-        "name": { "de": "Call 2", "en": "Call 2" },
-        "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
+        "name": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
+        "status": { "de": "Personen können das Haus nicht mehr verlassen.", 
+                    "en": "People can no longer leave the house." }
       }
     },
     {
@@ -24,8 +26,9 @@
       "x": 1044,
       "y": 1080,
       "translations": {
-        "name": { "de": "Call 3", "en": "Call 3" },
-        "status": { "de": "Gesperrt", "en": "Closed" }
+        "name": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
+        "status": { "de": "Mehrere verletzte Personen nach einem Verkehrsunfall.", 
+                    "en": "Several people injured in a traffic accident." }
       }
     },
     {
@@ -33,8 +36,9 @@
       "x": 1968,
       "y": 1271,
       "translations": {
-        "name": { "de": "Call 4", "en": "Call 4" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Katze im Baum", "en": "Cat in Tree" },
+        "status": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
+                    "en": "A cat is stuck in a tree and cannot get down." }
       }
     },
     {
@@ -42,8 +46,9 @@
       "x": 2915,
       "y": 1222,
       "translations": {
-        "name": { "de": "Call 5", "en": "Call 5" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
+        "status": { "de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.", 
+                    "en": "An underpass is flooded and several cars are trapped." }
       }
     },
     {
@@ -51,8 +56,8 @@
       "x": 1285,
       "y": 2028,
       "translations": {
-        "name": { "de": "Call 6", "en": "Call 6" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Stromausfall bei Beatmungsgerät", "en": "Power Outage at Ventilator" },
+        "status": { "de": "Bei einer Person mit Beatmungsgerät ist der Strom ausgefallen.", "en": "A person relying on a ventilator has lost power." }
       }
     }
   ]
