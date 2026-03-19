@@ -18,7 +18,7 @@ contexts:
       base_layer_streets:
         src: /assets/layers/streets.webp
         initially_visible: true
-        z_index: 77
+        z_index: 71
 
       base_layer_glow:
         src: /assets/layers/glow.webp
@@ -47,7 +47,7 @@ contexts:
           icon: /assets/icons/flood.svg
           slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
-          z_index: 70
+          z_index: 78
 
       roles:
         fire_brigade:
@@ -79,7 +79,7 @@ contexts:
               src: /assets/layers/flood/police/evacuation_zones.svg
               icon: /assets/icons/default_icon.svg
               initially_visible: false
-              z_index: 67
+              z_index: 77
 
         crisis_staff:
           quiz: /config/quizes/crises-challange.yaml
