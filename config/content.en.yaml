@@ -154,7 +154,7 @@ challenges:
 
   global:
     critical_sites:
-      title: Critical Infrastructure
+      title: "Critical\nInfrastructure"
       items:
         critical_site_1:
           title: Substation
@@ -175,18 +175,18 @@ challenges:
           title: Event Venue
           description: Deployed
     population_density:
-      title: Population Density
+      title: "Population\ndensity"
 
   scenarios:
     flood:
       layers:
         flood_simulation:
-          title: Flood Simulation
+          title: "Flood\nsimulation"
       roles:
         fire_brigade:
           layers:
             emergency_calls:
-              title: Emergency Calls
+              title: "Emergency\ncalls"
               items:
                 flood_emergency_call_01:
                   title: Call 1
@@ -207,7 +207,7 @@ challenges:
                   title: Call 6
                   description: Deployed
             emergency_vehicles:
-              title: Emergency Vehicles
+              title: "Emergency\nvehicles"
               items:
                 flood_emergency_vehicle_01:
                   title: Vehicle 1
@@ -245,7 +245,7 @@ challenges:
                   title: flood_social_media_6
                   description: Deployed
             evacuation_zones:
-              title: Evacuation Zones
+              title: "Evacuation\nzones"
         crisis_staff:
           layers:
             social_media:

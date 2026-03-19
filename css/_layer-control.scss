@@ -6,11 +6,11 @@
   flex-direction: column-reverse;
   justify-content: center;
   gap: 40px;
-  right: 60px;
+  right: 50px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 100;
-  width: fit-content;
+  width: 300px;
   pointer-events: none;
 
   .toggleSwitch {
@@ -87,6 +87,7 @@
       margin-top: 15px;
       border-radius: 7px;
       text-align: center;
+      white-space: pre-line;
       cursor: pointer;
       transition: 200ms ease-out;
       @include drop-shadow();

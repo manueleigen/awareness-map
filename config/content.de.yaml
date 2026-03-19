@@ -151,7 +151,7 @@ challenges:
 
   global:
     critical_sites:
-      title: Kritische Infrastruktur
+      title: "Kritische\nInfrastruktur"
       items:
         critical_site_1:
           title: Umspannwerk
@@ -172,18 +172,18 @@ challenges:
           title: Veranstaltungsort
           description: Im Einsatz
     population_density:
-      title: Bevölkerungsdichte
+      title: "Bevölkerungs\ndichte"
 
   scenarios:
     flood:
       layers:
         flood_simulation:
-          title: Flutsimulation
+          title: "Flut\nsimulation"
       roles:
         fire_brigade:
           layers:
             emergency_calls:
-              title: Notrufe
+              title: "Aktuelle\nNotrufe"
               items:
                 flood_emergency_call_01:
                   title: Call 1
@@ -204,7 +204,7 @@ challenges:
                   title: Call 6
                   description: Im Einsatz
             emergency_vehicles:
-              title: Einsatzkräfte
+              title: "Einsatz\nkräfte"
               items:
                 flood_emergency_vehicle_01:
                   title: Vehicle 1
@@ -242,7 +242,7 @@ challenges:
                   title: flood_social_media_6
                   description: Im Einsatz
             evacuation_zones:
-              title: Evakuierungs Zonen
+              title: "Evakuierungs\nzonen"
         crisis_staff:
           layers:
             social_media:
