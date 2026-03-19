@@ -7,7 +7,8 @@
       "y": 918,
       "translations": {
         "name": { "de": "Mit dem Kayak im Garten", "en": "With the Kayak in the Garden" },
-        "status": { "de": "Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren.", "en": "One family is using the flood to pursue their favorite sport in the city: kayaking." }
+        "status": { "de": " Eine Familie nutzt das Hochwasser, um mitten in der Stadt mit dem Kayak zu fahren.", 
+                    "en": "A family is using the floodwaters to go kayaking in the middle of the city." }
       }
     },
     {
@@ -15,8 +16,9 @@
       "x": 1618,
       "y": 800,
       "translations": {
-        "name": { "de": "flood_social_media_2", "en": "flood_social_media_2" },
-        "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
+        "name": { "de": "Im 1. OG eingeschlossen", "en": "Trapped on the First Floor" },
+        "status": { "de": "Eine Person postet, dass sie im 1. Obergeschoss festsitzt und das Haus nicht mehr verlassen kann.", 
+                    "en": "A person posts that they are trapped on the first floor and can no longer leave the building." }
       }
     },
     {
@@ -24,8 +26,9 @@
       "x": 2786,
       "y": 858,
       "translations": {
-        "name": { "de": "flood_social_media_3", "en": "flood_social_media_3" },
-        "status": { "de": "Gesperrt", "en": "Closed" }
+        "name": { "de": "Selfie an der Flutkante", "en": "Selfie at the Flood Edge" },
+        "status": { "de": "Zwei Jugendliche fotografieren sich direkt am überfluteten Ufer und teilen die Bilder online.", 
+                    "en": "A person rides a bicycle through deep floodwater and posts the video on social media." }
       }
     },
     {
@@ -33,8 +36,9 @@
       "x": 2005,
       "y": 1308,
       "translations": {
-        "name": { "de": "flood_social_media_4", "en": "flood_social_media_4" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Fahrradfahrt durchs Wasser", "en": "Cycling Through Floodwater" },
+        "status": { "de": "Eine Person fährt mit dem Fahrrad durch hohes Wasser und veröffentlicht das Video in sozialen Medien.", 
+                    "en": "A person rides a bicycle through high water and posts the video on social media." }
       }
     },
     {
@@ -42,8 +46,9 @@
       "x": 1126,
       "y": 1804,
       "translations": {
-        "name": { "de": "flood_social_media_5", "en": "floodSocialMedia5" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Sandsäcke aus der Nachbarschaft", "en": "Neighbors Organize Sandbags" },
+        "status": { "de": "Anwohner*innen organisieren sich online und helfen beim Füllen und Verteilen von Sandsäcken.", 
+                    "en": "Residents organize online to fill and distribute sandbags." }
       }
     },
     {
@@ -51,8 +56,9 @@
       "x": 2246,
       "y": 1935,
       "translations": {
-        "name": { "de": "flood_social_media_6", "en": "flood_social_media_6" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Flut als Fotokulisse", "en": "Flood as a Photo Backdrop" },
+        "status": { "de": "Für ein Modevideo wird die überflutete Straße als besondere Kulisse genutzt.", 
+                    "en": "A flooded street is used as a dramatic backdrop for a fashion video." }
       }
     }
   ]

@@ -6,8 +6,9 @@
       "x": 915,
       "y": 918,
       "translations": {
-        "name": { "de": "Mit dem Kayak im Garten", "en": "With the Kayak in the Garden" },
-        "status": { "de": "Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren.", "en": "One family is using the flood to pursue their favorite sport in the city: kayaking." }
+        "name": { "de": "Drohnenvideo über dem Hochwasser", "en": "Drone Footage over the Flood" },
+        "status": { "de": "Eine Person filmt das überflutete Viertel mit einer Drohne und postet spektakuläre Luftaufnahmen.", 
+                    "en": "A person films the flooded neighborhood with a drone and posts dramatic aerial footage." }
       }
     },
     {
@@ -15,8 +16,9 @@
       "x": 1618,
       "y": 800,
       "translations": {
-        "name": { "de": "flood_social_media_2", "en": "flood_social_media_2" },
-        "status": { "de": "Kritischer Pegel", "en": "Critical Level" }
+        "name": { "de": "Auto steckt im Wasser fest", "en": "Car Stuck in Floodwater" },
+        "status": { "de": "Jemand postet ein Video von einem Auto, das in einer überfluteten Straße stehen geblieben ist.", 
+                    "en": "Someone posts a video of a car that has come to a stop in a flooded street." }
       }
     },
     {
@@ -24,8 +26,9 @@
       "x": 2786,
       "y": 858,
       "translations": {
-        "name": { "de": "flood_social_media_3", "en": "flood_social_media_3" },
-        "status": { "de": "Gesperrt", "en": "Closed" }
+        "name": { "de": "Nachbarschaft kocht zusammen", "en": "Neighbors Cooking Together" },
+        "status": { "de": "Über soziale Medien verabreden sich Anwohner*innen, um gemeinsam für Betroffene und Einsatzkräfte Essen vorzubereiten.", 
+                    "en": "Residents use social media to organize cooking food together for affected people and emergency crews." }
       }
     },
     {
@@ -33,8 +36,9 @@
       "x": 2005,
       "y": 1308,
       "translations": {
-        "name": { "de": "flood_social_media_4", "en": "flood_social_media_4" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Livestream von der Brücke", "en": "Livestream from the Bridge" },
+        "status": { "de": "Mehrere Schaulustige streamen das Hochwasser live von einer Brücke und behindern dabei andere Passant*innen.", 
+                    "en": "Several onlookers livestream the flooding from a bridge, getting in the way of other pedestrians." }
       }
     },
     {
@@ -42,8 +46,9 @@
       "x": 1126,
       "y": 1804,
       "translations": {
-        "name": { "de": "flood_social_media_5", "en": "floodSocialMedia5" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Hilferuf vom Balkon", "en": "Call for Help from the Balcony" },
+        "status": { "de": "Eine Bewohnerin postet, dass das Wasser im Erdgeschoss steigt und sie nur noch über den Balkon auf sich aufmerksam machen kann.", 
+                    "en": "A resident posts that water is rising on the ground floor and she can now only draw attention to herself from the balcony." }
       }
     },
     {
@@ -51,8 +56,9 @@
       "x": 2246,
       "y": 1935,
       "translations": {
-        "name": { "de": "flood_social_media_6", "en": "flood_social_media_6" },
-        "status": { "de": "Im Einsatz", "en": "Deployed" }
+        "name": { "de": "Schlauchboot auf der Kreuzung", "en": "Inflatable Boat at the Intersection" },
+        "status": { "de": "Zwei Personen filmen sich in einem Schlauchboot mitten auf einer überfluteten Kreuzung.", 
+                    "en": "Two people film themselves in an inflatable boat in the middle of a flooded intersection." }
       }
     }
   ]

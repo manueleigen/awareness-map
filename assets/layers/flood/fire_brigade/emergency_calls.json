@@ -3,26 +3,6 @@
   "locations": [
     {
       "id": "flood_emergency_call_01",
-      "x": 1600,
-      "y": 496,
-      "translations": {
-        "name": { "de": "Keller überflutet", "en": "Basements Flooded" },
-        "status": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
-                    "en": "Multiple reports of flooded basements" }
-      }
-    },
-    {
-      "id": "flood_emergency_call_02",
-      "x": 2440,
-      "y": 730,
-      "translations": {
-        "name": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
-        "status": { "de": "Personen können das Haus nicht mehr verlassen.", 
-                    "en": "People can no longer leave the house." }
-      }
-    },
-    {
-      "id": "flood_emergency_call_03",
       "x": 1044,
       "y": 1080,
       "translations": {
@@ -32,9 +12,38 @@
       }
     },
     {
-      "id": "flood_emergency_call_04",
+      "id": "flood_emergency_call_02",  
       "x": 1968,
       "y": 1271,
+      "translations": {
+        "name": { "de": "Stromausfall bei Beatmungsgerät", "en": "Power Outage at Ventilator" },
+        "status": { "de": "Bei einer Person mit Beatmungsgerät ist der Strom ausgefallen.", "en": "A person relying on a ventilator has lost power." }
+      }
+    },
+{
+      "id": "flood_emergency_call_03",
+      "x": 1600,
+      "y": 496,
+      "translations": {
+        "name": { "de": "Keller überflutet", "en": "Basements Flooded" },
+        "status": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
+                    "en": "Multiple reports of flooded basements" }
+      }
+    },
+    {
+      "id": "flood_emergency_call_04",
+      "x": 2440,
+      "y": 730,
+      "translations": {
+        "name": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
+        "status": { "de": "Personen können das Haus nicht mehr verlassen.", 
+                    "en": "People can no longer leave the house." }
+      }
+    },
+    {
+      "id": "flood_emergency_call_05",
+      "x": 1285,
+      "y": 2028,
       "translations": {
         "name": { "de": "Katze im Baum", "en": "Cat in Tree" },
         "status": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
@@ -42,22 +51,13 @@
       }
     },
     {
-      "id": "flood_emergency_call_05",
+      "id": "flood_emergency_call_06",
       "x": 2915,
       "y": 1222,
       "translations": {
         "name": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
         "status": { "de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.", 
                     "en": "An underpass is flooded and several cars are trapped." }
-      }
-    },
-    {
-      "id": "flood_emergency_call_06",  
-      "x": 1285,
-      "y": 2028,
-      "translations": {
-        "name": { "de": "Stromausfall bei Beatmungsgerät", "en": "Power Outage at Ventilator" },
-        "status": { "de": "Bei einer Person mit Beatmungsgerät ist der Strom ausgefallen.", "en": "A person relying on a ventilator has lost power." }
       }
     }
   ]

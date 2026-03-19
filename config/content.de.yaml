@@ -152,25 +152,6 @@ challenges:
   global:
     critical_sites:
       title: "Kritische\nInfrastruktur"
-      items:
-        critical_site_1:
-          title: Umspannwerk
-          description: Betriebsbereit
-        critical_site_2:
-          title: Oberschule
-          description: Kritischer Pegel
-        critical_site_3:
-          title: Polizeihauptwache
-          description: Gesperrt
-        critical_site_4:
-          title: Hauptbahnhof
-          description: Im Einsatz
-        critical_site_5:
-          title: Krankenhaus
-          description: Im Einsatz
-        critical_site_6s:
-          title: Veranstaltungsort
-          description: Im Einsatz
     population_density:
       title: "Bevölkerungs\ndichte"
 
@@ -184,112 +165,23 @@ challenges:
           layers:
             emergency_calls:
               title: "Aktuelle\nNotrufe"
-              items:
-                flood_emergency_call_01:
-                  title: Call 1
-                  description: Betriebsbereit
-                flood_emergency_call_02:
-                  title: Call 2
-                  description: Kritischer Pegel
-                flood_emergency_call_03:
-                  title: Call 3
-                  description: Gesperrt
-                flood_emergency_call_04:
-                  title: Call 4
-                  description: Im Einsatz
-                flood_emergency_call_05:
-                  title: Call 5
-                  description: Im Einsatz
-                flood_emergency_call_06:
-                  title: Call 6
-                  description: Im Einsatz
             emergency_vehicles:
               title: "Einsatz\nkräfte"
-              items:
-                flood_emergency_vehicle_01:
-                  title: Vehicle 1
-                  description: Betriebsbereit
-                flood_emergency_vehicle_02:
-                  title: Vehicle 2
-                  description: Kritischer Pegel
-                flood_emergency_vehicle_03:
-                  title: Vehicle 3
-                  description: Gesperrt
-                flood_emergency_vehicle_04:
-                  title: Vehicle 4
-                  description: Gesperrt
         police:
           layers:
             social_media:
               title: Social Media
-              items:
-                flood_social_media_1:
-                  title: Mit dem Kayak im Garten
-                  description: "Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren."
-                flood_social_media_2:
-                  title: flood_social_media_2
-                  description: Kritischer Pegel
-                flood_social_media_3:
-                  title: flood_social_media_3
-                  description: Gesperrt
-                flood_social_media_4:
-                  title: flood_social_media_4
-                  description: Im Einsatz
-                flood_social_media_5:
-                  title: flood_social_media_5
-                  description: Im Einsatz
-                flood_social_media_6:
-                  title: flood_social_media_6
-                  description: Im Einsatz
             evacuation_zones:
               title: "Evakuierungs\nzonen"
         crisis_staff:
           layers:
             social_media:
               title: Social Media
-              items:
-                flood_social_media_1:
-                  title: Mit dem Kayak im Garten
-                  description: "Eine Familie nutzt die Flut um ihrem Lieblingssport in der Stadt nachzugehen: dem Kayak-Fahren."
-                flood_social_media_2:
-                  title: flood_social_media_2
-                  description: Kritischer Pegel
-                flood_social_media_3:
-                  title: flood_social_media_3
-                  description: Gesperrt
-                flood_social_media_4:
-                  title: flood_social_media_4
-                  description: Im Einsatz
-                flood_social_media_5:
-                  title: flood_social_media_5
-                  description: Im Einsatz
-                flood_social_media_6:
-                  title: flood_social_media_6
-                  description: Im Einsatz
             drone_feed:
               title: Drohnendaten
               description: Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.
 
-interactions:
-  layer_toggle: Ebenen ein- und ausblenden
-  layer_read: Datenebenen lesen
-  layer_activate: Aktive Ebene wählen
-  inspect_location: Datenpunkte inspizieren
-  inspect_area: Bereich ansehen
-  adjust_time: Zeit per Slider anpassen
-  define_zone: Zone definieren
-  send_units: Einsatzkräfte entsenden
-  send_drone: Drohne entsenden
-  share_information: Informationen teilen
 
-map_ui:
-  active_layer_label: Aktive Ebene
-  no_active_layer: Keine aktive Ebene
-  layer_panel_title: Datenebenen
-  time_slider_label: Zeitverlauf
-  action_label: Aktion
-  confirm_action: Aktion bestätigen
-  cancel_action: Abbrechen
 
 completion:
   headline: Lage bewertet
