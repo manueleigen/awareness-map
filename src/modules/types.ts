@@ -32,6 +32,7 @@ export interface ContextLayer {
 export interface Role {
   layers: Record<string, ContextLayer>;
   quiz?: string;
+  exclude_layers?: string[];
 }
 
 /** A scenario context containing global layers and a set of roles. */

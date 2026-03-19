@@ -37,16 +37,6 @@ layers:
     interaction: none
     opacity_control: true
 
-  - id: flood_simulation
-    type: dynamic-image
-    title_key: challenges.scenarios.flood.layers.flood_simulation.title
-    toggle: available
-    available_from: scenario
-    interaction: timeline
-    playback_control: true
-    start_time: "08:00"
-    end_time: "18:00"
-
   - id: emergency_vehicles
     type: locations
     title_key: challenges.scenarios.flood.roles.fire_brigade.layers.emergency_vehicles.title
@@ -78,6 +68,16 @@ layers:
     available_from: role
     interaction: inspect-area # Kept from original to allow interaction
     opacity_control: true
+
+  - id: flood_simulation
+    type: dynamic-image
+    title_key: challenges.scenarios.flood.layers.flood_simulation.title
+    toggle: available
+    available_from: scenario
+    interaction: timeline
+    playback_control: true
+    start_time: "08:00"
+    end_time: "18:00"
 
   - id: drone_feed
     type: static-image

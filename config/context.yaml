@@ -39,6 +39,12 @@ contexts:
         initially_visible: false
         z_index: 70
 
+      evacuation_zones:
+        src: /assets/layers/flood/police/evacuation_zones.svg
+        icon: /assets/icons/default_icon.svg
+        initially_visible: false
+        z_index: 77
+
   scenarios:
     flood:
       layers:
@@ -52,6 +58,7 @@ contexts:
       roles:
         fire_brigade:
           quiz: /config/quizes/crises-challange.yaml
+          exclude_layers: [evacuation_zones]
           layers:
             emergency_calls:
               src: /assets/layers/flood/fire_brigade/emergency_calls.json
@@ -75,14 +82,9 @@ contexts:
               initially_visible: false
               z_index: 180
 
-            evacuation_zones:
-              src: /assets/layers/flood/police/evacuation_zones.svg
-              icon: /assets/icons/default_icon.svg
-              initially_visible: false
-              z_index: 77
-
         crisis_staff:
           quiz: /config/quizes/crises-challange.yaml
+          exclude_layers: [evacuation_zones]
           layers:
             social_media:
               src: /assets/layers/flood/crisis_staff/social_media.json

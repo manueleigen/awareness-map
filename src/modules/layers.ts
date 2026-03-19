@@ -247,14 +247,19 @@ function syncActiveLayers(): void {
 function getAvailableLayers(): LayerConfig[] {
     if (!context) return [];
     const availableIds = new Set<string>();
+    const excludedIds = new Set<string>();
+
     Object.keys(context.global?.layers || {}).forEach(id => availableIds.add(id));
     if (app.currentScenario && app.view !== 'home') {
-        Object.keys(context.scenarios[app.currentScenario].layers || {}).forEach(id => availableIds.add(id));
+        const scenario = context.scenarios[app.currentScenario];
+        Object.keys(scenario.layers || {}).forEach(id => availableIds.add(id));
         if (app.currentRole && (app.view === 'role-select' || app.view === 'map' || app.view === 'quiz')) {
-            Object.keys(context.scenarios[app.currentScenario].roles[app.currentRole].layers || {}).forEach(id => availableIds.add(id));
+            const role = scenario.roles[app.currentRole];
+            Object.keys(role.layers || {}).forEach(id => availableIds.add(id));
+            (role.exclude_layers || []).forEach(id => excludedIds.add(id));
         }
     }
-    return layerDefinitions.filter(d => availableIds.has(d.id));
+    return layerDefinitions.filter(d => availableIds.has(d.id) && !excludedIds.has(d.id));
 }
 
 export function findAnyContextLayer(id: string): ContextLayer | null {
