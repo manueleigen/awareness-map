@@ -24,8 +24,8 @@ story_points:
     target: "#layers"
     activeLayerId: drone_feed
     solution:
-      x: 1960
-      y: 1500
+      x: 1000
+      y: 1000
     maxDistance: 800
     step: 2
     total_steps: 4
@@ -41,9 +41,9 @@ story_points:
     type: point-selection-quiz
     title_key: crises_challange.location.title
     question_key: crises_challange.location.question_detail
-    target: "#layer-critical_places"
+    target: "#layer-critical_sites"
     selector: ".poi-marker"
-    activeLayerId: critical_places
+    activeLayerId: critical_sites
     # usesResultFrom: free-coord-selection (Logic will look at previous point's result)
     solution: ['critical_site_2']
 
@@ -94,4 +94,3 @@ story_points:
     continue_button_key: crises_challange.common.restart
     terminalStatus: failed
     next: intro
-

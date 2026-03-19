@@ -6,16 +6,10 @@ layers:
     toggle: hidden
     interaction: none
 
-  - id: flood_simulation
-    type: dynamic-image
-    title_key: layers.flood_simulation.title
-    description_key: layers.flood_simulation.description
-    toggle: available
-    available_from: scenario
-    interaction: timeline
-    playback_control: true
-    start_time: "08:00"
-    end_time: "18:00"
+  - id: base_layer_buildings
+    type: static-image
+    toggle: hidden
+    interaction: none
 
   - id: base_layer_streets
     type: static-image
@@ -28,41 +22,34 @@ layers:
     toggle: hidden
     interaction: none
 
-  - id: base_layer_buildings
-    type: static-image
-    toggle: hidden
-    interaction: none
+  - id: critical_sites
+    type: locations
+    title_key: challenges.global.critical_sites.title
+    toggle: available
+    interaction: inspect-location
+    icon_mode: per-location
 
   - id: population_density
     class: blend-layer
     type: static-image
-    title_key: layers.population_density.title
-    description_key: layers.population_density.description
+    title_key: challenges.global.population_density.title
     toggle: available
     interaction: none
-
-  - id: evacuation_zones
-    type: areas
-    title_key: layers.evacuation_zones.title
-    description_key: layers.evacuation_zones.description
-    toggle: available
-    available_from: role
-    interaction: inspect-area
     opacity_control: true
 
-  - id: social_media
-    type: locations
-    title_key: layers.social_media.title
-    description_key: layers.social_media.description
+  - id: flood_simulation
+    type: dynamic-image
+    title_key: challenges.scenarios.flood.layers.flood_simulation.title
     toggle: available
-    available_from: role
-    interaction: inspect-location
-    icon_mode: per-location
+    available_from: scenario
+    interaction: timeline
+    playback_control: true
+    start_time: "08:00"
+    end_time: "18:00"
 
   - id: emergency_vehicles
     type: locations
-    title_key: layers.emergency_vehicles.title
-    description_key: layers.emergency_vehicles.description
+    title_key: challenges.scenarios.flood.roles.fire_brigade.layers.emergency_vehicles.title
     toggle: available
     available_from: role
     interaction: inspect-location
@@ -70,29 +57,37 @@ layers:
 
   - id: emergency_calls
     type: locations
-    title_key: layers.emergency_calls.title
-    description_key: layers.emergency_calls.description
+    title_key: challenges.scenarios.flood.roles.fire_brigade.layers.emergency_calls.title
     toggle: available
     available_from: role
     interaction: inspect-location
     icon_mode: per-location
 
-  - id: critical_places
+  - id: social_media
     type: locations
-    title_key: layers.critical_sites.title
-    description_key: layers.critical_sites.description
+    title_key: challenges.scenarios.flood.roles.police.layers.social_media.title
     toggle: available
+    available_from: role
     interaction: inspect-location
     icon_mode: per-location
 
+  - id: evacuation_zones
+    type: areas
+    title_key: challenges.scenarios.flood.roles.police.layers.evacuation_zones.title
+    toggle: available
+    available_from: role
+    interaction: inspect-area # Kept from original to allow interaction
+    opacity_control: true
+
   - id: drone_feed
     type: static-image
-    title_key: layers.drone_feed.title
-    description_key: layers.drone_feed.description
+    title_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.title
+    description_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.description
     toggle: available
     available_from: role
     interaction: inspect-area
 
+  # --- Internal / Quiz Layers ---
   - id: quiz_location_marker
     type: locations
     toggle: hidden

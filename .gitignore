@@ -50,3 +50,5 @@ tmp/
 GEMINI.md
 wrap-up.md
 TODO.md
+config-refactor/
+config-safe/

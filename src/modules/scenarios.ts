@@ -76,7 +76,13 @@ export function renderRoleSelection(): void {
 
     Object.keys(scenario.roles).forEach(roleId => {
         const btn = create('button');
-        btn.innerText = t(`roles.${roleId}.title`);
+        // Try scenario-specific role title (short version) first, then fallback to challenge title
+        const scenarioRoleTitle = t(`scenarios.${app.currentScenario}.roles.${roleId}.title`, "");
+        const fallbackTitle = t(`challenges.${app.currentScenario}.${roleId}.title`, roleId);
+        
+        btn.innerText = (scenarioRoleTitle && scenarioRoleTitle !== `scenarios.${app.currentScenario}.roles.${roleId}.title`) 
+            ? scenarioRoleTitle 
+            : fallbackTitle;
 
         addPointerClick(btn, async () => {
             app.currentRole = roleId;
