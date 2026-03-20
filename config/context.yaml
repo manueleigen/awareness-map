@@ -80,7 +80,7 @@ contexts:
 
             evacuation_zones:
               src: /assets/layers/flood/police/evacuation_zones.svg
-              icon: /assets/icons/default_icon.svg
+              icon: /assets/icons/evacuation_zones.svg
               initially_visible: false
               z_index: 77
               
