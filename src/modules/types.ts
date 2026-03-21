@@ -1,21 +1,21 @@
 /** Supported languages for the application. */
-export type Language = 'de' | 'en';
+export type Language = "de" | "en";
 
 /** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {
-  id: string;
-  class: string;
-  type: 'static-image' | 'dynamic-image' | 'locations' | 'areas';
-  title_key?: string;
-  description_key?: string;
-  toggle: 'available' | 'deactivated' | 'hidden' | 'none';
-  available_from?: 'scenario' | 'role' | 'global';
-  interaction: 'none' | 'all' | 'timeline' | 'areas' | 'locations' | string;
-  opacity_control?: boolean;
-  playback_control?: boolean;
-  start_time?: string;
-  end_time?: string;
-  icon_mode?: string;
+	id: string;
+	class: string;
+	type: "static-image" | "dynamic-image" | "locations" | "areas";
+	title_key?: string;
+	description_key?: string;
+	toggle: "available" | "deactivated" | "hidden" | "none";
+	available_from?: "scenario" | "role" | "global";
+	interaction: "none" | "all" | "timeline" | "areas" | "locations" | string;
+	opacity_control?: boolean;
+	playback_control?: boolean;
+	start_time?: string;
+	end_time?: string;
+	icon_mode?: string;
 }
 
 /** Specific layer data within a context (global, scenario, or role). */
@@ -41,10 +41,10 @@ export interface Role {
 
 /** A scenario context containing global layers and a set of roles. */
 export interface ScenarioContext {
-  layers: Record<string, ContextLayer>;
-  roles: Record<string, Role>;
-  quiz?: string;
-  inactive?: boolean;
+	layers: Record<string, ContextLayer>;
+	roles: Record<string, Role>;
+	quiz?: string;
+	inactive?: boolean;
 }
 
 /** The root structure for context.yaml. */
@@ -65,6 +65,7 @@ export interface ChallengeResult {
 
 /** The central Application State interface. */
 export interface AppState {
+	context: Object;
 	language: Language;
 	/** Native resolution width of the application (3840px). */
 	width: number;

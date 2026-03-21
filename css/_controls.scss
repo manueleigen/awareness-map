@@ -1,64 +1,65 @@
 button {
-  display: flex;
-  position: relative;
-  padding: 11px 34px 13px 34px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-  border-radius: 34px;
-  background: var(--button);
-  color: var(--white);
-  cursor: pointer;
-  border: none;
+	display: flex;
+	position: relative;
+	padding: 11px 34px 13px 34px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	align-self: stretch;
+	border-radius: 34px;
+	background: var(--button);
+	color: var(--white);
+	cursor: pointer;
+	border: none;
+	order: 1;
 
-  &:active,
-  &.active,
-  &.is-pressing {
-    background: var(--secondary);
-    transform: scale(0.98);
-  }
+	&:active,
+	&.active,
+	&.is-pressing {
+		background: var(--secondary);
+		transform: scale(0.98);
+	}
 
-  &.is-inactive {
+	&.is-inactive {
+		order: 99;
 
-    &::after {
-      content: "Coming soon";
-      position: absolute;
-      padding: 8px 11px;
-      right: 15px;
-      top: -16px;
-      rotate: -4deg;
-      font-size: 19px;
-      border-radius: 13px;
-      border: 2px solid var(--white);
-      background: var(--secondary-inactive);
-      color: var(--secondary);
-    }
-    background: var(--button-inactive);
-    color: var(--buttontext-inactive);
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+		&::after {
+			content: "Coming soon";
+			position: absolute;
+			padding: 8px 11px;
+			right: 15px;
+			top: -16px;
+			rotate: -4deg;
+			font-size: 19px;
+			border-radius: 13px;
+			border: 2px solid var(--white);
+			background: var(--secondary-inactive);
+			color: var(--secondary);
+		}
+		background: var(--button-inactive);
+		color: var(--buttontext-inactive);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
 }
 
-
 #back-btn {
-  cursor: pointer;
-  background: #eee;
-  padding: 5px 15px;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  color: var(--primary);
-  transition: background 0.2s;
+	cursor: pointer;
+	background: #eee;
+	padding: 5px 15px;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	color: var(--primary);
+	transition: background 0.2s;
 
-  &:hover {
-    background: #ddd;
-  }
+	&:hover {
+		background: #ddd;
+	}
 }
 
 .large-buttons button {
-  line-height: 34px;
-  border-radius: 17px;
-  min-height: 170px;
-  margin-bottom: 30px;
+	line-height: 34px;
+	border-radius: 17px;
+	min-height: 170px;
+	margin-bottom: 30px;
 }

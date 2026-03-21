@@ -104,6 +104,8 @@ export function renderRoleSelection(): void {
 	if (!infoBoxContent || !infoBoxControls || !context || !app.currentScenario)
 		return;
 
+	const scenarioCTX = context.scenarios[app.currentScenario];
+
 	const scenario = context.scenarios[app.currentScenario];
 	if (!scenario) return;
 
@@ -120,6 +122,8 @@ export function renderRoleSelection(): void {
 	btnGroup.className = "button-group large-buttons";
 
 	Object.keys(scenario.roles).forEach((roleId) => {
+		const roleCTX = scenarioCTX.roles[roleId];
+		const hasQuiz = roleCTX.quiz;
 		const btn = create("button");
 		// Try scenario-specific role title (short version) first, then fallback to challenge title
 		const scenarioRoleTitle = t(
@@ -138,12 +142,16 @@ export function renderRoleSelection(): void {
 				? scenarioRoleTitle
 				: fallbackTitle;
 
-		addPointerClick(btn, async () => {
-			app.currentRole = roleId;
-			app.view = "map";
-			await resetLayers();
-			await updateView();
-		});
+		if (hasQuiz) {
+			addPointerClick(btn, async () => {
+				app.currentRole = roleId;
+				app.view = "map";
+				await resetLayers();
+				await updateView();
+			});
+		} else {
+			btn.classList.add("is-inactive");
+		}
 
 		btnGroup.append(btn);
 	});

@@ -35,7 +35,7 @@ export async function initLayers(): Promise<void> {
 
 		layerDefinitions = layerData?.layers || [];
 		context = ctxWrapper?.contexts || null;
-
+		app.context = context;
 		// 1. Build immediately visible layers
 		await buildInitialLayers();
 
