@@ -1,11 +1,15 @@
-import { app } from './state.js';
-import { create, loadJSON, loadYAML, loadTEXT } from './lib.js';
-import { addPointerClick } from './interactions.js';
-import { t } from './translater.js';
-import { LayerConfig, ContextLayer, ProjectContext } from './types.js';
-import { buildSlider, updateThumbPosition, waitForPlayerReady } from './time-slider.js';
-import { renderPOILayer, hidePOIOverlay } from './poi.js';
-import { clearQuizAnswers } from './quiz/ui.js';
+import { app } from "./state.js";
+import { create, loadJSON, loadYAML, loadTEXT } from "./lib.js";
+import { addPointerClick } from "./interactions.js";
+import { t } from "./translater.js";
+import { LayerConfig, ContextLayer, ProjectContext } from "./types.js";
+import {
+	buildSlider,
+	updateThumbPosition,
+	waitForPlayerReady,
+} from "./time-slider.js";
+import { renderPOILayer, hidePOIOverlay } from "./poi.js";
+import { clearQuizAnswers } from "./quiz/ui.js";
 
 /** Local cache for layer definitions and project context. */
 export let layerDefinitions: LayerConfig[] = [];
@@ -23,301 +27,352 @@ const EYE_HIDDEN = `<svg fill="currentColor" viewBox="0 0 256 256" xmlns="http:/
  * Initializes the layer system with high performance in mind.
  */
 export async function initLayers(): Promise<void> {
-    try {
-        const [layerData, ctxWrapper] = await Promise.all([
-            loadYAML<{ layers: LayerConfig[] }>('/config/layers.yaml'),
-            loadYAML<{ contexts: ProjectContext }>('/config/context.yaml')
-        ]);
-        
-        layerDefinitions = layerData?.layers || [];
-        context = ctxWrapper?.contexts || null;
-        
-        // 1. Build immediately visible layers
-        await buildInitialLayers();
-        
-        // 2. Perform initial visibility sync
-        await renderLayers();
+	try {
+		const [layerData, ctxWrapper] = await Promise.all([
+			loadYAML<{ layers: LayerConfig[] }>("/config/layers.yaml"),
+			loadYAML<{ contexts: ProjectContext }>("/config/context.yaml"),
+		]);
 
-    } catch (error) {
-        console.error("Failed to initialize layers:", error);
-    }
+		layerDefinitions = layerData?.layers || [];
+		context = ctxWrapper?.contexts || null;
+
+		// 1. Build immediately visible layers
+		await buildInitialLayers();
+
+		// 2. Perform initial visibility sync
+		await renderLayers();
+	} catch (error) {
+		console.error("Failed to initialize layers:", error);
+	}
 }
 
 async function buildInitialLayers(): Promise<void> {
-    const available = getAvailableLayers();
-    for (const config of available) {
-        if (!layerElements.has(config.id)) {
-            await ensureLayerBuilt(config.id);
-        }
-    }
+	const available = getAvailableLayers();
+	for (const config of available) {
+		if (!layerElements.has(config.id)) {
+			await ensureLayerBuilt(config.id);
+		}
+	}
 }
 
-export async function ensureLayerBuilt(id: string): Promise<HTMLElement | null> {
-    if (layerElements.has(id)) return layerElements.get(id)!;
+export async function ensureLayerBuilt(
+	id: string,
+): Promise<HTMLElement | null> {
+	if (layerElements.has(id)) return layerElements.get(id)!;
 
-    const config = layerDefinitions.find(d => d.id === id);
-    const ctxLayer = findAnyContextLayer(id);
-    if (!config || !ctxLayer || !app.ui.layers) return null;
+	const config = layerDefinitions.find((d) => d.id === id);
+	const ctxLayer = findAnyContextLayer(id);
+	if (!config || !ctxLayer || !app.ui.layers) return null;
 
-    const wrapper = create("div");
-    wrapper.className = `layer hidden ${config.class || ''} layer-${config.type}`;
-    wrapper.id = `layer-${config.id}`;
+	const wrapper = create("div");
+	wrapper.className = `layer hidden ${config.class || ""} layer-${config.type}`;
+	wrapper.id = `layer-${config.id}`;
 
-    if (config.interaction === 'none') {
-        wrapper.classList.add('no-interaction');
-    }
+	if (config.interaction === "none") {
+		wrapper.classList.add("no-interaction");
+	}
 
-    const src = ctxLayer?.src;
-    if (src) {
-        switch(config.type) {
-            case 'static-image':
-                const img = create("img");
-                img.src = src;
-                img.onload = () => console.log(`[Image] ${src.split('/').pop()} loaded`);
-                img.onerror = () => { console.warn(`Image missing or broken: ${src}`); img.style.display = 'none'; };
-                wrapper.append(img);
-                break;
-            case 'areas':
-                const svg = await loadTEXT(src);
-                if (svg) {
-                    const areaWrapper = create('div')
-                    areaWrapper.innerHTML = svg as string;
-                    wrapper.append(areaWrapper);
-                    // Support both polygons and paths (often used for complex shapes in the middle)
-                    areaWrapper.querySelectorAll('polygon, path').forEach(obj => {
-                        // Only make elements with a fill or specific class interactive
-                        // to avoid clicking on transparent structural paths.
-                        const style = window.getComputedStyle(obj);
-                        if (style.fill !== 'none' || obj.classList.contains('st0')) {
-                            obj.classList.add('interactive-area');
-                            addPointerClick(obj as any, () => obj.classList.toggle('active'));
-                        }
-                    });
-                }
-                break;
+	const src = ctxLayer?.src;
+	if (src) {
+		switch (config.type) {
+			case "static-image":
+				const img = create("img");
+				img.src = src;
+				img.onload = () =>
+					console.log(`[Image] ${src.split("/").pop()} loaded`);
+				img.onerror = () => {
+					console.warn(`Image missing or broken: ${src}`);
+					img.style.display = "none";
+				};
+				wrapper.append(img);
+				break;
+			case "areas":
+				const svg = await loadTEXT(src);
+				if (svg) {
+					const areaWrapper = create("div");
+					areaWrapper.innerHTML = svg as string;
+					wrapper.append(areaWrapper);
+					// Support both polygons and paths (often used for complex shapes in the middle)
+					areaWrapper.querySelectorAll("polygon, path").forEach((obj) => {
+						// Only make elements with a fill or specific class interactive
+						// to avoid clicking on transparent structural paths.
+						const style = window.getComputedStyle(obj);
+						if (style.fill !== "none" || obj.classList.contains("st0")) {
+							obj.classList.add("interactive-area");
+							addPointerClick(obj as any, () => obj.classList.toggle("active"));
+						}
+					});
+				}
+				break;
 
-            
-            case 'dynamic-image':
-                const player = create('dotlottie-wc' as any);
-                player.id = `player-${config.id}`;
-                player.setAttribute('src', src);
-                player.setAttribute('autoplay', 'true');
-                player.setAttribute('loop', 'true');
-                player.setAttribute('useFrameInterpolation', 'false');
-                player.setAttribute('backgroundColor', 'transparent');
-                wrapper.append(player);
-                break;
-            case 'locations':
-                const poiContainer = await renderPOILayer(src, ctxLayer);
-                wrapper.append(poiContainer);
-                break;
-        }
-    }
+			case "dynamic-image":
+				const player = create("dotlottie-wc" as any);
+				player.id = `player-${config.id}`;
+				player.setAttribute("src", src);
+				player.setAttribute("autoplay", "true");
+				player.setAttribute("loop", "true");
+				player.setAttribute("useFrameInterpolation", "false");
+				player.setAttribute("backgroundColor", "transparent");
+				wrapper.append(player);
+				break;
+			case "locations":
+				const poiContainer = await renderPOILayer(src, ctxLayer);
+				wrapper.append(poiContainer);
+				break;
+		}
+	}
 
-    // Assign z-index based on position in layerDefinitions (lowest = 1, highest = n).
-    const currentIndex = layerDefinitions.findIndex(d => d.id === id);
-    wrapper.style.zIndex = String(currentIndex + 1);
+	// Assign z-index based on position in layerDefinitions (lowest = 1, highest = n).
+	const currentIndex = layerDefinitions.findIndex((d) => d.id === id);
+	wrapper.style.zIndex = String(currentIndex + 1);
 
-    // Insert at the correct DOM position to maintain order from layerDefinitions.
-    let inserted = false;
-    for (let i = currentIndex + 1; i < layerDefinitions.length; i++) {
-        const nextEl = layerElements.get(layerDefinitions[i].id);
-        if (nextEl && nextEl.parentElement === app.ui.layers) {
-            app.ui.layers.insertBefore(wrapper, nextEl);
-            inserted = true;
-            break;
-        }
-    }
-    if (!inserted) {
-        app.ui.layers.append(wrapper);
-    }
-    layerElements.set(id, wrapper);
-    
-    console.log(`[Layer] ${id} ready`);
-    
-    return wrapper;
+	// Insert at the correct DOM position to maintain order from layerDefinitions.
+	let inserted = false;
+	for (let i = currentIndex + 1; i < layerDefinitions.length; i++) {
+		const nextEl = layerElements.get(layerDefinitions[i].id);
+		if (nextEl && nextEl.parentElement === app.ui.layers) {
+			app.ui.layers.insertBefore(wrapper, nextEl);
+			inserted = true;
+			break;
+		}
+	}
+	if (!inserted) {
+		app.ui.layers.append(wrapper);
+	}
+	layerElements.set(id, wrapper);
+
+	console.log(`[Layer] ${id} ready`);
+
+	return wrapper;
 }
 
 export async function renderLayers(): Promise<void> {
-    const { layerControl, slidersContainer } = app.ui;
-    if (!layerControl || !context) return;
+	const { layerControl, slidersContainer } = app.ui;
+	if (!layerControl || !context) return;
 
-    layerControl.innerHTML = '';
-    if (slidersContainer) slidersContainer.innerHTML = '';
+	layerControl.innerHTML = "";
+	if (slidersContainer) slidersContainer.innerHTML = "";
 
-    syncActiveLayers();
-    const availableLayers = getAvailableLayers();
+	syncActiveLayers();
+	const availableLayers = getAvailableLayers();
 
-    for (const config of availableLayers) {
-        const ctxLayer = getContextLayer(config.id);
-        const layerEl = await ensureLayerBuilt(config.id);
-        
-        if (layerEl) {
-            const isActive = app.activeLayers.has(config.id);
-            layerEl.classList.toggle('hidden', !isActive);
-            
-            // z-index: ctxLayer.z_index wenn gesetzt, sonst Position aus layerDefinitions
-            const layerIndex = layerDefinitions.findIndex(d => d.id === config.id);
-            const z = (ctxLayer?.z_index !== undefined)
-                ? ctxLayer.z_index
-                : (layerIndex >= 0 ? layerIndex + 1 : 1);
-            layerEl.style.zIndex = String(z);
+	for (const config of availableLayers) {
+		const ctxLayer = getContextLayer(config.id);
+		const layerEl = await ensureLayerBuilt(config.id);
 
-            await buildControlUI(config, ctxLayer, layerEl, layerControl);
-        }
-    }
+		if (layerEl) {
+			const isActive = app.activeLayers.has(config.id);
+			layerEl.classList.toggle("hidden", !isActive);
 
-    const availableIds = new Set(availableLayers.map(l => l.id));
-    layerElements.forEach((el, id) => {
-        if (!availableIds.has(id)) el.classList.add('hidden');
-    });
+			// z-index: ctxLayer.z_index wenn gesetzt, sonst Position aus layerDefinitions
+			const layerIndex = layerDefinitions.findIndex((d) => d.id === config.id);
+			const z =
+				ctxLayer?.z_index !== undefined
+					? ctxLayer.z_index
+					: layerIndex >= 0
+						? layerIndex + 1
+						: 1;
+			layerEl.style.zIndex = String(z);
+
+			await buildControlUI(config, ctxLayer, layerEl, layerControl);
+		}
+	}
+
+	const availableIds = new Set(availableLayers.map((l) => l.id));
+	layerElements.forEach((el, id) => {
+		if (!availableIds.has(id)) el.classList.add("hidden");
+	});
 }
 
-async function buildControlUI(config: LayerConfig, ctxLayer: ContextLayer | null, layerEl: HTMLElement, controlParent: HTMLElement): Promise<void> {
-    if (config.toggle === 'hidden') return;
+async function buildControlUI(
+	config: LayerConfig,
+	ctxLayer: ContextLayer | null,
+	layerEl: HTMLElement,
+	controlParent: HTMLElement,
+): Promise<void> {
+	if (config.toggle === "hidden") return;
 
-    const isVisible = !layerEl.classList.contains('hidden');
-    const toggle = create('div');
-    toggle.className = `toggleSwitch ${isVisible ? 'active' : ''}`;
-    
-    const iconWrapper = create('div');
-    iconWrapper.className = 'toggle-icon';
-    const iconSrc = ctxLayer?.icon || '/assets/icons/default_icon.svg';
-    
-    try {
-        const svgText = await loadTEXT<string>(iconSrc);
-        iconWrapper.innerHTML = svgText;
-    } catch {
-        iconWrapper.innerHTML = ''; 
-    }
+	const isVisible = !layerEl.classList.contains("hidden");
+	const toggle = create("div");
+	toggle.className = `toggleSwitch ${isVisible ? "active" : ""}`;
 
-    const visibilityIndicator = create('span');
-    visibilityIndicator.className = 'visibility-indicator';
-    visibilityIndicator.innerHTML = isVisible ? EYE_VISIBLE : EYE_HIDDEN;
-    iconWrapper.append(visibilityIndicator);
-    toggle.append(iconWrapper);
+	const iconWrapper = create("div");
+	iconWrapper.className = "toggle-icon";
+	const iconSrc = ctxLayer?.icon || "/assets/icons/default_icon.svg";
 
-    const label = create('label');
-    label.innerText = config.title_key ? t(config.title_key, "Layer") : "Layer";
-    toggle.append(label);
-    controlParent.append(toggle);
+	try {
+		const svgText = await loadTEXT<string>(iconSrc);
+		iconWrapper.innerHTML = svgText;
+	} catch {
+		iconWrapper.innerHTML = "";
+	}
 
-    if (config.playback_control && app.ui.slidersContainer) {
-        let sliderUI = sliderElements.get(config.id);
-        if (!sliderUI) {
-            sliderUI = buildSlider(config, ctxLayer);
-            sliderElements.set(config.id, sliderUI);
-        }
-        sliderUI.classList.toggle('hidden', !isVisible);
-        app.ui.slidersContainer.append(sliderUI);
-    }
+	const visibilityIndicator = create("span");
+	visibilityIndicator.className = "visibility-indicator";
+	visibilityIndicator.innerHTML = isVisible ? EYE_VISIBLE : EYE_HIDDEN;
+	iconWrapper.append(visibilityIndicator);
+	toggle.append(iconWrapper);
 
-    if (config.toggle === 'available') {
-        addPointerClick(toggle, () => {
-            const nowActive = layerEl.classList.contains('hidden');
-            if (nowActive) app.activeLayers.add(config.id);
-            else app.activeLayers.delete(config.id);
+	const label = create("label");
+	const translatedTitle = ctxLayer?.title?.[app.language];
+	label.innerText =
+		translatedTitle ||
+		(config.title_key ? t(config.title_key, "Layer") : "Layer");
+	toggle.append(label);
+	controlParent.append(toggle);
 
-            layerEl.classList.toggle('hidden', !nowActive);
-            toggle.classList.toggle('active', nowActive);
-            visibilityIndicator.innerHTML = nowActive ? EYE_VISIBLE : EYE_HIDDEN;
+	if (config.playback_control && app.ui.slidersContainer) {
+		let sliderUI = sliderElements.get(config.id);
+		if (!sliderUI) {
+			sliderUI = buildSlider(config, ctxLayer);
+			sliderElements.set(config.id, sliderUI);
+		}
+		sliderUI.classList.toggle("hidden", !isVisible);
+		app.ui.slidersContainer.append(sliderUI);
+	}
 
-            const slider = sliderElements.get(config.id);
-            if (slider) slider.classList.toggle('hidden', !nowActive);
-        });
-    }
+	if (config.toggle === "available") {
+		addPointerClick(toggle, () => {
+			const nowActive = layerEl.classList.contains("hidden");
+			if (nowActive) app.activeLayers.add(config.id);
+			else app.activeLayers.delete(config.id);
+
+			layerEl.classList.toggle("hidden", !nowActive);
+			toggle.classList.toggle("active", nowActive);
+			visibilityIndicator.innerHTML = nowActive ? EYE_VISIBLE : EYE_HIDDEN;
+
+			const slider = sliderElements.get(config.id);
+			if (slider) slider.classList.toggle("hidden", !nowActive);
+		});
+	}
 }
 
 function syncActiveLayers(): void {
-    if (!context) return;
-    const process = (map: Record<string, ContextLayer>) => {
-        Object.entries(map).forEach(([id, ctx]) => { if (ctx.initially_visible) app.activeLayers.add(id); });
-    };
-    if (context.global?.layers) process(context.global.layers);
-    if (app.currentScenario && app.view !== 'home' && context.scenarios?.[app.currentScenario]) {
-        const scenario = context.scenarios[app.currentScenario];
-        if (scenario.layers) process(scenario.layers);
-        if (app.currentRole && (app.view === 'role-select' || app.view === 'map' || app.view === 'quiz') && scenario.roles?.[app.currentRole]) {
-            const role = scenario.roles[app.currentRole];
-            if (role.layers) process(role.layers);
-        }
-    }
+	if (!context) return;
+	const process = (map: Record<string, ContextLayer>) => {
+		Object.entries(map).forEach(([id, ctx]) => {
+			if (ctx.initially_visible) app.activeLayers.add(id);
+		});
+	};
+	if (context.global?.layers) process(context.global.layers);
+	if (
+		app.currentScenario &&
+		app.view !== "home" &&
+		context.scenarios?.[app.currentScenario]
+	) {
+		const scenario = context.scenarios[app.currentScenario];
+		if (scenario.layers) process(scenario.layers);
+		if (
+			app.currentRole &&
+			(app.view === "role-select" ||
+				app.view === "map" ||
+				app.view === "quiz") &&
+			scenario.roles?.[app.currentRole]
+		) {
+			const role = scenario.roles[app.currentRole];
+			if (role.layers) process(role.layers);
+		}
+	}
 }
 
 function getAvailableLayers(): LayerConfig[] {
-    if (!context) return [];
-    const availableIds = new Set<string>();
-    const excludedIds = new Set<string>();
+	if (!context) return [];
+	const availableIds = new Set<string>();
+	const excludedIds = new Set<string>();
 
-    Object.keys(context.global?.layers || {}).forEach(id => availableIds.add(id));
-    if (app.currentScenario && app.view !== 'home') {
-        const scenario = context.scenarios[app.currentScenario];
-        Object.keys(scenario.layers || {}).forEach(id => availableIds.add(id));
-        if (app.currentRole && (app.view === 'role-select' || app.view === 'map' || app.view === 'quiz')) {
-            const role = scenario.roles[app.currentRole];
-            Object.keys(role.layers || {}).forEach(id => availableIds.add(id));
-            (role.exclude_layers || []).forEach(id => excludedIds.add(id));
-        }
-    }
-    return layerDefinitions.filter(d => availableIds.has(d.id) && !excludedIds.has(d.id));
+	Object.keys(context.global?.layers || {}).forEach((id) =>
+		availableIds.add(id),
+	);
+	if (app.currentScenario && app.view !== "home") {
+		const scenario = context.scenarios[app.currentScenario];
+		Object.keys(scenario.layers || {}).forEach((id) => availableIds.add(id));
+		if (
+			app.currentRole &&
+			(app.view === "role-select" || app.view === "map" || app.view === "quiz")
+		) {
+			const role = scenario.roles[app.currentRole];
+			Object.keys(role.layers || {}).forEach((id) => availableIds.add(id));
+			(role.exclude_layers || []).forEach((id) => excludedIds.add(id));
+		}
+	}
+	return layerDefinitions.filter(
+		(d) => availableIds.has(d.id) && !excludedIds.has(d.id),
+	);
 }
 
 export function findAnyContextLayer(id: string): ContextLayer | null {
-    if (!context) return null;
-    if (context.global?.layers?.[id]) return context.global.layers[id];
-    for (const sId in context.scenarios) {
-        if (context.scenarios[sId].layers?.[id]) return context.scenarios[sId].layers[id];
-        for (const rId in context.scenarios[sId].roles) {
-            if (context.scenarios[sId].roles[rId].layers?.[id]) return context.scenarios[sId].roles[rId].layers[id];
-        }
-    }
-    return null;
+	if (!context) return null;
+	if (context.global?.layers?.[id]) return context.global.layers[id];
+	for (const sId in context.scenarios) {
+		if (context.scenarios[sId].layers?.[id])
+			return context.scenarios[sId].layers[id];
+		for (const rId in context.scenarios[sId].roles) {
+			if (context.scenarios[sId].roles[rId].layers?.[id])
+				return context.scenarios[sId].roles[rId].layers[id];
+		}
+	}
+	return null;
 }
 
 function getContextLayer(id: string): ContextLayer | null {
-    if (!context) return null;
-    if (app.currentScenario && app.currentRole) {
-        const layer = context.scenarios[app.currentScenario].roles[app.currentRole]?.layers?.[id];
-        if (layer) return layer;
-    }
-    if (app.currentScenario) {
-        const layer = context.scenarios[app.currentScenario].layers?.[id];
-        if (layer) return layer;
-    }
-    return context.global?.layers?.[id] || null;
+	if (!context) return null;
+	if (app.currentScenario && app.currentRole) {
+		const layer =
+			context.scenarios[app.currentScenario].roles[app.currentRole]?.layers?.[
+				id
+			];
+		if (layer) return layer;
+	}
+	if (app.currentScenario) {
+		const layer = context.scenarios[app.currentScenario].layers?.[id];
+		if (layer) return layer;
+	}
+	return context.global?.layers?.[id] || null;
+}
+/**
+ * Clears the layer cache, forcing a complete rebuild of all layer DOM elements
+ * upon the next render. Useful for language changes or system resets.
+ */
+export function clearLayerCache(): void {
+	layerElements.forEach((el) => el.remove());
+	layerElements.clear();
+	sliderElements.clear();
 }
 
 /**
  * Resets all layers to their initial state defined in context.yaml.
- * Clears active selections and modifications.
+ */
+/* Clears active selections and modifications.
  */
 export async function resetLayers(): Promise<void> {
-    console.log("[Layers] Resetting all layers to initial state...");
-    
-    // 1. Clear active layers set
-    app.activeLayers.clear();
-    
-    // 2. Hide all open overlays (Modals)
-    hidePOIOverlay();
+	console.log("[Layers] Resetting all layers to initial state...");
 
-    // 3. Reset quiz-specific visual states (selection, pulse, markers)
-    clearQuizAnswers();
+	// 1. Clear active layers set
+	app.activeLayers.clear();
 
-    // 4. Clear other visual modifications in the DOM
-    layerElements.forEach(wrapper => {
-        // Remove active states from interactive areas
-        wrapper.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
-        
-        // Remove disabled filters and custom pointer-events from POIs
-        wrapper.querySelectorAll('.poi-marker.disabled').forEach(el => {
-            el.classList.remove('disabled');
-            (el as HTMLElement).style.pointerEvents = '';
-        });
-    });
+	// 2. Hide all open overlays (Modals)
+	hidePOIOverlay();
 
-    // 5. Re-sync with context (restores initially_visible layers)
-    syncActiveLayers();
+	// 3. Reset quiz-specific visual states (selection, pulse, markers)
+	clearQuizAnswers();
 
-    // 6. Update the actual visibility and UI
-    await renderLayers();
+	// 4. Clear other visual modifications in the DOM
+	layerElements.forEach((wrapper) => {
+		// Remove active states from interactive areas
+		wrapper
+			.querySelectorAll(".active")
+			.forEach((el) => el.classList.remove("active"));
+
+		// Remove disabled filters and custom pointer-events from POIs
+		wrapper.querySelectorAll(".poi-marker.disabled").forEach((el) => {
+			el.classList.remove("disabled");
+			(el as HTMLElement).style.pointerEvents = "";
+		});
+	});
+
+	// 5. Re-sync with context (restores initially_visible layers)
+	syncActiveLayers();
+
+	// 6. Update the actual visibility and UI
+	await renderLayers();
 }

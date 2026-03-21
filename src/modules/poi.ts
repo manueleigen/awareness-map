@@ -60,37 +60,11 @@ export async function renderPOILayer(
 			const layerId = data?.layer_id || "";
 			const poiId = marker.id;
 
-			const getTranslation = (
-				type: "title" | "description",
-				fallbackKey: string,
-			) => {
-				// 1. Role-specific context (Scenario > Role > Layer > Item)
-				if (app.currentScenario && app.currentRole) {
-					const roleKey = `challenges.${app.currentScenario}.${app.currentRole}.layers.${layerId}.items.${poiId}.${type}`;
-					const val = t(roleKey, "");
-					if (val && val !== roleKey) return val;
-				}
-				// 2. Scenario-specific context (Scenario > Layer > Item)
-				if (app.currentScenario) {
-					const scenarioKey = `challenges.${app.currentScenario}.layers.${layerId}.items.${poiId}.${type}`;
-					const val = t(scenarioKey, "");
-					if (val && val !== scenarioKey) return val;
-				}
-				// 3. Global context (Global > Layer > Item)
-				const globalKey = `challenges.global.${layerId}.items.${poiId}.${type}`;
-				const val = t(globalKey, "");
-				if (val && val !== globalKey) return val;
-
-				// 4. Fallback to JSON-embedded translations (Old way)
-				return loc.translations?.[fallbackKey]?.[app.language] || "";
-			};
-
-			marker.title = getTranslation("title", "name") || "POI";
-
+			marker.title = loc.translations?.title?.[app.language] || "";
 			// Handle click to open detail overlay
 			addPointerClick(marker, (e) => {
 				e.stopPropagation(); // Prevent map click listeners from firing
-				showPOIOverlay(poiContainer, loc, poiSize, marker, getTranslation);
+				showPOIOverlay(poiContainer, loc, poiSize, marker);
 			});
 
 			poiContainer.append(marker);
@@ -108,10 +82,6 @@ export async function showPOIOverlay(
 	loc: any,
 	poiSize: number,
 	marker: HTMLDivElement,
-	getTranslation?: (
-		type: "title" | "description",
-		fallbackKey: string,
-	) => string,
 ): Promise<void> {
 	// Close any currently open overlay first
 	app.ui.poiOverlay?.remove();
@@ -140,9 +110,7 @@ export async function showPOIOverlay(
 	icon.className = "poi-overlay-icon";
 
 	const title = create("h3");
-	title.innerText = getTranslation
-		? getTranslation("title", "name")
-		: loc.translations?.name?.[app.language] || "POI";
+	title.innerText = loc.translations?.name?.[app.language] || "";
 
 	const closeBtn = create("button");
 	closeBtn.className = "poi-close-btn";
@@ -159,13 +127,13 @@ export async function showPOIOverlay(
 	head.append(icon, title, closeBtn);
 
 	// Body section (Status Text / Description)
-	const statusValue = create("p");
-	statusValue.className = "status-text";
-	statusValue.innerText = getTranslation
-		? getTranslation("description", "status")
-		: loc.translations?.status?.[app.language] || "-";
+	if (loc.translations.status) {
+		const bodyText = create("p");
+		bodyText.className = "status-text";
+		bodyText.innerText = loc.translations?.status?.[app.language];
 
-	content.append(head, statusValue);
+		content.append(head, bodyText);
+	}
 
 	// Inject "Select" button if we are in a quiz selection step
 	const quizPoiSelectMode =
@@ -195,8 +163,6 @@ export async function showPOIOverlay(
 
 		content.append(selectBtn);
 	}
-
-	console.log();
 
 	poiOverlay.append(content);
 	poiContainer.append(poiOverlay);

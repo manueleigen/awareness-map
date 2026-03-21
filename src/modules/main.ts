@@ -1,11 +1,6 @@
-import { initLayers, renderLayers, resetLayers } from "./layers.js";
+import { initLayers, renderLayers, resetLayers, context } from "./layers.js";
 import { initTranslator, t } from "./translater.js";
-import {
-	initScenarios,
-	renderScenarioSelection,
-	renderRoleSelection,
-	getQuizPath,
-} from "./scenarios.js";
+import { initScenarios, getQuizPath } from "./scenarios.js";
 import { Language } from "./types.js";
 import { app } from "./state.js";
 import { el, create } from "./lib.js";
@@ -14,6 +9,7 @@ import { startQuiz } from "./engine.js";
 import { initDualScale } from "./screen-zoom.js";
 import { hidePOIOverlay } from "./poi.js";
 import { startBackgroundPreload } from "./preloader.js";
+import { updateView } from "./info-box.js";
 
 /**
  * Technical Implementation Guide (v2.3): Viewport "Ironclad" Lockdown.
@@ -193,138 +189,4 @@ export async function initApp() {
             </div>`;
 		}
 	}
-}
-
-/**
- * Updates the entire application view based on app.view state.
- * Refreshes both the UI overlays and the map layers.
- */
-export async function updateView(): Promise<void> {
-	const { infoBoxContent, escapeBtn } = app.ui;
-	if (!infoBoxContent) return;
-
-	// Toggle escape button visibility (hidden on home screen)
-	if (escapeBtn) {
-		if (app.view === "home") {
-			escapeBtn.classList.add("hidden");
-		} else {
-			escapeBtn.classList.remove("hidden");
-		}
-	}
-
-	// Render view-specific UI components
-	switch (app.view) {
-		case "home":
-			renderHome();
-			break;
-		case "scenario-select":
-			renderScenarioSelection();
-			break;
-		case "role-select":
-			renderRoleSelection();
-			break;
-		case "map":
-			renderMapUI();
-			break;
-		case "quiz":
-			// Quiz UI is managed internally by the QuizEngine
-			break;
-	}
-
-	// Always sync map layers with the current state/context
-	await renderLayers();
-
-	// Notify that the view update is complete (useful for quiz coordination)
-	document.dispatchEvent(new CustomEvent("app-view-updated"));
-}
-
-/** Renders the landing/home screen. */
-export function renderHome(): void {
-	const { infoBoxContent, infoBoxControls } = app.ui;
-	if (!infoBoxContent || !infoBoxControls) return;
-
-	infoBoxContent.innerHTML = "";
-	infoBoxControls.innerHTML = "";
-
-	const title = create("h1");
-	title.id = "app-title";
-	title.innerText = t("home.title");
-
-	const text = create("p");
-	text.innerText = t("home.description");
-
-	const btn = create("button");
-	btn.innerText = t("navigation.start");
-	addPointerClick(btn, async () => {
-		app.view = "scenario-select";
-		await updateView();
-	});
-
-	infoBoxContent.append(title, text);
-	infoBoxControls.append(btn);
-}
-
-/** Renders the UI for the main map view, including active role info and challenges. */
-export function renderMapUI(): void {
-    const { infoBoxContent, infoBoxControls } = app.ui;
-    if (!infoBoxContent || !infoBoxControls) return;
-
-    infoBoxContent.innerHTML = '';
-    infoBoxControls.innerHTML = '';
-
-    const title = create('h2');
-    title.innerText = t(`challenges.${app.currentScenario}.${app.currentRole}.title`);
-
-    const desc = create('p');
-    desc.innerText = t(`challenges.${app.currentScenario}.${app.currentRole}.intro`);
-
-    infoBoxContent.append(title, desc);
-
-
-	// Check if this challenge was already completed
-	const resultId = `${app.currentScenario}_${app.currentRole}`;
-	const result = app.challengeResults[resultId];
-
-	if (result) {
-		const statusMsg = create("div");
-		statusMsg.className = `challenge-status challenge-${result.status}`;
-		statusMsg.innerText =
-			result.status === "passed"
-				? t("challenges.common.passed_msg", "Challenge completed successfully!")
-				: t("challenges.common.failed_msg", "Challenge failed.");
-		infoBoxContent.append(statusMsg);
-	}
-
-	// Dynamically offer quiz/challenge if available for this context
-	const quizPath = getQuizPath();
-	if (quizPath) {
-		const startQuizBtn = create("button");
-		const btnLabelKey = result
-			? "challenges.common.retry_button"
-			: "challenges.flood.crisis_staff.start_button";
-
-		startQuizBtn.innerText = t(
-			btnLabelKey,
-			result ? "Retry" : "Start Challenge",
-		);
-
-		addPointerClick(startQuizBtn, async () => {
-			await startQuiz(quizPath);
-		});
-		infoBoxControls.append(startQuizBtn);
-	}
-}
-
-/**
- * Resets the application state and returns to the home screen.
- */
-export async function resetApp(): Promise<void> {
-	app.currentScenario = null;
-	app.currentRole = null;
-	app.view = "home";
-
-	// Comprehensive layer reset (clears areas, restores initial visibility)
-	await resetLayers();
-
-	await updateView();
 }

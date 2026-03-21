@@ -32,10 +32,6 @@ home:
     In a crisis, it is important to make good decisions based on the most current information possible.
     What often matters is where something has happened, where many people are located,
     and which resources are available. Which scenario would you like to explore?
-  scenario_selection_label: Choose a scenario
-  scenario_1: Flood
-  scenario_2: Blackout
-  scenario_3: Mass Event
 
 scenarios:
   flood:
@@ -147,131 +143,7 @@ challenges:
       failure_feedback_1: Early public communication increases panic.
         Early internal sharing triggers premature or misdirected preparations.
       failure_feedback_2: You deployed the drone in an irrelevant area and wasted resources as a result.
-      failure_feedback_3:
-        Withholding confirmed information leaves response units acting on outdated assumptions.
-
-      layers:
-
-  global:
-    critical_sites:
-      title: "Critical\nInfrastructure"
-      items:
-        critical_site_1:
-          title: Substation
-          description: Operational
-        critical_site_2:
-          title: High School
-          description: Critical Level
-        critical_site_3:
-          title: Main Police Station
-          description: Closed
-        critical_site_4:
-          title: Main Railway Station
-          description: Deployed
-        critical_site_5:
-          title: Hospital
-          description: Deployed
-        critical_site_6s:
-          title: Event Venue
-          description: Deployed
-    population_density:
-      title: "Population\ndensity"
-
-  scenarios:
-    flood:
-      layers:
-        flood_simulation:
-          title: "Flood\nsimulation"
-      roles:
-        fire_brigade:
-          layers:
-            emergency_calls:
-              title: "Emergency\ncalls"
-              items:
-                flood_emergency_call_01:
-                  title: Call 1
-                  description: Operational
-                flood_emergency_call_02:
-                  title: Call 2
-                  description: Critical Level
-                flood_emergency_call_03:
-                  title: Call 3
-                  description: Closed
-                flood_emergency_call_04:
-                  title: Call 4
-                  description: Deployed
-                flood_emergency_call_05:
-                  title: Call 5
-                  description: Deployed
-                flood_emergency_call_06:
-                  title: Call 6
-                  description: Deployed
-            emergency_vehicles:
-              title: "Emergency\nvehicles"
-              items:
-                flood_emergency_vehicle_01:
-                  title: Vehicle 1
-                  description: Operational
-                flood_emergency_vehicle_02:
-                  title: Vehicle 2
-                  description: Critical Level
-                flood_emergency_vehicle_03:
-                  title: Vehicle 3
-                  description: Closed
-                flood_emergency_vehicle_04:
-                  title: Vehicle 4
-                  description: Closed
-        police:
-          layers:
-            social_media:
-              title: Social Media
-              items:
-                flood_social_media_1:
-                  title: Kayak in the Garden
-                  description: "A family is using the flood to pursue their favorite sport in the city: kayaking."
-                flood_social_media_2:
-                  title: flood_social_media_2
-                  description: Critical Level
-                flood_social_media_3:
-                  title: flood_social_media_3
-                  description: Closed
-                flood_social_media_4:
-                  title: flood_social_media_4
-                  description: Deployed
-                flood_social_media_5:
-                  title: flood_social_media_5
-                  description: Deployed
-                flood_social_media_6:
-                  title: flood_social_media_6
-                  description: Deployed
-            evacuation_zones:
-              title: "Evacuation\nzones"
-        crisis_staff:
-          layers:
-            social_media:
-              title: Social Media
-              items:
-                flood_social_media_1:
-                  title: Kayak in the Garden
-                  description: "A family is using the flood to pursue their favorite sport in the city: kayaking."
-                flood_social_media_2:
-                  title: flood_social_media_2
-                  description: Critical Level
-                flood_social_media_3:
-                  title: flood_social_media_3
-                  description: Closed
-                flood_social_media_4:
-                  title: flood_social_media_4
-                  description: Deployed
-                flood_social_media_5:
-                  title: flood_social_media_5
-                  description: Deployed
-                flood_social_media_6:
-                  title: flood_social_media_6
-                  description: Deployed
-            drone_feed:
-              title: Drone Data
-              description: Additional aerial situation assessment to reduce uncertainty.
+      failure_feedback_3: Withholding confirmed information leaves response units acting on outdated assumptions.
 
 interactions:
   layer_toggle: Show and hide layers
