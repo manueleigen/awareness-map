@@ -66,8 +66,8 @@ contexts:
               title: { de: "Notrufe", en: "Emergency calls" }
 
             emergency_vehicles:
-              src: /assets/challenges/flood/fire_brigade/emergency_vehicles.json
-              icon: /assets/icons/default_icon.svg
+              src: /assets/layers/flood/fire_brigade/emergency_vehicles.json
+              icon: /assets/icons/ambulance.svg
               poi_icon: /assets/icons/marker_ambulance.svg
               initially_visible: false
               z_index: 105
@@ -115,9 +115,11 @@ contexts:
                 }
 
     blackout:
+      inactive: true
       layers: false
       roles: false
 
     mass_event:
+      inactive: true
       layers: false
       roles: false

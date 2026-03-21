@@ -32,6 +32,10 @@ home:
     Im Krisenfall ist es wichtig, basierend auf möglichst aktuellen Informationen gute Entscheidungen zu treffen.
     Oft ist dabei entscheidend, wo etwas passiert ist, wo sich viele Menschen aufhalten
     und welche Ressourcen zur Verfügung stehen. Welches Szenario möchtest du erkunden?
+  scenario_selection_label: Wähle ein Szenario
+  scenario_1: Hochwasser
+  scenario_2: Blackout
+  scenario_3: Veranstaltung
 
 scenarios:
   flood:
@@ -144,6 +148,40 @@ challenges:
         Frühes internes Teilen löst verfrühte oder fehlgeleitete Vorbereitungen aus.
       failure_feedback_2: Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit Ressourcen verschwendet.
       failure_feedback_3: Das Zurückhalten bestätigter Informationen lässt Einsatzkräfte mit veralteten Annahmen handeln.
+
+  global:
+    critical_sites:
+      title: "Kritische\nInfrastruktur"
+    population_density:
+      title: "Bevölkerungs\ndichte"
+
+  scenarios:
+    flood:
+      layers:
+        flood_simulation:
+          title: "Flut\nsimulation"
+      roles:
+        fire_brigade:
+          layers:
+            emergency_calls:
+              title: "Aktuelle\nNotrufe"
+            emergency_vehicles:
+              title: "Einsatz\nkräfte"
+        police:
+          layers:
+            social_media:
+              title: Social Media
+            evacuation_zones:
+              title: "Evakuierungs\nzonen"
+        crisis_staff:
+          layers:
+            social_media:
+              title: Social Media
+            drone_feed:
+              title: Drohnendaten
+              description: Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.
+
+
 
 completion:
   headline: Lage bewertet

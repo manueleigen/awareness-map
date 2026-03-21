@@ -28,7 +28,7 @@ home:
     und welche Ressourcen zur Verfügung stehen. Welches Szenario möchtest du erkunden?
   scenario_1: Hochwasser
   scenario_2: Blackout
-  scenario_3: Großveranstaltung
+  scenario_3: Veranstaltung
 
 scenarios:
   flood:
@@ -53,7 +53,7 @@ scenarios:
     challenge_selection_3: Krisenstab
 
   mass_event:
-    title: Großveranstaltung
+    title: Groß-Veranstaltung
     description: >
       Eine Veranstaltung mit vielen Menschen erfordert laufenden Überblick über
       Bewegungen, Engstellen, Risiken und verfügbare Ressourcen. Wähle deine Rolle.

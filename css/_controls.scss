@@ -1,12 +1,12 @@
 button {
   display: flex;
-  height: 60px;
-  padding: 4px 70px 8px 70px;
+  position: relative;
+  padding: 11px 34px 13px 34px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   align-self: stretch;
-  border-radius: 30px;
+  border-radius: 34px;
   background: var(--button);
   color: var(--white);
   cursor: pointer;
@@ -17,6 +17,27 @@ button {
   &.is-pressing {
     background: var(--secondary);
     transform: scale(0.98);
+  }
+
+  &.is-inactive {
+
+    &::after {
+      content: "Coming soon";
+      position: absolute;
+      padding: 8px 11px;
+      right: 15px;
+      top: -16px;
+      rotate: -4deg;
+      font-size: 19px;
+      border-radius: 13px;
+      border: 2px solid var(--white);
+      background: var(--secondary-inactive);
+      color: var(--secondary);
+    }
+    background: var(--button-inactive);
+    color: var(--buttontext-inactive);
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }
 
@@ -33,4 +54,11 @@ button {
   &:hover {
     background: #ddd;
   }
+}
+
+.large-buttons button {
+  line-height: 34px;
+  border-radius: 17px;
+  min-height: 170px;
+  margin-bottom: 30px;
 }
