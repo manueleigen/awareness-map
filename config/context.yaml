@@ -6,35 +6,35 @@ contexts:
   global:
     layers:
       base_layer_buildings:
-        src: /assets/layers/buildings.webp
+        src: /assets/challenges/buildings.webp
         initially_visible: true
         z_index: 60
 
       base_layer_river:
-        src: /assets/layers/base-layer_river.webp
+        src: /assets/challenges/base-layer_river.webp
         initially_visible: true
         z_index: 10
-        
+
       base_layer_streets:
-        src: /assets/layers/streets.webp
+        src: /assets/challenges/streets.webp
         initially_visible: true
         z_index: 71
 
       base_layer_glow:
-        src: /assets/layers/glow.webp
+        src: /assets/challenges/glow.webp
         icon: /assets/icons/default_icon.svg
         initially_visible: true
         z_index: 40
 
       critical_sites:
-        src: /assets/layers/flood/critical_sites.json
+        src: /assets/challenges/flood/critical_sites.json
         icon: /assets/icons/critical_sites.svg
         poi_icon: /assets/icons/marker_poi.svg
         initially_visible: false
         z_index: 110
 
       population_density:
-        src: /assets/layers/population_density.png
+        src: /assets/challenges/population_density.png
         icon: /assets/icons/population_density.svg
         initially_visible: false
         z_index: 70
@@ -43,7 +43,7 @@ contexts:
     flood:
       layers:
         flood_simulation:
-          src: /assets/layers/flood/flood_simulation.json
+          src: /assets/challenges/flood/flood_simulation.json
           icon: /assets/icons/flood.svg
           slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
@@ -51,52 +51,52 @@ contexts:
 
       roles:
         fire_brigade:
-          quiz: /config/quizes/crises-challange.yaml
+          quiz: false
           exclude_layers: [evacuation_zones]
           layers:
             emergency_calls:
-              src: /assets/layers/flood/fire_brigade/emergency_calls.json
+              src: /assets/challenges/flood/fire_brigade/emergency_calls.json
               icon: /assets/icons/emergency_calls.svg
               poi_icon: /assets/icons/marker_emergency_call.svg
               initially_visible: false
               z_index: 100
 
             emergency_vehicles:
-              src: /assets/layers/flood/fire_brigade/emergency_vehicles.json
+              src: /assets/challenges/flood/fire_brigade/emergency_vehicles.json
               icon: /assets/icons/default_icon.svg
               poi_icon: /assets/icons/marker_ambulance.svg
               initially_visible: false
               z_index: 105
 
         police:
-          quiz: /config/quizes/crises-challange.yaml
+          quiz: false
           layers:
-            social_media:
-              src: /assets/layers/flood/police/social_media.json
+            social_media_police:
+              src: /assets/challenges/flood/police/social_media.json
               icon: /assets/icons/social_media.svg
               poi_icon: /assets/icons/marker_social_media.svg
               initially_visible: false
               z_index: 180
 
             evacuation_zones:
-              src: /assets/layers/flood/police/evacuation_zones.svg
+              src: /assets/challenges/flood/police/evacuation_zones.svg
               icon: /assets/icons/evacuation_zones.svg
               initially_visible: false
               z_index: 77
-              
+
         crisis_staff:
-          quiz: /config/quizes/crises-challange.yaml
+          quiz: /assets/challenges/flood/crisis_staff/crises-challange.yaml
           exclude_layers: [evacuation_zones]
           layers:
-            social_media:
-              src: /assets/layers/flood/crisis_staff/social_media.json
+            social_media_crises:
+              src: /assets/challenges/flood/crisis_staff/social_media.json
               icon: /assets/icons/social_media.svg
               poi_icon: /assets/icons/marker_social_media.svg
               initially_visible: false
               z_index: 180
-            
+
             drone_feed:
-              src: /assets/layers/flood/flood_simulation.json # Or wherever drone feed comes from? Original had it in layers.yaml but not context.
+              src: /assets/challenges/flood/flood_simulation.json # Or wherever drone feed comes from? Original had it in layers.yaml but not context.
               # Wait, drone_feed in original layers.yaml but I don't see it in config/context.yaml.
               # Refactor has it under crisis_staff. I'll use the src from refactor if provided, but refactor didn't have src for drone_feed.
               # Let me check layers.yaml again.
@@ -107,21 +107,9 @@ contexts:
               z_index: 190
 
     blackout:
-      layers: {}
-      roles:
-        fire_brigade:
-          quiz: /config/quizes/crises-challange.yaml
-        police:
-          quiz: /config/quizes/crises-challange.yaml
-        crisis_staff:
-          quiz: /config/quizes/crises-challange.yaml
+      layers: false
+      roles: false
 
     mass_event:
-      layers: {}
-      roles:
-        fire_brigade:
-          quiz: /config/quizes/crises-challange.yaml
-        police:
-          quiz: /config/quizes/crises-challange.yaml
-        crisis_staff:
-          quiz: /config/quizes/crises-challange.yaml
+      layers: false
+      roles: false

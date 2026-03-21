@@ -53,9 +53,17 @@ layers:
     interaction: inspect-location
     icon_mode: per-location
 
-  - id: social_media
+  - id: social_media_police
     type: locations
-    title_key: challenges.scenarios.flood.roles.police.layers.social_media.title
+    title_key: challenges.scenarios.flood.roles.police.layers.social_media_police.title
+    toggle: available
+    available_from: role
+    interaction: inspect-location
+    icon_mode: per-location
+
+  - id: social_media_crises
+    type: locations
+    title_key: challenges.scenarios.flood.roles.police.layers.social_media_crises.title
     toggle: available
     available_from: role
     interaction: inspect-location

@@ -169,19 +169,17 @@ challenges:
               title: "Einsatz\nkräfte"
         police:
           layers:
-            social_media:
+            social_media_police:
               title: Social Media
             evacuation_zones:
               title: "Evakuierungs\nzonen"
         crisis_staff:
           layers:
-            social_media:
-              title: Social Media
+            social_media_crises:
+              title: Social Media 2
             drone_feed:
               title: Drohnendaten
               description: Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.
-
-
 
 completion:
   headline: Lage bewertet
