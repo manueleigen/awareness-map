@@ -68,29 +68,33 @@ export function renderHome(): void {
 	text.innerText = t("home.description");
 
 	const btnGroup = create("div");
-	btnGroup.className = "button-group";
+	btnGroup.className = "button-group large-buttons";
 
 	if (context) {
 		Object.keys(context.scenarios).forEach((scenarioId) => {
+			const scenario = context!.scenarios[scenarioId];
 			const btn = create("button");
-			const title =
+			const btnTitle =
 				t(`scenarios.${scenarioId}.short_title`) ||
 				t(`scenarios.${scenarioId}.title`);
-			btn.innerText = title;
+			btn.innerText = btnTitle;
 
-			addPointerClick(btn, async () => {
-				app.currentScenario = scenarioId;
-				app.view = "role-select";
-				await resetLayers();
-				await updateView();
-			});
+			if (scenario.inactive) {
+				btn.classList.add("is-inactive");
+			} else {
+				addPointerClick(btn, async () => {
+					app.currentScenario = scenarioId;
+					app.view = "role-select";
+					await resetLayers();
+					await updateView();
+				});
+			}
 
 			btnGroup.append(btn);
 		});
 	}
 
-	infoBoxContent.append(title, text);
-	infoBoxControls.append(btnGroup);
+	infoBoxContent.append(title, text, btnGroup);
 }
 
 /** HOME-SCENARIOS / ROLES  */
@@ -112,10 +116,8 @@ export function renderRoleSelection(): void {
 	const text = create("p");
 	text.innerText = t(`scenarios.${app.currentScenario}.description`);
 
-	infoBoxContent.append(title, text);
-
 	const btnGroup = create("div");
-	btnGroup.className = "button-group";
+	btnGroup.className = "button-group large-buttons";
 
 	Object.keys(scenario.roles).forEach((roleId) => {
 		const btn = create("button");
@@ -156,8 +158,9 @@ export function renderRoleSelection(): void {
         await updateView();
     });*/
 
-	infoBoxControls.append(btnGroup);
+	infoBoxContent.append(title, text, btnGroup);
 }
+
 /** HOME-SCENARIOS / ROLES / DETAIL */
 export function renderMapUI(): void {
 	const { infoBoxContent, infoBoxControls } = app.ui;
