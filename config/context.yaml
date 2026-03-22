@@ -35,7 +35,7 @@ contexts:
         title: { de: "Kritische Infrastruktur", en: "Critical Infrastructure" }
 
       population_density:
-        src: /assets/challenges/population_density.png
+        src: /assets/challenges/population_density-07.jpg
         icon: /assets/icons/population_density.svg
         initially_visible: false
         z_index: 70
