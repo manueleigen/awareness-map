@@ -13,6 +13,7 @@ export const app: AppState = {
   currentScenario: null,
   currentRole: null,
   activeLayers: new Set(),
+  layerSelectionOrder: [],
   quizStepLayers: new Set(),
   view: 'home',
   challengeResults: {},

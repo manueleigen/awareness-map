@@ -1,5 +1,6 @@
 import { app } from './state.js';
 import { runQuiz } from './quiz/engine-core.js';
+import { resetLayers } from './layers.js';
 
 /**
  * Public entry point for starting a quiz/challenge.
@@ -33,8 +34,11 @@ export async function startQuiz(quizPath: string): Promise<void> {
             // Return to the map view
             app.view = 'map';
             
-            // Trigger a global UI update to show results and reset layers
-            document.dispatchEvent(new CustomEvent('app-request-view-update'));
+            // Comprehensive layer reset (restores default visibility)
+            resetLayers().then(() => {
+                // Trigger a global UI update to show results
+                document.dispatchEvent(new CustomEvent('app-request-view-update'));
+            });
         }
     );
 }

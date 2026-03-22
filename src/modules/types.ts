@@ -76,6 +76,8 @@ export interface AppState {
 	currentRole: string | null;
 	/** Set of IDs for layers currently visible on the map. */
 	activeLayers: Set<string>;
+	/** Tracks the order in which layers were activated for dynamic UI stacking (LIFO). */
+	layerSelectionOrder: string[];
 	/** Set of IDs for layers specifically enabled by a quiz step. */
 	quizStepLayers: Set<string>;
 	view: "home" | "scenario-select" | "role-select" | "map" | "quiz";

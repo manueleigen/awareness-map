@@ -88,9 +88,14 @@ export async function showPOIOverlay(
 
 	const poiOverlay = create("div");
 	poiOverlay.setAttribute("id", "poi-overlay");
+	if (loc.class) {
+		poiOverlay.classList.add(loc.class);
 
-	// Position overlay relative to the marker
+		// Position overlay relative to the marker
+	} else {
+	}
 	poiOverlay.style.left = `${loc.x - poiSize}px`;
+
 	poiOverlay.style.top = `${loc.y - poiSize}px`;
 	poiOverlay.style.borderRadius = `${poiSize / 2}px`;
 

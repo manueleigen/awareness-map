@@ -55,11 +55,18 @@
 		@include drop-shadow-svg;
 	}
 }
-
-.poi-overlay-icon {
-	.poi-icon {
-		svg {
-			filter: none;
+.poi-overlay {
+	.poi-overlay-head {
+		display: flex;
+		.poi-overlay-icon {
+			order: 3;
+		}
+		h3 {
+			order: 2;
+		}
+		.poi-close-btn {
+			top: 20px;
+			left: 20px;
 		}
 	}
 }
@@ -76,8 +83,33 @@
 
 	@include drop-shadow-active;
 
+	&.left-opening {
+		.poi-overlay-head {
+			display: flex;
+
+			.poi-overlay-icon {
+				order: 3;
+			}
+			h3 {
+				order: 2;
+			}
+		}
+
+		.poi-overlay-close-btn {
+			top: 20px;
+			left: 20px;
+			right: auto;
+		}
+	}
+
 	.poi-overlay-icon {
 		object-fit: contain;
+
+		.poi-icon {
+			svg {
+				filter: none;
+			}
+		}
 	}
 }
 
@@ -150,6 +182,30 @@
 	.poi-overlay-content {
 		h3 {
 			margin-left: -20px;
+		}
+	}
+}
+
+#poi-overlay {
+	&.left-opening {
+		transform: translateX(calc(-100% + 203px));
+		.poi-overlay-head {
+			display: flex;
+
+			.poi-overlay-icon {
+				order: 3;
+			}
+			h3 {
+				order: 2;
+				margin-left: 38px;
+				width: 343px;
+			}
+		}
+
+		.poi-overlay-close-btn {
+			top: 20px;
+			left: 20px;
+			right: auto;
 		}
 	}
 }

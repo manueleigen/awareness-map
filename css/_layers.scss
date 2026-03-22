@@ -1,126 +1,138 @@
 .blend-layer {
-  mix-blend-mode: color;
-  opacity: 1 ;
+	mix-blend-mode: color;
+	opacity: 1;
 }
 
 .glow-layer {
-  mix-blend-mode: lighten;
+	mix-blend-mode: lighten;
 }
 
 .layer-locations {
-  pointer-events: none;
+	pointer-events: none;
 }
 
 .layer-areas {
-  .st1 {
-    opacity: 1;
-  }
+	.st1 {
+		opacity: 1;
+	}
 
-  polygon,
-  path.st0,
-  .interactive-area {
-    fill: var(--secondary-70);
-    stroke: var(--primary);
-    stroke-width: 3px;
-    cursor: pointer;
-    transition: fill 200ms ease-out;
+	polygon,
+	path.st0,
+	.interactive-area {
+		fill: rgba(0, 0, 0, 0.001); // minimal fill for interactivity
+		stroke: var(--primary);
+		stroke-width: 3px;
+		cursor: pointer;
+		transition: fill 200ms ease-out;
 
-    &.active {
-      fill: var(--button-90);
-    }
+		&.active {
+			fill: var(--button-90);
+		}
 
-    &:active,
-    &.is-pressing {
-      fill: var(--secondary-inactive-90);
-    }
-  }
+		&:active,
+		&.is-pressing {
+			fill: var(--secondary-inactive-90);
+		}
+	}
 
-  path.st2 {
-    fill: var(--primary);
-    pointer-events: none;
-    transition: fill 200ms ease-out;
-  }
+	path.st2 {
+		fill: var(--primary);
+		pointer-events: none;
+		transition: fill 200ms ease-out;
+	}
 }
 
 #layer-flood_simulation {
-  opacity: 0.5;
+	opacity: 0.5;
 }
 
 .quiz-location-marker {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border: 4px solid white;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  z-index: 5001;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	border: 4px solid white;
+	border-radius: 50%;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	font-weight: bold;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	z-index: 5001;
 }
 
 .quiz-location-radius {
-  position: absolute;
-  background: rgba(255, 0, 0, 0.2);
-  border: 2px dashed rgba(255, 0, 0, 0.5);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 5000;
+	position: absolute;
+	background: rgba(255, 0, 0, 0.2);
+	border: 2px dashed rgba(255, 0, 0, 0.5);
+	border-radius: 50%;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	z-index: 5000;
 }
 
 .quiz-solution-marker {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border: 4px solid #00ff00;
-  border-radius: 50%;
-  background: rgba(0, 255, 0, 0.3);
-  color: #00ff00;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  font-weight: bold;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
-  z-index: 5002;
-  animation: solutionAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	border: 4px solid #00ff00;
+	border-radius: 50%;
+	background: rgba(0, 255, 0, 0.3);
+	color: #00ff00;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 30px;
+	font-weight: bold;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+	z-index: 5002;
+	animation: solutionAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .quiz-solution-radius {
-  position: absolute;
-  background: rgba(0, 255, 0, 0.15);
-  border: 2px dashed rgba(0, 255, 0, 0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 4999;
-  animation: solutionAppear 0.5s ease-out;
+	position: absolute;
+	background: rgba(0, 255, 0, 0.15);
+	border: 2px dashed rgba(0, 255, 0, 0.4);
+	border-radius: 50%;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	z-index: 4999;
+	animation: solutionAppear 0.5s ease-out;
 }
 
 @keyframes solutionAppear {
-  from { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+	from {
+		transform: translate(-50%, -50%) scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: translate(-50%, -50%) scale(1);
+		opacity: 1;
+	}
 }
 
 .quiz-location-pulse {
-  cursor: crosshair;
+	cursor: crosshair;
 }
 
 .quiz-pulse {
-  animation: quizPulse 1.5s infinite;
-  border-radius: 50%;
+	animation: quizPulse 1.5s infinite;
+	border-radius: 50%;
 }
 
 @keyframes quizPulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-  70% { box-shadow: 0 0 0 20px rgba(255, 255, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+	0% {
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+	}
+	70% {
+		box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+	}
 }
