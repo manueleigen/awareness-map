@@ -29,7 +29,7 @@ export function renderLocation(
 	const status = create("p");
 	status.className = "quiz-status";
 	status.innerText = t(
-		"crises_challange.common.click_to_place",
+		"challenges.common.click_to_place",
 		"Click to place a point.",
 	);
 	content.append(question);
@@ -175,6 +175,13 @@ export function renderSelection(
 				el.style.pointerEvents = "none"; // Lock non-reachable POIs
 			}
 		});
+	} else if (target && point.type === "area-selection-quiz") {
+		// For area selection, we just enable the specified selector (e.g., "polygon")
+		target.querySelectorAll<HTMLElement>(point.selector).forEach((el) => {
+			el.classList.add("quiz-pulse");
+			el.classList.remove("disabled");
+			el.style.pointerEvents = "auto";
+		});
 	}
 
 	/** Updates the status text with current selection count. */
@@ -182,7 +189,7 @@ export function renderSelection(
 		const count =
 			target?.querySelectorAll(`${point.selector}.quiz-answer`).length || 0;
 		status.innerText = t(
-			"crises_challange.common.selected_count",
+			"challenges.common.selected_count",
 			`Selected: ${count}`,
 		).replace("{count}", `${count}`);
 	};
@@ -215,7 +222,7 @@ export function renderSelection(
 	target?.addEventListener("pointerup", clickHandler as any);
 
 	const btn = create("button");
-	btn.innerText = t("crises_challange.common.submit", "Check Selection");
+	btn.innerText = t("challenges.common.submit", "Check Selection");
 	addPointerClick(btn, () => {
 		const selected = Array.from(
 			target?.querySelectorAll(`${point.selector}.quiz-answer`) || [],

@@ -6,12 +6,14 @@ import { AppState } from '../modules/types.js';
  * active layers, and UI references.
  */
 export const app: AppState = {
+  context: null,
   language: 'de',
   width: 3840, // 2880, // 
   height: 2160 , // 1620, // 
   currentScenario: null,
   currentRole: null,
   activeLayers: new Set(),
+  quizStepLayers: new Set(),
   view: 'home',
   challengeResults: {},
   ui: {

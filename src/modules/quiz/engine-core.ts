@@ -13,9 +13,6 @@ let currentContent: HTMLElement | null = null;
 let currentControls: HTMLElement | null = null;
 let currentOnFinish: ((status: "passed" | "failed") => void) | null = null;
 
-/** Layers activated by the current story point (to be removed on step change) */
-let currentStepLayers = new Set<string>();
-
 /**
  * Temporary state shared between steps (e.g., coordinates from a location step
  * used to filter POIs in a following selection step).
@@ -45,7 +42,6 @@ export async function runQuiz(
 	currentControls = controls;
 	currentOnFinish = onFinish;
 	lastLocationResult = null; // Reset shared data for new run
-	currentStepLayers.clear();
 
 	// Ensure all layers are in their base state before starting quiz
 	await resetLayers();
@@ -58,38 +54,44 @@ export async function runQuiz(
  * Loads a specific story point by ID and delegates rendering to type-specific modules.
  */
 async function loadPoint(id: string): Promise<void> {
-	resetLayers();
 	const point = currentStoryPoints.find((p) => p.id === id);
 	if (!point || !currentContent || !currentControls) return;
 
-	// 1. Cleanup layers from PREVIOUS step
-	if (currentStepLayers.size > 0) {
-		currentStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
-		currentStepLayers.clear();
+	// 1. Cleanup: Remove layers specifically added by the PREVIOUS step
+	if (app.quizStepLayers.size > 0) {
+		app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
+		app.quizStepLayers.clear();
 	}
 
-	// 2. Handle automatic layer activation for THIS specific step
+	// 2. Clear visual quiz markers and reset interactive states
+	// We don't use full resetLayers() here because it would trigger a redundant
+	// renderLayers() call and reset initially_visible layers we might want to keep.
+	clearQuizAnswers();
+
+	// 3. Handle automatic layer activation for THIS specific step
 	const layersToActivate =
 		point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []);
 
+	console.log(layersToActivate);
+	console.log(app.activeLayers);
 	if (layersToActivate.length > 0) {
 		layersToActivate.forEach((layerId) => {
 			if (!app.activeLayers.has(layerId)) {
 				app.activeLayers.add(layerId);
-				currentStepLayers.add(layerId); // Track so we can remove it later
+				app.quizStepLayers.add(layerId); // Track so we can remove it later
 			}
 		});
-
-		// Wait for the map to finish re-rendering before proceeding
-		await new Promise<void>((resolve) => {
-			const onUpdated = () => {
-				document.removeEventListener("app-view-updated", onUpdated);
-				resolve();
-			};
-			document.addEventListener("app-view-updated", onUpdated);
-			document.dispatchEvent(new CustomEvent("app-request-view-update"));
-		});
 	}
+
+	// 4. Trigger a single synchronized view update
+	await new Promise<void>((resolve) => {
+		const onUpdated = () => {
+			document.removeEventListener("app-view-updated", onUpdated);
+			resolve();
+		};
+		document.addEventListener("app-view-updated", onUpdated);
+		document.dispatchEvent(new CustomEvent("app-request-view-update"));
+	});
 
 	renderProgress(currentContent, point);
 
@@ -125,10 +127,9 @@ function handleAction(point: StoryPoint, isCorrect: boolean): void {
 	// 1. Check if the point itself signals the end of the quiz
 	if (point.terminalStatus && currentOnFinish) {
 		// Cleanup layers from the final step before finishing
-		if (currentStepLayers.size > 0) {
-			currentStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
-			currentStepLayers.clear();
-			document.dispatchEvent(new CustomEvent("app-request-view-update"));
+		if (app.quizStepLayers.size > 0) {
+			app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
+			app.quizStepLayers.clear();
 		}
 		currentOnFinish(point.terminalStatus);
 		return;

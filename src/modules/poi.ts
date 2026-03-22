@@ -145,8 +145,8 @@ export async function showPOIOverlay(
 		const updateLabel = () => {
 			const isSelected = marker.classList.contains("quiz-answer");
 			selectBtn.innerText = isSelected
-				? t("crises_challange.common.deselect_poi", "Deselect")
-				: t("crises_challange.common.select_poi", "Select");
+				? t("challenges.common.deselect_poi", "Deselect")
+				: t("challenges.common.select_poi", "Select");
 			selectBtn.classList.toggle("active", isSelected);
 		};
 		updateLabel();

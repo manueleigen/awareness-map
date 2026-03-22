@@ -15,23 +15,22 @@ story_points:
     minAnswers: 1
     maxAnswers: 1
     step: 1
-    total_steps: 4
+    total_steps: 3
 
   - id: coord-selection
     type: location-quiz
     title_key: challenges.flood.crisis_staff.challenge.coord-selection.title
     question_key: challenges.flood.crisis_staff.challenge.coord-selection.question
     target: "#layers"
-    activeLayerId: drone_feed
     solution:
-      x: 1000
-      y: 1000
-    maxDistance: 800
+      x: 2550
+      y: 650
+    maxDistance: 400
     step: 2
-    total_steps: 4
+    total_steps: 3
     success_screen:
-      title_key: challenges.flood.crisis_staff.challenge.coord-selection.title
-      description_key: challenges.flood.crisis_staff.challenge.coord-selection.description
+      title_key: challenges.flood.crisis_staff.challenge.coord-selection.win.title
+      description_key: challenges.flood.crisis_staff.challenge.coord-selection.win.description
       duration_ms: 900
     next:
       right: who-you-wanna-call
@@ -41,6 +40,7 @@ story_points:
     type: quiz
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.title
     question_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.question
+    activeLayerId: drone_feed
     options:
       - label_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.optionA
         value: a
@@ -52,14 +52,15 @@ story_points:
       wrong: fail-screen-3
     minAnswers: 1
     maxAnswers: 1
-    step: 4
-    total_steps: 4
+    step: 3
+    total_steps: 3
 
   - id: win-screen
     type: info
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.win.title
     description_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.win.description
     continue_button_key: challenges.common.restart
+    activeLayerId: drone_feed
     terminalStatus: passed
     next: intro
 
@@ -84,6 +85,7 @@ story_points:
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.fail.title
     description_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.fail.description
     continue_button_key: challenges.common.restart
+    activeLayerId: drone_feed
     terminalStatus: failed
     next: intro
 
@@ -108,4 +110,4 @@ story_points:
     minSelection: 1
     maxSelection: 1
     step: 3
-    total_steps: 4
+    total_steps: 3

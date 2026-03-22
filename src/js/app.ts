@@ -79,13 +79,14 @@ function setupGlobalListeners(): void {
 			}
 		});
 
-		// Allow clicking the container to toggle the switch
+		// Allow clicking the labels (English/Deutsch) to toggle the switch
 		const langContainer = languageSwitch.closest("#language-switch");
 		if (langContainer) {
-			addPointerClick(langContainer as HTMLElement, (e) => {
-				if ((e.target as Element).closest(".switch")) return;
-				languageSwitch.checked = !languageSwitch.checked;
-				languageSwitch.dispatchEvent(new Event("change"));
+			langContainer.querySelectorAll("span").forEach((span) => {
+				addPointerClick(span as HTMLElement, () => {
+					languageSwitch.checked = !languageSwitch.checked;
+					languageSwitch.dispatchEvent(new Event("change"));
+				});
 			});
 		}
 	}

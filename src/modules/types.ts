@@ -29,6 +29,7 @@ export interface ContextLayer {
 	slider_icon?: string;
 	poi_icon?: string;
 	initially_visible?: boolean;
+	quiz_only?: boolean;
 	z_index?: number;
 }
 
@@ -65,7 +66,7 @@ export interface ChallengeResult {
 
 /** The central Application State interface. */
 export interface AppState {
-	context: Object;
+	context: ProjectContext | null;
 	language: Language;
 	/** Native resolution width of the application (3840px). */
 	width: number;
@@ -75,6 +76,8 @@ export interface AppState {
 	currentRole: string | null;
 	/** Set of IDs for layers currently visible on the map. */
 	activeLayers: Set<string>;
+	/** Set of IDs for layers specifically enabled by a quiz step. */
+	quizStepLayers: Set<string>;
 	view: "home" | "scenario-select" | "role-select" | "map" | "quiz";
 	/** Stores passed/failed status for challenges identified by "scenario_role". */
 	challengeResults: Record<string, ChallengeResult>;
