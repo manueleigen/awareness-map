@@ -57,7 +57,7 @@ contexts:
 
       roles:
         fire_brigade:
-          quiz: false
+          quiz: /assets/challenges/flood/fire_brigade/fire_brigade-challenge.yaml
           exclude_layers: [evacuation_zones]
           layers:
             emergency_calls:

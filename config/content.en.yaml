@@ -100,7 +100,7 @@ challenges:
         Consider how quickly they will be flooded,
         how many people are affected, and whether they are still reachable.
       challenge:
-        hotspot-selection:
+        intro:
           title: Select Hotspots
           question: Select exactly two hotspots you want to handle. Consider the time until flooding and urgency.
           win:
@@ -109,6 +109,10 @@ challenges:
               You did not simply react to volume, but correctly assessed the remaining
               time window. This allows response units to be deployed where
               they can still help effectively.
+          half-fail:
+            title: Partially successful
+            description: >
+              While you protected an important zone, your second choice was not optimal. Either a densely populated area was missed or a key traffic artery was blocked.
           fail:
             title: Failed
             description: >

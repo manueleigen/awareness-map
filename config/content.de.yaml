@@ -100,7 +100,7 @@ challenges:
         Berücksichtige dabei, wie schnell sie überflutet werden, 
         wie viele Menschen betroffen sind und wie erreichbar sie noch sind.
       challenge:
-        hotspot-selection:
+        intro:
           title: Hotspots wählen
           question: Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. Berücksichtige dabei die Zeit bis zur Überflutung und die Dringlichkeit.
           win:
@@ -109,6 +109,10 @@ challenges:
               Du hast nicht nur auf Lautstärke reagiert, sondern das verbleibende
               Zeitfenster richtig eingeschätzt. So können Einsatzkräfte dort
               eingesetzt werden, wo sie noch wirksam helfen können.
+          half-fail:
+            title: Teilweise erfolgreich
+            description: >
+              Du hast zwar eine wichtige Zone geschützt, aber die zweite Wahl war nicht optimal. Entweder wurde ein dicht besiedeltes Gebiet vergessen oder eine wichtige Verkehrsader blockiert.
           fail:
             title: Fehlgeschlagen
             description: >

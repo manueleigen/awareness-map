@@ -1,0 +1,41 @@
+story_points:
+  - id: intro #area-selection
+    type: point-selection-quiz
+    title_key: challenges.flood.fire_brigade.challenge.intro.title
+    question_key: challenges.flood.fire_brigade.challenge.intro.question
+    target: "#layer-emergency_calls"
+    activeLayerId: emergency_calls
+    solution: ["flood_emergency_call_02", "flood_emergency_call_03"]
+    minSelection: 2
+    maxSelection: 2
+    step: 1
+    total_steps: 1
+    next:
+      right: win-screen
+      half: half-fail-screen
+      wrong: fail-screen-1
+
+  - id: win-screen
+    type: info
+    title_key: challenges.flood.fire_brigade.challenge.intro.win.title
+    description_key: challenges.flood.fire_brigade.challenge.intro.win.description
+    continue_button_key: challenges.common.restart
+    activeLayerId: emergency_calls
+    terminalStatus: passed
+    next: intro
+
+  - id: half-fail-screen
+    type: info
+    title_key: challenges.flood.fire_brigade.challenge.intro.half-fail.title
+    description_key: challenges.flood.fire_brigade.challenge.intro.half-fail.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  - id: fail-screen-1
+    type: info
+    title_key: challenges.flood.fire_brigade.challenge.intro.fail.title
+    description_key: challenges.flood.fire_brigade.challenge.intro.fail.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro

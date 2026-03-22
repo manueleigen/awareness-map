@@ -159,10 +159,13 @@ export async function showPOIOverlay(
 		addPointerClick(selectBtn, (e) => {
 			e.stopPropagation();
 			marker.classList.toggle("quiz-answer");
-			updateLabel();
+			selectBtn.classList.toggle("active");
+			const isSelected = marker.classList.contains("quiz-answer");
 			// Notify the quiz engine
 			document.dispatchEvent(
-				new CustomEvent("quiz-answer-changed", { detail: { id: marker.id } }),
+				new CustomEvent("quiz-answer-changed", {
+					detail: { id: marker.id, isSelected },
+				}),
 			);
 		});
 
