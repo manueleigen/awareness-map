@@ -32,6 +32,7 @@ contexts:
         poi_icon: /assets/icons/marker_poi.svg
         initially_visible: false
         z_index: 110
+        toggle_order: 1
         title: { de: "Kritische Infrastruktur", en: "Critical Infrastructure" }
 
       population_density:
@@ -39,6 +40,7 @@ contexts:
         icon: /assets/icons/population_density.svg
         initially_visible: false
         z_index: 70
+        toggle_order: 2
         title: { de: "Bevölkerungsdichte", en: "Population density" }
 
   scenarios:
@@ -50,6 +52,7 @@ contexts:
           slider_icon: /assets/icons/flood-slider.svg
           initially_visible: true
           z_index: 78
+          toggle_order: 3
           title: { de: "Flutsimulation", en: "Flood simulation" }
 
       roles:
@@ -63,6 +66,7 @@ contexts:
               poi_icon: /assets/icons/marker_emergency_call.svg
               initially_visible: false
               z_index: 100
+              toggle_order: 4
               title: { de: "Notrufe", en: "Emergency calls" }
 
             emergency_vehicles:
@@ -71,6 +75,7 @@ contexts:
               poi_icon: /assets/icons/marker_ambulance.svg
               initially_visible: false
               z_index: 105
+              toggle_order: 5
               title: { de: "Einsatzkräfte", en: "Emergency vehicles" }
 
         police:
@@ -82,6 +87,7 @@ contexts:
               poi_icon: /assets/icons/marker_social_media.svg
               initially_visible: false
               z_index: 180
+              toggle_order: 4
               title: { de: "Social Media", en: "Social Media" }
 
             evacuation_zones:
@@ -90,6 +96,7 @@ contexts:
               initially_visible: false
               quiz_only: true
               z_index: 77
+              toggle_order: 5
               title: { de: "Evakuierungszonen", en: "Evacuation zones" }
 
         crisis_staff:
@@ -102,6 +109,7 @@ contexts:
               poi_icon: /assets/icons/marker_social_media.svg
               initially_visible: false
               z_index: 180
+              toggle_order: 4
               title: { de: "Social Media", en: "Social Media" }
 
             drone_feed:
@@ -109,6 +117,7 @@ contexts:
               initially_visible: false
               quiz_only: true
               z_index: 190
+              toggle_order: 5
               title: { de: "Drohnendaten", en: "Drone Data" }
               description: ## Nicht in verwendung..
                 {

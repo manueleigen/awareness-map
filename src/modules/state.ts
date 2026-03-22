@@ -1,4 +1,4 @@
-import { AppState } from '../modules/types.js';
+import { AppState } from "../modules/types.js";
 
 /**
  * Central State Object
@@ -6,27 +6,27 @@ import { AppState } from '../modules/types.js';
  * active layers, and UI references.
  */
 export const app: AppState = {
-  context: null,
-  language: 'de',
-  width: 3840, // 2880, // 
-  height: 2160 , // 1620, // 
-  currentScenario: null,
-  currentRole: null,
-  activeLayers: new Set(),
-  layerSelectionOrder: [],
-  quizStepLayers: new Set(),
-  view: 'home',
-  challengeResults: {},
-  ui: {
-    app: null,
-    infoBox: null,
-    infoBoxContent: null,
-    infoBoxControls: null,
-    layerControl: null,
-    slidersContainer: null,
-    layers: null,
-    escapeBtn: null,
-    languageSwitch: null,
-    poiOverlay: null
-  }
+	context: null,
+	language: "de",
+	width: 3840, // 2880, //
+	height: 2160, // 1620, //
+	currentScenario: null,
+	currentRole: null,
+	activeLayers: new Set(),
+	visibleLayerToggles: 0,
+	quizStepLayers: new Set(),
+	view: "home",
+	challengeResults: {},
+	ui: {
+		app: null,
+		infoBox: null,
+		infoBoxContent: null,
+		infoBoxControls: null,
+		layerControl: null,
+		slidersContainer: null,
+		layers: null,
+		escapeBtn: null,
+		languageSwitch: null,
+		poiOverlay: null,
+	},
 };

@@ -1,171 +1,169 @@
-@use 'mixins' as *;
+@use "mixins" as *;
 
 #layer-control {
-  position: fixed;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  gap: 40px;
-  right: 50px;
-  bottom: 60px;
-  z-index: 100;
-  width: 300px;
-  pointer-events: none;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 40px;
+	right: 50px;
+	bottom: 60px;
+	z-index: 100;
+	width: 300px;
+	pointer-events: none;
 
-  .toggleSwitch {
-    pointer-events: auto;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    position: relative;
-    height: fit-content;
-    width: fit-content;
-    align-self: center;
+	.toggleSwitch {
+		pointer-events: auto;
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-between;
+		color: white;
+		position: relative;
+		height: fit-content;
+		width: fit-content;
+		align-self: center;
 
-    .toggle-icon {
-      width: 165px;
-      height: 165px;
-      cursor: pointer;
-      transition: 200ms ease-out;
-      position: relative;
-      @include drop-shadow-svg();
+		.toggle-icon {
+			width: 165px;
+			height: 165px;
+			cursor: pointer;
+			transition: 200ms ease-out;
+			position: relative;
+			@include drop-shadow-svg();
 
-      svg {
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        transition: 200ms ease-out;
-      }
+			svg {
+				width: 100%;
+				height: 100%;
+				cursor: pointer;
+				transition: 200ms ease-out;
+			}
 
-      .toggle {
-        &__border {
-          transition: 200ms ease-out;
-        }
-        &__backdrop {
-          transition: 200ms ease-out;
-        }
-        &__icon {
-          fill: var(--secondary);
-          transition: 200ms ease-out;
-        }
-      }
+			.toggle {
+				&__border {
+					transition: 200ms ease-out;
+				}
+				&__backdrop {
+					transition: 200ms ease-out;
+				}
+				&__icon {
+					fill: var(--secondary);
+					transition: 200ms ease-out;
+				}
+			}
 
-      .visibility-indicator {
-        position: absolute;
-        top: 3px;
-        right: -3px;
-        width: 45px;
-        height: 45px;
-        background: var(--secondary-inactive);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 8px;
-        pointer-events: none;
-        z-index: 2;
-        transition: 200ms ease-out;
+			.visibility-indicator {
+				position: absolute;
+				top: 3px;
+				right: -3px;
+				width: 45px;
+				height: 45px;
+				background: var(--secondary-inactive);
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 8px;
+				pointer-events: none;
+				z-index: 2;
+				transition: 200ms ease-out;
 
-        svg {
-          width: 100%;
-          height: 100%;
-          fill: var(--backdrop-dark);
-          filter: none;
-          transition: 200ms ease-out;
-        }
-      }
-    }
+				svg {
+					width: 100%;
+					height: 100%;
+					fill: var(--backdrop-dark);
+					filter: none;
+					transition: 200ms ease-out;
+				}
+			}
+		}
 
-    label {
-      bottom: 0;
-      background-color: var(--backdrop-dark-75);
-      padding: 7px 10px 9px 10px;
-      margin-top: 15px;
-      border-radius: 7px;
-      text-align: center;
-      white-space: pre-line;
-      cursor: pointer;
-      transition: 200ms ease-out;
-      @include drop-shadow();
-    }
+		label {
+			bottom: 0;
+			background-color: var(--backdrop-dark-75);
+			padding: 7px 10px 9px 10px;
+			margin-top: 15px;
+			border-radius: 7px;
+			text-align: center;
+			white-space: pre-line;
+			cursor: pointer;
+			transition: 200ms ease-out;
+			@include drop-shadow();
+		}
 
-    &:active,
-    &.is-pressing {
-      .toggle-icon {
-        .toggle {
-          &__border {
-            fill: var(--white);
-          }
-          &__backdrop {
-            fill: var(--button);
-          }
-          &__icon {
-            fill: var(--white);
-          }
-        }
-      }
+		&:active,
+		&.is-pressing {
+			.toggle-icon {
+				.toggle {
+					&__border {
+						fill: var(--white);
+					}
+					&__backdrop {
+						fill: var(--button);
+					}
+					&__icon {
+						fill: var(--white);
+					}
+				}
+			}
 
-      label {
-        background-color: var(--white);
-        color: var(--primary);
-      }
+			label {
+				background-color: var(--white);
+				color: var(--primary);
+			}
+		}
 
-    }
+		&.active {
+			.toggle-icon {
+				@include drop-shadow-svg-active();
 
-    &.active {
-      .toggle-icon {
-        @include drop-shadow-svg-active();
+				.toggle {
+					&__border {
+						fill: var(--white);
+					}
+					&__backdrop {
+						fill: var(--primary);
+					}
+					&__icon {
+						fill: var(--button);
+					}
+				}
 
-        .toggle {
-          &__border {
-            fill: var(--white);
-          }
-          &__backdrop {
-            fill: var(--primary);
-          }
-          &__icon {
-            fill: var(--button);
-          }
-        }
+				.visibility-indicator {
+					background: var(--white);
 
-        .visibility-indicator {
-          background: var(--white);
+					svg {
+						fill: var(--primary);
+					}
+				}
+			}
 
-          svg {
-            fill: var(--primary);
-          }
-        }
-      }
+			&:active,
+			&.is-pressing {
+				.toggle-icon {
+					.toggle {
+						&__backdrop {
+							fill: var(--secondary);
+						}
+						&__icon {
+							fill: var(--white);
+						}
+					}
+				}
 
-      &:active,
-      &.is-pressing {
-        .toggle-icon {
-          .toggle {
-            &__backdrop {
-              fill: var(--secondary);
-            }
-            &__icon {
-              fill: var(--white);
-            }
-          }
-        }
+				label {
+					background-color: var(--secondary);
+					color: var(--white);
+				}
+			}
 
-        label {
-          background-color: var(--secondary);
-          color: var(--white);
-        }
-      }
+			label {
+				@include drop-shadow-active();
 
-      label {
-        @include drop-shadow-active();
-
-        background-color: var(--white);
-        color: var(--primary);
-      }
-    }
-  }
-
+				background-color: var(--white);
+				color: var(--primary);
+			}
+		}
+	}
 }

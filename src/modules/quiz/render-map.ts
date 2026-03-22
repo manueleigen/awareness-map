@@ -1,7 +1,11 @@
 import { create } from "../lib.js";
 import { addPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
-import { LocationStoryPoint, SelectionStoryPoint, QuizOutcome } from "./types.js";
+import {
+	LocationStoryPoint,
+	SelectionStoryPoint,
+	QuizOutcome,
+} from "./types.js";
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
@@ -183,13 +187,15 @@ export function renderSelection(
 	};
 	refreshStatus();
 
-	/** 
-	 * Delegated Click Handler. 
+	/**
+	 * Delegated Click Handler.
 	 * Instead of attaching to each element, we attach once to the container.
 	 * This prevents redundant listeners and ensures correct FIFO behavior.
 	 */
 	const clickHandler = (e: Event) => {
-		const item = (e.target as Element).closest(effectiveSelector) as HTMLElement | null;
+		const item = (e.target as Element).closest(
+			effectiveSelector,
+		) as HTMLElement | null;
 		if (!item || !target?.contains(item) || item.classList.contains("disabled"))
 			return;
 
@@ -280,7 +286,7 @@ export function renderSelection(
 				el.classList.remove("quiz-pulse");
 			});
 		}
-		
+
 		document.removeEventListener("quiz-answer-changed", externalHandler);
 
 		// Calculate Status: right, half, or wrong

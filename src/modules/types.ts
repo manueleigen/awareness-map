@@ -31,6 +31,7 @@ export interface ContextLayer {
 	initially_visible?: boolean;
 	quiz_only?: boolean;
 	z_index?: number;
+	toggle_order?: number;
 }
 
 /** A role within a scenario, containing its specific layers and an optional quiz. */
@@ -76,8 +77,7 @@ export interface AppState {
 	currentRole: string | null;
 	/** Set of IDs for layers currently visible on the map. */
 	activeLayers: Set<string>;
-	/** Tracks the order in which layers were activated for dynamic UI stacking (LIFO). */
-	layerSelectionOrder: string[];
+	visibleLayerToggles: number;
 	/** Set of IDs for layers specifically enabled by a quiz step. */
 	quizStepLayers: Set<string>;
 	view: "home" | "scenario-select" | "role-select" | "map" | "quiz";

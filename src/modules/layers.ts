@@ -1,5 +1,5 @@
 import { app } from "./state.js";
-import { create, loadJSON, loadYAML, loadTEXT } from "./lib.js";
+import { create, loadJSON, loadYAML, loadTEXT, el } from "./lib.js";
 import { addPointerClick } from "./interactions.js";
 import { t } from "./translater.js";
 import { LayerConfig, ContextLayer, ProjectContext } from "./types.js";
@@ -217,8 +217,13 @@ async function buildControlUI(
 	if (config.toggle === "hidden") return;
 
 	const isVisible = !layerEl.classList.contains("hidden");
+
 	const toggle = create("div");
 	toggle.className = `toggleSwitch ${isVisible ? "active" : ""}`;
+	toggle.id = `toggle-${layerEl.id}`;
+
+	toggle.style.order = `${100 - (ctxLayer?.toggle_order || 0)}`;
+	console.warn("Toggle created");
 
 	const iconWrapper = create("div");
 	iconWrapper.className = "toggle-icon";
@@ -244,13 +249,6 @@ async function buildControlUI(
 		(config.title_key ? t(config.title_key, "Layer") : "Layer");
 	toggle.append(label);
 
-	// Apply dynamic ordering (LIFO stacking)
-	// Since flex-direction is column-reverse, higher order = higher in list (top).
-	const orderIndex = app.layerSelectionOrder.indexOf(config.id);
-	if (orderIndex !== -1) {
-		toggle.style.order = String(orderIndex);
-	}
-
 	controlParent.append(toggle);
 
 	if (config.playback_control && app.ui.slidersContainer) {
@@ -266,25 +264,12 @@ async function buildControlUI(
 	if (config.toggle === "available") {
 		addPointerClick(toggle, () => {
 			const nowActive = layerEl.classList.contains("hidden");
-			
+
 			// Update active set
 			if (nowActive) {
 				app.activeLayers.add(config.id);
-				
-				// LIFO Order Logic: Remove if exists, push to end (top of stack)
-				const idx = app.layerSelectionOrder.indexOf(config.id);
-				if (idx !== -1) app.layerSelectionOrder.splice(idx, 1);
-				app.layerSelectionOrder.push(config.id);
-				
-				// Update DOM order immediately
-				toggle.style.order = String(app.layerSelectionOrder.length - 1);
 			} else {
 				app.activeLayers.delete(config.id);
-				// We don't remove from order array to keep position stable if toggled back on,
-				// or we could. Here we keep it simple. If we want it to jump to top only 
-				// on *activation*, we leave it. If we want it to lose "rank", we'd remove it.
-				// Requirement: "immer wenn ein neuer layer eingeblendet wird sollte er ganz oben auftauchen"
-				// implies only activation matters.
 			}
 
 			layerEl.classList.toggle("hidden", !nowActive);
@@ -303,10 +288,6 @@ function syncActiveLayers(): void {
 		Object.entries(map).forEach(([id, ctx]) => {
 			if (ctx.initially_visible) {
 				app.activeLayers.add(id);
-				// Ensure initial layers are in the order array if not present
-				if (!app.layerSelectionOrder.includes(id)) {
-					app.layerSelectionOrder.push(id);
-				}
 			}
 		});
 	};
@@ -419,7 +400,6 @@ export async function resetLayers(): Promise<void> {
 
 	// 1. Clear active layers set
 	app.activeLayers.clear();
-	app.layerSelectionOrder = [];
 	app.quizStepLayers.clear();
 
 	// 2. Hide all open overlays (Modals)
@@ -431,10 +411,12 @@ export async function resetLayers(): Promise<void> {
 	// 4. Clear other visual modifications in the DOM
 	layerElements.forEach((wrapper) => {
 		// Remove active states and quiz-related indicators from all children
-		wrapper.querySelectorAll(".active, .quiz-answer, .quiz-pulse, .disabled").forEach((el) => {
-			el.classList.remove("active", "quiz-answer", "quiz-pulse", "disabled");
-			(el as HTMLElement).style.pointerEvents = "";
-		});
+		wrapper
+			.querySelectorAll(".active, .quiz-answer, .quiz-pulse, .disabled")
+			.forEach((el) => {
+				el.classList.remove("active", "quiz-answer", "quiz-pulse", "disabled");
+				(el as HTMLElement).style.pointerEvents = "";
+			});
 	});
 
 	// 5. Re-sync with context (restores initially_visible layers)
