@@ -21,8 +21,8 @@ navigation:
   role: Role
 
 feedback:
-  success_title: Task completed successfully
-  failure_title: Task not completed successfully
+  success_title: Task successful
+  failure_title: Task not successful
   retry: Try again
   continue: Continue
 
@@ -32,6 +32,10 @@ home:
     In a crisis, it is important to make good decisions based on the most current information possible.
     What often matters is where something has happened, where many people are located,
     and which resources are available. Which scenario would you like to explore?
+  scenario_selection_label: Choose a scenario
+  scenario_1: Flood
+  scenario_2: Blackout
+  scenario_3: Event
 
 scenarios:
   flood:
@@ -83,11 +87,6 @@ scenarios:
         title: Crisis Staff
 
 challenges:
-  common:
-    passed_msg: Challenge successfully completed!
-    failed_msg: Challenge unfortunately failed.
-    retry_button: Try again
-    start_button: Start challenge
   flood:
     fire_brigade:
       title: Rescue Under Time Pressure
@@ -100,14 +99,21 @@ challenges:
         Select exactly two hotspots that you want to handle.
         Consider how quickly they will be flooded,
         how many people are affected, and whether they are still reachable.
-      success_feedback: >
-        You did not simply react to volume, but correctly assessed the remaining
-        time window. This allows response units to be deployed where
-        they can still help effectively.
-      failure_feedback_1: Response units are surprised by the water in category A.
-      failure_feedback_2: Access windows close if category B is ignored.
-      failure_feedback_3: Selecting only non-urgent hotspots makes missed intervention opportunities visible.
-
+      challenge:
+        hotspot-selection:
+          title: Select Hotspots
+          question: Select exactly two hotspots you want to handle. Consider the time until flooding and urgency.
+          win:
+            title: Correct!
+            description: >
+              You did not simply react to volume, but correctly assessed the remaining
+              time window. This allows response units to be deployed where
+              they can still help effectively.
+          fail:
+            title: Failed
+            description: >
+              The selection was not optimal. Either emergency units were surprised by water in Category A, 
+              access windows (Category B) were ignored, or only non-urgent hotspots were selected.
     police:
       title: Evacuation with Consequences
       headline: Evacuation with Consequences
@@ -118,86 +124,69 @@ challenges:
       how-to: >
         Select two zones on the map that you want to evacuate. Consider the flood risk, population density,
         and the accessibility of critical infrastructure.
-      success_feedback: >
-        You considered risk, accessibility, and system-wide effects together.
-        The zones you selected protect endangered areas without unnecessarily
-        blocking central connections.
-      failure_feedback_1: The zone is flooded and people are put in danger.
-      failure_feedback_2: The evacuation blocks access to the hospital; surrounding areas show increasing instability.
-      failure_feedback_3: An evacuation is triggered too early and resources are wasted.
+      challenge:
+        zone-selection:
+          title: Define Evacuation Zones
+          question: Select two zones on the map that you want to evacuate.
+          win:
+            title: Correct!
+            description: >
+              You considered risk, accessibility, and system-wide effects together.
+              The zones you selected protect endangered areas without unnecessarily
+              blocking central connections.
+          fail:
+            title: Failed
+            description: >
+              The evacuation decision had negative consequences: zones were flooded, 
+              hospital access was blocked, or resources were wasted through premature evacuation.
 
     crisis_staff:
       title: Deciding Under Uncertainty
       headline: Deciding Under Uncertainty
       intro: >
-        During the ongoing response, rumors are circulating on social media about a possible dike or
-        flood protection breach. Decide which information to share and reduce uncertainty by collecting current data.
-      how-to: >
-        none?
-      feedback: >
-        You can share information, withhold it, or collect new data at any time.
-        Consider which information gaps are most critical and how you can best close them to support response units without causing unnecessary panic.
-      success_feedback: >
-        You shared information in a way that allowed operational units to act better
-        without unnecessarily escalating the situation, and you closed the information gap through data collection.
-      failure_feedback_1: Early public communication increases panic.
-        Early internal sharing triggers premature or misdirected preparations.
-      failure_feedback_2: You deployed the drone in an irrelevant area and wasted resources as a result.
-      failure_feedback_3: Withholding confirmed information leaves response units acting on outdated assumptions.
-
-interactions:
-  layer_toggle: Show and hide layers
-  layer_read: Read data layers
-  layer_activate: Select active layer
-  inspect_location: Inspect data points
-  inspect_area: Inspect area
-  adjust_time: Adjust time with slider
-  define_zone: Define zone
-  send_units: Deploy response units
-  send_drone: Deploy drone
-  share_information: Share information
-
-map_ui:
-  active_layer_label: Active layer
-  no_active_layer: No active layer
-  layer_panel_title: Data layers
-  time_slider_label: Timeline
-  action_label: Action
-  confirm_action: Confirm action
-  cancel_action: Cancel
-
-completion:
-  headline: Situation Assessed
-  description: >
-    You made decisions based on a dynamic and incomplete situation picture.
-    Situation awareness is never complete; it must be actively constructed and
-    continuously updated.
-  restart_button: Restart scenario
-  home_button: Back to home
-
-crises_challange:
-  intro:
-    title: Crisis Staff Challenge
-    question: What do you want to do?
-    optionA: Forward information
-    optionB: Deploy drone
-  location:
-    title: Choose deployment location
-    question: Select the correct place on the map (click in the centre).
-    question_detail: Select the drone drop-off point on the map.
-  call:
-    title: Forward information
-    question: To whom should the information be forwarded?
-    optionA: Emergency services
-    optionB: Public
-    optionC: Both
-  win:
-    title: You win!
-    description: You win, yay...
-  fail:
-    title: Failed
-    description: That was unfortunately the wrong decision.
+        During the ongoing response, rumors are circulating on social media about a possible dike or flood protection breach. Decide which information to share and reduce uncertainty by collecting current data.
+      how-to: none?
+      challenge:
+        intro:
+          title: What is the first step?
+          question: Would you like to share information about the flood or collect more data first?
+          optionA: Share information
+          optionB: Deploy drone
+          win:
+            title: Correct!
+            description: Collect information first.
+          fail:
+            title: Failed
+            description: >
+              Early public communication increases panic. Early internal sharing triggers premature or misdirected preparations.
+        coord-selection:
+          title: Choose deployment location
+          question: Select the correct place on the map (click in the centre).
+          win:
+            title: Correct!
+            description: Let's first look at areas with high population density.
+          fail:
+            title: Failed
+            description: >
+              You deployed the drone in an irrelevant area and wasted resources.
+        who-you-wanna-call:
+          title: Forward information
+          question: To whom should the information be forwarded?
+          optionA: Fire department operations center
+          optionB: Public
+          win:
+            title: Challenge solved!
+            description: >
+              You shared information in a way that allows operational units to act better without unnecessarily escalating the situation and closed the information gap through data collection.
+          fail:
+            title: Failed
+            description: >
+              Withholding confirmed information leaves emergency services acting on outdated assumptions.
   common:
+    passed_msg: Challenge successfully completed!
+    failed_msg: Challenge unfortunately failed.
+    retry_button: Try again
+    start_button: Start challenge
     restart: Start again
     submit: Check answer
     continue: Continue
@@ -206,10 +195,38 @@ crises_challange:
     target_missing: "Target area not found: {target}"
     selected_count: "Selected: {count}"
     click_to_place: Click to place a point.
-    location_selected: "Point placed ({x}, {y})"
     nothing_selected: ""
     select_poi: Select
     deselect_poi: Deselect
-  success_interlude:
-    title: Correct!
-    description: Continuing…
+
+  global:
+    critical_sites:
+      title: "Critical\nInfrastructure"
+    population_density:
+      title: "Population\ndensity"
+
+  scenarios:
+    flood:
+      layers:
+        flood_simulation:
+          title: "Flood\nsimulation"
+      roles:
+        fire_brigade:
+          layers:
+            emergency_calls:
+              title: "Emergency\ncalls"
+            emergency_vehicles:
+              title: "Emergency\nvehicles"
+        police:
+          layers:
+            social_media:
+              title: Social Media
+            evacuation_zones:
+              title: "Evacuation\nzones"
+        crisis_staff:
+          layers:
+            social_media:
+              title: Social Media
+            drone_feed:
+              title: Drone Data
+              description: Additional aerial situation assessment to reduce uncertainty.

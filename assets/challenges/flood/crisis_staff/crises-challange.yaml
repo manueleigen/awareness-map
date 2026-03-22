@@ -1,26 +1,26 @@
 story_points:
   - id: intro
     type: quiz
-    title_key: crises_challange.intro.title
-    question_key: crises_challange.intro.question
+    title_key: challenges.flood.crisis_staff.challenge.intro.title
+    question_key: challenges.flood.crisis_staff.challenge.intro.question
     options:
-      - label_key: crises_challange.intro.optionA
+      - label_key: challenges.flood.crisis_staff.challenge.intro.optionA
         value: a
-      - label_key: crises_challange.intro.optionB
+      - label_key: challenges.flood.crisis_staff.challenge.intro.optionB
         value: b
-    solution: ['b']
+    solution: ["b"]
     next:
-      right: free-coord-selection
-      wrong: fail-screen
+      right: coord-selection
+      wrong: fail-screen-1
     minAnswers: 1
     maxAnswers: 1
     step: 1
     total_steps: 4
 
-  - id: free-coord-selection
+  - id: coord-selection
     type: location-quiz
-    title_key: crises_challange.location.title
-    question_key: crises_challange.location.question
+    title_key: challenges.flood.crisis_staff.challenge.coord-selection.title
+    question_key: challenges.flood.crisis_staff.challenge.coord-selection.question
     target: "#layers"
     activeLayerId: drone_feed
     solution:
@@ -30,26 +30,77 @@ story_points:
     step: 2
     total_steps: 4
     success_screen:
-      title_key: crises_challange.success_interlude.title
-      description_key: crises_challange.success_interlude.description
+      title_key: challenges.flood.crisis_staff.challenge.coord-selection.title
+      description_key: challenges.flood.crisis_staff.challenge.coord-selection.description
       duration_ms: 900
     next:
-      right: select-drone-drop-off
-      wrong: fail-screen
+      right: who-you-wanna-call
+      wrong: fail-screen-2
 
+  - id: who-you-wanna-call
+    type: quiz
+    title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.title
+    question_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.question
+    options:
+      - label_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.optionA
+        value: a
+      - label_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.optionB
+        value: b
+    solution: ["a"]
+    next:
+      right: win-screen
+      wrong: fail-screen-3
+    minAnswers: 1
+    maxAnswers: 1
+    step: 4
+    total_steps: 4
+
+  - id: win-screen
+    type: info
+    title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.win.title
+    description_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.win.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: passed
+    next: intro
+
+  - id: fail-screen-1
+    type: info
+    title_key: challenges.flood.crisis_staff.challenge.intro.fail.title
+    description_key: challenges.flood.crisis_staff.challenge.intro.fail.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  - id: fail-screen-2
+    type: info
+    title_key: challenges.flood.crisis_staff.challenge.coord-selection.fail.title
+    description_key: challenges.flood.crisis_staff.challenge.coord-selection.fail.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  - id: fail-screen-3
+    type: info
+    title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.fail.title
+    description_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.fail.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  ### Legacy / Unused
   - id: select-drone-drop-off
     type: point-selection-quiz
-    title_key: crises_challange.location.title
-    question_key: crises_challange.location.question_detail
+    title_key: challenges.flood.crisis_staff.challenge.location.title
+    question_key: challenges.flood.crisis_staff.challenge.location.question_detail
     target: "#layer-critical_sites"
     selector: ".poi-marker"
     activeLayerId: critical_sites
     # usesResultFrom: free-coord-selection (Logic will look at previous point's result)
-    solution: ['critical_site_2']
+    solution: ["critical_site_2"]
 
     success_screen:
-      title_key: crises_challange.success_interlude.title
-      description_key: crises_challange.success_interlude.description
+      title_key: challenges.flood.crisis_staff.challenge.success_interlude.title
+      description_key: challenges.flood.crisis_staff.challenge.success_interlude.description
       duration_ms: 900
     next:
       right: quiz-who-you-wanna-call
@@ -58,39 +109,3 @@ story_points:
     maxSelection: 1
     step: 3
     total_steps: 4
-
-  - id: quiz-who-you-wanna-call
-    type: quiz
-    title_key: crises_challange.call.title
-    question_key: crises_challange.call.question
-    options:
-      - label_key: crises_challange.call.optionA
-        value: a
-      - label_key: crises_challange.call.optionB
-        value: b
-      - label_key: crises_challange.call.optionC
-        value: c
-    solution: ['c']
-    next:
-      right: win-screen
-      wrong: fail-screen
-    minAnswers: 1
-    maxAnswers: 1
-    step: 4
-    total_steps: 4
-
-  - id: win-screen
-    type: info
-    title_key: crises_challange.win.title
-    description_key: crises_challange.win.description
-    continue_button_key: crises_challange.common.restart
-    terminalStatus: passed
-    next: intro
-
-  - id: fail-screen
-    type: info
-    title_key: crises_challange.fail.title
-    description_key: crises_challange.fail.description
-    continue_button_key: crises_challange.common.restart
-    terminalStatus: failed
-    next: intro

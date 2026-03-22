@@ -87,11 +87,6 @@ scenarios:
         title: Krisenstab
 
 challenges:
-  common:
-    passed_msg: Herausforderung erfolgreich abgeschlossen!
-    failed_msg: Herausforderung leider nicht bestanden.
-    retry_button: Erneut versuchen
-    start_button: Herausforderung starten
   flood:
     fire_brigade:
       title: Rettung unter Zeitdruck
@@ -104,14 +99,21 @@ challenges:
         Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. 
         Berücksichtige dabei, wie schnell sie überflutet werden, 
         wie viele Menschen betroffen sind und wie erreichbar sie noch sind.
-      success_feedback: >
-        Du hast nicht nur auf Lautstärke reagiert, sondern das verbleibende
-        Zeitfenster richtig eingeschätzt. So können Einsatzkräfte dort
-        eingesetzt werden, wo sie noch wirksam helfen können.
-      failure_feedback_1: Einsatzkräfte werden in Kategorie A vom Wasser überrascht.
-      failure_feedback_2: Zugangsfenster schließen sich, wenn Kategorie B ignoriert wird.
-      failure_feedback_3: Die Auswahl nur nicht dringlicher Hotspots macht verpasste Interventionschancen sichtbar.
-
+      challenge:
+        hotspot-selection:
+          title: Hotspots wählen
+          question: Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. Berücksichtige dabei die Zeit bis zur Überflutung und die Dringlichkeit.
+          win:
+            title: Richtig!
+            description: >
+              Du hast nicht nur auf Lautstärke reagiert, sondern das verbleibende
+              Zeitfenster richtig eingeschätzt. So können Einsatzkräfte dort
+              eingesetzt werden, wo sie noch wirksam helfen können.
+          fail:
+            title: Fehlgeschlagen
+            description: >
+              Die Auswahl war nicht optimal. Entweder wurden Einsatzkräfte in Kategorie A vom Wasser überrascht, 
+              Zugangsfenster (Kategorie B) wurden ignoriert oder es wurden nur nicht dringliche Hotspots gewählt.
     police:
       title: Evakuierung mit Folgen
       headline: Evakuierung mit Folgen
@@ -122,32 +124,80 @@ challenges:
       how-to: >
         Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest. Berücksichtige dabei das Flutrisiko, die Bevölkerungsdichte,
         und die Erreichbarkeit von kritischer Infrastruktur.
-      success_feedback: >
-        Du hast Risiko, Erreichbarkeit und Systemfolgen gemeinsam betrachtet.
-        Die von dir gewählten Zonen schützen gefährdete Gebiete, ohne zentrale Verbindungen
-        unnötig zu blockieren.
-      failure_feedback_1: Die Zone wird überflutet und Menschen werden in Gefahr gebracht.
-      failure_feedback_2: Durch die Evakuierung wird die Krankenhauszufahrte  blockiert; umliegende Bereiche zeigen zunehmende Instabilität.
-      failure_feedback_3: Eine Evakuierung wird zu früh ausgelöst und Ressourcen werden vergeudet.
+      challenge:
+        zone-selection:
+          title: Evakuierungszonen festlegen
+          question: Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest.
+          win:
+            title: Richtig!
+            description: >
+              Du hast Risiko, Erreichbarkeit und Systemfolgen gemeinsam betrachtet.
+              Die von dir gewählten Zonen schützen gefährdete Gebiete, ohne zentrale Verbindungen
+              unnötig zu blockieren.
+          fail:
+            title: Fehlgeschlagen
+            description: >
+              Die Evakuierungsentscheidung hatte negative Folgen: Zonen wurden überflutet, 
+              Krankenhauszufahrten blockiert oder Ressourcen durch eine verfrühte Evakuierung vergeudet.
 
     crisis_staff:
       title: Entscheiden unter Unsicherheit
       headline: Entscheiden unter Unsicherheit
       intro: >
-        Während der laufenden Einsatzlage kursieren auf Social Media Gerüchte über einen möglichen Deich- oder
-        Hochwasserschutz-Bruch. Entscheide, welche Informationen du teilst, und reduziere die Unsicherheit, indem du aktuelle Daten erhebst.
-      how-to: >
-        keins?
-      feedback: >
-        Du kannst jederzeit Informationen teilen, zurückhalten oder neue Daten erheben. 
-        Überlege, welche Informationslücken am kritischsten sind und wie du sie am besten schließen kannst, um die Einsatzkräfte zu unterstützen, ohne unnötige Panik zu verursachen.
-      success_feedback: >
-        Du hast Informationen so geteilt, dass operative Einheiten besser handeln
-        können, ohne die Lage unnötig zu verschärfen und die Informationslücke Datenerhebung geschlossen.
-      failure_feedback_1: Frühe öffentliche Kommunikation verstärkt Panik.
-        Frühes internes Teilen löst verfrühte oder fehlgeleitete Vorbereitungen aus.
-      failure_feedback_2: Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit Ressourcen verschwendet.
-      failure_feedback_3: Das Zurückhalten bestätigter Informationen lässt Einsatzkräfte mit veralteten Annahmen handeln.
+        Während der laufenden Einsatzlage kursieren auf Social Media Gerüchte über einen möglichen Deich- oder Hochwasserschutz-Bruch. Entscheide, welche Informationen du teilst, und reduziere die Unsicherheit, indem du aktuelle Daten erhebst.
+      how-to: keins?
+      challenge:
+        intro:
+          title: Was ist der erste Schritt?
+          question: Möchtest du Informationen über das Hochwasser teilen oder erst weitere Daten erheben.
+          optionA: Informationen teilen
+          optionB: Drohne entsenden
+          win:
+            title: Richtig!
+            description: Erst Informationen sammeln.
+          fail:
+            title: Fehlgeschlagen
+            description: >
+              Frühe öffentliche Kommunikation verstärkt Panik. Frühes internes Teilen löst verfrühte oder fehlgeleitete Vorbereitungen aus.
+        coord-selection:
+          title: Einsatzort wählen
+          question: Wähle den richtigen Ort auf der Karte aus (klicke in die Mitte).
+          win:
+            title: Richtig!
+            description: Schauen we zuerst auf Gebiete mit hoher Bevölkerungsdichte.
+          fail:
+            title: Fehlgeschlagen
+            description: >
+              Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit Ressourcen verschwendet.
+        who-you-wanna-call:
+          title: Information weiterleiten
+          question: An wen sollen die Informationen weitergeleitet werden?
+          optionA: Einsatzleitung der Feuerwehr
+          optionB: Öffentlichkeit
+          win:
+            title: Challenge gelöst!
+            description: >
+              Du hast Informationen so geteilt, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen und die Informationslücke Datenerhebung geschlossen.
+          fail:
+            title: Fehlgeschlagen
+            description: >
+              Das Zurückhalten bestätigter Informationen lässt Einsatzkräfte mit veralteten Annahmen handeln.
+  common:
+    passed_msg: Herausforderung erfolgreich abgeschlossen!
+    failed_msg: Herausforderung leider nicht bestanden.
+    retry_button: Erneut versuchen
+    start_button: Herausforderung starten
+    restart: Noch einmal von vorn
+    submit: Antwort prüfen
+    continue: Weiter
+    selection_hint: Wähle die passende Fläche oder den passenden Punkt in der Karte aus.
+    location_hint: Setze einen Punkt auf der Karte.
+    target_missing: "Zielbereich nicht gefunden: {target}"
+    selected_count: "Ausgewählt: {count}"
+    click_to_place: Klicke, um einen Punkt zu setzen.
+    nothing_selected: ""
+    select_poi: Auswählen
+    deselect_poi: Abwählen
 
   global:
     critical_sites:
@@ -180,53 +230,3 @@ challenges:
             drone_feed:
               title: Drohnendaten
               description: Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.
-
-
-
-completion:
-  headline: Lage bewertet
-  description: >
-    Du hast Entscheidungen auf Basis einer dynamischen und unvollständigen Lage
-    getroffen. Lagebewusstsein ist nie vollständig, sondern muss aktiv hergestellt
-    und laufend angepasst werden.
-  restart_button: Szenario neu starten
-  home_button: Zurück zur Startseite
-
-crises_challange:
-  intro:
-    title: Krisenstab-Challenge
-    question: Was willst du machen?
-    optionA: Informationen weiterleiten
-    optionB: Drohne entsenden
-  location:
-    title: Einsatzort wählen
-    question: Wähle den richtigen Ort auf der Karte aus (klicke in die Mitte).
-    question_detail: Wähle den Drohnen-Abwurfpunkt auf der Karte.
-  call:
-    title: Information weiterleiten
-    question: An wen sollen die Informationen weitergeleitet werden?
-    optionA: Einsatzkräfte
-    optionB: Öffentlichkeit
-    optionC: beide
-  win:
-    title: Gewonnen!
-    description: You win, yay...
-  fail:
-    title: Fehlgeschlagen
-    description: Das war leider die falsche Entscheidung.
-  common:
-    restart: Noch einmal von vorn
-    submit: Antwort prüfen
-    continue: Weiter
-    selection_hint: Wähle die passende Fläche oder den passenden Punkt in der Karte aus.
-    location_hint: Setze einen Punkt auf der Karte.
-    target_missing: "Zielbereich nicht gefunden: {target}"
-    selected_count: "Ausgewählt: {count}"
-    click_to_place: Klicke, um einen Punkt zu setzen.
-    location_selected: "Punkt gesetzt ({x}, {y})"
-    nothing_selected: ""
-    select_poi: Auswählen
-    deselect_poi: Abwählen
-  success_interlude:
-    title: Richtig!
-    description: Weiter…

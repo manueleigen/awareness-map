@@ -192,8 +192,9 @@ export function renderMapUI(): void {
 	// Check if this challenge was already completed
 	const resultId = `${app.currentScenario}_${app.currentRole}`;
 	const result = app.challengeResults[resultId];
+	const includeLastResult = false;
 
-	if (result) {
+	if (result && includeLastResult) {
 		const statusMsg = create("div");
 		statusMsg.className = `challenge-status challenge-${result.status}`;
 		statusMsg.innerText =
@@ -208,8 +209,8 @@ export function renderMapUI(): void {
 	if (quizPath) {
 		const startQuizBtn = create("button");
 		const btnLabelKey = result
-			? "challenges.common.retry_button"
-			: "challenges.flood.crisis_staff.start_button";
+			? "challenges.common.start_button" // "challenges.common.retry_button"
+			: "challenges.common.start_button";
 
 		startQuizBtn.innerText = t(
 			btnLabelKey,
