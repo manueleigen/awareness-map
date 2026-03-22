@@ -178,11 +178,9 @@ export function renderSelection(
 		// Disable submit button if minSelection is not met
 		const isMinMet = count >= (point.minSelection ?? 1);
 		if (isMinMet) {
-			btn.classList.remove("is-inactive");
-			(btn as any).disabled = false;
+			btn.classList.remove("disabled");
 		} else {
-			btn.classList.add("is-inactive");
-			(btn as any).disabled = true;
+			btn.classList.add("disabled");
 		}
 	};
 	refreshStatus();
