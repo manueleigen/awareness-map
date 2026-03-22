@@ -41,6 +41,13 @@ button {
 		cursor: not-allowed;
 		pointer-events: none;
 	}
+	&.disabled {
+		order: 99;
+		background: var(--button-inactive);
+		color: var(--buttontext-inactive);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
 }
 
 #back-btn {

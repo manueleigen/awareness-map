@@ -2,6 +2,7 @@ import { create } from "../lib.js";
 import { addPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import { InfoStoryPoint, QuizStoryPoint } from "./types.js";
+import { backToRoles } from "../info-box.js";
 
 /**
  * Renders a simple information screen with a continue button.
@@ -25,13 +26,28 @@ export function renderInfo(
 	desc.innerText = t(point.description_key);
 	content.append(desc);
 
-	const btn = create("button");
-	btn.innerText = t(
-		point.continue_button_key,
-		t("feedback.continue", "Continue"),
-	);
-	addPointerClick(btn, () => onAction(true));
-	controls.append(btn);
+	// In terminal steps, we show different buttons based on status:
+	// - "Win": Only "Back to Roles"
+	// - "Fail": Only the retry button (default continue button)
+	// - regular info steps: standard "Continue" button.
+	if (point.terminalStatus === "passed") {
+		const backBtn = create("button");
+		backBtn.innerText = t("challenges.common.back_to_challenges", "Back to Roles");
+		addPointerClick(backBtn, async () => {
+			await backToRoles();
+		});
+		controls.append(backBtn);
+	} else {
+		// This covers both terminalStatus === "failed" (retry) 
+		// and regular info steps (continue).
+		const btn = create("button");
+		btn.innerText = t(
+			point.continue_button_key,
+			t("feedback.continue", "Continue"),
+		);
+		addPointerClick(btn, () => onAction(true));
+		controls.append(btn);
+	}
 }
 
 /**

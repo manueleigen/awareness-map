@@ -1,7 +1,7 @@
 import { create } from "../lib.js";
 import { addPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
-import { LocationStoryPoint, SelectionStoryPoint } from "./types.js";
+import { LocationStoryPoint, SelectionStoryPoint, QuizOutcome } from "./types.js";
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
@@ -13,7 +13,7 @@ export function renderLocation(
 	content: HTMLElement,
 	controls: HTMLElement,
 	point: LocationStoryPoint,
-	onAction: (isCorrect: boolean, resultData?: any) => void,
+	onAction: (outcome: QuizOutcome, resultData?: any) => void,
 ): void {
 	content.innerHTML = "";
 	controls.innerHTML = "";
@@ -111,7 +111,7 @@ export function renderLocation(
 		target?.removeEventListener("pointerup", clickHandler as any);
 		radiusMarker?.remove();
 
-		onAction(isCorrect, placed);
+		onAction(isCorrect ? "right" : "wrong", placed);
 	});
 	controls.append(btn);
 }
@@ -124,7 +124,7 @@ export function renderSelection(
 	content: HTMLElement,
 	controls: HTMLElement,
 	point: SelectionStoryPoint,
-	onAction: (isCorrect: boolean) => void,
+	onAction: (outcome: QuizOutcome) => void,
 ): void {
 	content.innerHTML = "";
 	controls.innerHTML = "";
@@ -148,17 +148,80 @@ export function renderSelection(
 	const target = document.querySelector<HTMLElement>(point.target);
 	clearQuizAnswers();
 
+	// Intelligent Default Selector Logic
+	const effectiveSelector =
+		point.selector ||
+		(point.type === "area-selection-quiz" ? "polygon, path" : ".poi-marker");
+
+	// Track selection order for FIFO logic
+	const selectedIds: string[] = [];
+
 	// SPATIAL FILTER: Check if there's a previous reconnaissance area to restrict selection
 	const spatialFilter = getLastLocationResult();
 
-	if (target && point.type === "point-selection-quiz") {
-		target.querySelectorAll<HTMLElement>(point.selector).forEach((el) => {
+	const btn = create("button");
+	btn.innerText = t("challenges.common.submit", "Check Selection");
+	controls.append(btn);
+
+	/** Updates the status text and submit button state. */
+	const refreshStatus = () => {
+		const count = selectedIds.length;
+		status.innerText = t(
+			"challenges.common.selected_count",
+			`Selected: ${count}`,
+		).replace("{count}", `${count}`);
+
+		// Disable submit button if minSelection is not met
+		const isMinMet = count >= (point.minSelection ?? 1);
+		if (isMinMet) {
+			btn.classList.remove("is-inactive");
+			(btn as any).disabled = false;
+		} else {
+			btn.classList.add("is-inactive");
+			(btn as any).disabled = true;
+		}
+	};
+	refreshStatus();
+
+	/** 
+	 * Delegated Click Handler. 
+	 * Instead of attaching to each element, we attach once to the container.
+	 * This prevents redundant listeners and ensures correct FIFO behavior.
+	 */
+	const clickHandler = (e: Event) => {
+		const item = (e.target as Element).closest(effectiveSelector) as HTMLElement | null;
+		if (!item || !target?.contains(item) || item.classList.contains("disabled"))
+			return;
+
+		const id = item.id;
+		const index = selectedIds.indexOf(id);
+
+		if (index !== -1) {
+			// Deselect
+			selectedIds.splice(index, 1);
+			item.classList.remove("quiz-answer", "active");
+		} else {
+			// Select with FIFO logic
+			if (point.maxSelection && selectedIds.length >= point.maxSelection) {
+				const oldestId = selectedIds.shift();
+				if (oldestId) {
+					const oldestEl = target.querySelector(`#${oldestId}`);
+					oldestEl?.classList.remove("quiz-answer", "active");
+				}
+			}
+			selectedIds.push(id);
+			item.classList.add("quiz-answer", "active");
+		}
+		refreshStatus();
+	};
+
+	// 1. Initial State: Pulse and enable interaction
+	if (target) {
+		target.querySelectorAll<HTMLElement>(effectiveSelector).forEach((el) => {
 			let isEnabled = true;
-			if (spatialFilter) {
-				// Get POI coordinates from styles (native resolution)
+			if (point.type === "point-selection-quiz" && spatialFilter) {
 				const poiX = parseFloat(el.style.left) + parseFloat(el.style.width) / 2;
 				const poiY = parseFloat(el.style.top) + parseFloat(el.style.height) / 2;
-
 				const dist = Math.sqrt(
 					Math.pow(poiX - spatialFilter.x, 2) +
 						Math.pow(poiY - spatialFilter.y, 2),
@@ -172,71 +235,70 @@ export function renderSelection(
 				el.style.pointerEvents = "auto";
 			} else {
 				el.classList.add("disabled");
-				el.style.pointerEvents = "none"; // Lock non-reachable POIs
+				el.style.pointerEvents = "none";
 			}
 		});
-	} else if (target && point.type === "area-selection-quiz") {
-		// For area selection, we just enable the specified selector (e.g., "polygon")
-		target.querySelectorAll<HTMLElement>(point.selector).forEach((el) => {
-			el.classList.add("quiz-pulse");
-			el.classList.remove("disabled");
-			el.style.pointerEvents = "auto";
-		});
+
+		// Add single listener to container for delegation
+		target.addEventListener("pointerup", clickHandler as any);
 	}
 
-	/** Updates the status text with current selection count. */
-	const refreshStatus = () => {
-		const count =
-			target?.querySelectorAll(`${point.selector}.quiz-answer`).length || 0;
-		status.innerText = t(
-			"challenges.common.selected_count",
-			`Selected: ${count}`,
-		).replace("{count}", `${count}`);
-	};
-	refreshStatus();
+	// Listen for selection changes from POI detail overlays (still needed for POIs)
+	const externalHandler = (e: any) => {
+		const { id, isSelected } = e.detail || {};
+		if (!id) return;
 
-	/** Handles clicks on POI markers. */
-	const clickHandler = (e: Event) => {
-		const item = (e.target as Element | null)?.closest(
-			point.selector,
-		) as HTMLElement | null;
-		if (!item || !target?.contains(item) || item.classList.contains("disabled"))
-			return;
-
-		const isSelected = item.classList.contains("quiz-answer");
-		if (
-			!isSelected &&
-			point.maxSelection &&
-			target?.querySelectorAll(`${point.selector}.quiz-answer`).length! >=
-				point.maxSelection
-		)
-			return;
-
-		item.classList.toggle("quiz-answer");
+		const index = selectedIds.indexOf(id);
+		if (isSelected && index === -1) {
+			// External selection (FIFO)
+			if (point.maxSelection && selectedIds.length >= point.maxSelection) {
+				const oldestId = selectedIds.shift();
+				if (oldestId) {
+					const oldestEl = target?.querySelector(`#${oldestId}`);
+					oldestEl?.classList.remove("quiz-answer", "active");
+				}
+			}
+			selectedIds.push(id);
+			const targetEl = target?.querySelector(`#${id}`);
+			targetEl?.classList.add("quiz-answer", "active");
+		} else if (!isSelected && index !== -1) {
+			selectedIds.splice(index, 1);
+			const targetEl = target?.querySelector(`#${id}`);
+			targetEl?.classList.remove("quiz-answer", "active");
+		}
 		refreshStatus();
 	};
-
-	// Listen for selection changes from POI detail overlays
-	const externalHandler = () => refreshStatus();
 	document.addEventListener("quiz-answer-changed", externalHandler);
-	target?.addEventListener("pointerup", clickHandler as any);
 
-	const btn = create("button");
-	btn.innerText = t("challenges.common.submit", "Check Selection");
 	addPointerClick(btn, () => {
-		const selected = Array.from(
-			target?.querySelectorAll(`${point.selector}.quiz-answer`) || [],
-		).map((el) => el.id);
-		if (selected.length < (point.minSelection ?? 1)) return;
+		if (selectedIds.length < (point.minSelection ?? 1)) return;
 
-		target?.removeEventListener("pointerup", clickHandler as any);
+		// Cleanup
+		if (target) {
+			target.removeEventListener("pointerup", clickHandler as any);
+			target.querySelectorAll<HTMLElement>(effectiveSelector).forEach((el) => {
+				el.classList.remove("quiz-pulse");
+			});
+		}
+		
 		document.removeEventListener("quiz-answer-changed", externalHandler);
 
-		// Check if all correct IDs are selected and no wrong ones
-		const isCorrect =
-			selected.length === point.solution.length &&
-			selected.every((id) => point.solution.includes(id));
-		onAction(isCorrect);
+		// Calculate Status: right, half, or wrong
+		let outcome: QuizOutcome = "wrong";
+		const numCorrectSelected = selectedIds.filter((id) =>
+			point.solution.includes(id),
+		).length;
+
+		const isRight =
+			selectedIds.length === point.solution.length &&
+			numCorrectSelected === point.solution.length;
+
+		if (isRight) {
+			outcome = "right";
+		} else if (numCorrectSelected > 0) {
+			outcome = "half";
+		}
+
+		onAction(outcome);
 	});
-	controls.append(btn);
 }

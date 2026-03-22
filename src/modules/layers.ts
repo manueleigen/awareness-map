@@ -107,9 +107,6 @@ export async function ensureLayerBuilt(
 							const style = window.getComputedStyle(obj);
 							if (style.fill !== "none" || obj.classList.contains("st0")) {
 								obj.classList.add("interactive-area");
-								addPointerClick(obj as any, () =>
-									obj.classList.toggle("active"),
-								);
 							}
 						});
 					}
@@ -397,14 +394,9 @@ export async function resetLayers(): Promise<void> {
 
 	// 4. Clear other visual modifications in the DOM
 	layerElements.forEach((wrapper) => {
-		// Remove active states from interactive areas
-		wrapper
-			.querySelectorAll(".active")
-			.forEach((el) => el.classList.remove("active"));
-
-		// Remove disabled filters and custom pointer-events from POIs
-		wrapper.querySelectorAll(".poi-marker.disabled").forEach((el) => {
-			el.classList.remove("disabled");
+		// Remove active states and quiz-related indicators from all children
+		wrapper.querySelectorAll(".active, .quiz-answer, .quiz-pulse, .disabled").forEach((el) => {
+			el.classList.remove("active", "quiz-answer", "quiz-pulse", "disabled");
 			(el as HTMLElement).style.pointerEvents = "";
 		});
 	});

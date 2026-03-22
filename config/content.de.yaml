@@ -125,20 +125,22 @@ challenges:
         Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest. Berücksichtige dabei das Flutrisiko, die Bevölkerungsdichte,
         und die Erreichbarkeit von kritischer Infrastruktur.
       challenge:
-        zone-selection:
-          title: Evakuierungszonen festlegen
-          question: Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest.
+        intro:
+          title: Evakuierungszonen wählen
+          question: >
+            Die Flut steigt. Wähle die zwei Zonen aus, die am dringendsten evakuiert werden müssen, um die Bevölkerung zu schützen, ohne die Rettungswege für das Krankenhaus zu blockieren.
           win:
             title: Richtig!
             description: >
-              Du hast Risiko, Erreichbarkeit und Systemfolgen gemeinsam betrachtet.
-              Die von dir gewählten Zonen schützen gefährdete Gebiete, ohne zentrale Verbindungen
-              unnötig zu blockieren.
+              Hervorragend! Du hast die gefährdetsten Wohngebiete priorisiert und gleichzeitig die Zufahrtswege für die Rettungskräfte zum Krankenhaus freigehalten.
+          half-fail:
+            title: Teilweise erfolgreich
+            description: >
+              Du hast zwar eine wichtige Zone geschützt, aber die zweite Wahl war nicht optimal. Entweder wurde ein dicht besiedeltes Gebiet vergessen oder eine wichtige Verkehrsader blockiert.
           fail:
             title: Fehlgeschlagen
             description: >
-              Die Evakuierungsentscheidung hatte negative Folgen: Zonen wurden überflutet, 
-              Krankenhauszufahrten blockiert oder Ressourcen durch eine verfrühte Evakuierung vergeudet.
+              Die Evakuierungsentscheidung war unzureichend. Wichtige Zonen wurden überflutet, während Ressourcen in weniger kritischen Bereichen gebunden waren.
 
     crisis_staff:
       title: Entscheiden unter Unsicherheit
@@ -188,6 +190,7 @@ challenges:
     retry_button: Erneut versuchen
     start_button: Herausforderung starten
     restart: Noch einmal von vorn
+    back_to_challenges: Zurück zu den Rollen
     submit: Antwort prüfen
     continue: Weiter
     selection_hint: Wähle die passende Fläche oder den passenden Punkt in der Karte aus.

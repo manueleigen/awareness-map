@@ -74,7 +74,7 @@ contexts:
               title: { de: "Einsatzkräfte", en: "Emergency vehicles" }
 
         police:
-          quiz: false
+          quiz: /assets/challenges/flood/police/police-challange.yaml
           layers:
             social_media_police:
               src: /assets/challenges/flood/police/social_media.json
@@ -88,6 +88,7 @@ contexts:
               src: /assets/challenges/flood/police/evacuation_zones.svg
               icon: /assets/icons/evacuation_zones.svg
               initially_visible: false
+              quiz_only: true
               z_index: 77
               title: { de: "Evakuierungszonen", en: "Evacuation zones" }
 

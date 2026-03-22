@@ -21,6 +21,15 @@ export async function updateView(): Promise<void> {
 			escapeBtn.classList.add("hidden");
 		} else {
 			escapeBtn.classList.remove("hidden");
+			// Rename "Escape" button based on context
+			const span = escapeBtn.querySelector("span");
+			if (span) {
+				if (app.view === "role-select") {
+					span.innerText = t("navigation.back", "Back");
+				} else {
+					span.innerText = t("navigation.escape", "Cancel");
+				}
+			}
 		}
 	}
 
@@ -235,5 +244,16 @@ export async function resetApp(): Promise<void> {
 	// Comprehensive layer reset (clears areas, restores initial visibility)
 	await resetLayers();
 
+	await updateView();
+}
+
+/**
+ * Returns to the role selection panel.
+ */
+export async function backToRoles(): Promise<void> {
+	app.currentRole = null;
+	app.view = "role-select";
+
+	await resetLayers();
 	await updateView();
 }

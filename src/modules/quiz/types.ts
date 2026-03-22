@@ -1,6 +1,10 @@
 export type StoryPointType = 'info' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'location-quiz';
 
-export type NextConfig = string | { right: string; wrong: string };
+export type QuizOutcome = "right" | "wrong" | "half";
+
+export type NextConfig =
+	| string
+	| { right: string; wrong: string; half?: string };
 
 export interface QuizOption {
     label_key: string;
@@ -52,7 +56,7 @@ export interface SelectionStoryPoint extends BaseStoryPoint {
     type: 'area-selection-quiz' | 'point-selection-quiz';
     question_key: string;
     target: string;
-    selector: string;
+    selector?: string;
     interactionLayerId?: string;
     solution: string[];
     minSelection?: number;

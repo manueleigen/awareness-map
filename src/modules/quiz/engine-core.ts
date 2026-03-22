@@ -2,7 +2,7 @@ import { loadYAML, create } from "../lib.js";
 import { app } from "../state.js";
 import { resetLayers } from "../layers.js";
 import { t } from "../translater.js";
-import { StoryPoint, BaseStoryPoint } from "./types.js";
+import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
 import { renderLocation, renderSelection } from "./render-map.js";
@@ -98,12 +98,12 @@ async function loadPoint(id: string): Promise<void> {
 	/**
 	 * Internal callback for renderers to signal an action/answer.
 	 */
-	const onAction = (isCorrect: boolean, resultData?: any) => {
+	const onAction = (outcome: boolean | QuizOutcome, resultData?: any) => {
 		// Persist data if this was a location selection
 		if (point.type === "location-quiz" && resultData) {
 			lastLocationResult = { ...resultData, maxDistance: point.maxDistance };
 		}
-		handleAction(point, isCorrect);
+		handleAction(point, outcome);
 	};
 
 	// Delegate to specialized renderers
@@ -123,7 +123,10 @@ async function loadPoint(id: string): Promise<void> {
 /**
  * Decides what happens next after a user action.
  */
-function handleAction(point: StoryPoint, isCorrect: boolean): void {
+function handleAction(
+	point: StoryPoint,
+	outcome: boolean | QuizOutcome,
+): void {
 	// 1. Check if the point itself signals the end of the quiz
 	if (point.terminalStatus && currentOnFinish) {
 		// Cleanup layers from the final step before finishing
@@ -135,15 +138,31 @@ function handleAction(point: StoryPoint, isCorrect: boolean): void {
 		return;
 	}
 
-	// 2. Resolve the next point ID based on correctness
-	const nextId =
-		typeof point.next === "string"
-			? point.next
-			: isCorrect
-				? point.next.right
-				: point.next.wrong;
+	// 2. Resolve the next point ID based on outcome
+	let nextId: string;
+	if (typeof point.next === "string") {
+		nextId = point.next;
+	} else {
+		// Convert boolean outcome to status if needed (legacy support)
+		const status: QuizOutcome =
+			typeof outcome === "boolean"
+				? outcome
+					? "right"
+					: "wrong"
+				: outcome;
+
+		if (status === "right") {
+			nextId = point.next.right;
+		} else if (status === "half") {
+			nextId = point.next.half || point.next.wrong; // Fallback to wrong
+		} else {
+			nextId = point.next.wrong;
+		}
+	}
 
 	// 3. Show optional "Correct!" interlude or load next point immediately
+	const isCorrect = outcome === true || outcome === "right";
+
 	if (
 		isCorrect &&
 		typeof point.next !== "string" &&

@@ -125,20 +125,22 @@ challenges:
         Select two zones on the map that you want to evacuate. Consider the flood risk, population density,
         and the accessibility of critical infrastructure.
       challenge:
-        zone-selection:
-          title: Define Evacuation Zones
-          question: Select two zones on the map that you want to evacuate.
+        intro:
+          title: Select Evacuation Zones
+          question: >
+            The flood is rising. Select the two zones that most urgently need evacuation to protect the population without blocking emergency access to the hospital.
           win:
             title: Correct!
             description: >
-              You considered risk, accessibility, and system-wide effects together.
-              The zones you selected protect endangered areas without unnecessarily
-              blocking central connections.
+              Excellent! You prioritized the most vulnerable residential areas while keeping emergency access routes open for the hospital.
+          half-fail:
+            title: Partially successful
+            description: >
+              While you protected an important zone, your second choice was not optimal. Either a densely populated area was missed or a key traffic artery was blocked.
           fail:
             title: Failed
             description: >
-              The evacuation decision had negative consequences: zones were flooded, 
-              hospital access was blocked, or resources were wasted through premature evacuation.
+              The evacuation decision was insufficient. Critical zones were flooded while resources were tied up in less critical areas.
 
     crisis_staff:
       title: Deciding Under Uncertainty
@@ -188,6 +190,7 @@ challenges:
     retry_button: Try again
     start_button: Start challenge
     restart: Start again
+    back_to_challenges: Back to Roles
     submit: Check answer
     continue: Continue
     selection_hint: Select the appropriate area or point on the map.
