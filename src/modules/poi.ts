@@ -85,11 +85,18 @@ export async function showPOIOverlay(
 	poiSize: number,
 	marker: HTMLDivElement,
 ): Promise<void> {
-	// Close any currently open overlay first
-	app.ui.poiOverlay?.remove();
+	// Toggle: wenn diese Card bereits offen ist, schließen und abbrechen
+	const existing = poiContainer.querySelector(
+		`.poi-overlay[data-marker-id="${marker.id}"]`,
+	);
+	if (existing) {
+		existing.remove();
+		return;
+	}
 
 	const poiOverlay = create("div");
-	poiOverlay.setAttribute("id", "poi-overlay");
+	poiOverlay.className = "poi-overlay";
+	poiOverlay.dataset.markerId = marker.id;
 	if (loc.class) {
 		poiOverlay.classList.add(loc.class);
 
@@ -129,7 +136,7 @@ export async function showPOIOverlay(
 
 	addPointerClick(closeBtn, (e) => {
 		e.stopPropagation();
-		hidePOIOverlay();
+		poiOverlay.remove();
 	});
 
 	head.append(closeBtn);
@@ -193,16 +200,12 @@ export async function showPOIOverlay(
 
 	poiOverlay.append(content);
 	poiContainer.append(poiOverlay);
-	app.ui.poiOverlay = poiOverlay;
 }
 
 /**
- * Removes the currently visible POI overlay from the DOM.
+ * Removes all visible POI overlays from the DOM.
  */
 export function hidePOIOverlay(): void {
-	if (app.ui.poiOverlay) {
-		app.ui.poiOverlay.remove();
-		app.ui.poiOverlay.innerHTML = "";
-		app.ui.poiOverlay = null;
-	}
+	document.querySelectorAll(".poi-overlay").forEach((el) => el.remove());
+	app.ui.poiOverlay = null;
 }

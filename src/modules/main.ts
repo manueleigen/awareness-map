@@ -7,7 +7,6 @@ import { el, create } from "./lib.js";
 import { addPointerClick } from "./interactions.js";
 import { startQuiz } from "./engine.js";
 import { initDualScale } from "./screen-zoom.js";
-import { hidePOIOverlay } from "./poi.js";
 import { startBackgroundPreload } from "./preloader.js";
 import { updateView } from "./info-box.js";
 
@@ -145,13 +144,6 @@ export async function initApp() {
 			await updateView();
 		});
 
-		// Global Click-to-close POI Overlay logic
-		// Technical Implementation Guide (v2.3): Standardize on Pointer API
-		document.addEventListener("pointerup", (e) => {
-			if (app.ui.poiOverlay && !app.ui.poiOverlay.contains(e.target as Node)) {
-				hidePOIOverlay();
-			}
-		});
 
 		// 1. Initialize Translator (loads language files)
 		await initTranslator(app.language as Language).catch((err) => {

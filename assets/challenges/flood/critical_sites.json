@@ -2,11 +2,6 @@
 	"layer_id": "critical_sites",
 	"locations": [
 		{
-			"id": "coord-check-temp",
-			"x": 1000,
-			"y": 1000
-		},
-		{
 			"id": "critical_site_1",
 			"x": 265,
 			"y": 798,
@@ -25,8 +20,6 @@
 			"translations": {
 				"name": { "de": "Rechenzentrum", "en": "Data Center" },
 				"status": {
-					"de": "Hier laufen wichtige digitale Dienste der Stadt zusammen.",
-					"en": "Important digital services of the city are centralized here."
 				}
 			}
 		},
