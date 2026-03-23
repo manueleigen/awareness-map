@@ -112,9 +112,6 @@ export async function showPOIOverlay(
 	const head = create("div");
 	head.className = "poi-overlay-head";
 
-	const icon = marker.cloneNode(true) as HTMLDivElement;
-	icon.className = "poi-overlay-icon";
-
 	const title = create("h3");
 	title.innerText = loc.translations?.name?.[app.language] || "";
 
@@ -130,7 +127,7 @@ export async function showPOIOverlay(
 		hidePOIOverlay();
 	});
 
-	head.append(icon, title, closeBtn);
+	head.append(title, closeBtn);
 
 	// Body section (Status Text / Description)
 	if (loc.translations.status) {

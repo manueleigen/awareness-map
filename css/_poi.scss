@@ -55,21 +55,6 @@
 		@include drop-shadow-svg;
 	}
 }
-.poi-overlay {
-	.poi-overlay-head {
-		display: flex;
-		.poi-overlay-icon {
-			order: 3;
-		}
-		h3 {
-			order: 2;
-		}
-		.poi-close-btn {
-			top: 20px;
-			left: 20px;
-		}
-	}
-}
 
 #poi-overlay {
 	background: var(--white);
@@ -79,43 +64,15 @@
 	cursor: pointer;
 	max-width: 700px;
 	display: inline-block;
-	border-radius: 55px 45px 55px 55px !important;
+	border-radius: 32px 45px 32px 32px !important;
 
-	@include drop-shadow-active;
-
-	&.left-opening {
-		.poi-overlay-head {
-			display: flex;
-
-			.poi-overlay-icon {
-				order: 3;
-			}
-			h3 {
-				order: 2;
-			}
-		}
-
-		.poi-overlay-close-btn {
-			top: 20px;
-			left: 20px;
-			right: auto;
-		}
-	}
-
-	.poi-overlay-icon {
-		object-fit: contain;
-
-		.poi-icon {
-			svg {
-				filter: none;
-			}
-		}
-	}
+	@include drop-shadow;
 }
 
 .poi-overlay-content {
 	background: var(--bg);
 	position: relative;
+	padding: 20px 85px 30px 30px;
 
 	// Triangle pointing down
 	&::after {
@@ -139,15 +96,11 @@
 			font-style: normal;
 			font-weight: 700;
 			font-size: 2.5rem;
-			margin: 10px 115px 0 0;
 			color: var(--button);
 			line-height: 3rem;
 			text-transform: none;
+			margin-bottom: 15px;
 		}
-	}
-
-	p {
-		padding: 20px 40px 40px 40px;
 	}
 }
 
@@ -191,15 +144,6 @@
 		transform: translateX(calc(-100% + 203px));
 		.poi-overlay-head {
 			display: flex;
-
-			.poi-overlay-icon {
-				order: 3;
-			}
-			h3 {
-				order: 2;
-				margin-left: 38px;
-				width: 343px;
-			}
 		}
 
 		.poi-overlay-close-btn {

@@ -73,7 +73,7 @@ scenarios:
 
   mass_event:
     title: Großveranstaltung
-    short_title: Großveranstaltung
+    short_title: Groß-veranstaltung
     description: >
       Eine Veranstaltung mit vielen Menschen erfordert laufenden Überblick über
       Bewegungen, Engstellen, Risiken und verfügbare Ressourcen. Wähle deine Rolle.

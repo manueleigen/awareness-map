@@ -103,7 +103,8 @@ export function renderHome(): void {
 		});
 	}
 
-	infoBoxContent.append(title, text, btnGroup);
+	infoBoxContent.append(title, text);
+	infoBoxControls.append(btnGroup);
 }
 
 /** HOME-SCENARIOS / ROLES  */
@@ -184,7 +185,8 @@ export function renderRoleSelection(): void {
         await updateView();
     });*/
 
-	infoBoxContent.append(title, text, btnGroup);
+	infoBoxContent.append(title, text);
+	infoBoxControls.append(btnGroup);
 }
 
 /** HOME-SCENARIOS / ROLES / DETAIL */
