@@ -20,6 +20,8 @@
 			"translations": {
 				"name": { "de": "Rechenzentrum", "en": "Data Center" },
 				"status": {
+					"de": "Hier laufen wichtige digitale Dienste der Stadt zusammen.",
+					"en": "Important digital services of the city are centralized here."
 				}
 			}
 		},

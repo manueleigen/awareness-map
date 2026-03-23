@@ -86,12 +86,18 @@ export async function showPOIOverlay(
 	marker: HTMLDivElement,
 ): Promise<void> {
 	// Toggle: wenn diese Card bereits offen ist, schließen und abbrechen
-	const existing = poiContainer.querySelector(
+	const existing = poiContainer.querySelector<HTMLElement>(
 		`.poi-overlay[data-marker-id="${marker.id}"]`,
 	);
 	if (existing) {
-		existing.remove();
-		return;
+		if (existing.classList.contains("is-closing")) {
+			// Bereits am Schließen: sofort entfernen und neu öffnen
+			existing.remove();
+		} else {
+			existing.classList.add("is-closing");
+			existing.addEventListener("animationend", () => existing.remove(), { once: true });
+			return;
+		}
 	}
 
 	const poiOverlay = create("div");
@@ -136,7 +142,8 @@ export async function showPOIOverlay(
 
 	addPointerClick(closeBtn, (e) => {
 		e.stopPropagation();
-		poiOverlay.remove();
+		poiOverlay.classList.add("is-closing");
+		poiOverlay.addEventListener("animationend", () => poiOverlay.remove(), { once: true });
 	});
 
 	head.append(closeBtn);
@@ -206,6 +213,9 @@ export async function showPOIOverlay(
  * Removes all visible POI overlays from the DOM.
  */
 export function hidePOIOverlay(): void {
-	document.querySelectorAll(".poi-overlay").forEach((el) => el.remove());
+	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => {
+		el.classList.add("is-closing");
+		el.addEventListener("animationend", () => el.remove(), { once: true });
+	});
 	app.ui.poiOverlay = null;
 }

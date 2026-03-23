@@ -2,6 +2,28 @@
 
 // POI / Location Layer Styles
 
+@keyframes poi-pop-in {
+	from {
+		scale: 0;
+		opacity: 0;
+	}
+	to {
+		scale: 1;
+		opacity: 1;
+	}
+}
+
+@keyframes poi-pop-out {
+	from {
+		scale: 1;
+		opacity: 1;
+	}
+	to {
+		scale: 0;
+		opacity: 0;
+	}
+}
+
 .poi-container {
 	position: absolute;
 	top: 0;
@@ -65,7 +87,13 @@
 	max-width: 700px;
 	display: inline-block;
 	border-radius: 32px 45px 32px 32px !important;
-	margin-top: 45px;
+	transform-origin: left top;
+	margin: 43px 0 0 118px;
+	animation: poi-pop-in 350ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+
+	&.is-closing {
+		animation: poi-pop-out 250ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+	}
 
 	p {
 		margin-top: 5px;
@@ -151,7 +179,9 @@
 
 .poi-overlay {
 	&.left-opening {
-		transform: translateX(calc(-100% + 203px));
+		transform-origin: right top;
+		margin: 43px 0 0 -510px;
+
 		.poi-overlay-head {
 			display: flex;
 		}

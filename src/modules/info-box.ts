@@ -6,6 +6,7 @@ import { context, renderLayers, resetLayers } from "./layers.js";
 import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath } from "./scenarios.js";
+import { runOnboarding } from "./onboarding.js";
 
 /**
  * Updates the entire application view based on app.view state.
@@ -91,12 +92,13 @@ export function renderHome(): void {
 			if (scenario.inactive) {
 				btn.classList.add("is-inactive");
 			} else {
-				addPointerClick(btn, async () => {
-					app.currentScenario = scenarioId;
-					app.view = "role-select";
-					await resetLayers();
-					await updateView();
-				});
+			addPointerClick(btn, async () => {
+				app.currentScenario = scenarioId;
+				app.view = "role-select";
+				await resetLayers();
+				await updateView();
+				runOnboarding();
+			});
 			}
 
 			btnGroup.append(btn);

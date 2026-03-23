@@ -1,5 +1,19 @@
 @use "mixins" as *;
 
+// ── Onboarding ────────────────────────────────────────────────────────────────
+
+.onboarding-blocker {
+	position: fixed;
+	inset: 0;
+	z-index: 99999;
+	pointer-events: all;
+	background: transparent;
+	cursor: default;
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 #layer-control {
 	position: fixed;
 	display: flex;
