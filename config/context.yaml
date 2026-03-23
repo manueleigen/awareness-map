@@ -46,7 +46,7 @@ contexts:
         initially_visible: false
         z_index: 70
         toggle_order: 2
-        title: { de: "Bevölkerungsdichte", en: "Population density" }
+        title: { de: "Bevölkerungs\ndichte", en: "Population density" }
 
   scenarios:
     flood:

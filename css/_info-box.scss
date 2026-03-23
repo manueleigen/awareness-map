@@ -1,3 +1,5 @@
+@use "mixins" as *;
+
 #info-box {
   position: fixed;
   display: flex;
@@ -13,6 +15,27 @@
   border-radius: 32px;
   background-color: var(--white);
   box-shadow: var(--dropshadow-wide-blue);
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background-color: transparent;
+    pointer-events: none;
+    opacity: 0.92;
+    top: -1px;
+    left: -1px;
+    border-radius: 32px;
+    transition: 300ms ease-out;
+  }
+
+  &.onboarding-overlay {
+    box-shadow: none;
+    &::after {
+      background-color: var(--backdrop-dark);
+    }
+  }
 
   &-head {
     display: flex;
@@ -113,7 +136,7 @@
     margin-top: 20px;
 }
 .poi-select-btn {
-  margin: 20px 0 0 0;
+  margin: 27px 0 0 0;
 
     &.is-inactive {
       color: var(--buttontext-inactive) !important;
@@ -129,11 +152,30 @@
 
 .poi-marker.quiz-answer  {
   
-    path{
-      stroke: var(--secondary)
+    .poi-icon {
+
+      &--outer{
+        stroke: var(--theyellow);
+        fill: var(--secondary);
+        stroke-width: 45px;
+        paint-order: stroke fill;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+
+        @include drop-shadow-svg-active;
+      }
+
+      &--inner {
+        fill: var(--primary);
+      }
+
+      svg {
+        overflow: visible;
+      }
     }
+
     circle {
-      fill: var(--secondary)
+      fill: var(--secondary);
     }
   
 }

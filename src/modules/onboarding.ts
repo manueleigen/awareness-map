@@ -87,6 +87,9 @@ export async function runOnboarding(): Promise<void> {
 	blocker.className = "onboarding-blocker";
 	document.body.appendChild(blocker);
 
+	const infoBox = document.getElementById("info-box");
+	infoBox?.classList.add("onboarding-overlay");
+
 	let floodHint: HTMLImageElement | null = null;
 	let layerHint: HTMLImageElement | null = null;
 
@@ -96,7 +99,7 @@ export async function runOnboarding(): Promise<void> {
 		floodHint = showHint("flood", "/assets/icons/ui/flood-info.svg");
 		await animateSlider(0, 100, 1200);
 		await sleep(30);
-		await animateSlider(100, 0, 950);
+		await animateSlider(100, 0, 1000);
 		await hideHint(floodHint);
 		floodHint = null;
 		await sleep(100);
@@ -104,7 +107,7 @@ export async function runOnboarding(): Promise<void> {
 		layerHint = showHint("layer", "/assets/icons/ui/layer-info.svg");
 		await sleep(200);
 		setLayerVisible("population_density", true);
-		await sleep(1800);
+		await sleep(1700);
 		setLayerVisible("population_density", false);
 		await hideHint(layerHint);
 		layerHint = null;
@@ -112,5 +115,6 @@ export async function runOnboarding(): Promise<void> {
 		floodHint?.remove();
 		layerHint?.remove();
 		blocker.remove();
+		infoBox?.classList.remove("onboarding-overlay");
 	}
 }

@@ -199,6 +199,8 @@ export function renderMapUI(): void {
 	infoBoxContent.innerHTML = "";
 	infoBoxControls.innerHTML = "";
 
+	document.documentElement.dataset.quizPoiSelect = "0";
+
 	const title = create("h2");
 	title.innerText = t(
 		`challenges.${app.currentScenario}.${app.currentRole}.title`,
@@ -229,11 +231,6 @@ export function renderMapUI(): void {
 	// Dynamically offer quiz/challenge if available for this context
 	const quizPath = getQuizPath();
 	if (quizPath) {
-		// On the briefing screen we're never in active selection mode.
-		// Always mark as inactive so POI overlays show grayed-out buttons.
-		// renderSelection will set this back to "1" once the quiz starts.
-		document.documentElement.dataset.quizPoiSelect = "inactive";
-
 		const startQuizBtn = create("button");
 		const btnLabelKey = result
 			? "challenges.common.start_button" // "challenges.common.retry_button"
