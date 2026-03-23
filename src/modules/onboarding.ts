@@ -86,6 +86,21 @@ function setLayerVisible(layerId: string, visible: boolean): void {
 	}
 }
 
+function showHint(modifier: string, src: string): HTMLImageElement {
+	const el = document.createElement("img") as HTMLImageElement;
+	el.className = `onboarding-hint onboarding-hint--${modifier}`;
+	el.src = src;
+	document.body.appendChild(el);
+	requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("visible")));
+	return el;
+}
+
+async function hideHint(el: HTMLImageElement): Promise<void> {
+	el.classList.remove("visible");
+	await sleep(400);
+	el.remove();
+}
+
 /**
  * Runs the layer-onboarding animation sequence for the flood scenario.
  * Blocks all user interaction for the duration.
@@ -98,16 +113,24 @@ export async function runOnboarding(): Promise<void> {
 	blocker.className = "onboarding-blocker";
 	document.body.appendChild(blocker);
 
+	let floodHint: HTMLImageElement | null = null;
+	let layerHint: HTMLImageElement | null = null;
+
 	try {
 		await sleep(300);
 
 		// ── 1. Flutsimulations-Slider: 0 → 100 → 0 ──────────────────────────
+		floodHint = showHint("flood", "/assets/icons/ui/flood-info.svg");
 		await animateSlider(0, 100, 1200);
 		await sleep(50);
 		await animateSlider(100, 0, 1000);
-		await sleep(500);
+		await hideHint(floodHint);
+		floodHint = null;
+		await sleep(100);
 
 		// ── 2. Bevölkerungsdichte: einblenden → ausblenden ──────────────────
+		layerHint = showHint("layer", "/assets/icons/ui/layer-info.svg");
+		await sleep(300);
 		setLayerVisible("population_density", true);
 		await sleep(1600);
 		setLayerVisible("population_density", false);
@@ -156,7 +179,11 @@ export async function runOnboarding(): Promise<void> {
 		// ── 5. Kritische Infrastruktur wieder ausblenden ─────────────────────
 		await sleep(300);
 		setLayerVisible("critical_sites", false);
+		await hideHint(layerHint);
+		layerHint = null;
 	} finally {
+		floodHint?.remove();
+		layerHint?.remove();
 		blocker.remove();
 	}
 }
