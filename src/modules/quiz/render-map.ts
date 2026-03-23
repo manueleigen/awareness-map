@@ -136,6 +136,8 @@ export function renderSelection(
 	// Enable POI selection mode (activates "Select" buttons in overlays)
 	document.documentElement.dataset.quizPoiSelect =
 		point.type === "point-selection-quiz" ? "1" : "0";
+	document.documentElement.dataset.quizPoiSelectTarget =
+		point.type === "point-selection-quiz" ? (point.target?.trim() ?? "") : "";
 
 	if (point.title_key) {
 		const title = create("h2");

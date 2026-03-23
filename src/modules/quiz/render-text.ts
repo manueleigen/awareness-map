@@ -16,6 +16,11 @@ export function renderInfo(
 	content.innerHTML = "";
 	controls.innerHTML = "";
 
+	// Keep POI overlays visible but mark selection as inactive
+	if (document.documentElement.dataset.quizPoiSelect === "1") {
+		document.documentElement.dataset.quizPoiSelect = "inactive";
+	}
+
 	if (point.title_key) {
 		const title = create("h2");
 		title.innerText = t(point.title_key);

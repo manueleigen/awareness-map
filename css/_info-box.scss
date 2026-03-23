@@ -113,7 +113,14 @@
     margin-top: 20px;
 }
 .poi-select-btn {
-    margin: 0 0 20px 35px;
+  margin: 20px 0 0 0;
+
+    &.is-inactive {
+      color: var(--buttontext-inactive) !important;
+        &::after {
+            display: none;
+        }
+    }
 }
 .quiz-option-btn.selected,
 .poi-select-btn.active {

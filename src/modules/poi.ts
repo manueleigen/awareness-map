@@ -24,6 +24,7 @@ export async function renderPOILayer(
 	}>(src);
 	if (data && data.locations) {
 		console.log(`[POI] ${src.split("/").pop()} loaded`);
+		if (data.layer_id) poiContainer.dataset.layerId = data.layer_id;
 		data.locations.forEach((loc, index) => {
 			const marker = create("div");
 			marker.className = "poi-marker";
@@ -108,12 +109,16 @@ export async function showPOIOverlay(
 		e.stopPropagation();
 	});
 
-	// Header section (Icon + Title + Close Button)
+	// Header section (Close Button + optional Title)
 	const head = create("div");
 	head.className = "poi-overlay-head";
 
-	const title = create("h3");
-	title.innerText = loc.translations?.name?.[app.language] || "";
+	const nameText = loc.translations?.name?.[app.language];
+	if (nameText) {
+		const title = create("h3");
+		title.innerText = nameText;
+		head.append(title);
+	}
 
 	const closeBtn = create("button");
 	closeBtn.className = "poi-close-btn";
@@ -127,45 +132,61 @@ export async function showPOIOverlay(
 		hidePOIOverlay();
 	});
 
-	head.append(title, closeBtn);
+	head.append(closeBtn);
+	content.append(head);
 
-	// Body section (Status Text / Description)
-	if (loc.translations.status) {
+	// Body section (optional Status Text / Description)
+	const statusText = loc.translations?.status?.[app.language];
+	if (statusText) {
 		const bodyText = create("p");
 		bodyText.className = "status-text";
-		bodyText.innerText = loc.translations?.status?.[app.language];
-
-		content.append(head, bodyText);
+		bodyText.innerText = statusText;
+		content.append(bodyText);
 	}
 
-	// Inject "Select" button if we are in a quiz selection step
-	const quizPoiSelectMode =
-		document.documentElement.dataset.quizPoiSelect === "1";
-	if (quizPoiSelectMode) {
+	// Inject "Select" button depending on quiz state:
+	// "1"        → active, only for the targeted layer
+	// "inactive" → grayed out (is-inactive), for all layers
+	const quizPoiSelectValue =
+		document.documentElement.dataset.quizPoiSelect ?? "0";
+	const quizPoiSelectTarget =
+		(document.documentElement.dataset.quizPoiSelectTarget ?? "").trim();
+	const layerId = poiContainer.dataset.layerId ?? "";
+	const isInTargetLayer =
+		!quizPoiSelectTarget ||
+		quizPoiSelectTarget === `#layer-${layerId}`;
+	const isActiveSelect = quizPoiSelectValue === "1" && isInTargetLayer;
+	const isInactiveSelect = quizPoiSelectValue === "inactive" && isInTargetLayer;
+
+	if (isActiveSelect || isInactiveSelect) {
 		const selectBtn = create("button");
 		selectBtn.className = "poi-select-btn";
 
-		const updateLabel = () => {
-			const isSelected = marker.classList.contains("quiz-answer");
-			selectBtn.innerText = isSelected
-				? t("challenges.common.deselect_poi", "Deselect")
-				: t("challenges.common.select_poi", "Select");
-			selectBtn.classList.toggle("active", isSelected);
-		};
-		updateLabel();
+		if (isInactiveSelect) {
+			selectBtn.classList.add("is-inactive");
+			selectBtn.innerText = t("challenges.common.select_poi", "Select");
+		} else {
+			const updateLabel = () => {
+				const isSelected = marker.classList.contains("quiz-answer");
+				selectBtn.innerText = isSelected
+					? t("challenges.common.deselect_poi", "Deselect")
+					: t("challenges.common.select_poi", "Select");
+				selectBtn.classList.toggle("active", isSelected);
+			};
+			updateLabel();
 
-		addPointerClick(selectBtn, (e) => {
-			e.stopPropagation();
-			marker.classList.toggle("quiz-answer");
-			selectBtn.classList.toggle("active");
-			const isSelected = marker.classList.contains("quiz-answer");
-			// Notify the quiz engine
-			document.dispatchEvent(
-				new CustomEvent("quiz-answer-changed", {
-					detail: { id: marker.id, isSelected },
-				}),
-			);
-		});
+			addPointerClick(selectBtn, (e) => {
+				e.stopPropagation();
+				marker.classList.toggle("quiz-answer");
+				selectBtn.classList.toggle("active");
+				const isSelected = marker.classList.contains("quiz-answer");
+				document.dispatchEvent(
+					new CustomEvent("quiz-answer-changed", {
+						detail: { id: marker.id, isSelected },
+					}),
+				);
+			});
+		}
 
 		content.append(selectBtn);
 	}

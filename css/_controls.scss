@@ -36,11 +36,13 @@ button {
 			background: var(--secondary-inactive);
 			color: var(--secondary);
 		}
+
 		background: var(--button-inactive);
 		color: var(--buttontext-inactive);
 		cursor: not-allowed;
 		pointer-events: none;
 	}
+	
 	&.disabled {
 		order: 99;
 		background: var(--button-inactive);
