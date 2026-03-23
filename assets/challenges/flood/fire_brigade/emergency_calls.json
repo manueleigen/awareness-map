@@ -3,8 +3,8 @@
   "locations": [
     {
       "id": "flood_emergency_call_01",
-      "x": 1044,
-      "y": 1080,
+      "x": 1230,
+      "y": 1085,
       "translations": {
         "name": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
         "status": { "de": "Mehrere verletzte Personen nach einem Verkehrsunfall.", 
@@ -13,8 +13,8 @@
     },
     {
       "id": "flood_emergency_call_02",  
-      "x": 1968,
-      "y": 1271,
+      "x": 1920,
+      "y": 1320,
       "translations": {
         "name": { "de": "Stromausfall bei Beatmungsgerät", "en": "Power Outage at Ventilator" },
         "status": { "de": "Bei einer Person mit Beatmungsgerät ist der Strom ausgefallen.", "en": "A person relying on a ventilator has lost power." }
@@ -42,8 +42,8 @@
     },
     {
       "id": "flood_emergency_call_05",
-      "x": 1285,
-      "y": 2028,
+      "x": 2900,
+      "y": 1800,
       "translations": {
         "name": { "de": "Katze im Baum", "en": "Cat in Tree" },
         "status": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
@@ -52,8 +52,8 @@
     },
     {
       "id": "flood_emergency_call_06",
-      "x": 2915,
-      "y": 1222,
+      "x": 2800,
+      "y": 1150,
       "translations": {
         "name": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
         "status": { "de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.", 

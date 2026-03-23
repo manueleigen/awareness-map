@@ -29,9 +29,10 @@ feedback:
 home:
   title: Hast du die Lage im Blick?
   description: >
-    Im Krisenfall ist es wichtig, basierend auf möglichst aktuellen Informationen gute Entscheidungen zu treffen.
-    Oft ist dabei entscheidend, wo etwas passiert ist, wo sich viele Menschen aufhalten
-    und welche Ressourcen zur Verfügung stehen. Welches Szenario möchtest du erkunden?
+    Im Krisenfall zählt jede Information.
+    Erst verschiedene Informationsquellen zusammen ergeben ein vollständiges Lagebild.
+    
+    Aktiviere die Datenebenen über die Icons am rechten Bildschirmrand und wähle ein Szenario, mit dem du weitermachen möchest.
   scenario_selection_label: Wähle ein Szenario
   scenario_1: Hochwasser
   scenario_2: Blackout
@@ -42,10 +43,10 @@ scenarios:
     title: Der Fluss tritt über die Ufer
     short_title: Flut
     description: >
-      Durch tagelange Regenfälle kommt steigt der Wasserpegel stetig an. Es ist zu erwarten, dass
-      der Fluss über die Ufer tritt und die üblichen Schutzmaßnahmen nicht ausreichen.
-      Nicht alle Beteiligten haben die gleichen Informationen, und die Lage entwickelt sich schnell.
-      Welche Rolle möchtest du übernehmen?
+      Durch tagelange Regenfälle steigt der Wasserpegel stetig an. 
+      Die Lage entwickelt sich schnell und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt unter Wasser stehen werden.
+      
+      Im Krisenfall haben nicht alle Aktuere die gleichen Informationen. Welche Rolle möchtest du übernehmen?
     role_selection_label: Wähle deine Rolle
     roles:
       fire_brigade:
@@ -89,12 +90,13 @@ scenarios:
 challenges:
   flood:
     fire_brigade:
-      title: Rettung unter Zeitdruck
-      headline: Rettung unter Zeitdruck
+      title: Notrufe priorisieren
       intro: >
-        Viele Notrufe gehen ein, während der Wasserstand steigt. 
-        Gleiche Notrufe mit dem zeitlichen Verlauf der Überflutung ab und identifiziere
-        zwei erreichbare und dringliche Hotspots.
+        Es ist 14:00 Uhr. Während das Wasser steigt, gehen viele Notrufe ein, 
+        doch die Verfügbarkeit der Rettungswagen ist begrenzt: Du kannst nur zwei Hotspots bearbeiten. 
+        
+        Bedenke: Deine Einsatzkräfte brauchen etwa eine halbe Stunde, bis sie vor Ort sind.
+        Achte darauf, deine Einsatzkräfte nicht unnötig in Gefahr zu bringen!
       how-to: >
         Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. 
         Berücksichtige dabei, wie schnell sie überflutet werden, 
