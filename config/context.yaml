@@ -28,7 +28,7 @@ contexts:
 
       location_coord_check:
         src: /assets/location_coord_check.jpg
-        initially_visible: true
+        initially_visible: false
         z_index: 100
 
       critical_sites:
