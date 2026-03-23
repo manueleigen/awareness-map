@@ -80,12 +80,21 @@ export async function ensureLayerBuilt(
 		if (!config || !ctxLayer || !app.ui.layers) return null;
 
 		const wrapper = create("div");
-		wrapper.className = `layer hidden ${config.class || ""} layer-${config.type}`;
-		wrapper.id = `layer-${config.id}`;
+		wrapper.className = `layer ${config.class || ""} layer-${config.type}`;
+
+		// Hide all inactive or deactivated Layer
+		if (
+			config.available_from !== "global" ||
+			ctxLayer.initially_visible === false
+		) {
+			wrapper.classList.add("hidden");
+		}
 
 		if (config.interaction === "none") {
 			wrapper.classList.add("no-interaction");
 		}
+
+		wrapper.id = `layer-${config.id}`;
 
 		const src = ctxLayer?.src;
 		if (src) {
@@ -223,7 +232,6 @@ async function buildControlUI(
 	toggle.id = `toggle-${layerEl.id}`;
 
 	toggle.style.order = `${100 - (ctxLayer?.toggle_order || 0)}`;
-	console.warn("Toggle created");
 
 	const iconWrapper = create("div");
 	iconWrapper.className = "toggle-icon";

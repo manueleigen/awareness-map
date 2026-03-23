@@ -3,7 +3,7 @@ import { addPointerClick } from "./interactions.js";
 import { startQuiz } from "./engine.js";
 import { hidePOIOverlay } from "./poi.js";
 import { context, renderLayers, resetLayers } from "./layers.js";
-import { create } from "./lib.js";
+import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath } from "./scenarios.js";
 
@@ -134,6 +134,7 @@ export function renderRoleSelection(): void {
 		const roleCTX = scenarioCTX.roles[roleId];
 		const hasQuiz = roleCTX.quiz;
 		const btn = create("button");
+		btn.classList.add("silent-disabled");
 		// Try scenario-specific role title (short version) first, then fallback to challenge title
 		const scenarioRoleTitle = t(
 			`scenarios.${app.currentScenario}.roles.${roleId}.title`,
@@ -152,11 +153,19 @@ export function renderRoleSelection(): void {
 				: fallbackTitle;
 
 		if (hasQuiz) {
-			addPointerClick(btn, async () => {
-				app.currentRole = roleId;
-				app.view = "map";
-				await resetLayers();
-				await updateView();
+			// Technical Implementation Guide (v2.3): Through-click prevention.
+			// Delay listener attachment by 300ms so the same physical touch
+			// that opened this view doesn't immediately trigger a role selection.
+			setTimeout(async function () {
+				await sleep(200);
+				btn.classList.remove("silent-disabled");
+
+				addPointerClick(btn, async () => {
+					app.currentRole = roleId;
+					app.view = "map";
+					await resetLayers();
+					await updateView();
+				});
 			});
 		} else {
 			btn.classList.add("is-inactive");

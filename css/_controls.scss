@@ -48,6 +48,10 @@ button {
 		cursor: not-allowed;
 		pointer-events: none;
 	}
+	&.silent-disabled {
+		/* Button deaktivieren ohne das es dem user auffällt. */
+		pointer-events: none;
+	}
 }
 
 #back-btn {

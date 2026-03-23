@@ -4,22 +4,26 @@ layers:
   - id: base_layer_river
     type: static-image
     toggle: hidden
+    available_from: global
     interaction: none
 
   - id: base_layer_buildings
     type: static-image
     toggle: hidden
+    available_from: global
     interaction: none
 
   - id: base_layer_streets
     type: static-image
     toggle: hidden
+    available_from: global
     interaction: none
 
   - id: base_layer_glow
     class: glow-layer
     type: static-image
     toggle: hidden
+    available_from: global
     interaction: none
 
   - id: critical_sites
@@ -27,6 +31,7 @@ layers:
     title_key: challenges.global.critical_sites.title
     toggle: available
     interaction: inspect-location
+    available_from: global
     icon_mode: per-location
 
   - id: population_density
@@ -35,6 +40,7 @@ layers:
     title_key: challenges.global.population_density.title
     toggle: available
     interaction: none
+    available_from: global
     opacity_control: true
 
   - id: emergency_vehicles
@@ -104,4 +110,10 @@ layers:
   - id: quiz_location_radius
     type: static-image
     toggle: hidden
+    interaction: none
+
+  - id: location_coord_check
+    type: static-image
+    toggle: hidden
+    available_from: global
     interaction: none

@@ -59,3 +59,8 @@ export const preloadIMAGE = (url: string): Promise<void> => {
         img.src = url;
     });
 };
+
+/**
+ * Returns a promise that resolves after the specified number of milliseconds.
+ */
+export const sleep = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));

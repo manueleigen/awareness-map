@@ -39,8 +39,9 @@ export async function renderPOILayer(
 			marker.dataset.quizId = marker.id;
 
 			// Position the marker (centered on coordinate)
-			marker.style.left = `${loc.x - poiSize / 2}px`;
-			marker.style.top = `${loc.y - poiSize / 2}px`;
+			marker.style.left = `${loc.x}px`;
+			marker.style.top = `${loc.y - poiSize / 2 + 22}px`;
+
 			marker.style.width = `${poiSize}px`;
 			marker.style.height = `${poiSize}px`;
 

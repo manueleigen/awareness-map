@@ -2,6 +2,11 @@
 	"layer_id": "critical_sites",
 	"locations": [
 		{
+			"id": "coord-check-temp",
+			"x": 1000,
+			"y": 1000
+		},
+		{
 			"id": "critical_site_1",
 			"x": 265,
 			"y": 798,

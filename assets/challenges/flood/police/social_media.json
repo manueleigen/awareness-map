@@ -2,6 +2,11 @@
 	"layer_id": "social_media_police",
 	"locations": [
 		{
+			"id": "temp",
+			"x": 1000,
+			"y": 1000
+		},
+		{
 			"id": "flood_social_media_1",
 			"x": 915,
 			"y": 918,

@@ -26,6 +26,11 @@ contexts:
         initially_visible: true
         z_index: 40
 
+      location_coord_check:
+        src: /assets/location_coord_check.jpg
+        initially_visible: true
+        z_index: 100
+
       critical_sites:
         src: /assets/challenges/flood/critical_sites.json
         icon: /assets/icons/critical_sites.svg
