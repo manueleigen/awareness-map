@@ -24,18 +24,18 @@
 
 	&--flood {
 		// Rechts über dem Slider
-		bottom: 124px;
-		right: 947px;
-		width: 260px;
+		bottom: 11.3%;
+		left: 44.1%;
+		width: 9%;
 
 		@include drop-shadow-dark-svg;
 	}
 
 	&--layer {
 		// Links neben den Layer-Toggles
-		right: 230px;
-		bottom: 249px;
-		width: 210px;
+		right: 11%;
+		bottom: 22%;
+		width: 7.6%;
 
 		@include drop-shadow-dark-svg;
 	}
