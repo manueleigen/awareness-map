@@ -14,7 +14,7 @@
 .onboarding-hint {
 	position: fixed;
 	pointer-events: none;
-	z-index: 99998;
+	z-index: 99;
 	opacity: 0;
 	transition: opacity 400ms ease;
 
@@ -24,9 +24,9 @@
 
 	&--flood {
 		// Rechts über dem Slider
-		bottom: 140px;
-		right: 1000px;
-    width: 285px;
+		bottom: 124px;
+		right: 947px;
+		width: 260px;
 
 		@include drop-shadow-dark-svg;
 	}
@@ -34,8 +34,8 @@
 	&--layer {
 		// Links neben den Layer-Toggles
 		right: 230px;
-		bottom: 60px;
-    width: 240px;
+		bottom: 249px;
+		width: 210px;
 
 		@include drop-shadow-dark-svg;
 	}

@@ -167,6 +167,7 @@ export async function initApp() {
 		// 6. Start background preloading of non-critical assets
 		startBackgroundPreload();
 
+
 		console.log("Application successfully initialized.");
 	} catch (globalError) {
 		console.error(
