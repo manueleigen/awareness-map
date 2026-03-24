@@ -5,6 +5,13 @@ import { t } from "./translater.js";
 import { ContextLayer } from "./types.js";
 import { c } from "./dotlottie/decorate-C0oFmnNg.js";
 
+// Per-marker location data and poiSize per container — used by previewPOILayer
+const markerLocMap = new WeakMap<HTMLDivElement, any>();
+const containerPoiSizeMap = new WeakMap<HTMLDivElement, number>();
+
+// Timer for the 3-second auto-close after layer preview
+let previewTimeout: ReturnType<typeof setTimeout> | null = null;
+
 /**
  * Renders a layer containing Point of Interest (POI) markers.
  * @param src Path to the JSON file containing location data.
@@ -16,7 +23,7 @@ export async function renderPOILayer(
 ): Promise<HTMLElement> {
 	const poiSize = 150;
 	const poiContainer = create("div");
-	poiContainer.className = "poi-container layer-locations"; // Added layer-locations class for CSS targeting
+	poiContainer.className = "poi-container layer-locations";
 
 	const data = await loadJSON<{
 		layer_id: string;
@@ -25,9 +32,12 @@ export async function renderPOILayer(
 	if (data && data.locations) {
 		console.log(`[POI] ${src.split("/").pop()} loaded`);
 		if (data.layer_id) poiContainer.dataset.layerId = data.layer_id;
+		containerPoiSizeMap.set(poiContainer, poiSize);
+
 		data.locations.forEach((loc, index) => {
 			const marker = create("div");
 			marker.className = "poi-marker";
+			if (data.layer_id) marker.classList.add(`poi-marker--${data.layer_id}`);
 
 			// Assign a stable ID for quiz interactions
 			if (!marker.id) {
@@ -42,7 +52,6 @@ export async function renderPOILayer(
 			// Position the marker (centered on coordinate)
 			marker.style.left = `${loc.x}px`;
 			marker.style.top = `${loc.y - poiSize / 2 + 22}px`;
-
 			marker.style.width = `${poiSize}px`;
 			marker.style.height = `${poiSize}px`;
 
@@ -58,14 +67,14 @@ export async function renderPOILayer(
 				marker.append(iconWrapper);
 			}
 
-			// Technical Implementation Guide (v2.3): Centralized YAML-Driven Translations
-			const layerId = data?.layer_id || "";
-			const poiId = marker.id;
-
 			marker.title = loc.translations?.title?.[app.language] || "";
+
+			// Store loc data for use by previewPOILayer
+			markerLocMap.set(marker, loc);
+
 			// Handle click to open detail overlay
 			addPointerClick(marker, (e) => {
-				e.stopPropagation(); // Prevent map click listeners from firing
+				e.stopPropagation();
 				showPOIOverlay(poiContainer, loc, poiSize, marker);
 			});
 
@@ -78,49 +87,37 @@ export async function renderPOILayer(
 
 /**
  * Displays a detail overlay next to a specific POI marker.
+ * @param skipSingleMode When true, existing overlays are NOT closed first (used during layer preview).
  */
 export async function showPOIOverlay(
 	poiContainer: HTMLDivElement,
 	loc: any,
 	poiSize: number,
 	marker: HTMLDivElement,
+	skipSingleMode = false,
 ): Promise<void> {
-	// Toggle: wenn diese Card bereits offen ist, schließen und abbrechen
-	const existing = poiContainer.querySelector<HTMLElement>(
-		`.poi-overlay[data-marker-id="${marker.id}"]`,
-	);
-	if (existing) {
-		if (existing.classList.contains("is-closing")) {
-			// Bereits am Schließen: sofort entfernen und neu öffnen
-			existing.remove();
-		} else {
-			existing.classList.add("is-closing");
-			existing.addEventListener("animationend", () => existing.remove(), { once: true });
-			return;
+	if (!skipSingleMode) {
+		// Cancel any running preview timer — user is interacting manually
+		if (previewTimeout !== null) {
+			clearTimeout(previewTimeout);
+			previewTimeout = null;
 		}
+		// Single-at-a-time: close all currently open overlays immediately
+		closeAllOverlaysNow();
 	}
 
 	const poiOverlay = create("div");
 	poiOverlay.className = "poi-overlay";
 	poiOverlay.dataset.markerId = marker.id;
-	if (loc.class) {
-		poiOverlay.classList.add(loc.class);
+	if (loc.class) poiOverlay.classList.add(loc.class);
 
-		// Position overlay relative to the marker
-	} else {
-	}
 	poiOverlay.style.left = `${loc.x - poiSize}px`;
-
 	poiOverlay.style.top = `${loc.y - poiSize}px`;
 	poiOverlay.style.borderRadius = `${poiSize / 2}px`;
 
 	const content = create("div");
 	content.className = "poi-overlay-content";
-
-	// Prevent clicks inside the content from triggering the global "close" listener
-	content.addEventListener("pointerup", (e) => {
-		e.stopPropagation();
-	});
+	content.addEventListener("pointerup", (e) => e.stopPropagation());
 
 	// Header section (Close Button + optional Title)
 	const head = create("div");
@@ -142,8 +139,7 @@ export async function showPOIOverlay(
 
 	addPointerClick(closeBtn, (e) => {
 		e.stopPropagation();
-		poiOverlay.classList.add("is-closing");
-		poiOverlay.addEventListener("animationend", () => poiOverlay.remove(), { once: true });
+		closeOverlayWithAnimation(poiOverlay);
 	});
 
 	head.append(closeBtn);
@@ -163,9 +159,9 @@ export async function showPOIOverlay(
 	const quizPoiSelectTarget =
 		(document.documentElement.dataset.quizPoiSelectTarget ?? "").trim();
 	const layerId = poiContainer.dataset.layerId ?? "";
+	if (layerId) poiOverlay.classList.add(`poi-overlay--${layerId}`);
 	const isInTargetLayer =
-		!quizPoiSelectTarget ||
-		quizPoiSelectTarget === `#layer-${layerId}`;
+		!quizPoiSelectTarget || quizPoiSelectTarget === `#layer-${layerId}`;
 	const isActiveSelect =
 		document.documentElement.dataset.quizPoiSelect === "1" && isInTargetLayer;
 
@@ -192,32 +188,86 @@ export async function showPOIOverlay(
 					detail: { id: marker.id, isSelected },
 				}),
 			);
-			poiOverlay.classList.add("is-closing");
-			poiOverlay.addEventListener("animationend", () => poiOverlay.remove(), { once: true });
+			closeOverlayWithAnimation(poiOverlay);
 		});
 
 		content.append(selectBtn);
 	}
 
-	// Gesamte Card schließt das Overlay beim Klicken.
-	// Buttons verhindern das Bubbling über e.stopPropagation() in ihren Callbacks.
-	poiOverlay.addEventListener("click", (e) => {
-		e.stopPropagation();
-		poiOverlay.classList.add("is-closing");
-		poiOverlay.addEventListener("animationend", () => poiOverlay.remove(), { once: true });
-	});
-
 	poiOverlay.append(content);
-	poiContainer.append(poiOverlay);
+	// Append to the portal so the overlay renders above all layer stacking contexts
+	(app.ui.poiOverlayPortal ?? poiContainer).append(poiOverlay);
+
+	// Track as the active overlay only in single mode
+	if (!skipSingleMode) {
+		app.ui.poiOverlay = poiOverlay;
+	}
 }
 
 /**
- * Removes all visible POI overlays from the DOM.
+ * Opens all POI overlays of a layer simultaneously as a brief 3-second preview.
+ * Called automatically whenever a POI layer becomes visible.
+ */
+export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
+	const poiContainer = layerEl.querySelector<HTMLDivElement>(".poi-container");
+	if (!poiContainer) return;
+
+	const poiSize = containerPoiSizeMap.get(poiContainer);
+	if (poiSize === undefined) return;
+
+	// Cancel any previous preview
+	if (previewTimeout !== null) {
+		clearTimeout(previewTimeout);
+		previewTimeout = null;
+	}
+	closeAllOverlaysNow();
+
+	// Open all markers simultaneously (skip single-at-a-time)
+	const markers = Array.from(
+		poiContainer.querySelectorAll<HTMLDivElement>(".poi-marker"),
+	);
+	await Promise.all(
+		markers.map((marker) => {
+			const loc = markerLocMap.get(marker);
+			if (loc) return showPOIOverlay(poiContainer, loc, poiSize, marker, true);
+			return Promise.resolve();
+		}),
+	);
+
+	// Auto-close with animation after 3 seconds
+	previewTimeout = setTimeout(() => {
+		document
+			.querySelectorAll<HTMLElement>(".poi-overlay")
+			.forEach((el) => closeOverlayWithAnimation(el));
+		app.ui.poiOverlay = null;
+		previewTimeout = null;
+	}, 3000);
+}
+
+/** Closes a single overlay with the pop-out animation. */
+function closeOverlayWithAnimation(overlay: HTMLElement): void {
+	if (overlay.classList.contains("is-closing")) return;
+	overlay.classList.add("is-closing");
+	overlay.addEventListener("animationend", () => overlay.remove(), {
+		once: true,
+	});
+	if (app.ui.poiOverlay === overlay) app.ui.poiOverlay = null;
+}
+
+/** Immediately removes all open overlays without animation. */
+function closeAllOverlaysNow(): void {
+	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => el.remove());
+	app.ui.poiOverlay = null;
+}
+
+/**
+ * Removes all visible POI overlays from the DOM and cancels any preview timer.
+ * Used during view transitions and layer resets.
  */
 export function hidePOIOverlay(): void {
-	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => {
-		el.classList.add("is-closing");
-		el.addEventListener("animationend", () => el.remove(), { once: true });
-	});
-	app.ui.poiOverlay = null;
+	if (previewTimeout !== null) {
+		clearTimeout(previewTimeout);
+		previewTimeout = null;
+	}
+	closeAllOverlaysNow();
 }

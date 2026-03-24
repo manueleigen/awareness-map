@@ -25,6 +25,7 @@ export const app: AppState = {
 		layerControl: null,
 		slidersContainer: null,
 		layers: null,
+		poiOverlayPortal: null,
 		escapeBtn: null,
 		languageSwitch: null,
 		poiOverlay: null,

@@ -120,6 +120,7 @@ export function initUIReferences(): void {
 	app.ui.layerControl = el("#layer-control");
 	app.ui.slidersContainer = el("#slider-container");
 	app.ui.layers = el("#layers");
+	app.ui.poiOverlayPortal = el("#poi-overlay-portal");
 	app.ui.escapeBtn = el("#escape-btn");
 	app.ui.languageSwitch = el<HTMLInputElement>("#language-switch input");
 }

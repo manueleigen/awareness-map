@@ -7,7 +7,7 @@
 			"y": 755,
 			"translations": {
 				"name": { "de": "Einsatzfahrzeug 1", "en": "Emergency Vehicle 1" },
-				"status": { "de": "verfügbar", "en": "available" }
+				"status": { "de": "Verfügbar", "en": "Available" }
 			}
 		},
 		{
@@ -16,16 +16,17 @@
 			"y": 1330,
 			"translations": {
 				"name": { "de": "Einsatzfahrzeug 2", "en": "Emergency Vehicle 2" },
-				"status": { "de": "im Einsatz", "en": "In Operation" }
+				"status": { "de": "Im Einsatz", "en": "In Operation" }
 			}
 		},
 		{
 			"id": "flood_emergency_vehicle_03",
+			"class": "left-opening",
 			"x": 3332,
 			"y": 1051,
 			"translations": {
 				"name": { "de": "Einsatzfahrzeug 3", "en": "Emergency Vehicle 3" },
-				"status": { "de": "verfügbar", "en": "available" }
+				"status": { "de": "Verfügbar", "en": "Available" }
 			}
 		},
 		{
@@ -34,7 +35,7 @@
 			"y": 1831,
 			"translations": {
 				"name": { "de": "Einsatzfahrzeug 4", "en": "Emergency Vehicle 4" },
-				"status": { "de": "im Einsatz", "en": "In Operation" }
+				"status": { "de": "Im Einsatz", "en": "In Operation" }
 			}
 		}
 	]

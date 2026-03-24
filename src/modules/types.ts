@@ -30,6 +30,7 @@ export interface ContextLayer {
 	poi_icon?: string;
 	initially_visible?: boolean;
 	quiz_only?: boolean;
+	map_only?: boolean;
 	z_index?: number;
 	toggle_order?: number;
 }
@@ -92,6 +93,7 @@ export interface AppState {
 		layerControl: HTMLElement | null;
 		slidersContainer: HTMLElement | null;
 		layers: HTMLElement | null;
+		poiOverlayPortal: HTMLElement | null;
 		escapeBtn: HTMLElement | null;
 		languageSwitch: HTMLInputElement | null;
 		poiOverlay: HTMLElement | null;

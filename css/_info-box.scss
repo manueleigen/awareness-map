@@ -9,7 +9,7 @@
   bottom: 60px;
   left: 60px;
   z-index: 2001;
-  width: 1160px;
+  width: 1000px;
   height: 620px;
   padding: 7px;
   border-radius: 32px;
@@ -28,6 +28,7 @@
     left: -1px;
     border-radius: 32px;
     transition: 300ms ease-out;
+    z-index: 3600;
   }
 
   &.onboarding-overlay {
@@ -44,6 +45,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    z-index: 3500;
 
     #escape-btn {
       display: flex;
@@ -59,6 +61,9 @@
       text-transform: uppercase;
       color: var(--secondary);
       cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0;
 
       &:active {
         color: var(--primary);

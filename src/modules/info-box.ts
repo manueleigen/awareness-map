@@ -2,7 +2,7 @@ import { app } from "./state.js";
 import { addPointerClick } from "./interactions.js";
 import { startQuiz } from "./engine.js";
 import { hidePOIOverlay } from "./poi.js";
-import { context, renderLayers, resetLayers } from "./layers.js";
+import { context, renderLayers, resetLayers, previewActivePOILayers } from "./layers.js";
 import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath } from "./scenarios.js";
@@ -57,6 +57,9 @@ export async function updateView(): Promise<void> {
 
 	// Always sync map layers with the current state/context
 	await renderLayers();
+
+	// Show all POI overlays briefly for newly visible location layers
+	previewActivePOILayers();
 
 	// Notify that the view update is complete (useful for quiz coordination)
 	document.dispatchEvent(new CustomEvent("app-view-updated"));

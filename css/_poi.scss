@@ -84,7 +84,7 @@
 	z-index: 1005;
 	pointer-events: auto;
 	cursor: pointer;
-	max-width: 580px;
+	width: 580px;
 	display: inline-block;
 	border-radius: 32px 45px 32px 32px !important;
 	transform-origin: left top;
@@ -92,7 +92,15 @@
 	animation: poi-pop-in 350ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
 
 	&.is-closing {
-		animation: poi-pop-out 250ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+		animation: poi-pop-out 500ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+	}
+
+	&--emergency_vehicles {
+		margin: 48px 0 0 95px;
+	}
+
+	&--social_media_police, &--social_media_crises {
+		margin: 25px 0 0 97px;
 	}
 
 	p {
@@ -100,6 +108,29 @@
 	}
 
 	@include drop-shadow;
+
+	&.left-opening {
+		transform-origin: right top;
+		margin: 43px 0 0 -390px;
+
+		&.poi-overlay--emergency_vehicles {
+			margin: 43px 0 0 -370px;
+		}
+
+		&.poi-overlay--social_media_police, &.poi-overlay--social_media_crises {
+			margin: 43px 0 0 -377px;
+		}
+
+		.poi-overlay-head {
+			display: flex;
+		}
+
+		.poi-overlay-close-btn {
+			top: 20px;
+			left: 20px;
+			right: auto;
+		}
+	}
 }
 
 .poi-overlay-content {
@@ -173,23 +204,6 @@
 	.poi-overlay-content {
 		h3 {
 			margin-left: -20px;
-		}
-	}
-}
-
-.poi-overlay {
-	&.left-opening {
-		transform-origin: right top;
-		margin: 43px 0 0 -510px;
-
-		.poi-overlay-head {
-			display: flex;
-		}
-
-		.poi-overlay-close-btn {
-			top: 20px;
-			left: 20px;
-			right: auto;
 		}
 	}
 }

@@ -52,6 +52,7 @@
 		},
 		{
 			"id": "critical_site_5",
+			"class": "left-opening",
 			"x": 2336,
 			"y": 1419,
 			"translations": {

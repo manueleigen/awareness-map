@@ -8,7 +8,7 @@ import {
 	updateThumbPosition,
 	waitForPlayerReady,
 } from "./time-slider.js";
-import { renderPOILayer, hidePOIOverlay } from "./poi.js";
+import { renderPOILayer, hidePOIOverlay, previewPOILayer } from "./poi.js";
 import { clearQuizAnswers } from "./quiz/ui.js";
 
 /** Local cache for layer definitions and project context. */
@@ -21,6 +21,8 @@ const layerElements = new Map<string, HTMLElement>();
 const buildingLayers = new Map<string, Promise<HTMLElement | null>>();
 /** Map to store slider elements associated with layers. */
 const sliderElements = new Map<string, HTMLElement>();
+/** Tracks which POI layers have already received their initial preview. */
+const layerPreviewDone = new Set<string>();
 
 /** Global promise chain to serialize renderLayers calls. */
 let lastRenderPromise: Promise<void> = Promise.resolve();
@@ -286,6 +288,17 @@ async function buildControlUI(
 
 			const slider = sliderElements.get(config.id);
 			if (slider) slider.classList.toggle("hidden", !nowActive);
+
+			// Preview all POIs when the layer is manually toggled on;
+			// remove from done-set when hidden so re-show fires again
+			if (config.type === "locations") {
+				if (nowActive) {
+					layerPreviewDone.add(config.id);
+					previewPOILayer(layerEl);
+				} else {
+					layerPreviewDone.delete(config.id);
+				}
+			}
 		});
 	}
 }
@@ -295,6 +308,7 @@ function syncActiveLayers(): void {
 	const process = (map: Record<string, ContextLayer>) => {
 		Object.entries(map).forEach(([id, ctx]) => {
 			if (ctx.initially_visible) {
+				if (ctx.map_only && app.view !== "map") return;
 				app.activeLayers.add(id);
 			}
 		});
@@ -389,6 +403,24 @@ function getContextLayer(id: string): ContextLayer | null {
 	return context.global?.layers?.[id] || null;
 }
 /**
+ * Triggers the 3-second POI preview for all currently active location layers
+ * that haven't been previewed yet in this view cycle.
+ * Must be called AFTER renderLayers() to avoid being cancelled by hidePOIOverlay().
+ */
+export function previewActivePOILayers(): void {
+	const availableLayers = getAvailableLayers();
+	for (const config of availableLayers) {
+		if (config.type !== "locations") continue;
+		const layerEl = layerElements.get(config.id);
+		if (!layerEl || layerEl.classList.contains("hidden")) continue;
+		if (!layerPreviewDone.has(config.id)) {
+			layerPreviewDone.add(config.id);
+			previewPOILayer(layerEl);
+		}
+	}
+}
+
+/**
  * Clears the layer cache, forcing a complete rebuild of all layer DOM elements
  * upon the next render. Useful for language changes or system resets.
  */
@@ -396,6 +428,7 @@ export function clearLayerCache(): void {
 	layerElements.forEach((el) => el.remove());
 	layerElements.clear();
 	sliderElements.clear();
+	layerPreviewDone.clear();
 }
 
 /**
@@ -409,6 +442,7 @@ export async function resetLayers(): Promise<void> {
 	// 1. Clear active layers set
 	app.activeLayers.clear();
 	app.quizStepLayers.clear();
+	layerPreviewDone.clear();
 
 	// 2. Hide all open overlays (Modals)
 	hidePOIOverlay();

@@ -58,7 +58,7 @@ contexts:
           initially_visible: true
           z_index: 78
           toggle_order: 3
-          title: { de: "Flutsimulation", en: "Flood simulation" }
+          title: { de: "Flut\nSimulation", en: "Flood\nSimulation" }
 
       roles:
         fire_brigade:
@@ -78,7 +78,8 @@ contexts:
               src: /assets/challenges/flood/fire_brigade/emergency_vehicles.json
               icon: /assets/icons/ambulance.svg
               poi_icon: /assets/icons/marker_ambulance.svg
-              initially_visible: false
+              initially_visible: true
+              map_only: true
               z_index: 105
               toggle_order: 5
               title: { de: "Einsatzkräfte", en: "Emergency vehicles" }
@@ -112,7 +113,7 @@ contexts:
               src: /assets/challenges/flood/crisis_staff/social_media.json
               icon: /assets/icons/social_media.svg
               poi_icon: /assets/icons/marker_social_media.svg
-              initially_visible: false
+              initially_visible: true
               z_index: 180
               toggle_order: 4
               title: { de: "Social Media", en: "Social Media" }
