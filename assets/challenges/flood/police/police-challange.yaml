@@ -10,7 +10,7 @@ story_points:
     minSelection: 2
     maxSelection: 2
     step: 1
-    total_steps: 1
+    total_steps: 2
     next:
       right: win-screen
       half: half-fail-screen

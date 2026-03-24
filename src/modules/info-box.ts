@@ -2,7 +2,12 @@ import { app } from "./state.js";
 import { addPointerClick } from "./interactions.js";
 import { startQuiz } from "./engine.js";
 import { hidePOIOverlay } from "./poi.js";
-import { context, renderLayers, resetLayers, previewActivePOILayers } from "./layers.js";
+import {
+	context,
+	renderLayers,
+	resetLayers,
+	previewActivePOILayers,
+} from "./layers.js";
 import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath } from "./scenarios.js";
@@ -95,13 +100,13 @@ export function renderHome(): void {
 			if (scenario.inactive) {
 				btn.classList.add("is-inactive");
 			} else {
-			addPointerClick(btn, async () => {
-				app.currentScenario = scenarioId;
-				app.view = "role-select";
-				await resetLayers();
-				await updateView();
-				runOnboarding();
-			});
+				addPointerClick(btn, async () => {
+					app.currentScenario = scenarioId;
+					app.view = "role-select";
+					await resetLayers();
+					await updateView();
+					runOnboarding();
+				});
 			}
 
 			btnGroup.append(btn);
@@ -140,7 +145,7 @@ export function renderRoleSelection(): void {
 		const roleCTX = scenarioCTX.roles[roleId];
 		const hasQuiz = roleCTX.quiz;
 		const btn = create("button");
-		btn.classList.add("silent-disabled");
+		//btn.classList.add("silent-disabled");
 		// Try scenario-specific role title (short version) first, then fallback to challenge title
 		const scenarioRoleTitle = t(
 			`scenarios.${app.currentScenario}.roles.${roleId}.title`,
@@ -163,8 +168,8 @@ export function renderRoleSelection(): void {
 			// Delay listener attachment by 300ms so the same physical touch
 			// that opened this view doesn't immediately trigger a role selection.
 			setTimeout(async function () {
-				await sleep(200);
-				btn.classList.remove("silent-disabled");
+				//await sleep(200);
+				//btn.classList.remove("silent-disabled");
 
 				addPointerClick(btn, async () => {
 					app.currentRole = roleId;

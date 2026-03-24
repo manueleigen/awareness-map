@@ -14,7 +14,8 @@ const boostTimes = new WeakMap<HTMLElement, number>();
 
 export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | MouseEvent) => void): void {
     el.addEventListener('pointerup', (e) => {
-        boostTimes.set(el, Date.now()); // ← nur für dieses Element
+        lastBoostTime = Date.now();     // ← global: schützt auch neu gerenderte Elemente
+        boostTimes.set(el, lastBoostTime); // ← per-Element: verhindert Doppel-Fire auf demselben Button
         e.stopPropagation();            // ← pointerup nicht nach oben bubbling lassen
         const clickEvent = new MouseEvent('click', {
             bubbles: true,
@@ -26,7 +27,7 @@ export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | Mo
     });
 
     el.addEventListener('click', (e) => {
-        const lastBoost = boostTimes.get(el) ?? 0;
+        const lastBoost = Math.max(boostTimes.get(el) ?? 0, lastBoostTime);
         if (Date.now() - lastBoost < 500 && e.isTrusted) {
             e.stopImmediatePropagation();
             return;
