@@ -3,6 +3,7 @@ story_points:
     type: quiz
     title_key: challenges.flood.crisis_staff.challenge.intro.title
     question_key: challenges.flood.crisis_staff.challenge.intro.question
+    activeLayerIds: [social_media_crises]
     options:
       - label_key: challenges.flood.crisis_staff.challenge.intro.optionA
         value: a
@@ -21,6 +22,8 @@ story_points:
     type: location-quiz
     title_key: challenges.flood.crisis_staff.challenge.coord-selection.title
     question_key: challenges.flood.crisis_staff.challenge.coord-selection.question
+    submit_key: challenges.flood.crisis_staff.challenge.coord-selection.submit
+    activeLayerIds: [social_media_crises]
     target: "#layers"
     solution:
       x: 2550

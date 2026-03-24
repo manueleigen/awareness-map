@@ -49,6 +49,7 @@ export interface QuizStoryPoint extends BaseStoryPoint {
 export interface LocationStoryPoint extends BaseStoryPoint {
     type: 'location-quiz';
     question_key: string;
+    submit_key?: string;
     target: string;
     selector?: string;
     solution: { x: number; y: number };

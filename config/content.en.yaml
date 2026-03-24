@@ -202,6 +202,7 @@ challenges:
               Sharing it internally with the fire brigade and police can also trigger premature or misguided actions.
         coord-selection:
           title: Choose the drone deployment area
+          submit: Check deployment area
           question: >
             <strong>Review the social media posts</strong> to assess where a breach in the flood protection system is most likely.
             <br><div class="spacer"></div>

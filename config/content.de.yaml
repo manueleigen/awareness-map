@@ -111,7 +111,7 @@ challenges:
             <br><div class="spacer"></div>
             <strong>
               <ul>
-              <li>wie schnell sie überflutet werden,</li>
+              <li>wie schnell die Orte überflutet werden,</li>
               <li>wie viele Menschen betroffen sind und</li>
               <li>wie gut sie noch erreichbar sind.</li>
               <ul>
@@ -201,6 +201,7 @@ challenges:
               Auch das interne Teilen mit Feuerwehr und Polizei kann verfrühte oder fehlgeleitete Maßnahmen auslösen.
         coord-selection:
           title: Einsatzort der Drohne wählen
+          submit: Einsatzort prüfen
           question: >
             <strong>Prüfe die Social-Media-Posts</strong>, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
             <br><div class="spacer"></div>

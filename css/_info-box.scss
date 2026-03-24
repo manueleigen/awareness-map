@@ -44,7 +44,7 @@
     padding: 0;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 120px;
+    margin-bottom: 110px;
     z-index: 3500;
 
     #escape-btn {
@@ -88,7 +88,7 @@
       align-content: start;
 
     p {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
       .quiz-progress{
@@ -229,7 +229,7 @@
         width: 29px;
         height: 29px;
         background: var(--button);
-        border-radius: 5px;
+        border-radius: 5px;    
       }
     }
   }

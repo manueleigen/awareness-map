@@ -30,9 +30,6 @@ export function clearQuizAnswers(): void {
 		.querySelectorAll(".quiz-location-radius")
 		.forEach((el) => el.remove());
 	document
-		.querySelectorAll(".quiz-solution-marker")
-		.forEach((el) => el.remove());
-	document
 		.querySelectorAll(".quiz-solution-radius")
 		.forEach((el) => el.remove());
 }

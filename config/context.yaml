@@ -8,8 +8,7 @@ contexts:
       base_layer_buildings:
         src: /assets/challenges/buildings.webp
         initially_visible: true
-        z_index: 60
-
+        z_index: 71
       base_layer_river:
         src: /assets/challenges/base-layer_river.webp
         initially_visible: true
@@ -18,7 +17,7 @@ contexts:
       base_layer_streets:
         src: /assets/challenges/streets.webp
         initially_visible: true
-        z_index: 71
+        z_index: 60
 
       base_layer_glow:
         src: /assets/challenges/glow.webp
@@ -38,15 +37,15 @@ contexts:
         initially_visible: false
         z_index: 110
         toggle_order: 1
-        title: { de: "Kritische Infrastruktur", en: "Critical Infrastructure" }
+        title: { de: "Kritische\nInfrastruktur", en: "Critical\nInfrastructure" }
 
       population_density:
         src: /assets/challenges/population_density-07.jpg
         icon: /assets/icons/population_density.svg
         initially_visible: false
-        z_index: 70
+        z_index: 74
         toggle_order: 2
-        title: { de: "Bevölkerungs\ndichte", en: "Population density" }
+        title: { de: "Bevölkerungs\ndichte", en: "Population\nDensity" }
 
   scenarios:
     flood:
@@ -73,7 +72,7 @@ contexts:
               initially_visible: false
               z_index: 100
               toggle_order: 4
-              title: { de: "Notrufe", en: "Emergency calls" }
+              title: { de: "Aktuelle\nNotrufe", en: "Emergency\nCalls" }
 
             emergency_vehicles:
               src: /assets/challenges/flood/fire_brigade/emergency_vehicles.json
@@ -83,7 +82,7 @@ contexts:
               map_only: true
               z_index: 105
               toggle_order: 5
-              title: { de: "Einsatzkräfte", en: "Emergency vehicles" }
+              title: { de: "Einsatz-\nkräfte", en: "Emergency\nVehicles" }
 
         police:
           quiz: /assets/challenges/flood/police/police-challange.yaml
@@ -106,7 +105,7 @@ contexts:
               quiz_only: true
               z_index: 77
               toggle_order: 5
-              title: { de: "Evakuierungszonen", en: "Evacuation zones" }
+              title: { de: "Evakuierungs\nzonen", en: "Evacuation\nZones" }
 
         crisis_staff:
           quiz: /assets/challenges/flood/crisis_staff/crises-challange.yaml
@@ -117,7 +116,7 @@ contexts:
               src: /assets/challenges/flood/crisis_staff/social_media.json
               icon: /assets/icons/social_media.svg
               poi_icon: /assets/icons/marker_social_media.svg
-              initially_visible: true
+              initially_visible: false
               z_index: 180
               toggle_order: 4
               title: { de: "Social Media", en: "Social Media" }

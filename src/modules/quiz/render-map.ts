@@ -1,4 +1,4 @@
-import { create } from "../lib.js";
+import { create, loadTEXT } from "../lib.js";
 import { addPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import {
@@ -61,7 +61,12 @@ export function renderLocation(
 		if (!marker) {
 			marker = create("div");
 			marker.className = "quiz-location-marker";
-			marker.innerText = "X";
+			const markerEl = marker;
+			loadTEXT<string>("assets/icons/drone.svg")
+				.then((svgText) => {
+					markerEl.innerHTML = svgText;
+				})
+				.catch(() => {});
 			target.append(marker);
 
 			radiusMarker = create("div");
@@ -85,7 +90,7 @@ export function renderLocation(
 	target?.addEventListener("pointerup", clickHandler as any);
 
 	const btn = create("button");
-	btn.innerText = t("challenges.common.submit", "Check Answer");
+	btn.innerText = t(point.submit_key ?? "challenges.common.submit", "Check Answer");
 	addPointerClick(btn, () => {
 		if (!placed) return;
 
@@ -104,13 +109,6 @@ export function renderLocation(
 		solRadius.style.width = `${point.maxDistance * 2}px`;
 		solRadius.style.height = `${point.maxDistance * 2}px`;
 		target?.append(solRadius);
-
-		const solMarker = create("div");
-		solMarker.className = "quiz-solution-marker";
-		solMarker.innerText = "✓";
-		solMarker.style.left = `${point.solution.x}px`;
-		solMarker.style.top = `${point.solution.y}px`;
-		target?.append(solMarker);
 
 		// Cleanup interaction
 		target?.removeEventListener("pointerup", clickHandler as any);
