@@ -31,7 +31,6 @@ story_points:
     success_screen:
       title_key: challenges.flood.crisis_staff.challenge.coord-selection.win.title
       description_key: challenges.flood.crisis_staff.challenge.coord-selection.win.description
-      duration_ms: 900
     next:
       right: who-you-wanna-call
       wrong: fail-screen-2

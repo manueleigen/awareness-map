@@ -20,12 +20,12 @@ export function renderInfo(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerText = t(point.title_key);
+		title.innerHTML = t(point.title_key);
 		content.append(title);
 	}
 
 	const desc = create("p");
-	desc.innerText = t(point.description_key);
+	desc.innerHTML = t(point.description_key);
 	content.append(desc);
 
 	// In terminal steps, we show different buttons based on status:
@@ -67,12 +67,12 @@ export function renderChoice(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerText = t(point.title_key);
+		title.innerHTML = t(point.title_key);
 		content.append(title);
 	}
 
 	const question = create("p");
-	question.innerText = t(point.question_key);
+	question.innerHTML = t(point.question_key);
 	content.append(question);
 
 	const optionsWrapper = create("div");
@@ -83,7 +83,7 @@ export function renderChoice(
 	point.options.forEach((opt) => {
 		const btn = create("button");
 		btn.className = "quiz-option-btn";
-		btn.innerText = t(opt.label_key);
+		btn.innerHTML = t(opt.label_key);
 
 		addPointerClick(btn, () => {
 			const isMulti = (point.maxAnswers ?? point.solution.length) > 1;

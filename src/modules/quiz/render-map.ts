@@ -9,6 +9,7 @@ import {
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
+import { rePreviewPOILayer } from "../layers.js";
 
 /**
  * Renders a step where the user must click a specific coordinate on the map.
@@ -24,15 +25,15 @@ export function renderLocation(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerText = t(point.title_key);
+		title.innerHTML = t(point.title_key);
 		content.append(title);
 	}
 
 	const question = create("p");
-	question.innerText = t(point.question_key);
+	question.innerHTML = t(point.question_key);
 	const status = create("p");
 	status.className = "quiz-status";
-	status.innerText = t(
+	status.innerHTML = t(
 		"challenges.common.click_to_place",
 		"Click to place a point.",
 	);
@@ -139,14 +140,19 @@ export function renderSelection(
 	document.documentElement.dataset.quizPoiSelectTarget =
 		point.type === "point-selection-quiz" ? (point.target?.trim() ?? "") : "";
 
+	// Re-trigger the preview so overlays are rebuilt with the now-active Select button
+	if (point.type === "point-selection-quiz" && point.target) {
+		rePreviewPOILayer(point.target.trim());
+	}
+
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerText = t(point.title_key);
+		title.innerHTML = t(point.title_key);
 		content.append(title);
 	}
 
 	const question = create("p");
-	question.innerText = t(point.question_key);
+	question.innerHTML = t(point.question_key);
 	const status = create("p");
 	status.className = "quiz-status";
 	content.append(question, status);
@@ -169,13 +175,18 @@ export function renderSelection(
 	btn.innerText = t("challenges.common.submit", "Check Selection");
 	controls.append(btn);
 
+	const selectionTarget = point.maxSelection ?? point.solution.length;
+
 	/** Updates the status text and submit button state. */
 	const refreshStatus = () => {
 		const count = selectedIds.length;
-		status.innerText = t(
+		status.innerHTML = t(
 			"challenges.common.selected_count",
-			`Selected: ${count}`,
-		).replace("{count}", `${count}`);
+			`Selected: {count}`,
+		).replace(
+			"{count}",
+			`<span class="quiz-count">${count} / ${selectionTarget}</span>`,
+		);
 
 		// Disable submit button if minSelection is not met
 		const isMinMet = count >= (point.minSelection ?? 1);

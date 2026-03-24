@@ -421,6 +421,22 @@ export function previewActivePOILayers(): void {
 }
 
 /**
+ * Forcefully re-triggers the POI preview for a specific layer, ignoring layerPreviewDone.
+ * Used by the quiz engine after setting quizPoiSelect to "1" so that
+ * overlays are rebuilt with the active "Select" button.
+ *
+ * @param layerSelector CSS selector of the layer element, e.g. "#layer-emergency_calls"
+ */
+export function rePreviewPOILayer(layerSelector: string): void {
+	const layerId = layerSelector.replace(/^#layer-/, "").trim();
+	if (!layerId) return;
+	const layerEl = layerElements.get(layerId);
+	if (!layerEl || layerEl.classList.contains("hidden")) return;
+	layerPreviewDone.add(layerId); // prevent double-trigger from previewActivePOILayers
+	previewPOILayer(layerEl);
+}
+
+/**
  * Clears the layer cache, forcing a complete rebuild of all layer DOM elements
  * upon the next render. Useful for language changes or system resets.
  */

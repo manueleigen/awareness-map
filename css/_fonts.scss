@@ -56,14 +56,14 @@ body, p {
   color: var(--primary);
 }
 
-h1 {
+h1, #info-box h2 {
   font-family: 'Inter', sans-serif;
   font-size: 47px;
   font-style: normal;
   font-weight: 700;
   line-height: 55px; /* 117.021% */
   letter-spacing: -0.3px;
-  padding-bottom: 15px;
+  padding-bottom: 30px;
 }
 
 h2 {
@@ -90,6 +90,14 @@ h3 {
   letter-spacing: 0.6px;
 }
 
+strong, b {
+  font-weight: 800;
+}
+
+#info-box ul {
+  padding-left: 22px;
+}
+
 label {
   text-align: center;
   line-height: 28px;
@@ -105,4 +113,25 @@ button {
   line-height: 39px; /* 156% */
   letter-spacing: 3.5px;
   text-transform: uppercase;
+}
+
+.spacer {
+  margin-bottom: 14px;
+}
+
+.quiz-status {
+  font-size: 30px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--button);
+
+  .quiz-count {
+    font-weight: 700;
+    font-family: 'Inter';
+    color: var(--button);
+    font-size: 47px;
+    bottom: -5px;
+    position: relative;
+    letter-spacing: -2px;
+  }
 }

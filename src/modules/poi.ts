@@ -139,7 +139,12 @@ export async function showPOIOverlay(
 
 	addPointerClick(closeBtn, (e) => {
 		e.stopPropagation();
-		closeOverlayWithAnimation(poiOverlay);
+		// Während Preview (Timer läuft): alle Cards sofort schließen
+		if (previewTimeout !== null) {
+			hidePOIOverlay();
+		} else {
+			closeOverlayWithAnimation(poiOverlay);
+		}
 	});
 
 	head.append(closeBtn);
@@ -154,50 +159,42 @@ export async function showPOIOverlay(
 		content.append(bodyText);
 	}
 
-	// Show "Select" button depending on quiz state:
-	// "1"        → active, only for the targeted layer
-	// "inactive" → grayed out (is-inactive), for all layers on the briefing screen
-	const quizPoiSelectValue =
-		document.documentElement.dataset.quizPoiSelect ?? "0";
+	// Show "Select" button only during the active POI-selection quiz step
+	// and only for the targeted layer.
 	const quizPoiSelectTarget =
 		(document.documentElement.dataset.quizPoiSelectTarget ?? "").trim();
 	const layerId = poiContainer.dataset.layerId ?? "";
 	if (layerId) poiOverlay.classList.add(`poi-overlay--${layerId}`);
 	const isInTargetLayer =
 		!quizPoiSelectTarget || quizPoiSelectTarget === `#layer-${layerId}`;
-	const isActiveSelect = quizPoiSelectValue === "1" && isInTargetLayer;
-	const isInactiveSelect = quizPoiSelectValue === "inactive" && isInTargetLayer;
+	const isActiveSelect =
+		document.documentElement.dataset.quizPoiSelect === "1" && isInTargetLayer;
 
-	if (isActiveSelect || isInactiveSelect) {
+	if (isActiveSelect) {
 		const selectBtn = create("button");
 		selectBtn.className = "poi-select-btn";
 
-		if (isInactiveSelect) {
-			selectBtn.classList.add("is-inactive");
-			selectBtn.innerText = t("challenges.common.select_poi", "Select");
-		} else {
-			const updateLabel = () => {
-				const isSelected = marker.classList.contains("quiz-answer");
-				selectBtn.innerText = isSelected
-					? t("challenges.common.deselect_poi", "Deselect")
-					: t("challenges.common.select_poi", "Select");
-				selectBtn.classList.toggle("active", isSelected);
-			};
-			updateLabel();
+		const updateLabel = () => {
+			const isSelected = marker.classList.contains("quiz-answer");
+			selectBtn.innerText = isSelected
+				? t("challenges.common.deselect_poi", "Deselect")
+				: t("challenges.common.select_poi", "Select");
+			selectBtn.classList.toggle("active", isSelected);
+		};
+		updateLabel();
 
-			addPointerClick(selectBtn, (e) => {
-				e.stopPropagation();
-				marker.classList.toggle("quiz-answer");
-				selectBtn.classList.toggle("active");
-				const isSelected = marker.classList.contains("quiz-answer");
-				document.dispatchEvent(
-					new CustomEvent("quiz-answer-changed", {
-						detail: { id: marker.id, isSelected },
-					}),
-				);
-				closeOverlayWithAnimation(poiOverlay);
-			});
-		}
+		addPointerClick(selectBtn, (e) => {
+			e.stopPropagation();
+			marker.classList.toggle("quiz-answer");
+			selectBtn.classList.toggle("active");
+			const isSelected = marker.classList.contains("quiz-answer");
+			document.dispatchEvent(
+				new CustomEvent("quiz-answer-changed", {
+					detail: { id: marker.id, isSelected },
+				}),
+			);
+			closeOverlayWithAnimation(poiOverlay);
+		});
 
 		content.append(selectBtn);
 	}

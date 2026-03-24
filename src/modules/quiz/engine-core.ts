@@ -1,4 +1,5 @@
 import { loadYAML, create } from "../lib.js";
+import { addPointerClick } from "../interactions.js";
 import { app } from "../state.js";
 import { resetLayers } from "../layers.js";
 import { t } from "../translater.js";
@@ -182,7 +183,8 @@ function handleAction(
 }
 
 /**
- * Renders a brief "Success" screen before automatically proceeding to the next step.
+ * Renders a brief "Success" screen before proceeding to the next step.
+ * Shows a continue button; if duration_ms is set, also auto-advances after that delay.
  */
 function renderSuccessInterlude(
 	container: HTMLElement,
@@ -194,15 +196,28 @@ function renderSuccessInterlude(
 	controls.innerHTML = "";
 
 	const title = create("h2");
-	title.innerText = t(success.title_key || "feedback.success_title", "Success");
+	title.innerHTML = t(success.title_key || "feedback.success_title", "Success");
 	const desc = create("p");
-	desc.innerText = t(
+	desc.innerHTML = t(
 		success.description_key || "feedback.continue",
 		"Continuing...",
 	);
 
 	container.append(title, desc);
 
-	// Wait for the specified duration before firing the callback
-	window.setTimeout(callback, success.duration_ms || 900);
+	let fired = false;
+	const proceed = () => {
+		if (fired) return;
+		fired = true;
+		callback();
+	};
+
+	const btn = create("button");
+	btn.innerText = t("feedback.continue", "Weiter");
+	addPointerClick(btn, proceed);
+	controls.append(btn);
+
+	if (success.duration_ms) {
+		window.setTimeout(proceed, success.duration_ms);
+	}
 }

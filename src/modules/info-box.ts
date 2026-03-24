@@ -80,10 +80,10 @@ export function renderHome(): void {
 
 	const title = create("h1");
 	title.id = "app-title";
-	title.innerText = t("home.title");
+	title.innerHTML = t("home.title");
 
 	const text = create("p");
-	text.innerText = t("home.description");
+	text.innerHTML = t("home.description");
 
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
@@ -133,10 +133,10 @@ export function renderRoleSelection(): void {
 	infoBoxControls.innerHTML = "";
 
 	const title = create("h2");
-	title.innerText = t(`scenarios.${app.currentScenario}.title`);
+	title.innerHTML = t(`scenarios.${app.currentScenario}.title`);
 
 	const text = create("p");
-	text.innerText = t(`scenarios.${app.currentScenario}.description`);
+	text.innerHTML = t(`scenarios.${app.currentScenario}.description`);
 
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
@@ -210,12 +210,12 @@ export function renderMapUI(): void {
 	document.documentElement.dataset.quizPoiSelect = "0";
 
 	const title = create("h2");
-	title.innerText = t(
+	title.innerHTML = t(
 		`challenges.${app.currentScenario}.${app.currentRole}.title`,
 	);
 
 	const desc = create("p");
-	desc.innerText = t(
+	desc.innerHTML = t(
 		`challenges.${app.currentScenario}.${app.currentRole}.intro`,
 	);
 
