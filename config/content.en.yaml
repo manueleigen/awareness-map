@@ -172,8 +172,8 @@ challenges:
           win:
             title: Correct!
             description: >
-              You deployed the drone in a relevant area and gathered important information for the emergency services.
-              This allowed you to assess the situation more accurately and close a key information gap.
+              You deployed the drone in a relevant area and collected data about the current situation.
+              The rumors about the Old Harbor turned out to be true — the area is completely flooded.
           fail:
             title: Failed
             description: >

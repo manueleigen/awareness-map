@@ -172,8 +172,8 @@ challenges:
           win:
             title: Richtig!
             description: >
-              Du hast die Drohne in einem relevanten Gebiet eingesetzt und wichtige Informationen für die Einsatzkräfte gewonnen.
-              So konntest du die Lage besser einschätzen und eine wichtige Informationslücke schließen.
+              Du hast die Drohne in einem relevanten Gebiet eingesetzt und damit Daten über die aktuelle Lage gesammelt.
+              Tatsächlich wahren die Grüchte über den Alten Hafen korrekt - der komplett überschwemmte Bereich ist überschwemmt!
           fail:
             title: Fehlgeschlagen
             description: >

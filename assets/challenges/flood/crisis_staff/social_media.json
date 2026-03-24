@@ -3,23 +3,23 @@
 	"locations": [
 		{
 			"id": "flood_social_media_1",
-			"x": 915,
-			"y": 918,
+			"x": 2414,
+			"y": 757,
 			"translations": {
 				"name": {
-					"de": "Drohnenvideo über dem Hochwasser",
-					"en": "Drone Footage over the Flood"
+					"de": "Überflutung im Alten Hafen",
+					"en": "Flooding in the Old Harbor"
 				},
 				"status": {
-					"de": "Eine Person filmt das überflutete Viertel mit einer Drohne und postet spektakuläre Luftaufnahmen.",
-					"en": "A person films the flooded neighborhood with a drone and posts dramatic aerial footage."
+					"de": "Die Schutzanlagen haben dem Hochwasser nicht standgehalten. Viele Menschen posten dramatische Aufnahmen.",
+					"en": "The flood protection has failed. Many people are posting dramatic footage."
 				}
 			}
 		},
 		{
 			"id": "flood_social_media_2",
-			"x": 1618,
-			"y": 800,
+			"x": 763,
+			"y": 1141,
 			"translations": {
 				"name": {
 					"de": "Auto steckt im Wasser fest",
@@ -33,8 +33,8 @@
 		},
 		{
 			"id": "flood_social_media_3",
-			"x": 2786,
-			"y": 858,
+			"x": 1760,
+			"y": 374,
 			"translations": {
 				"name": {
 					"de": "Nachbarschaft kocht zusammen",
@@ -48,8 +48,8 @@
 		},
 		{
 			"id": "flood_social_media_4",
-			"x": 2005,
-			"y": 1308,
+			"x": 1593,
+			"y": 1180,
 			"translations": {
 				"name": {
 					"de": "Livestream von der Brücke",
@@ -63,8 +63,8 @@
 		},
 		{
 			"id": "flood_social_media_5",
-			"x": 1126,
-			"y": 1804,
+			"x": 1210,
+			"y": 1589,
 			"translations": {
 				"name": {
 					"de": "Hilferuf vom Balkon",
@@ -78,8 +78,8 @@
 		},
 		{
 			"id": "flood_social_media_6",
-			"x": 2246,
-			"y": 1700,
+			"x": 2376,
+			"y": 1540,
 			"translations": {
 				"name": {
 					"de": "Schlauchboot auf der Kreuzung",
