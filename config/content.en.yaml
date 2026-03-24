@@ -31,8 +31,11 @@ home:
   description: >
     In a crisis, every piece of information matters.
     Only the combination of different information sources creates a complete situational picture.
+    <br>
+    <div class="spacer"></div>
+    Use the icons on the right side of the screen to display different information on the map.
+    <strong>Choose a scenario you want to explore.</strong>
 
-    Activate the data layers using the icons on the right side of the screen and choose a scenario to continue.
   scenario_selection_label: Choose a scenario
   scenario_1: Flood
   scenario_2: Blackout
@@ -43,12 +46,12 @@ scenarios:
     title: The river overflows its banks
     short_title: Flood
     description: >
-      After days of heavy rain, the water level continues to rise.
+      <strong>After days of heavy rain, the water level continues to rise.</strong><br>
       The situation is changing rapidly, and the flood simulation shows that several parts of the city will be flooded in the next few hours.
-
+      <br>
+      <div class="spacer"></div>
       In a crisis, different actors have different tasks and access to different information.
-
-      Which role would you like to take on?
+      <strong>Which role would you like to take on?</strong>
     role_selection_label: Choose your role
     roles:
       fire_brigade:
@@ -93,69 +96,99 @@ challenges:
     fire_brigade:
       title: "Fire brigade: Prioritize emergency calls"
       intro: >
-        It is 2:00 PM, and the water is rising relentlessly.
-        Numerous emergency calls are coming in, but the fire brigade’s resources are limited: you can only handle two hotspots.
-
-        Consider how quickly the hotspots will be flooded, how many people are affected, and how accessible they still are,
+        <strong>It is 2:00 PM</strong>, and the water is rising relentlessly.<br>
+        Numerous emergency calls are coming in, but the fire brigade's resources are limited: you can only handle two emergency calls.
+        <br><div class="spacer"></div>
+        <strong>Consider how quickly the locations will be flooded, how many people are affected, and how accessible they still are</strong>,
         so you can deploy your emergency units as effectively as possible.
       challenge:
         intro:
-          title: Choose hotspots
+          title: Dispatch emergency units
           question: >
-              Select exactly two hotspots that you want to handle.
-              Consider how quickly they will be flooded,
-              how many people are affected, and how accessible they still are.
+            <strong>Select exactly two emergency calls</strong> that you want to handle.
+            <br><div class="spacer"></div>
+              Consider:
+            <br><div class="spacer"></div>
+            <strong>
+              <ul>
+              <li>how quickly they will be flooded,</li>
+              <li>how many people are affected, and</li>
+              <li>how accessible they still are.</li>
+              </ul>
+            </strong>
           win:
             title: Correct!
             description: >
               You prioritized the two most critical emergency calls and saved the greatest number of people
               without putting emergency units at risk.
+              <br><div class="spacer"></div>
+              <strong>Well done!</strong>
           half-fail:
             title: Almost correct
             description: >
               You prioritized one important area, but the second choice was not ideal.
-              Either an important emergency call was overlooked or you chose an area that will soon no longer be accessible.
+              <br><div class="spacer"></div>
+              <strong>Either an important emergency call was overlooked or you chose an area that will soon no longer be accessible.</strong>
           fail:
             title: Failed
             description: >
-              Your selection was not ideal. Important emergency calls were overlooked, while resources were tied up in less critical areas.
+              Your selection was not ideal.
+              <br><div class="spacer"></div>
+              <strong>Important emergency calls were overlooked, while resources were tied up in less critical areas.</strong>
     police:
       title: Plan evacuation zones
       intro: >
-        It is 1:30 PM. Flooding is threatening densely populated areas.
-        Since police resources are limited, only two zones can be evacuated at first.
-        Identify densely populated areas at high flood risk
+        <strong>It is 1:30 PM.</strong> Flooding is threatening densely populated areas.
+        <br><div class="spacer"></div>
+        <strong>Since police resources are limited, only two zones can be evacuated at first.
+        <br><div class="spacer"></div>
+        Identify densely populated areas at high flood risk,</strong>
         in order to protect as many people as possible without blocking critical infrastructure.
 
       challenge:
         intro:
           title: Choose evacuation zones
           question: >
-                    Select two zones on the map that you want to evacuate.
-                    Consider the flood risk, population density, and access to critical infrastructure.
+            <strong>Select two zones on the map that you want to evacuate.</strong>
+            <br><div class="spacer"></div>
+            Consider:
+            <br><div class="spacer"></div>
+            <strong>
+            <ul>
+            <li>the flood risk,</li>
+            <li>the population density, and</li>
+            <li>access to critical infrastructure.</li>
+            </ul>
+            </strong>
           win:
             title: Correct!
             description: >
-              Excellent! You prioritized the most vulnerable residential areas while keeping access routes to the hospital clear for emergency services.
+              Excellent!
+              <br><div class="spacer"></div>
+              <strong>You prioritized the most vulnerable residential areas while keeping access routes to the hospital clear for emergency services.</strong>
           half-fail:
             title: Partly successful
             description: >
               You protected one important zone, but the second choice was not ideal.
-              Either a densely populated area was overlooked or an important traffic route was blocked.
+              <br><div class="spacer"></div>
+              <strong>Either a densely populated area was overlooked or an important traffic route was blocked.</strong>
           fail:
             title: Failed
             description: >
-              The evacuation decision was not sufficient. Important zones were flooded while resources were tied up in less critical areas.
+              The evacuation decision was not sufficient.
+              <br><div class="spacer"></div>
+              <strong>Important zones were flooded while resources were tied up in less critical areas.</strong>
 
     crisis_staff:
       title: "Deciding under uncertainty"
       intro: >
-        It is 11:30 AM. During the ongoing emergency, rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
-        Review the information and consider whether you should gather additional evidence before taking further action.
+        <strong>It is 11:30 AM.</strong> During the ongoing emergency, rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
+        <br><div class="spacer"></div>
+        Review the information and <strong>consider whether you want to act immediately or gather more information first.</strong>
       challenge:
         intro:
           title: "How do you respond?"
-          question: Would you like to share the current information or send a drone to assess the situation more accurately?
+          question: <strong>Would you like to immediately share the current information with the public, police, or fire brigade, or would you rather send a drone first</strong> to gather more information and better assess the situation?
           optionA: Share information
           optionB: Send drone
           win:
@@ -164,34 +197,45 @@ challenges:
           fail:
             title: That was not a good decision
             description: >
-              Communicating unverified information too early increases panic.
+              <strong>Communicating unverified information too early increases panic.</strong>
+              <br><div class="spacer"></div>
               Sharing it internally with the fire brigade and police can also trigger premature or misguided actions.
         coord-selection:
           title: Choose the drone deployment area
-          question: Review the social media posts to assess where a breach in the flood protection system is most likely.
+          question: >
+            <strong>Review the social media posts</strong> to assess where a breach in the flood protection system is most likely.
+            <br><div class="spacer"></div>
+            <strong>Then tap a location on the map to send the drone there.</strong>
+
           win:
             title: Correct!
             description: >
-              You deployed the drone in a relevant area and collected data about the current situation.
-              The rumors about the Old Harbor turned out to be true — the area is completely flooded.
+              You deployed the drone in a relevant area and collected important data about the current situation.
+              <br><div class="spacer"></div>
+              <strong>The rumors about the Old Harbor turned out to be true — the area is completely flooded!</strong>
           fail:
             title: Failed
             description: >
               You deployed the drone in an irrelevant area and wasted valuable resources.
+              <br><div class="spacer"></div>
+              <strong>Try sending the drone to a relevant area.</strong>
         who-you-wanna-call:
           title: Pass on information
-          question: Who would you like to share the verified information with first?
+          question: <strong>Who would you like to share the verified information with first?</strong>
           optionA: Fire brigade incident command
           optionB: Public
           win:
             title: Challenge solved!
             description: >
               You passed on the information in a way that helps operational units act more effectively without unnecessarily escalating the situation.
-              This helped close an important information gap.
+              <br><div class="spacer"></div>
+              This helped close an important information gap — <strong>the emergency units are now better equipped to act.</strong>
           fail:
             title: Failed
             description: >
               Sharing the information with the public too early increases panic.
+              <br><div class="spacer"></div>
+              <strong>The emergency units urgently need precise information to initiate an effective response.</strong>
 
 
   common:
