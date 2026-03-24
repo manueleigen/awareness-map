@@ -145,7 +145,8 @@ export function renderRoleSelection(): void {
 		const roleCTX = scenarioCTX.roles[roleId];
 		const hasQuiz = roleCTX.quiz;
 		const btn = create("button");
-		//btn.classList.add("silent-disabled");
+		btn.classList.add("silent-disabled");
+
 		// Try scenario-specific role title (short version) first, then fallback to challenge title
 		const scenarioRoleTitle = t(
 			`scenarios.${app.currentScenario}.roles.${roleId}.title`,
@@ -168,8 +169,8 @@ export function renderRoleSelection(): void {
 			// Delay listener attachment by 300ms so the same physical touch
 			// that opened this view doesn't immediately trigger a role selection.
 			setTimeout(async function () {
-				//await sleep(200);
-				//btn.classList.remove("silent-disabled");
+				await sleep(200);
+				btn.classList.remove("silent-disabled");
 
 				addPointerClick(btn, async () => {
 					app.currentRole = roleId;
@@ -200,7 +201,7 @@ export function renderRoleSelection(): void {
 }
 
 /** HOME-SCENARIOS / ROLES / DETAIL */
-export function renderMapUI(): void {
+export async function renderMapUI(): Promise<void> {
 	const { infoBoxContent, infoBoxControls } = app.ui;
 	if (!infoBoxContent || !infoBoxControls) return;
 
@@ -248,11 +249,13 @@ export function renderMapUI(): void {
 			btnLabelKey,
 			result ? "Retry" : "Start Challenge",
 		);
-
+		startQuizBtn.classList.add("silent-disabled");
+		infoBoxControls.append(startQuizBtn);
+		await sleep(200);
+		startQuizBtn.classList.remove("silent-disabled");
 		addPointerClick(startQuizBtn, async () => {
 			await startQuiz(quizPath);
 		});
-		infoBoxControls.append(startQuizBtn);
 	}
 }
 
