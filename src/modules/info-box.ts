@@ -11,6 +11,7 @@ import {
 import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath, getRoleSliderConfig } from "./scenarios.js";
+import { refreshCurrentPoint } from "./quiz/engine-core.js";
 import { animateSliderToTime } from "./time-slider.js";
 import { runOnboarding } from "./onboarding.js";
 
@@ -57,7 +58,7 @@ export async function updateView(): Promise<void> {
 			renderMapUI();
 			break;
 		case "quiz":
-			// Quiz UI is managed internally by the QuizEngine
+			refreshCurrentPoint();
 			break;
 	}
 

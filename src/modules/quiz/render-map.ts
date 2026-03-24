@@ -298,20 +298,24 @@ export function renderSelection(
 
 		document.removeEventListener("quiz-answer-changed", externalHandler);
 
-		// Calculate Status: right, half, or wrong
+		// Calculate Status: right, half, half-wrong, wrong-neutral, all-neutral, all-wrong
 		let outcome: QuizOutcome = "wrong";
-		const numCorrectSelected = selectedIds.filter((id) =>
-			point.solution.includes(id),
-		).length;
+		const numCorrect = selectedIds.filter((id) => point.solution.includes(id)).length;
+		const numWrong = selectedIds.filter((id) => (point.wrong_options ?? []).includes(id)).length;
+		const allCorrect = numCorrect === point.solution.length && selectedIds.length === point.solution.length;
 
-		const isRight =
-			selectedIds.length === point.solution.length &&
-			numCorrectSelected === point.solution.length;
-
-		if (isRight) {
+		if (allCorrect) {
 			outcome = "right";
-		} else if (numCorrectSelected > 0) {
+		} else if (numCorrect > 0 && numWrong === 0) {
 			outcome = "half";
+		} else if (numCorrect > 0 && numWrong > 0) {
+			outcome = "half-wrong";
+		} else if (numWrong > 0 && numWrong < selectedIds.length) {
+			outcome = "wrong-neutral";
+		} else if (numWrong === 0) {
+			outcome = "all-neutral";
+		} else {
+			outcome = "all-wrong";
 		}
 
 		onAction(outcome);

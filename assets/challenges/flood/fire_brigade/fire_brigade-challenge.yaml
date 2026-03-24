@@ -6,9 +6,10 @@ story_points:
     target: "#layer-emergency_calls"
     slider_time_layer: flood_simulation
     slider_time: "14:00"
-    slider_time_fixed: false # optional, default: false
+    slider_time_fixed: false
     activeLayerId: emergency_calls
-    solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
+    solution: ["flood_emergency_call_02", "flood_emergency_call_03"]
+    wrong_options: ["flood_emergency_call_01"]
     minSelection: 2
     maxSelection: 2
     step: 1
@@ -16,7 +17,10 @@ story_points:
     next:
       right: win-screen
       half: half-fail-screen
-      wrong: fail-screen-1
+      half-wrong: half-wrong-screen
+      wrong-neutral: fail-screen-wrong-neutral
+      all-neutral: fail-screen-all-neutral
+      all-wrong: fail-screen-1
 
   - id: win-screen
     type: info
@@ -31,6 +35,30 @@ story_points:
     type: info
     title_key: challenges.flood.fire_brigade.challenge.intro.half-fail.title
     description_key: challenges.flood.fire_brigade.challenge.intro.half-fail.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  - id: half-wrong-screen
+    type: info
+    title_key: challenges.flood.fire_brigade.challenge.intro.half-wrong.title
+    description_key: challenges.flood.fire_brigade.challenge.intro.half-wrong.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  - id: fail-screen-wrong-neutral
+    type: info
+    title_key: challenges.flood.fire_brigade.challenge.intro.wrong-neutral.title
+    description_key: challenges.flood.fire_brigade.challenge.intro.wrong-neutral.description
+    continue_button_key: challenges.common.restart
+    terminalStatus: failed
+    next: intro
+
+  - id: fail-screen-all-neutral
+    type: info
+    title_key: challenges.flood.fire_brigade.challenge.intro.all-neutral.title
+    description_key: challenges.flood.fire_brigade.challenge.intro.all-neutral.description
     continue_button_key: challenges.common.restart
     terminalStatus: failed
     next: intro
