@@ -63,6 +63,7 @@ contexts:
       roles:
         fire_brigade:
           quiz: /assets/challenges/flood/fire_brigade/fire_brigade-challenge.yaml
+          slider_time: "14:00"
           exclude_layers: [evacuation_zones]
           layers:
             emergency_calls:
@@ -86,6 +87,8 @@ contexts:
 
         police:
           quiz: /assets/challenges/flood/police/police-challange.yaml
+          slider_time: "13:30"
+
           layers:
             social_media_police:
               src: /assets/challenges/flood/police/social_media.json
@@ -107,6 +110,7 @@ contexts:
 
         crisis_staff:
           quiz: /assets/challenges/flood/crisis_staff/crises-challange.yaml
+          slider_time: "11:30"
           exclude_layers: [evacuation_zones]
           layers:
             social_media_crises:

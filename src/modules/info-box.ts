@@ -10,7 +10,8 @@ import {
 } from "./layers.js";
 import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
-import { getQuizPath } from "./scenarios.js";
+import { getQuizPath, getRoleSliderConfig } from "./scenarios.js";
+import { animateSliderToTime } from "./time-slider.js";
 import { runOnboarding } from "./onboarding.js";
 
 /**
@@ -177,6 +178,15 @@ export function renderRoleSelection(): void {
 					app.view = "map";
 					await resetLayers();
 					await updateView();
+					const sliderCfg = getRoleSliderConfig();
+					if (sliderCfg) {
+						const targetLayers = sliderCfg.layer
+							? [sliderCfg.layer]
+							: Object.keys(context?.scenarios[app.currentScenario!]?.layers ?? {});
+						targetLayers.forEach((id) =>
+							animateSliderToTime(id, sliderCfg.time, sliderCfg.fixed)
+						);
+					}
 				});
 			});
 		} else {

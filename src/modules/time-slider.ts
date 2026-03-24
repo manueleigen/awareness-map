@@ -27,6 +27,8 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     const sliderWrapper = create('div');
     sliderWrapper.className = 'slider-wrapper';
     sliderWrapper.id = `slider-wrapper-${config.id}`;
+    sliderWrapper.dataset.startTime = config.start_time || '00:00';
+    sliderWrapper.dataset.endTime = config.end_time || '24:00';
 
     const container = create('div');
     container.className = 'slider-container';
@@ -53,6 +55,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     // 1. Jump-to-Tap: Attach the pointerdown listener to the Slider Container (the track).
     // This allows users to set a value instantly by tapping anywhere on the bar.
     container.addEventListener('pointerdown', (e) => {
+        if (sliderWrapper.classList.contains('slider-fixed')) return;
         const rect = range.getBoundingClientRect();
         const offsetX = e.clientX - rect.left;
         const percent = Math.max(0, Math.min(1, offsetX / rect.width));
@@ -167,6 +170,52 @@ function calculateTimeSteps(start: string, end: string): string[] {
         labels.push(lastLabel);
     }
     return labels;
+}
+
+/**
+ * Animates the slider for a given layer to a specific time value.
+ * If fixed is true, the slider will be locked after the animation completes.
+ */
+export function animateSliderToTime(layerId: string, targetTime: string, fixed: boolean): void {
+    const sliderWrapper = document.getElementById(`slider-wrapper-${layerId}`) as HTMLElement | null;
+    if (!sliderWrapper) return;
+
+    const range = sliderWrapper.querySelector<HTMLInputElement>('.range-slider');
+    if (!range) return;
+
+    const parseH = (t: string) => {
+        const [h, m] = t.split(':').map(Number);
+        return h + (m || 0) / 60;
+    };
+
+    const startH = parseH(sliderWrapper.dataset.startTime || '00:00');
+    const endH = parseH(sliderWrapper.dataset.endTime || '24:00');
+    const targetH = parseH(targetTime);
+
+    const span = endH - startH;
+    if (span <= 0) return;
+
+    const targetVal = Math.max(0, Math.min(100, ((targetH - startH) / span) * 100));
+    const startVal = parseFloat(range.value);
+
+    // Remove any existing fixed lock before animating
+    sliderWrapper.classList.remove('slider-fixed');
+
+    const duration = 1200;
+    const startTime = performance.now();
+    const easeInOut = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+    const tick = (now: number) => {
+        const t = Math.min((now - startTime) / duration, 1);
+        range.value = String(startVal + (targetVal - startVal) * easeInOut(t));
+        range.dispatchEvent(new Event('input'));
+        if (t < 1) {
+            requestAnimationFrame(tick);
+        } else if (fixed) {
+            sliderWrapper.classList.add('slider-fixed');
+        }
+    };
+    requestAnimationFrame(tick);
 }
 
 /**

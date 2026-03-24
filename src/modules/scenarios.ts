@@ -18,6 +18,20 @@ export async function initScenarios(): Promise<void> {
 }
 
 /**
+ * Returns slider time config for the current role (if defined in context.yaml).
+ */
+export function getRoleSliderConfig(): { time: string; layer?: string; fixed: boolean } | null {
+	if (!context || !app.currentScenario || !app.currentRole) return null;
+	const role = context.scenarios[app.currentScenario]?.roles?.[app.currentRole];
+	if (!role?.slider_time) return null;
+	return {
+		time: role.slider_time,
+		layer: role.slider_time_layer,
+		fixed: role.slider_time_fixed ?? false,
+	};
+}
+
+/**
  * Returns the file path for the quiz associated with the current scenario/role.
  */
 export function getQuizPath(): string | null {

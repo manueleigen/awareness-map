@@ -7,6 +7,7 @@ import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
 import { renderLocation, renderSelection } from "./render-map.js";
+import { animateSliderToTime } from "../time-slider.js";
 
 /** Local storage for the active quiz run. */
 let currentStoryPoints: StoryPoint[] = [];
@@ -60,7 +61,12 @@ async function loadPoint(id: string): Promise<void> {
 
 	// 1. Cleanup: Remove layers specifically added by the PREVIOUS step
 	if (app.quizStepLayers.size > 0) {
-		app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
+		app.quizStepLayers.forEach((layerId) => {
+			app.activeLayers.delete(layerId);
+			// Release any slider lock from the previous step
+			const wrapper = document.getElementById(`slider-wrapper-${layerId}`);
+			wrapper?.classList.remove('slider-fixed');
+		});
 		app.quizStepLayers.clear();
 	}
 
@@ -93,6 +99,16 @@ async function loadPoint(id: string): Promise<void> {
 		document.addEventListener("app-view-updated", onUpdated);
 		document.dispatchEvent(new CustomEvent("app-request-view-update"));
 	});
+
+	// 5. Animate slider to the step's target time (if specified)
+	if (point.slider_time) {
+		const targetLayers = point.slider_time_layer
+			? [point.slider_time_layer]
+			: layersToActivate;
+		targetLayers.forEach((layerId) => {
+			animateSliderToTime(layerId, point.slider_time!, point.slider_time_fixed ?? false);
+		});
+	}
 
 	renderProgress(currentContent, point);
 

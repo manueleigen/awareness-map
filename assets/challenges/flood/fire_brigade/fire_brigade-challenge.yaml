@@ -4,6 +4,9 @@ story_points:
     title_key: challenges.flood.fire_brigade.challenge.intro.title
     question_key: challenges.flood.fire_brigade.challenge.intro.question
     target: "#layer-emergency_calls"
+    slider_time_layer: flood_simulation
+    slider_time: "14:00"
+    slider_time_fixed: false # optional, default: false
     activeLayerId: emergency_calls
     solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
     minSelection: 2

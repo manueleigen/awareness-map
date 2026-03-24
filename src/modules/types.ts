@@ -40,6 +40,9 @@ export interface Role {
 	layers: Record<string, ContextLayer>;
 	quiz?: string;
 	exclude_layers?: string[];
+	slider_time?: string;
+	slider_time_layer?: string;
+	slider_time_fixed?: boolean;
 }
 
 /** A scenario context containing global layers and a set of roles. */

@@ -26,6 +26,9 @@ export interface BaseStoryPoint {
     };
     step?: number;
     total_steps?: number;
+    slider_time?: string;
+    slider_time_layer?: string;
+    slider_time_fixed?: boolean;
 }
 
 export interface InfoStoryPoint extends BaseStoryPoint {
