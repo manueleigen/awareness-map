@@ -5,7 +5,7 @@ story_points:
     question_key: challenges.flood.fire_brigade.challenge.intro.question
     target: "#layer-emergency_calls"
     activeLayerId: emergency_calls
-    solution: ["flood_emergency_call_02", "flood_emergency_call_03"]
+    solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
     minSelection: 2
     maxSelection: 2
     step: 1

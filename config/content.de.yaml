@@ -7,7 +7,7 @@ navigation:
     de: Deutsch
   start: Start
   escape: Abbrechen
-  challenge-start: Challenge jetzt lösen
+  challenge-start: Challenge starten
   challenge-solved: Challenge gelöst
   challenge-failed: Challenge nicht gelöst
   challenge-next: Nächste Challenge
@@ -30,9 +30,9 @@ home:
   title: Hast du die Lage im Blick?
   description: >
     Im Krisenfall zählt jede Information.
-    Erst verschiedene Informationsquellen zusammen ergeben ein vollständiges Lagebild.
-    
-    Aktiviere die Datenebenen über die Icons am rechten Bildschirmrand und wähle ein Szenario, mit dem du weitermachen möchest.
+    Erst das Zusammenspiel verschiedener Informationsquellen ergibt ein vollständiges Lagebild.
+
+    Aktiviere die Datenebenen über die Icons am rechten Bildschirmrand und wähle ein Szenario, mit dem du weitermachen möchtest.
   scenario_selection_label: Wähle ein Szenario
   scenario_1: Hochwasser
   scenario_2: Blackout
@@ -43,10 +43,12 @@ scenarios:
     title: Der Fluss tritt über die Ufer
     short_title: Flut
     description: >
-      Durch tagelange Regenfälle steigt der Wasserpegel stetig an. 
-      Die Lage entwickelt sich schnell und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt unter Wasser stehen werden.
-      
-      Im Krisenfall haben nicht alle Aktuere die gleichen Informationen. Welche Rolle möchtest du übernehmen?
+      Nach tagelangen Regenfällen steigt der Wasserpegel weiter an.
+      Die Lage verändert sich schnell, und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt überflutet werden.
+
+      Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Zugang zu unterschiedlichen Informationen.
+
+      Wessen Rolle möchtest du übernehmen?
     role_selection_label: Wähle deine Rolle
     roles:
       fire_brigade:
@@ -60,9 +62,8 @@ scenarios:
     title: Der Strom fällt aus
     short_title: Blackout
     description: >
-      Ein großflächiger Stromausfall beeinträchtigt Kommunikation, Versorgung und
-      Mobilität. Informationen sind lückenhaft, digitale Systeme fallen teilweise aus,
-      und Entscheidungen müssen unter hohem Zeitdruck getroffen werden.
+      Ein großflächiger Stromausfall beeinträchtigt Kommunikation, Versorgung und Mobilität.
+      Informationen sind lückenhaft, digitale Systeme fallen teilweise aus, und Entscheidungen müssen unter hohem Zeitdruck getroffen werden.
     role_selection_label: Wähle deine Rolle
     roles:
       fire_brigade:
@@ -74,10 +75,10 @@ scenarios:
 
   mass_event:
     title: Großveranstaltung
-    short_title: Groß-veranstaltung
+    short_title: Massen-Event
     description: >
-      Eine Veranstaltung mit vielen Menschen erfordert laufenden Überblick über
-      Bewegungen, Engstellen, Risiken und verfügbare Ressourcen. Wähle deine Rolle.
+      Eine Veranstaltung mit vielen Menschen erfordert einen ständigen Überblick über Bewegungen, Engstellen, Risiken und verfügbare Ressourcen.
+      Wähle deine Rolle.
     role_selection_label: Wähle deine Rolle
     roles:
       fire_brigade:
@@ -90,106 +91,109 @@ scenarios:
 challenges:
   flood:
     fire_brigade:
-      title: Notrufe priorisieren
+      title: "Feuerwehr: Notrufe priorisieren"
       intro: >
-        Es ist 14:00 Uhr. Während das Wasser steigt, gehen viele Notrufe ein, 
-        doch die Verfügbarkeit der Rettungswagen ist begrenzt: Du kannst nur zwei Hotspots bearbeiten. 
-        
-        Bedenke: Deine Einsatzkräfte brauchen etwa eine halbe Stunde, bis sie vor Ort sind.
-        Achte darauf, deine Einsatzkräfte nicht unnötig in Gefahr zu bringen!
-      how-to: >
-        Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. 
-        Berücksichtige dabei, wie schnell sie überflutet werden, 
-        wie viele Menschen betroffen sind und wie erreichbar sie noch sind.
+        Es ist 14:00 Uhr, das Wasser steigt unaufhaltsam.
+        Zahlreiche Notrufe gehen ein, doch die Ressourcen der Feuerwehr sind begrenzt: Du kannst nur zwei Hotspots bearbeiten.
+
+        Berücksichtige, wie schnell die Hotspots überflutet werden, wie viele Menschen betroffen sind und wie gut sie noch erreichbar sind,
+        um deine Einsatzkräfte bestmöglich einzusetzen.
       challenge:
         intro:
           title: Hotspots wählen
-          question: Wähle genau zwei Hotspots aus, die du bearbeiten möchtest. Berücksichtige dabei die Zeit bis zur Überflutung und die Dringlichkeit.
+          question: >
+              Wähle genau zwei Hotspots aus, die du bearbeiten möchtest.
+              Berücksichtige dabei, wie schnell sie überflutet werden,
+              wie viele Menschen betroffen sind und wie gut sie noch erreichbar sind.
           win:
             title: Richtig!
             description: >
-              Du hast nicht nur auf Lautstärke reagiert, sondern das verbleibende
-              Zeitfenster richtig eingeschätzt. So können Einsatzkräfte dort
-              eingesetzt werden, wo sie noch wirksam helfen können.
+              Du hast die beiden kritischsten Notrufe priorisiert und damit die meisten Menschen gerettet,
+              ohne Einsatzkräfte in Gefahr zu bringen.
           half-fail:
-            title: Teilweise erfolgreich
+            title: Fast richtig
             description: >
-              Du hast zwar eine wichtige Zone geschützt, aber die zweite Wahl war nicht optimal. Entweder wurde ein dicht besiedeltes Gebiet vergessen oder eine wichtige Verkehrsader blockiert.
+              Du hast zwar einen wichtigen Bereich priorisiert, aber die zweite Wahl war nicht optimal.
+              Entweder wurde ein wichtiger Notruf übersehen oder ein Bereich gewählt, der bald nicht mehr erreichbar ist.
           fail:
             title: Fehlgeschlagen
             description: >
-              Die Auswahl war nicht optimal. Entweder wurden Einsatzkräfte in Kategorie A vom Wasser überrascht, 
-              Zugangsfenster (Kategorie B) wurden ignoriert oder es wurden nur nicht dringliche Hotspots gewählt.
+              Deine Auswahl war nicht optimal. Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.
     police:
-      title: Evakuierung mit Folgen
-      headline: Evakuierung mit Folgen
+      title: Evakuierungszonen planen
       intro: >
-        Überflutungen bedrohen dicht besiedelte Gebiete. Da die Resourcen der Polizei begrenzt sind, 
-        können zunächst nur zwei Zonen evakuiert werden. Identifiziere Flutrisiken und rette möglichst viele Menschen, 
-        ohne kritische Infrastruktur zu blockieren oder unnötige Panik auszulösen.
-      how-to: >
-        Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest. Berücksichtige dabei das Flutrisiko, die Bevölkerungsdichte,
-        und die Erreichbarkeit von kritischer Infrastruktur.
+        Es ist 13:30 Uhr. Überflutungen bedrohen dicht besiedelte Gebiete.
+        Da die Ressourcen der Polizei begrenzt sind, können zunächst nur zwei Zonen evakuiert werden.
+        Identifiziere dicht besiedelte Gebiete mit hohem Flutrisiko,
+        um möglichst viele Menschen zu schützen, ohne kritische Infrastruktur zu blockieren.
+
       challenge:
         intro:
           title: Evakuierungszonen wählen
           question: >
-            Die Flut steigt. Wähle die zwei Zonen aus, die am dringendsten evakuiert werden müssen, um die Bevölkerung zu schützen, ohne die Rettungswege für das Krankenhaus zu blockieren.
+                    Wähle zwei Zonen auf der Karte aus, die du evakuieren möchtest.
+                    Berücksichtige dabei das Flutrisiko, die Bevölkerungsdichte und die Erreichbarkeit kritischer Infrastruktur.
           win:
             title: Richtig!
             description: >
-              Hervorragend! Du hast die gefährdetsten Wohngebiete priorisiert und gleichzeitig die Zufahrtswege für die Rettungskräfte zum Krankenhaus freigehalten.
+              Hervorragend! Du hast die am stärksten gefährdeten Wohngebiete priorisiert und gleichzeitig die Zufahrtswege für Rettungskräfte zum Krankenhaus freigehalten.
           half-fail:
             title: Teilweise erfolgreich
             description: >
-              Du hast zwar eine wichtige Zone geschützt, aber die zweite Wahl war nicht optimal. Entweder wurde ein dicht besiedeltes Gebiet vergessen oder eine wichtige Verkehrsader blockiert.
+              Du hast zwar eine wichtige Zone geschützt, aber die zweite Wahl war nicht optimal.
+              Entweder wurde ein dicht besiedeltes Gebiet übersehen oder eine wichtige Verkehrsader blockiert.
           fail:
             title: Fehlgeschlagen
             description: >
-              Die Evakuierungsentscheidung war unzureichend. Wichtige Zonen wurden überflutet, während Ressourcen in weniger kritischen Bereichen gebunden waren.
+              Die Evakuierungsentscheidung war nicht ausreichend. Wichtige Zonen wurden überflutet, während Ressourcen in weniger kritischen Bereichen gebunden waren.
 
     crisis_staff:
-      title: Entscheiden unter Unsicherheit
-      headline: Entscheiden unter Unsicherheit
+      title: "Entscheiden unter Unsicherheit"
       intro: >
-        Während der laufenden Einsatzlage kursieren auf Social Media Gerüchte über einen möglichen Deich- oder Hochwasserschutz-Bruch. Entscheide, welche Informationen du teilst, und reduziere die Unsicherheit, indem du aktuelle Daten erhebst.
-      how-to: keins?
+        Es ist 11:30 Uhr. Während der laufenden Einsatzlage kursieren auf Social Media Gerüchte über einen möglichen Bruch des Hochwasserschutzes im Bereich des Alten Hafens.
+        Prüfe die Informationen und überlege, ob du vor weiteren Schritten erst zusätzliche Erkenntnisse sammeln möchtest.
       challenge:
         intro:
-          title: Was ist der erste Schritt?
-          question: Möchtest du Informationen über das Hochwasser teilen oder erst weitere Daten erheben.
+          title: "Wie reagierst du?"
+          question: Möchtest du die aktuellen Informationen teilen oder eine Drohne entsenden, um die Lage besser einzuschätzen?
           optionA: Informationen teilen
           optionB: Drohne entsenden
           win:
             title: Richtig!
-            description: Erst Informationen sammeln.
+            description: Erst weitere Informationen sammeln.
           fail:
-            title: Fehlgeschlagen
+            title: Das war keine gute Entscheidung
             description: >
-              Frühe öffentliche Kommunikation verstärkt Panik. Frühes internes Teilen löst verfrühte oder fehlgeleitete Vorbereitungen aus.
+              Die frühe Kommunikation ungesicherter Informationen verstärkt Panik.
+              Auch das interne Teilen mit Feuerwehr und Polizei kann verfrühte oder fehlgeleitete Maßnahmen auslösen.
         coord-selection:
-          title: Einsatzort wählen
-          question: Wähle den richtigen Ort auf der Karte aus (klicke in die Mitte).
+          title: Einsatzort der Drohne wählen
+          question: Prüfe die Social-Media-Posts, um einzuschätzen, wo ein Bruch des Hochwasserschutzes wahrscheinlich ist.
           win:
             title: Richtig!
-            description: Schauen we zuerst auf Gebiete mit hoher Bevölkerungsdichte.
+            description: >
+              Du hast die Drohne in einem relevanten Gebiet eingesetzt und wichtige Informationen für die Einsatzkräfte gewonnen.
+              So konntest du die Lage besser einschätzen und eine wichtige Informationslücke schließen.
           fail:
             title: Fehlgeschlagen
             description: >
-              Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit Ressourcen verschwendet.
+              Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit wertvolle Ressourcen vergeudet.
         who-you-wanna-call:
           title: Information weiterleiten
-          question: An wen sollen die Informationen weitergeleitet werden?
+          question: Mit wem möchtest du die gesicherte Information zuerst teilen?
           optionA: Einsatzleitung der Feuerwehr
           optionB: Öffentlichkeit
           win:
             title: Challenge gelöst!
             description: >
-              Du hast Informationen so geteilt, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen und die Informationslücke Datenerhebung geschlossen.
+              Du hast die Information so weitergegeben, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen.
+              So wurde eine wichtige Informationslücke geschlossen.
           fail:
             title: Fehlgeschlagen
             description: >
-              Das Zurückhalten bestätigter Informationen lässt Einsatzkräfte mit veralteten Annahmen handeln.
+              Das zu frühe Teilen der Information mit der Öffentlichkeit verstärkt Panik.
+
+
   common:
     passed_msg: Herausforderung erfolgreich abgeschlossen!
     failed_msg: Herausforderung leider nicht bestanden.
@@ -199,7 +203,7 @@ challenges:
     back_to_challenges: Zurück zu den Rollen
     submit: Antwort prüfen
     continue: Weiter
-    selection_hint: Wähle die passende Fläche oder den passenden Punkt in der Karte aus.
+    selection_hint: Wähle die passende Fläche oder den passenden Punkt auf der Karte aus.
     location_hint: Setze einen Punkt auf der Karte.
     target_missing: "Zielbereich nicht gefunden: {target}"
     selected_count: "Ausgewählt: {count}"
@@ -236,6 +240,3 @@ challenges:
           layers:
             social_media:
               title: Social Media
-            drone_feed:
-              title: Drohnendaten
-              description: Zusätzliche Lageeinschätzung aus der Luft zur Reduktion von Unsicherheit.

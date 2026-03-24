@@ -7,31 +7,32 @@ navigation:
     de: Deutsch
   start: Start
   escape: Cancel
-  challenge-start: Solve challenge now
+  challenge-start: Start challenge
   challenge-solved: Challenge solved
-  challenge-failed: Challenge failed
+  challenge-failed: Challenge not solved
   challenge-next: Next challenge
   # Kept from original for app compatibility
   back: Back
   next: Next
   close: Close
   restart: Restart
-  home: Home
+  home: Start
   scenario: Scenario
   role: Role
 
 feedback:
   success_title: Task successful
-  failure_title: Task not successful
+  failure_title: Task unsuccessful
   retry: Try again
   continue: Continue
 
 home:
-  title: Do You Have the Situation in View?
+  title: Do you have the full picture?
   description: >
-    In a crisis, it is important to make good decisions based on the most current information possible.
-    What often matters is where something has happened, where many people are located,
-    and which resources are available. Which scenario would you like to explore?
+    In a crisis, every piece of information matters.
+    Only the combination of different information sources creates a complete situational picture.
+
+    Activate the data layers using the icons on the right side of the screen and choose a scenario to continue.
   scenario_selection_label: Choose a scenario
   scenario_1: Flood
   scenario_2: Blackout
@@ -39,165 +40,170 @@ home:
 
 scenarios:
   flood:
-    title: The River Overflows Its Banks
+    title: The river overflows its banks
     short_title: Flood
     description: >
-      After days of rainfall, the water level keeps rising. It is expected that
-      the river will overflow its banks and that the usual protection measures will not be enough.
-      Not everyone involved has the same information, and the situation is developing quickly.
+      After days of heavy rain, the water level continues to rise.
+      The situation is changing rapidly, and the flood simulation shows that several parts of the city will be flooded in the next few hours.
+
+      In a crisis, different actors have different tasks and access to different information.
+
       Which role would you like to take on?
     role_selection_label: Choose your role
     roles:
       fire_brigade:
-        title: Fire Brigade
+        title: Fire brigade
       police:
         title: Police
       crisis_staff:
-        title: Crisis Staff
+        title: Crisis staff
 
   blackout:
-    title: The Power Goes Out
+    title: The power goes out
     short_title: Blackout
     description: >
-      A large-scale power outage affects communication, supply systems, and
-      mobility. Information is incomplete, digital systems partly fail,
-      and decisions must be made under high time pressure.
+      A large-scale power outage disrupts communication, supplies, and mobility.
+      Information is incomplete, digital systems are partly failing, and decisions must be made under severe time pressure.
     role_selection_label: Choose your role
     roles:
       fire_brigade:
-        title: Fire Brigade
+        title: Fire brigade
       police:
         title: Police
       crisis_staff:
-        title: Crisis Staff
+        title: Crisis staff
 
   mass_event:
-    title: Mass Event
+    title: Mass event
     short_title: Mass Event
     description: >
-      An event with many people requires continuous awareness of
-      movement, bottlenecks, risks, and available resources. Choose your role.
+      An event with many people requires constant oversight of movement, bottlenecks, risks, and available resources.
+      Choose your role.
     role_selection_label: Choose your role
     roles:
       fire_brigade:
-        title: Fire Brigade
+        title: Fire brigade
       police:
         title: Police
       crisis_staff:
-        title: Crisis Staff
+        title: Crisis staff
 
 challenges:
   flood:
     fire_brigade:
-      title: Rescue Under Time Pressure
-      headline: Rescue Under Time Pressure
+      title: "Fire brigade: Prioritize emergency calls"
       intro: >
-        Many emergency calls are coming in while the water level is rising.
-        Compare emergency calls with the temporal progression of the flooding and identify
-        two reachable and urgent hotspots.
-      how-to: >
-        Select exactly two hotspots that you want to handle.
-        Consider how quickly they will be flooded,
-        how many people are affected, and whether they are still reachable.
+        It is 2:00 PM, and the water is rising relentlessly.
+        Numerous emergency calls are coming in, but the fire brigade’s resources are limited: you can only handle two hotspots.
+
+        Consider how quickly the hotspots will be flooded, how many people are affected, and how accessible they still are,
+        so you can deploy your emergency units as effectively as possible.
       challenge:
         intro:
-          title: Select Hotspots
-          question: Select exactly two hotspots you want to handle. Consider the time until flooding and urgency.
-          win:
-            title: Correct!
-            description: >
-              You did not simply react to volume, but correctly assessed the remaining
-              time window. This allows response units to be deployed where
-              they can still help effectively.
-          half-fail:
-            title: Partially successful
-            description: >
-              While you protected an important zone, your second choice was not optimal. Either a densely populated area was missed or a key traffic artery was blocked.
-          fail:
-            title: Failed
-            description: >
-              The selection was not optimal. Either emergency units were surprised by water in Category A, 
-              access windows (Category B) were ignored, or only non-urgent hotspots were selected.
-    police:
-      title: Evacuation with Consequences
-      headline: Evacuation with Consequences
-      intro: >
-        Flooding threatens densely populated areas. Since police resources are limited,
-        only two zones can initially be evacuated. Identify flood risks and save as many people as possible
-        without blocking critical infrastructure or triggering unnecessary panic.
-      how-to: >
-        Select two zones on the map that you want to evacuate. Consider the flood risk, population density,
-        and the accessibility of critical infrastructure.
-      challenge:
-        intro:
-          title: Select Evacuation Zones
+          title: Choose hotspots
           question: >
-            The flood is rising. Select the two zones that most urgently need evacuation to protect the population without blocking emergency access to the hospital.
+              Select exactly two hotspots that you want to handle.
+              Consider how quickly they will be flooded,
+              how many people are affected, and how accessible they still are.
           win:
             title: Correct!
             description: >
-              Excellent! You prioritized the most vulnerable residential areas while keeping emergency access routes open for the hospital.
+              You prioritized the two most critical emergency calls and saved the greatest number of people
+              without putting emergency units at risk.
           half-fail:
-            title: Partially successful
+            title: Almost correct
             description: >
-              While you protected an important zone, your second choice was not optimal. Either a densely populated area was missed or a key traffic artery was blocked.
+              You prioritized one important area, but the second choice was not ideal.
+              Either an important emergency call was overlooked or you chose an area that will soon no longer be accessible.
           fail:
             title: Failed
             description: >
-              The evacuation decision was insufficient. Critical zones were flooded while resources were tied up in less critical areas.
+              Your selection was not ideal. Important emergency calls were overlooked, while resources were tied up in less critical areas.
+    police:
+      title: Plan evacuation zones
+      intro: >
+        It is 1:30 PM. Flooding is threatening densely populated areas.
+        Since police resources are limited, only two zones can be evacuated at first.
+        Identify densely populated areas at high flood risk
+        in order to protect as many people as possible without blocking critical infrastructure.
+
+      challenge:
+        intro:
+          title: Choose evacuation zones
+          question: >
+                    Select two zones on the map that you want to evacuate.
+                    Consider the flood risk, population density, and access to critical infrastructure.
+          win:
+            title: Correct!
+            description: >
+              Excellent! You prioritized the most vulnerable residential areas while keeping access routes to the hospital clear for emergency services.
+          half-fail:
+            title: Partly successful
+            description: >
+              You protected one important zone, but the second choice was not ideal.
+              Either a densely populated area was overlooked or an important traffic route was blocked.
+          fail:
+            title: Failed
+            description: >
+              The evacuation decision was not sufficient. Important zones were flooded while resources were tied up in less critical areas.
 
     crisis_staff:
-      title: Deciding Under Uncertainty
-      headline: Deciding Under Uncertainty
+      title: "Deciding under uncertainty"
       intro: >
-        During the ongoing response, rumors are circulating on social media about a possible dike or flood protection breach. Decide which information to share and reduce uncertainty by collecting current data.
-      how-to: none?
+        It is 11:30 AM. During the ongoing emergency, rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
+        Review the information and consider whether you should gather additional evidence before taking further action.
       challenge:
         intro:
-          title: What is the first step?
-          question: Would you like to share information about the flood or collect more data first?
+          title: "How do you respond?"
+          question: Would you like to share the current information or send a drone to assess the situation more accurately?
           optionA: Share information
-          optionB: Deploy drone
+          optionB: Send drone
           win:
             title: Correct!
-            description: Collect information first.
+            description: Gather more information first.
           fail:
-            title: Failed
+            title: That was not a good decision
             description: >
-              Early public communication increases panic. Early internal sharing triggers premature or misdirected preparations.
+              Communicating unverified information too early increases panic.
+              Sharing it internally with the fire brigade and police can also trigger premature or misguided actions.
         coord-selection:
-          title: Choose deployment location
-          question: Select the correct place on the map (click in the centre).
+          title: Choose the drone deployment area
+          question: Review the social media posts to assess where a breach in the flood protection system is most likely.
           win:
             title: Correct!
-            description: Let's first look at areas with high population density.
+            description: >
+              You deployed the drone in a relevant area and gathered important information for the emergency services.
+              This allowed you to assess the situation more accurately and close a key information gap.
           fail:
             title: Failed
             description: >
-              You deployed the drone in an irrelevant area and wasted resources.
+              You deployed the drone in an irrelevant area and wasted valuable resources.
         who-you-wanna-call:
-          title: Forward information
-          question: To whom should the information be forwarded?
-          optionA: Fire department operations center
+          title: Pass on information
+          question: Who would you like to share the verified information with first?
+          optionA: Fire brigade incident command
           optionB: Public
           win:
             title: Challenge solved!
             description: >
-              You shared information in a way that allows operational units to act better without unnecessarily escalating the situation and closed the information gap through data collection.
+              You passed on the information in a way that helps operational units act more effectively without unnecessarily escalating the situation.
+              This helped close an important information gap.
           fail:
             title: Failed
             description: >
-              Withholding confirmed information leaves emergency services acting on outdated assumptions.
+              Sharing the information with the public too early increases panic.
+
+
   common:
-    passed_msg: Challenge successfully completed!
-    failed_msg: Challenge unfortunately failed.
+    passed_msg: Challenge completed successfully!
+    failed_msg: Challenge not completed.
     retry_button: Try again
     start_button: Start challenge
-    restart: Start again
-    back_to_challenges: Back to Roles
+    restart: Start over
+    back_to_challenges: Back to roles
     submit: Check answer
     continue: Continue
-    selection_hint: Select the appropriate area or point on the map.
+    selection_hint: Select the matching area or point on the map.
     location_hint: Place a point on the map.
     target_missing: "Target area not found: {target}"
     selected_count: "Selected: {count}"
@@ -210,30 +216,27 @@ challenges:
     critical_sites:
       title: "Critical\nInfrastructure"
     population_density:
-      title: "Population\ndensity"
+      title: "Population\nDensity"
 
   scenarios:
     flood:
       layers:
         flood_simulation:
-          title: "Flood\nsimulation"
+          title: "Flood\nSimulation"
       roles:
         fire_brigade:
           layers:
             emergency_calls:
-              title: "Emergency\ncalls"
+              title: "Current\nEmergency Calls"
             emergency_vehicles:
-              title: "Emergency\nvehicles"
+              title: "Emergency\nUnits"
         police:
           layers:
             social_media:
               title: Social Media
             evacuation_zones:
-              title: "Evacuation\nzones"
+              title: "Evacuation\nZones"
         crisis_staff:
           layers:
             social_media:
               title: Social Media
-            drone_feed:
-              title: Drone Data
-              description: Additional aerial situation assessment to reduce uncertainty.

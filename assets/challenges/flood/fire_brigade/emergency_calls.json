@@ -16,8 +16,8 @@
       "x": 1920,
       "y": 1320,
       "translations": {
-        "name": { "de": "Stromausfall bei Beatmungsgerät", "en": "Power Outage at Ventilator" },
-        "status": { "de": "Bei einer Person mit Beatmungsgerät ist der Strom ausgefallen.", "en": "A person relying on a ventilator has lost power." }
+        "name": { "de": "Stromausfall im Altenheim", "en": "Power Outage at Senior Center" },
+        "status": { "de": "Mehrere Personen in einem Altenheim sind auf Beatmungsgeräte angeweisen.", "en": "Several people in a senior center are relying on ventilators." }
       }
     },
 {
@@ -42,8 +42,8 @@
     },
     {
       "id": "flood_emergency_call_05",
-      "x": 2900,
-      "y": 1800,
+      "x": 2700,
+      "y": 1700,
       "translations": {
         "name": { "de": "Katze im Baum", "en": "Cat in Tree" },
         "status": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
