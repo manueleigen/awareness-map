@@ -32,7 +32,7 @@
 		{
 			"id": "flood_emergency_vehicle_03",
 			"x": 1896,
-			"y": 1831,
+			"y": 1731,
 			"translations": {
 				"name": { "de": "Einsatzfahrzeug 4", "en": "Emergency Vehicle 4" },
 				"status": { "de": "Im Einsatz", "en": "In Operation" }
