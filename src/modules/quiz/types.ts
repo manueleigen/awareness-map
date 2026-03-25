@@ -62,6 +62,7 @@ export interface LocationStoryPoint extends BaseStoryPoint {
     selector?: string;
     solution: { x: number; y: number };
     maxDistance: number;
+    initial_position?: { x: number; y: number };
 }
 
 export interface SelectionStoryPoint extends BaseStoryPoint {

@@ -12,6 +12,7 @@ import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath, getRoleSliderConfig } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
+import { abortLocationStep } from "./quiz/render-map.js";
 import { animateSliderToTime } from "./time-slider.js";
 import { runOnboarding } from "./onboarding.js";
 
@@ -274,6 +275,7 @@ export async function renderMapUI(): Promise<void> {
  * Resets the application state and returns to the home screen.
  */
 export async function resetApp(): Promise<void> {
+	abortLocationStep();
 	app.currentScenario = null;
 	app.currentRole = null;
 	app.view = "home";
@@ -288,6 +290,7 @@ export async function resetApp(): Promise<void> {
  * Returns to the role selection panel.
  */
 export async function backToRoles(): Promise<void> {
+	abortLocationStep();
 	app.currentRole = null;
 	app.view = "role-select";
 

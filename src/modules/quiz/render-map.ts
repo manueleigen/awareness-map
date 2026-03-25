@@ -11,6 +11,28 @@ import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
 import { rePreviewPOILayer } from "../layers.js";
 
+// ── Drone speed ───────────────────────────────────────────────────────────────
+// Adjust this value to change how fast the drone flies (native pixels / second).
+const DRONE_SPEED_PX_PER_SEC = 350;
+const DRONE_MIN_DURATION_MS  = 600; // minimum travel time for very short moves
+
+// ── Location-step cleanup ─────────────────────────────────────────────────────
+// Held across calls so any entry point (new step, language switch, …) can clean up.
+let locationStepAbort: AbortController | null = null;
+let locationDroneEl: HTMLDivElement | null = null;
+
+/**
+ * Hides the edge guard, removes the drone marker, and clears the capture listener.
+ * Safe to call even if no location step is active.
+ */
+export function abortLocationStep(): void {
+	locationStepAbort?.abort();
+	locationStepAbort = null;
+	locationDroneEl?.remove();
+	locationDroneEl = null;
+	document.getElementById("edge-guard")?.classList.add("hidden");
+}
+
 /**
  * Renders a step where the user must click a specific coordinate on the map.
  */
@@ -20,6 +42,9 @@ export function renderLocation(
 	point: LocationStoryPoint,
 	onAction: (outcome: QuizOutcome, resultData?: any) => void,
 ): void {
+	// Clean up any previous location step (listener + edge guard)
+	abortLocationStep();
+
 	content.innerHTML = "";
 	controls.innerHTML = "";
 
@@ -46,48 +71,90 @@ export function renderLocation(
 	let marker: HTMLDivElement | null = null;
 	let radiusMarker: HTMLDivElement | null = null;
 
-	/** Handles clicks on the map target area. */
-	const clickHandler = (e: PointerEvent) => {
-		if (!target) return;
-		const scale = getAppScale();
-		const rect = target.getBoundingClientRect();
+	// Inject edge guard and set up AbortController for the capture listener
+	document.getElementById("edge-guard")?.classList.remove("hidden");
+	locationStepAbort = new AbortController();
+	const { signal } = locationStepAbort;
 
-		// Map screen coordinates back to native resolution (3840x2160)
-		const x = (e.clientX - rect.left) / scale;
-		const y = (e.clientY - rect.top) / scale;
+	/** Places or moves the drone to the given native-resolution coordinates. */
+	const placeMarkerAt = (x: number, y: number) => {
 		placed = { x, y };
 
-		// Create or move visual indicators
 		if (!marker) {
 			marker = create("div");
 			marker.className = "quiz-location-marker";
-			const markerEl = marker;
+			// Start at top-left — CSS transition will fly it to the first target position
+			marker.style.left = "0px";
+			marker.style.top = "0px";
+			target!.append(marker);
+			locationDroneEl = marker; // track for cleanup in abortLocationStep()
+
 			loadTEXT<string>("assets/icons/drone.svg")
-				.then((svgText) => {
-					markerEl.innerHTML = svgText;
-				})
+				.then((svgText) => { if (marker) marker.innerHTML = svgText; })
 				.catch(() => {});
-			target.append(marker);
 
 			radiusMarker = create("div");
 			radiusMarker.className = "quiz-location-radius";
-			target.append(radiusMarker);
+			radiusMarker.style.width = `${point.maxDistance * 2}px`;
+			radiusMarker.style.height = `${point.maxDistance * 2}px`;
+			radiusMarker.style.left = "0px";
+			radiusMarker.style.top = "0px";
+			target!.append(radiusMarker);
+
+			// Commit the 0,0 position to the browser before animating
+			void marker.offsetWidth;
 		}
 
+		// Calculate travel duration based on distance and configured speed
+		const currX = parseFloat(marker.style.left) || 0;
+		const currY = parseFloat(marker.style.top)  || 0;
+		const dist  = Math.sqrt((x - currX) ** 2 + (y - currY) ** 2);
+		const durationMs = Math.max(
+			DRONE_MIN_DURATION_MS,
+			Math.round((dist / DRONE_SPEED_PX_PER_SEC) * 1000),
+		);
+		const dur = `${durationMs}ms`;
+		marker.style.transitionDuration = `${dur}, ${dur}`;
+		if (radiusMarker) radiusMarker.style.transitionDuration = `${dur}, ${dur}`;
+
 		marker.style.left = `${x}px`;
-		marker.style.top = `${y}px`;
+		marker.style.top  = `${y}px`;
 
 		if (radiusMarker) {
 			radiusMarker.style.left = `${x}px`;
-			radiusMarker.style.top = `${y}px`;
-			radiusMarker.style.width = `${point.maxDistance * 2}px`;
-			radiusMarker.style.height = `${point.maxDistance * 2}px`;
+			radiusMarker.style.top  = `${y}px`;
 		}
 
 		status.innerText = `(${Math.round(x)}, ${Math.round(y)})`;
 	};
 
-	target?.addEventListener("pointerup", clickHandler as any);
+	/**
+	 * Unified pointer handler — runs in capture phase so it intercepts
+	 * clicks on POI markers (which call stopPropagation in bubble phase).
+	 */
+	const clickHandler = (e: PointerEvent) => {
+		if (!target) return;
+		const scale = getAppScale();
+		const rect  = target.getBoundingClientRect();
+
+		const rawX = (e.clientX - rect.left) / scale;
+		const rawY = (e.clientY - rect.top)  / scale;
+
+		// If the tap landed on a POI marker, prevent the overlay from opening
+		// and nudge the drone to the left so it isn't hidden under the icon.
+		const isPOI = !!(e.target as Element).closest(".poi-marker");
+		if (isPOI) e.stopPropagation();
+
+		placeMarkerAt(isPOI ? rawX - 200 : rawX, rawY);
+	};
+
+	// AbortController signal auto-removes this listener when the step ends
+	target?.addEventListener("pointerup", clickHandler, { capture: true, signal });
+
+	// Place drone at the configured initial position (flies in from top-left)
+	if (point.initial_position) {
+		placeMarkerAt(point.initial_position.x, point.initial_position.y);
+	}
 
 	const btn = create("button");
 	btn.innerText = t(point.submit_key ?? "challenges.common.submit", "Check Answer");
@@ -101,17 +168,17 @@ export function renderLocation(
 		);
 		const isCorrect = dist <= point.maxDistance;
 
-		// Show the actual correct solution for feedback
+		// Show the correct solution area
 		const solRadius = create("div");
 		solRadius.className = "quiz-solution-radius";
 		solRadius.style.left = `${point.solution.x}px`;
-		solRadius.style.top = `${point.solution.y}px`;
-		solRadius.style.width = `${point.maxDistance * 2}px`;
+		solRadius.style.top  = `${point.solution.y}px`;
+		solRadius.style.width  = `${point.maxDistance * 2}px`;
 		solRadius.style.height = `${point.maxDistance * 2}px`;
 		target?.append(solRadius);
 
-		// Cleanup interaction
-		target?.removeEventListener("pointerup", clickHandler as any);
+		// Cleanup: abort listener + remove edge guard
+		abortLocationStep();
 		radiusMarker?.remove();
 
 		onAction(isCorrect ? "right" : "wrong", placed);
@@ -129,6 +196,9 @@ export function renderSelection(
 	point: SelectionStoryPoint,
 	onAction: (outcome: QuizOutcome) => void,
 ): void {
+	// Safety: clean up any location step that may still be active
+	abortLocationStep();
+
 	content.innerHTML = "";
 	controls.innerHTML = "";
 

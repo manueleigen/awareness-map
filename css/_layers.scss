@@ -57,10 +57,98 @@
 	pointer-events: none;
 	transform: translate(-50%, -50%);
 	z-index: 5001;
+	// Duration is set dynamically by JS based on distance / DRONE_SPEED_PX_PER_SEC
+	transition-property: left, top;
+	transition-timing-function: cubic-bezier(0.34, 1.08, 0.64, 1);
+	transition-duration: 900ms; // fallback only
 
 	svg {
 		width: 300px;
-		height:  300px;
+		height: 300px;
+		transform-origin: center center;
+		animation: droneHover 2.8s ease-in-out infinite;
+	}
+}
+
+.quiz-location-radius {
+	// Radius circle follows the drone with the same timing
+	transition-property: left, top;
+	transition-timing-function: cubic-bezier(0.34, 1.08, 0.64, 1);
+	transition-duration: 900ms; // overridden by JS
+}
+
+@keyframes droneHover {
+	0%,
+	100% {
+		transform: rotate(-2deg) translateY(0px);
+	}
+	30% {
+		transform: rotate(1.5deg) translateY(-18px);
+	}
+	70% {
+		transform: rotate(-0.8deg) translateY(10px);
+	}
+}
+
+// ── Edge Guard ────────────────────────────────────────────────────────────────
+// Blocks accidental touches at screen edges; toggled via .hidden.
+// Lives permanently in index.html inside #app.
+$edge-guard-size: 100px; // change here to resize all four strips
+
+#edge-guard {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 1500; // above layers (z-index:1), below UI (z-index:2000)
+}
+
+.edge-guard {
+	position: absolute;
+	pointer-events: auto;
+	background: rgba(255, 0, 0, 0.3); // DEBUG — remove when satisfied
+
+	&--top {
+		top: 0;
+		left: 0;
+		right: 0;
+		height: $edge-guard-size;
+	}
+	&--right {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: $edge-guard-size;
+	}
+	&--bottom {
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: $edge-guard-size;
+	}
+	&--left {
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: $edge-guard-size;
+	}
+
+	&--info-box {
+		left: 0;
+		bottom: 0;
+		width: 569px;
+		height: 384px;
+	}
+	&--layer-toggles {
+		right: 0;
+		bottom: 0;
+		width: 190px;
+		height: 700px;
+	}
+	&--time-slider {
+		left: calc(44% - 50px);
+		bottom: 0;
+		width: 800px;
+		height: 130px;
 	}
 }
 

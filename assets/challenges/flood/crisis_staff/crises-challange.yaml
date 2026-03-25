@@ -25,6 +25,9 @@ story_points:
     submit_key: challenges.flood.crisis_staff.challenge.coord-selection.submit
     activeLayerIds: [social_media_crises]
     target: "#layers"
+    initial_position:  # Drone starting position when entering this step
+      x: 700
+      y: 500
     solution:
       x: 2414
       y: 757

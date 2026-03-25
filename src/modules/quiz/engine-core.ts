@@ -6,7 +6,7 @@ import { t } from "../translater.js";
 import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
-import { renderLocation, renderSelection } from "./render-map.js";
+import { renderLocation, renderSelection, abortLocationStep } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
 
 /** Local storage for the active quiz run. */
@@ -99,6 +99,11 @@ async function loadPoint(id: string): Promise<void> {
 	const point = currentStoryPoints.find((p) => p.id === id);
 	if (!point || !currentContent || !currentControls) return;
 
+	// Invalidate stale point/action so refreshCurrentPoint() is a no-op
+	// during the view update in step 4 (prevents location-quiz from re-rendering).
+	currentPoint = null;
+	currentOnAction = null;
+
 	// 1. Cleanup: Remove layers specifically added by the PREVIOUS step
 	if (app.quizStepLayers.size > 0) {
 		app.quizStepLayers.forEach((layerId) => {
@@ -113,6 +118,7 @@ async function loadPoint(id: string): Promise<void> {
 	// 2. Clear visual quiz markers and reset interactive states
 	// We don't use full resetLayers() here because it would trigger a redundant
 	// renderLayers() call and reset initially_visible layers we might want to keep.
+	abortLocationStep(); // removes edge guard + capture listener from any previous location step
 	clearQuizAnswers();
 
 	// 3. Handle automatic layer activation for THIS specific step
