@@ -26,7 +26,7 @@ story_points:
     activeLayerIds: [social_media_crises]
     target: "#layers"
     initial_position:  # Drone starting position when entering this step
-      x: 700
+      x: 500
       y: 500
     solution:
       x: 2414
