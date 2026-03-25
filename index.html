@@ -6,11 +6,10 @@
 		<title>Awareness-Map</title>
 		<!-- Content-Security-Policy: only allow scripts from this origin and unpkg CDN -->
 
+		<script type="importmap">
+			{ "imports": { "lottie-web": "./node_modules/lottie-web/build/player/esm/lottie.min.js" } }
+		</script>
 		<link rel="stylesheet" href="./css/style.css" />
-		<script
-			src="./src/modules/dotlottie/dotlottie-wc.js"
-			type="module"
-		></script>
 		<script type="module" src="./dist/js/app.js"></script>
 	</head>
 	<body>

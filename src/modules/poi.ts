@@ -3,7 +3,6 @@ import { create, loadJSON, loadTEXT } from "./lib.js";
 import { addPointerClick } from "./interactions.js";
 import { t } from "./translater.js";
 import { ContextLayer } from "./types.js";
-import { c } from "./dotlottie/decorate-C0oFmnNg.js";
 
 // Per-marker location data and poiSize per container — used by previewPOILayer
 const markerLocMap = new WeakMap<HTMLDivElement, any>();

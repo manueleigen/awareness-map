@@ -2,16 +2,22 @@ import { create } from './lib.js';
 import { LayerConfig, ContextLayer } from './types.js';
 
 /**
- * Helper to wait for the dotLottie instance to be fully initialized and loaded.
- * Necessary because the Web Component initializes asynchronously.
+ * Helper to wait for the lottie-web AnimationItem to be fully loaded.
+ * Polls until the instance is attached to the container, then waits for DOMLoaded.
  */
 export function waitForPlayerReady(player: any): Promise<any> {
     return new Promise((resolve) => {
-        const check = () => {
-            if (player.dotLottie && player.dotLottie.isLoaded) {
-                resolve(player.dotLottie);
+        const waitForLoad = (anim: any) => {
+            if (anim.isLoaded) {
+                resolve(anim);
             } else {
-                // Poll every 50ms until ready
+                anim.addEventListener('DOMLoaded', () => resolve(anim), { once: true } as any);
+            }
+        };
+        const check = () => {
+            if (player._lottieAnim) {
+                waitForLoad(player._lottieAnim);
+            } else {
                 setTimeout(check, 50);
             }
         };
@@ -68,7 +74,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
         // 2. Pointer Capture: Keeps the slider attached to the finger even if it slides far off-track.
         try { range.setPointerCapture(e.pointerId); } catch(err) {}
 
-        if (cachedCore?.isPlaying) cachedCore.pause();
+        if (cachedCore && !cachedCore.isPaused) cachedCore.pause();
 
         performUpdate();
     });
@@ -98,12 +104,8 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     const syncLottieFrame = () => {
         if (cachedCore) {
             const val = parseFloat(range.value);
-            if (typeof cachedCore.setFrame === 'function') {
-                const totalFrames = cachedCore.totalFrames || 100;
-                cachedCore.setFrame(Math.round((val / 100) * totalFrames));
-            } else if (typeof cachedCore.seek === 'function') {
-                cachedCore.seek(val);
-            }
+            const totalFrames = cachedCore.totalFrames || 100;
+            cachedCore.goToAndStop(Math.round((val / 100) * totalFrames), true);
         }
         lottieTicking = false;
     };
@@ -132,7 +134,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     if (player) {
         waitForPlayerReady(player).then(core => {
             cachedCore = core;
-            if (core.isPlaying) core.pause();
+            if (!core.isPaused) core.pause();
             performUpdate();
         }).catch(() => {});
     }

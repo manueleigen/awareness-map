@@ -1,3 +1,4 @@
+import lottie from "lottie-web";
 import { app } from "./state.js";
 import { create, loadJSON, loadYAML, loadTEXT, el } from "./lib.js";
 import { addPointerClick } from "./interactions.js";
@@ -128,14 +129,18 @@ export async function ensureLayerBuilt(
 					break;
 
 				case "dynamic-image":
-					const player = create("dotlottie-wc" as any);
-					player.id = `player-${config.id}`;
-					player.setAttribute("src", src);
-					player.setAttribute("autoplay", "true");
-					player.setAttribute("loop", "true");
-					player.setAttribute("useFrameInterpolation", "false");
-					player.setAttribute("backgroundColor", "transparent");
-					wrapper.append(player);
+					const container = create("div");
+					container.id = `player-${config.id}`;
+					container.style.width = "100%";
+					container.style.height = "100%";
+					wrapper.append(container);
+					(container as any)._lottieAnim = lottie.loadAnimation({
+						container,
+						renderer: "svg",
+						loop: true,
+						autoplay: true,
+						path: src,
+					});
 					break;
 				case "locations":
 					const poiContainer = await renderPOILayer(src, ctxLayer);
