@@ -8,8 +8,8 @@ story_points:
     slider_time: "14:00"
     slider_time_fixed: false
     activeLayerId: emergency_calls
-    solution: ["flood_emergency_call_02", "flood_emergency_call_03"]
-    wrong_options: ["flood_emergency_call_01"]
+    solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
+    wrong_options: ["flood_emergency_call_03"]
     minSelection: 2
     maxSelection: 2
     step: 1
