@@ -60,7 +60,17 @@
 	polygon,
 	path.st0,
 	.interactive-area {
-		fill: rgba(255, 70, 18, 0.3);
+		fill: rgba(255, 70, 18, 0.4);
+
+		&.active {
+			fill: var(--button-90);
+		}
+
+		&:active,
+		&.is-pressing {
+			fill: var(--secondary-inactive-90);
+		}
+
 	}
 }
 
