@@ -46,6 +46,24 @@
 	opacity: 0.5;
 }
 
+#layer-social_media_crises {
+	.poi-marker {
+		.poi-icon {
+			margin-right: -105px;
+			margin-bottom: -4px;
+		}
+	}
+}
+
+// Evakuierungszonen-Flächen haben geringere Deckkraft, wenn Bevölkerungsdichte aktiv ist
+#layer-population_density:not(.hidden) ~ #layer-evacuation_zones {
+	polygon,
+	path.st0,
+	.interactive-area {
+		fill: rgba(255, 70, 18, 0.3);
+	}
+}
+
 .quiz-location-marker {
 	position: absolute;
 	color: white;
