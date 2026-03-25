@@ -128,7 +128,7 @@ contexts:
               src_overlay: /assets/challenges/drone_oben.webp
               initially_visible: false
               quiz_only: true
-              z_index: 190
+              z_index: 80
               toggle_order: 5
               title: { de: "Drohnendaten", en: "Drone Data" }
               description: ## Nicht in verwendung..
