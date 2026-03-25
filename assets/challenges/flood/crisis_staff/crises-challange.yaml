@@ -16,7 +16,7 @@ story_points:
     minAnswers: 1
     maxAnswers: 1
     step: 1
-    total_steps: 3
+    total_steps: 4
 
   - id: coord-selection
     type: location-quiz
@@ -25,7 +25,7 @@ story_points:
     submit_key: challenges.flood.crisis_staff.challenge.coord-selection.submit
     activeLayerIds: [social_media_crises]
     target: "#layers"
-    initial_position:  # Drone starting position when entering this step
+    initial_position: # Drone starting position when entering this step
       x: 500
       y: 500
     solution:
@@ -33,13 +33,20 @@ story_points:
       y: 757
     maxDistance: 400
     step: 2
-    total_steps: 3
-    success_screen:
-      title_key: challenges.flood.crisis_staff.challenge.coord-selection.win.title
-      description_key: challenges.flood.crisis_staff.challenge.coord-selection.win.description
+    total_steps: 4
     next:
-      right: who-you-wanna-call
+      right: drone-win-screen
       wrong: fail-screen-2
+
+  - id: drone-win-screen
+    type: info
+    title_key: challenges.flood.crisis_staff.challenge.coord-selection.win.title
+    description_key: challenges.flood.crisis_staff.challenge.coord-selection.win.description
+    activeLayerId: drone_feed
+    next: who-you-wanna-call
+    continue_button_key: navigation.next
+    step: 3
+    total_steps: 4
 
   - id: who-you-wanna-call
     type: quiz
@@ -58,8 +65,8 @@ story_points:
       wrong: fail-screen-3
     minAnswers: 1
     maxAnswers: 1
-    step: 3
-    total_steps: 3
+    step: 4
+    total_steps: 4
 
   - id: win-screen
     type: info
