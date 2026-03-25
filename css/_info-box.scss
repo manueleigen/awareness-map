@@ -228,8 +228,9 @@
         content: "";
         width: 29px;
         height: 29px;
-        background: var(--button);
+        background: var(--button) url("../assets/icons/ui/checkmark.svg") center / contain no-repeat;
         border-radius: 5px;    
+        background-size: 65%;
       }
     }
   }

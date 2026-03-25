@@ -1,48 +1,5 @@
 @use "mixins" as *;
 
-// ── Onboarding ────────────────────────────────────────────────────────────────
-
-.onboarding-blocker {
-	position: fixed;
-	inset: 0;
-	z-index: 99999;
-	pointer-events: all;
-	background: transparent;
-	cursor: default;
-}
-
-.onboarding-hint {
-	position: fixed;
-	pointer-events: none;
-	z-index: 99;
-	opacity: 0;
-	transition: opacity 400ms ease;
-
-	&.visible {
-		opacity: 1;
-	}
-
-	&--flood {
-		// Rechts über dem Slider
-		bottom: 11.3%;
-		left: 44.1%;
-		width: 9%;
-
-		@include drop-shadow-dark-svg;
-	}
-
-	&--layer {
-		// Links neben den Layer-Toggles
-		right: 10%;
-		bottom: 22%;
-		width: 7.6%;
-
-		@include drop-shadow-dark-svg;
-	}
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-
 #layer-control {
 	position: fixed;
 	display: flex;

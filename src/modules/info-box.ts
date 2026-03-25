@@ -14,8 +14,6 @@ import { getQuizPath, getRoleSliderConfig } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
 import { abortLocationStep } from "./quiz/render-map.js";
 import { animateSliderToTime } from "./time-slider.js";
-import { runOnboarding } from "./onboarding.js";
-
 /**
  * Updates the entire application view based on app.view state.
  * Refreshes both the UI overlays and the map layers.
@@ -104,8 +102,7 @@ export function renderHome(): void {
 					app.currentScenario = scenarioId;
 					app.view = "role-select";
 					await resetLayers();
-					await updateView();
-					runOnboarding();
+				await updateView();
 				});
 			}
 
