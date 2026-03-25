@@ -64,7 +64,20 @@
 			}
 		},
 		{
-			"id": "critical_site_6s",
+			"id": "critical_site_6",
+			"class": "left-opening",
+			"x": 2212,
+			"y": 1095,
+			"translations": {
+				"name": { "de": "Kindergarten", "en": "Kindergarden" },
+				"status": {
+					"de": "Hier halten sich mehr als 70 Kleinkinder auf.",
+					"en": "More than 70 minors are staying here."
+				}
+			}
+		},
+		{
+			"id": "critical_site_7",
 			"class": "left-opening",
 			"x": 2995,
 			"y": 1516,
