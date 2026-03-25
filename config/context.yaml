@@ -90,14 +90,14 @@ contexts:
           slider_time: "13:30"
 
           layers:
-            social_media_police:
-              src: /assets/challenges/flood/police/social_media.json
-              icon: /assets/icons/social_media.svg
-              poi_icon: /assets/icons/marker_social_media.svg
-              initially_visible: true
-              z_index: 180
-              toggle_order: 4
-              title: { de: "Social Media", en: "Social Media" }
+            #social_media_police:
+            #  src: /assets/challenges/flood/police/social_media.json
+            #  icon: /assets/icons/social_media.svg
+            #  poi_icon: /assets/icons/marker_social_media.svg
+            #  initially_visible: false
+            #  z_index: 180
+            #  toggle_order: 4
+            #  title: { de: "Social Media", en: "Social Media" }
 
             evacuation_zones:
               src: /assets/challenges/flood/police/evacuation_zones.svg

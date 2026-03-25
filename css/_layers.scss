@@ -105,7 +105,7 @@ $edge-guard-size: 100px; // change here to resize all four strips
 .edge-guard {
 	position: absolute;
 	pointer-events: auto;
-	background: rgba(255, 0, 0, 0.3); // DEBUG — remove when satisfied
+	//background: rgba(255, 0, 0, 0.3); // DEBUG — remove when satisfied
 
 	&--top {
 		top: 0;
@@ -189,8 +189,13 @@ $edge-guard-size: 100px; // change here to resize all four strips
 }
 
 .quiz-pulse {
-	animation: quizPulse 1.5s 3;
+	animation: quizPulse 1.5s infinite;
 	border-radius: 50%;
+
+	&.overlay-open {
+		animation: none;
+		box-shadow: none;
+	}
 }
 
 @keyframes quizPulse {

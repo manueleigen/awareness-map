@@ -203,6 +203,9 @@ export async function showPOIOverlay(
 	// Append to the portal so the overlay renders above all layer stacking contexts
 	(app.ui.poiOverlayPortal ?? poiContainer).append(poiOverlay);
 
+	// Pause quiz pulse on this marker while its overlay is open
+	marker.classList.add("overlay-open");
+
 	// Track as the active overlay only in single mode
 	if (!skipSingleMode) {
 		app.ui.poiOverlay = poiOverlay;
@@ -253,15 +256,22 @@ export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
 function closeOverlayWithAnimation(overlay: HTMLElement): void {
 	if (overlay.classList.contains("is-closing")) return;
 	overlay.classList.add("is-closing");
-	overlay.addEventListener("animationend", () => overlay.remove(), {
-		once: true,
-	});
+	// Resume pulse on the linked marker once the overlay is gone
+	const markerId = overlay.dataset.markerId;
+	overlay.addEventListener("animationend", () => {
+		overlay.remove();
+		if (markerId) document.getElementById(markerId)?.classList.remove("overlay-open");
+	}, { once: true });
 	if (app.ui.poiOverlay === overlay) app.ui.poiOverlay = null;
 }
 
 /** Immediately removes all open overlays without animation. */
 function closeAllOverlaysNow(): void {
-	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => el.remove());
+	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => {
+		const markerId = el.dataset.markerId;
+		if (markerId) document.getElementById(markerId)?.classList.remove("overlay-open");
+		el.remove();
+	});
 	app.ui.poiOverlay = null;
 }
 
