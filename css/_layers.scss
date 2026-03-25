@@ -88,6 +88,39 @@
 	}
 }
 
+.quiz-location-crosshair {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+	z-index: 4998;
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		background: white;
+		border-radius: 1px;
+	}
+
+	&::before {
+		width: 100%;
+		height: 5px;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+	}
+
+	&::after {
+		width: 5px;
+		height: 100%;
+		left: 50%;
+		top: 0;
+		transform: translateX(-50%);
+	}
+}
+
 .quiz-location-radius {
 	// Radius circle follows the drone with the same timing
 	transition-property: left, top;

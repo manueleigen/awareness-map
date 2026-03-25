@@ -6,7 +6,7 @@ import { t } from "../translater.js";
 import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
-import { renderLocation, renderSelection, abortLocationStep } from "./render-map.js";
+import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
 
 /** Local storage for the active quiz run. */
@@ -44,12 +44,7 @@ export function refreshCurrentPoint(): void {
 			currentOnAction,
 		);
 	else if (currentPoint.type === "location-quiz")
-		renderLocation(
-			currentContent,
-			currentControls,
-			currentPoint,
-			currentOnAction,
-		);
+		refreshLocationTranslations();
 	else if (
 		currentPoint.type === "area-selection-quiz" ||
 		currentPoint.type === "point-selection-quiz"

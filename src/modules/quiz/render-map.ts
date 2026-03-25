@@ -20,6 +20,15 @@ const DRONE_MIN_DURATION_MS  = 600; // minimum travel time for very short moves
 // Held across calls so any entry point (new step, language switch, …) can clean up.
 let locationStepAbort: AbortController | null = null;
 let locationDroneEl: HTMLDivElement | null = null;
+let locationCrosshairEl: HTMLDivElement | null = null;
+
+// ── Location-step text refs — updated in-place on language change ─────────────
+let locationCurrentPoint: LocationStoryPoint | null = null;
+let locationPlaced: { x: number; y: number } | null = null;
+let locationTitleEl: HTMLHeadingElement | null = null;
+let locationQuestionEl: HTMLParagraphElement | null = null;
+let locationStatusEl: HTMLParagraphElement | null = null;
+let locationSubmitBtnEl: HTMLButtonElement | null = null;
 
 /**
  * Hides the edge guard, removes the drone marker, and clears the capture listener.
@@ -30,7 +39,35 @@ export function abortLocationStep(): void {
 	locationStepAbort = null;
 	locationDroneEl?.remove();
 	locationDroneEl = null;
+	locationCrosshairEl?.remove();
+	locationCrosshairEl = null;
+	locationCurrentPoint = null;
+	locationPlaced = null;
+	locationTitleEl = null;
+	locationQuestionEl = null;
+	locationStatusEl = null;
+	locationSubmitBtnEl = null;
 	document.getElementById("edge-guard")?.classList.add("hidden");
+}
+
+/**
+ * Updates only the translatable text in the active location step.
+ * Called on language change instead of re-rendering the full step (which would reset the drone).
+ */
+export function refreshLocationTranslations(): void {
+	if (!locationCurrentPoint) return;
+	if (locationTitleEl && locationCurrentPoint.title_key)
+		locationTitleEl.innerHTML = t(locationCurrentPoint.title_key);
+	if (locationQuestionEl)
+		locationQuestionEl.innerHTML = t(locationCurrentPoint.question_key);
+	// Only update status if no coordinates have been locationPlaced yet
+	if (locationStatusEl && !locationPlaced)
+		locationStatusEl.innerHTML = t("challenges.common.click_to_place", "Click to place a point.");
+	if (locationSubmitBtnEl)
+		locationSubmitBtnEl.innerText = t(
+			locationCurrentPoint.submit_key ?? "challenges.common.submit",
+			"Check Answer",
+		);
 }
 
 /**
@@ -48,26 +85,31 @@ export function renderLocation(
 	content.innerHTML = "";
 	controls.innerHTML = "";
 
+	locationCurrentPoint = point;
+	locationPlaced = null;
+
 	if (point.title_key) {
 		const title = create("h2");
 		title.innerHTML = t(point.title_key);
+		locationTitleEl = title;
 		content.append(title);
 	}
 
 	const question = create("p");
 	question.innerHTML = t(point.question_key);
+	locationQuestionEl = question;
 	const status = create("p");
 	status.className = "quiz-status";
 	status.innerHTML = t(
 		"challenges.common.click_to_place",
 		"Click to place a point.",
 	);
+	locationStatusEl = status;
 	content.append(question);
 
 	const target = document.querySelector<HTMLElement>(point.target);
 	if (target) target.classList.add("quiz-location-pulse");
 
-	let placed: { x: number; y: number } | null = null;
 	let marker: HTMLDivElement | null = null;
 	let radiusMarker: HTMLDivElement | null = null;
 
@@ -78,7 +120,7 @@ export function renderLocation(
 
 	/** Places or moves the drone to the given native-resolution coordinates. */
 	const placeMarkerAt = (x: number, y: number) => {
-		placed = { x, y };
+		locationPlaced = { x, y };
 
 		if (!marker) {
 			marker = create("div");
@@ -134,11 +176,24 @@ export function renderLocation(
 	 */
 	const clickHandler = (e: PointerEvent) => {
 		if (!target) return;
+
+		// Clicks inside an open POI overlay should not move the drone
+		if ((e.target as Element).closest(".poi-overlay")) return;
+
 		const scale = getAppScale();
 		const rect  = target.getBoundingClientRect();
 
 		const rawX = (e.clientX - rect.left) / scale;
 		const rawY = (e.clientY - rect.top)  / scale;
+
+		// Place or move the crosshair at the exact tap position
+		if (!locationCrosshairEl) {
+			locationCrosshairEl = create("div");
+			locationCrosshairEl.className = "quiz-location-crosshair";
+			target.append(locationCrosshairEl);
+		}
+		locationCrosshairEl.style.left = `${rawX}px`;
+		locationCrosshairEl.style.top  = `${rawY}px`;
 
 		// If the tap landed on a POI marker, prevent the overlay from opening
 		// and nudge the drone to the left so it isn't hidden under the icon.
@@ -158,13 +213,14 @@ export function renderLocation(
 
 	const btn = create("button");
 	btn.innerText = t(point.submit_key ?? "challenges.common.submit", "Check Answer");
+	locationSubmitBtnEl = btn;
 	addPointerClick(btn, () => {
-		if (!placed) return;
+		if (!locationPlaced) return;
 
 		// Calculate Euclidean distance to solution center
 		const dist = Math.sqrt(
-			Math.pow(placed.x - point.solution.x, 2) +
-				Math.pow(placed.y - point.solution.y, 2),
+			Math.pow(locationPlaced.x - point.solution.x, 2) +
+				Math.pow(locationPlaced.y - point.solution.y, 2),
 		);
 		const isCorrect = dist <= point.maxDistance;
 
@@ -177,11 +233,17 @@ export function renderLocation(
 		solRadius.style.height = `${point.maxDistance * 2}px`;
 		target?.append(solRadius);
 
+		const solCrosshair = create("div");
+		solCrosshair.className = "quiz-location-crosshair quiz-solution-crosshair";
+		solCrosshair.style.left = `${point.solution.x}px`;
+		solCrosshair.style.top  = `${point.solution.y}px`;
+		target?.append(solCrosshair);
+
 		// Cleanup: abort listener + remove edge guard
 		abortLocationStep();
 		radiusMarker?.remove();
 
-		onAction(isCorrect ? "right" : "wrong", placed);
+		onAction(isCorrect ? "right" : "wrong", locationPlaced);
 	});
 	controls.append(btn);
 }
