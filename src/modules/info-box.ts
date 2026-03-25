@@ -6,6 +6,7 @@ import {
 	context,
 	renderLayers,
 	resetLayers,
+	resetSliders,
 	previewActivePOILayers,
 } from "./layers.js";
 import { create, sleep } from "./lib.js";
@@ -102,7 +103,7 @@ export function renderHome(): void {
 					app.currentScenario = scenarioId;
 					app.view = "role-select";
 					await resetLayers();
-				await updateView();
+					await updateView();
 				});
 			}
 
@@ -276,9 +277,11 @@ export async function resetApp(): Promise<void> {
 	app.currentScenario = null;
 	app.currentRole = null;
 	app.view = "home";
+	console.log(app);
 
 	// Comprehensive layer reset (clears areas, restores initial visibility)
 	await resetLayers();
+	resetSliders();
 
 	await updateView();
 }
@@ -292,5 +295,6 @@ export async function backToRoles(): Promise<void> {
 	app.view = "role-select";
 
 	await resetLayers();
+	resetSliders();
 	await updateView();
 }

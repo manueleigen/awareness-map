@@ -1,6 +1,6 @@
 import { app } from './state.js';
 import { runQuiz } from './quiz/engine-core.js';
-import { resetLayers } from './layers.js';
+import { resetLayers, resetSliders } from './layers.js';
 
 /**
  * Public entry point for starting a quiz/challenge.
@@ -36,6 +36,7 @@ export async function startQuiz(quizPath: string): Promise<void> {
             
             // Comprehensive layer reset (restores default visibility)
             resetLayers().then(() => {
+                resetSliders();
                 // Trigger a global UI update to show results
                 document.dispatchEvent(new CustomEvent('app-request-view-update'));
             });

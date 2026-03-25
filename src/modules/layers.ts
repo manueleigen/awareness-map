@@ -436,6 +436,14 @@ export function rePreviewPOILayer(layerSelector: string): void {
 	previewPOILayer(layerEl);
 }
 
+/** Resets all slider positions to the start and syncs the lottie frame via input event. */
+export function resetSliders(): void {
+	document.querySelectorAll<HTMLInputElement>(".range-slider").forEach((range) => {
+		range.value = "0";
+		range.dispatchEvent(new Event("input"));
+	});
+}
+
 /**
  * Clears the layer cache, forcing a complete rebuild of all layer DOM elements
  * upon the next render. Useful for language changes or system resets.
@@ -477,10 +485,18 @@ export async function resetLayers(): Promise<void> {
 			});
 	});
 
-	// 5. Release any slider locks from fixed story points or role entry
+	// 5. Remove crosshair markers added by location/solution steps
+	document.querySelectorAll(".quiz-location-crosshair, .quiz-solution-crosshair").forEach((el) => el.remove());
+
+	// 6. Reset POI-selection quiz mode
+	document.documentElement.dataset.quizPoiSelect = "0";
+	document.documentElement.dataset.quizPoiSelectTarget = "";
+
+	// 7. Release any slider locks from fixed story points or role entry
 	document.querySelectorAll<HTMLElement>('.slider-wrapper.slider-fixed').forEach((el) => {
 		el.classList.remove('slider-fixed');
 	});
+
 
 	// 6. Re-sync with context (restores initially_visible layers)
 	syncActiveLayers();
