@@ -26,8 +26,8 @@ story_points:
     activeLayerIds: [social_media_crises]
     target: "#layers"
     solution:
-      x: 2550
-      y: 650
+      x: 2414
+      y: 757
     maxDistance: 400
     step: 2
     total_steps: 3

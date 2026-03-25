@@ -289,15 +289,9 @@ async function buildControlUI(
 			const slider = sliderElements.get(config.id);
 			if (slider) slider.classList.toggle("hidden", !nowActive);
 
-			// Preview all POIs when the layer is manually toggled on;
-			// remove from done-set when hidden so re-show fires again
-			if (config.type === "locations") {
-				if (nowActive) {
-					layerPreviewDone.add(config.id);
-					previewPOILayer(layerEl);
-				} else {
-					layerPreviewDone.delete(config.id);
-				}
+			// Cancel any running preview when a location layer is hidden
+			if (config.type === "locations" && !nowActive) {
+				hidePOIOverlay();
 			}
 		});
 	}
@@ -307,9 +301,7 @@ function syncActiveLayers(): void {
 	if (!context) return;
 	const process = (map: Record<string, ContextLayer>) => {
 		Object.entries(map).forEach(([id, ctx]) => {
-			const shouldActivate =
-				ctx.initially_visible ||
-				(ctx.quiz_only && app.view === "map");
+			const shouldActivate = ctx.initially_visible && !ctx.quiz_only;
 			if (shouldActivate) {
 				if (ctx.map_only && app.view !== "map") return;
 				app.activeLayers.add(id);

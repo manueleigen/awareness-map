@@ -97,7 +97,7 @@ layers:
     type: static-image
     title_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.title
     description_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.description
-    toggle: available
+    toggle: hidden
     available_from: role
     interaction: inspect-area
 

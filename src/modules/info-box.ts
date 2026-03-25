@@ -65,9 +65,6 @@ export async function updateView(): Promise<void> {
 	// Always sync map layers with the current state/context
 	await renderLayers();
 
-	// Show all POI overlays briefly for newly visible location layers
-	previewActivePOILayers();
-
 	// Notify that the view update is complete (useful for quiz coordination)
 	document.dispatchEvent(new CustomEvent("app-view-updated"));
 }
@@ -179,13 +176,16 @@ export function renderRoleSelection(): void {
 					app.view = "map";
 					await resetLayers();
 					await updateView();
+					previewActivePOILayers();
 					const sliderCfg = getRoleSliderConfig();
 					if (sliderCfg) {
 						const targetLayers = sliderCfg.layer
 							? [sliderCfg.layer]
-							: Object.keys(context?.scenarios[app.currentScenario!]?.layers ?? {});
+							: Object.keys(
+									context?.scenarios[app.currentScenario!]?.layers ?? {},
+								);
 						targetLayers.forEach((id) =>
-							animateSliderToTime(id, sliderCfg.time, sliderCfg.fixed)
+							animateSliderToTime(id, sliderCfg.time, sliderCfg.fixed),
 						);
 					}
 				});

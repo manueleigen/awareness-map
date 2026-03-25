@@ -48,6 +48,7 @@
 		},
 		{
 			"id": "flood_social_media_4",
+			"class": "left-opening",
 			"x": 2850,
 			"y": 1546,
 			"translations": {
