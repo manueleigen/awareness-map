@@ -100,14 +100,45 @@
 		margin: 48px 0 0 95px;
 	}
 
-	&--social_media_police, &--social_media_crises {
+	&--social_media_police,
+	&--social_media_crises {
 		margin: 45px 0 0 150px;
 	}
 
 	p {
 		margin-top: 5px;
 	}
+}
 
+.poi-overlay-image {
+	width: 100%;
+	aspect-ratio: calc(16 / 9);
+	border-radius: 32px 45px 0 0;
+	overflow: hidden;
+	flex-shrink: 0;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+}
+
+.poi-overlay.has-image {
+	display: flex;
+	flex-direction: column;
+
+	> .poi-close-btn {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		box-shadow: 0 0 0 3px white;
+		border-radius: 50%;
+	}
+}
+
+.poi-overlay {
 	&.left-opening {
 		transform-origin: right top;
 		margin: 43px 0 0 -390px;
@@ -116,7 +147,8 @@
 			margin: 43px 0 0 -370px;
 		}
 
-		&.poi-overlay--social_media_police, &.poi-overlay--social_media_crises {
+		&.poi-overlay--social_media_police,
+		&.poi-overlay--social_media_crises {
 			margin: 45px 0 0 -325px;
 		}
 

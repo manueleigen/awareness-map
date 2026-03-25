@@ -9,7 +9,6 @@ import {
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
-import { rePreviewPOILayer } from "../layers.js";
 
 // ── Drone speed ───────────────────────────────────────────────────────────────
 // Adjust this value to change how fast the drone flies (native pixels / second).
@@ -270,10 +269,6 @@ export function renderSelection(
 	document.documentElement.dataset.quizPoiSelectTarget =
 		point.type === "point-selection-quiz" ? (point.target?.trim() ?? "") : "";
 
-	// Re-trigger the preview so overlays are rebuilt with the now-active Select button
-	if (point.type === "point-selection-quiz" && point.target) {
-		rePreviewPOILayer(point.target.trim());
-	}
 
 	if (point.title_key) {
 		const title = create("h2");

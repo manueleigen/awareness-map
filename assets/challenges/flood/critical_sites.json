@@ -55,6 +55,7 @@
 			"class": "left-opening",
 			"x": 2336,
 			"y": 1419,
+			"image": "assets/challenges/flood/flood-image.jpg",
 			"translations": {
 				"name": { "de": "Krankenhaus", "en": "Hospital" },
 				"status": {

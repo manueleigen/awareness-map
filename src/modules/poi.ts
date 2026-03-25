@@ -10,6 +10,8 @@ const containerPoiSizeMap = new WeakMap<HTMLDivElement, number>();
 
 // Timer for the 3-second auto-close after layer preview
 let previewTimeout: ReturnType<typeof setTimeout> | null = null;
+// Incremented on every hidePOIOverlay() call — in-flight previews check this to self-cancel
+let previewGeneration = 0;
 
 /**
  * Renders a layer containing Point of Interest (POI) markers.
@@ -146,7 +148,21 @@ export async function showPOIOverlay(
 		}
 	});
 
-	head.append(closeBtn);
+	// If the location has an image, add it above the content and move the
+	// close button onto the overlay directly so it floats over the image.
+	if (loc.image) {
+		poiOverlay.classList.add("has-image");
+		const imageEl = create("div");
+		imageEl.className = "poi-overlay-image";
+		const img = document.createElement("img") as HTMLImageElement;
+		img.src = loc.image;
+		img.alt = "";
+		imageEl.append(img);
+		poiOverlay.append(imageEl);
+		poiOverlay.append(closeBtn); // floats over image
+	} else {
+		head.append(closeBtn);
+	}
 	content.append(head);
 
 	// Body section (optional Status Text / Description)
@@ -222,11 +238,12 @@ export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
 	const poiSize = containerPoiSizeMap.get(poiContainer);
 	if (poiSize === undefined) return;
 
-	// Cancel any previous preview
+	// Cancel any previous preview and claim a new generation token
 	if (previewTimeout !== null) {
 		clearTimeout(previewTimeout);
 		previewTimeout = null;
 	}
+	const myGeneration = ++previewGeneration;
 	closeAllOverlaysNow();
 
 	// Open all markers simultaneously (skip single-at-a-time)
@@ -235,11 +252,15 @@ export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
 	);
 	await Promise.all(
 		markers.map((marker) => {
+			if (previewGeneration !== myGeneration) return Promise.resolve();
 			const loc = markerLocMap.get(marker);
 			if (loc) return showPOIOverlay(poiContainer, loc, poiSize, marker, true);
 			return Promise.resolve();
 		}),
 	);
+
+	// Abort if hidePOIOverlay() was called while we were awaiting
+	if (previewGeneration !== myGeneration) return;
 
 	// Auto-close with animation after 3 seconds
 	previewTimeout = setTimeout(() => {
@@ -279,6 +300,7 @@ function closeAllOverlaysNow(): void {
  * Used during view transitions and layer resets.
  */
 export function hidePOIOverlay(): void {
+	previewGeneration++; // invalidates any in-flight previewPOILayer call
 	if (previewTimeout !== null) {
 		clearTimeout(previewTimeout);
 		previewTimeout = null;

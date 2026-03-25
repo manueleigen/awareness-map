@@ -277,7 +277,6 @@ export async function resetApp(): Promise<void> {
 	app.currentScenario = null;
 	app.currentRole = null;
 	app.view = "home";
-	console.log(app);
 
 	// Comprehensive layer reset (clears areas, restores initial visibility)
 	await resetLayers();
