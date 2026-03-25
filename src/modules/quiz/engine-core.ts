@@ -14,6 +14,10 @@ let currentStoryPoints: StoryPoint[] = [];
 let currentContent: HTMLElement | null = null;
 let currentControls: HTMLElement | null = null;
 let currentOnFinish: ((status: "passed" | "failed") => void) | null = null;
+let currentPoint: StoryPoint | null = null;
+let currentOnAction:
+	| ((outcome: boolean | QuizOutcome, resultData?: any) => void)
+	| null = null;
 
 /**
  * Temporary state shared between steps (e.g., coordinates from a location step
@@ -21,6 +25,42 @@ let currentOnFinish: ((status: "passed" | "failed") => void) | null = null;
  */
 let lastLocationResult: { x: number; y: number; maxDistance: number } | null =
 	null;
+
+/**
+ * Re-renders the current quiz step with fresh translations.
+ * Called when the language changes mid-quiz.
+ */
+export function refreshCurrentPoint(): void {
+	if (!currentPoint || !currentContent || !currentControls || !currentOnAction)
+		return;
+	renderProgress(currentContent, currentPoint);
+	if (currentPoint.type === "info")
+		renderInfo(currentContent, currentControls, currentPoint, currentOnAction);
+	else if (currentPoint.type === "quiz")
+		renderChoice(
+			currentContent,
+			currentControls,
+			currentPoint,
+			currentOnAction,
+		);
+	else if (currentPoint.type === "location-quiz")
+		renderLocation(
+			currentContent,
+			currentControls,
+			currentPoint,
+			currentOnAction,
+		);
+	else if (
+		currentPoint.type === "area-selection-quiz" ||
+		currentPoint.type === "point-selection-quiz"
+	)
+		renderSelection(
+			currentContent,
+			currentControls,
+			currentPoint,
+			currentOnAction,
+		);
+}
 
 /** Exported getter for spatial filtering in render-map.ts */
 export function getLastLocationResult() {
@@ -65,7 +105,7 @@ async function loadPoint(id: string): Promise<void> {
 			app.activeLayers.delete(layerId);
 			// Release any slider lock from the previous step
 			const wrapper = document.getElementById(`slider-wrapper-${layerId}`);
-			wrapper?.classList.remove('slider-fixed');
+			wrapper?.classList.remove("slider-fixed");
 		});
 		app.quizStepLayers.clear();
 	}
@@ -79,8 +119,6 @@ async function loadPoint(id: string): Promise<void> {
 	const layersToActivate =
 		point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []);
 
-	console.log(layersToActivate);
-	console.log(app.activeLayers);
 	if (layersToActivate.length > 0) {
 		layersToActivate.forEach((layerId) => {
 			if (!app.activeLayers.has(layerId)) {
@@ -106,11 +144,17 @@ async function loadPoint(id: string): Promise<void> {
 			? [point.slider_time_layer]
 			: layersToActivate;
 		targetLayers.forEach((layerId) => {
-			animateSliderToTime(layerId, point.slider_time!, point.slider_time_fixed ?? false);
+			animateSliderToTime(
+				layerId,
+				point.slider_time!,
+				point.slider_time_fixed ?? false,
+			);
 		});
 	}
 
 	renderProgress(currentContent, point);
+
+	currentPoint = point;
 
 	/**
 	 * Internal callback for renderers to signal an action/answer.
@@ -122,6 +166,7 @@ async function loadPoint(id: string): Promise<void> {
 		}
 		handleAction(point, outcome);
 	};
+	currentOnAction = onAction;
 
 	// Delegate to specialized renderers
 	if (point.type === "info")
@@ -140,10 +185,7 @@ async function loadPoint(id: string): Promise<void> {
 /**
  * Decides what happens next after a user action.
  */
-function handleAction(
-	point: StoryPoint,
-	outcome: boolean | QuizOutcome,
-): void {
+function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
 	if (point.terminalStatus && currentOnFinish) {
 		// Cleanup layers from the final step before finishing
@@ -162,18 +204,17 @@ function handleAction(
 	} else {
 		// Convert boolean outcome to status if needed (legacy support)
 		const status: QuizOutcome =
-			typeof outcome === "boolean"
-				? outcome
-					? "right"
-					: "wrong"
-				: outcome;
+			typeof outcome === "boolean" ? (outcome ? "right" : "wrong") : outcome;
 
+		const next = point.next as Record<string, string | undefined>;
 		if (status === "right") {
 			nextId = point.next.right;
-		} else if (status === "half") {
-			nextId = point.next.half || point.next.wrong; // Fallback to wrong
+		} else if (next[status]) {
+			nextId = next[status] as string;
+		} else if (status === "half-wrong") {
+			nextId = point.next.half ?? point.next.wrong;
 		} else {
-			nextId = point.next.wrong;
+			nextId = point.next.wrong; // fallback for wrong-neutral, all-neutral, all-wrong
 		}
 	}
 

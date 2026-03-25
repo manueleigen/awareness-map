@@ -126,9 +126,29 @@ challenges:
           half-fail:
             title: Almost correct
             description: >
-              You prioritized one important area, but the second choice was not ideal.
+              You prioritized one of the two critical emergency calls correctly, but your second choice wasn't optimal.
               <br><div class="spacer"></div>
-              <strong>Either an important emergency call was overlooked or you chose an area that will soon no longer be accessible.</strong>
+              <strong>Another call would have saved more lives.</strong>
+          half-wrong:
+            title: Half correct
+            description: >
+              One of your deployments was correctly prioritized —
+              but your second deployment was not a sensible use of scarce resources during this crisis.
+              <br><div class="spacer"></div>
+              <strong>Consider which emergency calls are truly life-threatening.</strong>
+          wrong-neutral:
+            title: Failed
+            description: >
+              Neither of your chosen deployments was truly critical.
+              One of them was clearly misplaced in a flood disaster.
+              <br><div class="spacer"></div>
+              <strong>Please reconsider!</strong>
+          all-neutral:
+            title: Not optimal
+            description: >
+              Your selection wasn't wrong, but it wasn't optimal either.
+              <br><div class="spacer"></div>
+              <strong>The truly life-threatening emergency calls were not prioritized.</strong>
           fail:
             title: Failed
             description: >
@@ -167,11 +187,30 @@ challenges:
               <br><div class="spacer"></div>
               <strong>You prioritized the most vulnerable residential areas while keeping access routes to the hospital clear for emergency services.</strong>
           half-fail:
-            title: Partly successful
+            title: Almost correct
             description: >
-              You protected one important zone, but the second choice was not ideal.
+              Almost! One of your areas is not as urgent as you think.
               <br><div class="spacer"></div>
-              <strong>Either a densely populated area was overlooked or an important traffic route was blocked.</strong>
+              <strong>One of the chosen zones could have deployed resources more effectively.</strong>
+          half-wrong:
+            title: Half correct
+            description: >
+              One of your zones is correct —
+              but the other blocks the access road to the hospital!
+              <br><div class="spacer"></div>
+              <strong>Critical infrastructure must remain accessible at all times.</strong>
+          wrong-neutral:
+            title: Failed
+            description: >
+              The evacuation blocks the access road to the hospital!
+              <br><div class="spacer"></div>
+              <strong>Critical infrastructure must remain accessible even in a crisis.</strong>
+          all-neutral:
+            title: Resources wasted
+            description: >
+              You are not deploying your emergency forces effectively and are wasting resources.
+              <br><div class="spacer"></div>
+              <strong>The truly endangered areas were not prioritized.</strong>
           fail:
             title: Failed
             description: >

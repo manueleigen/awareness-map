@@ -126,9 +126,29 @@ challenges:
           half-fail:
             title: Fast richtig
             description: >
-              Du hast zwar einen wichtigen Bereich priorisiert, aber die zweite Wahl war nicht optimal.
+              Du hast einen der beiden kritischen Notrufe richtig priorisiert, aber die zweite Wahl war nicht optimal.
               <br><div class="spacer"></div>
-              <strong>Entweder wurde ein wichtiger Notruf übersehen oder ein Bereich gewählt, der bald nicht mehr erreichbar ist.</strong>
+              <strong>Ein weiterer Notruf hätte mehr Leben gerettet.</strong>
+          half-wrong:
+            title: Halb richtig
+            description: >
+              Einer deiner Einsätze war richtig priorisiert —
+              aber dein zweiter Einsatz war in dieser Krisenlage keine sinnvolle Nutzung knapper Ressourcen.
+              <br><div class="spacer"></div>
+              <strong>Überlege, welche Notrufe wirklich lebensbedrohlich sind.</strong>
+          wrong-neutral:
+            title: Fehlgeschlagen
+            description: >
+              Keiner deiner gewählten Einsätze war wirklich kritisch.
+              Einer davon war in einer Flutkatastrophe eindeutig falsch gesetzt.
+              <br><div class="spacer"></div>
+              <strong>Bitte noch einmal überlegen!</strong>
+          all-neutral:
+            title: Nicht optimal
+            description: >
+              Deine Auswahl war nicht falsch, aber auch nicht optimal.
+              <br><div class="spacer"></div>
+              <strong>Die wirklich lebensbedrohlichen Notrufe wurden nicht priorisiert.</strong>
           fail:
             title: Fehlgeschlagen
             description: >
@@ -166,15 +186,34 @@ challenges:
               <br><div class="spacer"></div>
               <strong>Du hast die am stärksten gefährdeten Wohngebiete priorisiert und gleichzeitig die Zufahrtswege für Rettungskräfte zum Krankenhaus freigehalten.</strong>
           half-fail:
-            title: Teilweise erfolgreich
+            title: Fast richtig
             description: >
-              Du hast zwar eine wichtige Zone geschützt, aber die andere Wahl war nicht optimal.
+              Fast richtig! Einer deiner Bereiche ist nicht so akut wie du denkst.
               <br><div class="spacer"></div>
-              <strong>Entweder wurde ein dicht besiedeltes Gebiet übersehen oder eine wichtige Verkehrsader blockiert.</strong>
+              <strong>Eine der gewählten Zonen hätte die Ressourcen sinnvoller eingesetzt.</strong>
+          half-wrong:
+            title: Halb richtig
+            description: >
+              Eine deiner Zonen ist korrekt —
+              aber die andere blockiert die Zugangsstraße zum Krankenhaus!
+              <br><div class="spacer"></div>
+              <strong>Kritische Infrastruktur muss erreichbar bleiben.</strong>
+          wrong-neutral:
+            title: Fehlgeschlagen
+            description: >
+              Durch die Evakuierung wird die Zugangsstraße zum Krankenhaus blockiert!
+              <br><div class="spacer"></div>
+              <strong>Kritische Infrastruktur muss auch im Krisenfall erreichbar bleiben.</strong>
+          all-neutral:
+            title: Ressourcen verschwendet
+            description: >
+              Du setzt deine Einsatzkräfte nicht effektiv ein und vergeudest Ressourcen.
+              <br><div class="spacer"></div>
+              <strong>Die wirklich gefährdeten Bereiche wurden nicht priorisiert.</strong>
           fail:
             title: Fehlgeschlagen
             description: >
-              Die Evakuierungsentscheidung war nicht ausreichend. 
+              Die Evakuierungsentscheidung war nicht ausreichend.
               <br><div class="spacer"></div>
               <strong>Wichtige Zonen wurden überflutet, während Ressourcen in weniger kritischen Bereichen gebunden waren.</strong>
 
