@@ -90,6 +90,7 @@
 	transform-origin: left top;
 	margin: 43px 0 0 118px;
 	animation: poi-pop-in 350ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+	@include drop-shadow;
 
 	&.is-closing {
 		animation: poi-pop-out 500ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
@@ -106,8 +107,6 @@
 	p {
 		margin-top: 5px;
 	}
-
-	@include drop-shadow;
 
 	&.left-opening {
 		transform-origin: right top;

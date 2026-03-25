@@ -307,7 +307,10 @@ function syncActiveLayers(): void {
 	if (!context) return;
 	const process = (map: Record<string, ContextLayer>) => {
 		Object.entries(map).forEach(([id, ctx]) => {
-			if (ctx.initially_visible) {
+			const shouldActivate =
+				ctx.initially_visible ||
+				(ctx.quiz_only && app.view === "map");
+			if (shouldActivate) {
 				if (ctx.map_only && app.view !== "map") return;
 				app.activeLayers.add(id);
 			}
@@ -341,8 +344,8 @@ function getAvailableLayers(): LayerConfig[] {
 
 	const processLayers = (map: Record<string, ContextLayer>) => {
 		Object.entries(map).forEach(([id, ctx]) => {
-			// Only include if NOT quiz_only, OR if specifically activated by the current quiz step
-			if (!ctx.quiz_only || app.quizStepLayers.has(id)) {
+			// Include if: not quiz_only, OR activated by current quiz step, OR in the map-view (challenge intro)
+			if (!ctx.quiz_only || app.quizStepLayers.has(id) || app.view === "map") {
 				availableIds.add(id);
 			}
 		});
