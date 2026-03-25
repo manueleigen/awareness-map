@@ -82,11 +82,9 @@ function setupGlobalListeners(): void {
 		// Allow clicking the labels (English/Deutsch) to toggle the switch
 		const langContainer = languageSwitch.closest("#language-switch");
 		if (langContainer) {
-			langContainer.querySelectorAll("span").forEach((span) => {
-				addPointerClick(span as HTMLElement, () => {
-					languageSwitch.checked = !languageSwitch.checked;
-					languageSwitch.dispatchEvent(new Event("change"));
-				});
+			addPointerClick(langContainer as HTMLElement, () => {
+				languageSwitch.checked = !languageSwitch.checked;
+				languageSwitch.dispatchEvent(new Event("change"));
 			});
 		}
 	}

@@ -4,11 +4,21 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Awareness-Map</title>
+		<!-- Content-Security-Policy: only allow scripts from this origin and unpkg CDN -->
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="
+				default-src 'self';
+				script-src 'self' https://unpkg.com;
+				style-src 'self' 'unsafe-inline';
+				img-src 'self' data: blob:;
+				connect-src 'self' blob:;
+				worker-src blob:;
+				font-src 'self';
+			"
+		/>
 		<link rel="stylesheet" href="./css/style.css" />
-		<script
-			src="./src/modules/dotlottie/dotlottie-wc.js"
-			type="module"
-		></script>
+
 		<script type="module" src="./dist/js/app.js"></script>
 	</head>
 	<body>

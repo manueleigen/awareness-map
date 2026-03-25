@@ -145,7 +145,6 @@ export async function initApp() {
 			await updateView();
 		});
 
-
 		// 1. Initialize Translator (loads language files)
 		await initTranslator(app.language as Language).catch((err) => {
 			console.error("Failed to load translation files:", err);
@@ -167,7 +166,6 @@ export async function initApp() {
 
 		// 6. Start background preloading of non-critical assets
 		startBackgroundPreload();
-
 
 		console.log("Application successfully initialized.");
 	} catch (globalError) {
