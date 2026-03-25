@@ -35,7 +35,6 @@ layers:
     icon_mode: per-location
 
   - id: population_density
-    class: blend-layer
     type: static-image
     title_key: challenges.global.population_density.title
     toggle: available
