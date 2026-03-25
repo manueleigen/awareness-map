@@ -111,6 +111,7 @@ contexts:
         crisis_staff:
           quiz: /assets/challenges/flood/crisis_staff/crises-challange.yaml
           slider_time: "11:30"
+          slider_time_fixed: true
           exclude_layers: [evacuation_zones]
           layers:
             social_media_crises:

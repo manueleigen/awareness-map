@@ -477,9 +477,14 @@ export async function resetLayers(): Promise<void> {
 			});
 	});
 
-	// 5. Re-sync with context (restores initially_visible layers)
+	// 5. Release any slider locks from fixed story points or role entry
+	document.querySelectorAll<HTMLElement>('.slider-wrapper.slider-fixed').forEach((el) => {
+		el.classList.remove('slider-fixed');
+	});
+
+	// 6. Re-sync with context (restores initially_visible layers)
 	syncActiveLayers();
 
-	// 6. Update the actual visibility and UI
+	// 7. Update the actual visibility and UI
 	await renderLayers();
 }

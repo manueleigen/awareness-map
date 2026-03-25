@@ -105,7 +105,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
         if (cachedCore) {
             const val = parseFloat(range.value);
             const totalFrames = cachedCore.totalFrames || 100;
-            cachedCore.goToAndStop(Math.round((val / 100) * totalFrames), true);
+            cachedCore.goToAndStop(Math.round((val / 100) * (totalFrames - 1)), true);
         }
         lottieTicking = false;
     };
