@@ -22,7 +22,7 @@ export function clearQuizAnswers(): void {
 		.querySelectorAll(".quiz-location-pulse")
 		.forEach((el) => el.classList.remove("quiz-location-pulse"));
 
-	// Remove temporary markers and areas
+	// Remove temporary markers, areas and crosshairs
 	document
 		.querySelectorAll(".quiz-location-marker")
 		.forEach((el) => el.remove());
@@ -31,6 +31,9 @@ export function clearQuizAnswers(): void {
 		.forEach((el) => el.remove());
 	document
 		.querySelectorAll(".quiz-solution-radius")
+		.forEach((el) => el.remove());
+	document
+		.querySelectorAll(".quiz-location-crosshair")
 		.forEach((el) => el.remove());
 }
 

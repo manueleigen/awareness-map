@@ -102,17 +102,42 @@ export async function ensureLayerBuilt(
 		const src = ctxLayer?.src;
 		if (src) {
 			switch (config.type) {
-				case "static-image":
-					const img = create("img");
-					img.src = src;
-					img.onload = () =>
-						console.log(`[Image] ${src.split("/").pop()} loaded`);
-					img.onerror = () => {
-						console.warn(`Image missing or broken: ${src}`);
-						img.style.display = "none";
+			case "static-image":
+				const img = create("img");
+				img.src = src;
+				img.onload = () =>
+					console.log(`[Image] ${src.split("/").pop()} loaded`);
+				img.onerror = () => {
+					console.warn(`Image missing or broken: ${src}`);
+					img.style.display = "none";
+				};
+				wrapper.append(img);
+				break;
+			case "pulsing-image": {
+				const baseImg = create("img");
+				baseImg.src = src;
+				baseImg.onload = () =>
+					console.log(`[Image] ${src.split("/").pop()} loaded`);
+				baseImg.onerror = () => {
+					console.warn(`Image missing or broken: ${src}`);
+					baseImg.style.display = "none";
+				};
+				wrapper.append(baseImg);
+				const overlaySrc = ctxLayer?.src_overlay;
+				if (overlaySrc) {
+					const overlayImg = create("img");
+					overlayImg.src = overlaySrc;
+					overlayImg.className = "pulsing-overlay";
+					overlayImg.onload = () =>
+						console.log(`[Image] ${overlaySrc.split("/").pop()} loaded`);
+					overlayImg.onerror = () => {
+						console.warn(`Image missing or broken: ${overlaySrc}`);
+						overlayImg.style.display = "none";
 					};
-					wrapper.append(img);
-					break;
+					wrapper.append(overlayImg);
+				}
+				break;
+			}
 				case "areas":
 					const svg = await loadTEXT(src);
 					if (svg) {

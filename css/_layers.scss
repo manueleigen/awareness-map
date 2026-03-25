@@ -137,6 +137,32 @@
 	transition-duration: 900ms; // overridden by JS
 }
 
+// ── Pulsing Drone Feed ────────────────────────────────────────────────────────
+// Grid stacking: both images occupy the same cell, no position:absolute needed.
+.layer-pulsing-image {
+	display: grid;
+
+	img {
+		grid-area: 1 / 1;
+		width: 100%;
+		height: 100%;
+	}
+
+	.pulsing-overlay {
+		animation: dronePulse 3s ease-in-out infinite;
+	}
+}
+
+@keyframes dronePulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
 @keyframes droneHover {
 	0%,
 	100% {

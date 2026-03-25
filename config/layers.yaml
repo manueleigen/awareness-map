@@ -93,7 +93,7 @@ layers:
     end_time: "18:00"
 
   - id: drone_feed
-    type: static-image
+    type: pulsing-image
     title_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.title
     description_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.description
     toggle: hidden

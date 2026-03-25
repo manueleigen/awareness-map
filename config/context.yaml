@@ -124,7 +124,8 @@ contexts:
               title: { de: "Social Media", en: "Social Media" }
 
             drone_feed:
-              src: /assets/challenges/flood/crisis_staff/drone-feed.png
+              src: /assets/challenges/drone_unten.webp
+              src_overlay: /assets/challenges/drone_oben.webp
               initially_visible: false
               quiz_only: true
               z_index: 190

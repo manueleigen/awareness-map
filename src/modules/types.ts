@@ -5,7 +5,7 @@ export type Language = "de" | "en";
 export interface LayerConfig {
 	id: string;
 	class: string;
-	type: "static-image" | "dynamic-image" | "locations" | "areas";
+	type: "static-image" | "pulsing-image" | "dynamic-image" | "locations" | "areas";
 	title_key?: string;
 	description_key?: string;
 	toggle: "available" | "deactivated" | "hidden" | "none";
@@ -25,6 +25,7 @@ export interface ContextLayer {
 		en: string;
 	};
 	src: string;
+	src_overlay?: string;
 	icon?: string;
 	slider_icon?: string;
 	poi_icon?: string;

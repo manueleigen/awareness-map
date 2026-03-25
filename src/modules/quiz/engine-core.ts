@@ -116,7 +116,14 @@ async function loadPoint(id: string): Promise<void> {
 	abortLocationStep(); // removes edge guard + capture listener from any previous location step
 	clearQuizAnswers();
 
-	// 3. Handle automatic layer activation for THIS specific step
+	// 3. Explicitly deactivate layers that should be hidden for THIS step
+	if (point.excludeLayerIds && point.excludeLayerIds.length > 0) {
+		point.excludeLayerIds.forEach((layerId) => {
+			app.activeLayers.delete(layerId);
+		});
+	}
+
+	// 4. Handle automatic layer activation for THIS specific step
 	const layersToActivate =
 		point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []);
 
@@ -129,7 +136,7 @@ async function loadPoint(id: string): Promise<void> {
 		});
 	}
 
-	// 4. Trigger a single synchronized view update
+	// 5. Trigger a single synchronized view update
 	await new Promise<void>((resolve) => {
 		const onUpdated = () => {
 			document.removeEventListener("app-view-updated", onUpdated);
@@ -139,7 +146,7 @@ async function loadPoint(id: string): Promise<void> {
 		document.dispatchEvent(new CustomEvent("app-request-view-update"));
 	});
 
-	// 5. Animate slider to the step's target time (if specified)
+	// 6. Animate slider to the step's target time (if specified)
 	if (point.slider_time) {
 		const targetLayers = point.slider_time_layer
 			? [point.slider_time_layer]

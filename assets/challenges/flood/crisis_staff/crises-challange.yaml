@@ -46,6 +46,7 @@ story_points:
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.title
     question_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.question
     activeLayerId: drone_feed
+    excludeLayerIds: [social_media_crises]
     options:
       - label_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.optionA
         value: a
