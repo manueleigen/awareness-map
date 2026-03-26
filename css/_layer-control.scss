@@ -42,13 +42,14 @@
 
 			.toggle {
 				&__border {
+					fill: var(--secondary-inactive-70);
 					transition: 200ms ease-out;
 				}
 				&__backdrop {
 					transition: 200ms ease-out;
 				}
 				&__icon {
-					fill: var(--secondary);
+					fill: var(--secondary-60);
 					transition: 200ms ease-out;
 				}
 			}
@@ -59,7 +60,7 @@
 				right: -3px;
 				width: 45px;
 				height: 45px;
-				background: var(--secondary-inactive);
+				background: var(--white);
 				border-radius: 50%;
 				display: flex;
 				align-items: center;
@@ -67,7 +68,9 @@
 				padding: 8px;
 				pointer-events: none;
 				z-index: 2;
-				transition: 200ms ease-out;
+				opacity: 0;
+				// Delay beim Ausblenden: erst das Icon wechseln (sofort via JS), dann Fade
+				transition: background 200ms ease-out, opacity 200ms ease-out 180ms;
 
 				svg {
 					width: 100%;
@@ -132,6 +135,9 @@
 
 				.visibility-indicator {
 					background: var(--white);
+					opacity: 1;
+					// Kein Delay beim Einblenden
+					transition: background 200ms ease-out, opacity 200ms ease-out 0ms;
 
 					svg {
 						fill: var(--primary);

@@ -316,7 +316,17 @@ async function buildControlUI(
 
 			layerEl.classList.toggle("hidden", !nowActive);
 			toggle.classList.toggle("active", nowActive);
-			visibilityIndicator.innerHTML = nowActive ? EYE_VISIBLE : EYE_HIDDEN;
+
+			if (nowActive) {
+				// Zuerst geschlossenes Auge einblenden, dann nach dem Fade öffnen
+				visibilityIndicator.innerHTML = EYE_HIDDEN;
+				setTimeout(() => {
+					visibilityIndicator.innerHTML = EYE_VISIBLE;
+				}, 200);
+			} else {
+				// Auge sofort schließen, dann Indicator wegfaden (via CSS-Delay)
+				visibilityIndicator.innerHTML = EYE_HIDDEN;
+			}
 
 			const slider = sliderElements.get(config.id);
 			if (slider) slider.classList.toggle("hidden", !nowActive);
