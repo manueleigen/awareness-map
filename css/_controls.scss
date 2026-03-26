@@ -6,7 +6,7 @@ button {
 	align-items: center;
 	gap: 10px;
 	align-self: stretch;
-	border-radius: 34px;
+	border-radius: var(--info-box-radius);
 	background: var(--button);
 	color: var(--white);
 	cursor: pointer;
@@ -42,7 +42,7 @@ button {
 		cursor: not-allowed;
 		pointer-events: none;
 	}
-	
+
 	&.disabled {
 		order: 99;
 		background: var(--button-inactive);
@@ -72,6 +72,6 @@ button {
 
 .large-buttons button {
 	line-height: 30px;
-	border-radius: 17px;
+	border-radius: var(--info-box-radius);
 	min-height: 130px;
 }

@@ -83,7 +83,7 @@
 }
 
 #language-switch .slider.round {
-	border-radius: 34px;
+	border-radius: var(--info-box-radius);
 }
 
 #language-switch .slider.round:before {
