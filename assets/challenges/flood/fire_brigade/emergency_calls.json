@@ -20,24 +20,24 @@
         "status": { "de": "Mehrere Personen in einem Altenheim sind auf Beatmungsgeräte angeweisen.", "en": "Several people in a senior center are relying on ventilators." }
       }
     },
-{
-      "id": "flood_emergency_call_03",
-      "x": 1600,
-      "y": 496,
-      "translations": {
-        "name": { "de": "Keller überflutet", "en": "Basements Flooded" },
-        "status": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
-                    "en": "Multiple reports of flooded basements" }
-      }
-    },
     {
-      "id": "flood_emergency_call_04",
+      "id": "flood_emergency_call_03",
       "x": 2440,
       "y": 730,
       "translations": {
         "name": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
         "status": { "de": "Personen können das Haus nicht mehr verlassen.", 
                     "en": "People can no longer leave the house." }
+      }
+    },
+{
+      "id": "flood_emergency_call_04",
+      "x": 1600,
+      "y": 496,
+      "translations": {
+        "name": { "de": "Keller überflutet", "en": "Basements Flooded" },
+        "status": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
+                    "en": "Multiple reports of flooded basements" }
       }
     },
     {

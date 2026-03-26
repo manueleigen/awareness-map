@@ -26,256 +26,241 @@ feedback:
   retry: Try again
   continue: Continue
 
-home:
-  title: Do you have the full picture?
-  description: >
-    In a crisis, every piece of information matters.
-    Only the combination of different information sources creates a complete situational picture.
-    <br>
-    <div class="spacer"></div>
-    Use the icons on the right side of the screen to display different information on the map.
-    <strong>Choose a scenario you want to explore.</strong>
 
-  scenario_selection_label: Choose a scenario
-  scenario_1: Flood
+home:
+  title: Do You Have Situational Awareness?
+  description: >
+    In a crisis, every piece of information counts.
+    Only the combination of different information sources creates a complete situational picture.
+    
+    <div class="spacer"></div>
+    Use the icons on the right side of the screen to display different types of information on the map.
+    <strong>Select a scenario you would like to work through.</strong>
+
+  scenario_selection_label: Select a scenario
+  scenario_1: Flooding
   scenario_2: Blackout
-  scenario_3: Event
+  scenario_3: Public Event
 
 scenarios:
   flood:
-    title: The river overflows its banks
+    title: The River Overflows Its Banks
     short_title: Flood
     description: >
-      <strong>After days of heavy rain, the water level continues to rise.</strong><br>
-      The situation is changing rapidly, and the flood simulation shows that several parts of the city will be flooded in the next few hours.
-      <br>
+      <strong>After days of heavy rainfall, the water level continues to rise.</strong>
+
+      The situation is changing rapidly, and the flood simulation shows that several parts of the city will be inundated over the next few hours.
+
       <div class="spacer"></div>
-      In a crisis, different actors have different tasks and access to different information.
+      In a crisis, different actors have different responsibilities and access to different information.
       <strong>Which role would you like to take on?</strong>
-    role_selection_label: Choose your role
+    role_selection_label: Select your role
     roles:
       fire_brigade:
-        title: Fire brigade
+        title: Fire Brigade
       police:
         title: Police
       crisis_staff:
-        title: Crisis staff
+        title: Crisis Unit
 
   blackout:
-    title: The power goes out
+    title: The Power Goes Out
     short_title: Blackout
-    description: >
-      A large-scale power outage disrupts communication, supplies, and mobility.
-      Information is incomplete, digital systems are partly failing, and decisions must be made under severe time pressure.
-    role_selection_label: Choose your role
-    roles:
-      fire_brigade:
-        title: Fire brigade
-      police:
-        title: Police
-      crisis_staff:
-        title: Crisis staff
 
   mass_event:
-    title: Mass event
+    title: Major Event
     short_title: Mass Event
-    description: >
-      An event with many people requires constant oversight of movement, bottlenecks, risks, and available resources.
-      Choose your role.
-    role_selection_label: Choose your role
-    roles:
-      fire_brigade:
-        title: Fire brigade
-      police:
-        title: Police
-      crisis_staff:
-        title: Crisis staff
 
 challenges:
   flood:
     fire_brigade:
-      title: "Fire brigade: Prioritize emergency calls"
+      title: "Prioritize Emergency Calls"
       intro: >
-        <strong>It is 2:00 PM</strong>, and the water is rising relentlessly.<br>
-        Numerous emergency calls are coming in, but the fire brigade's resources are limited: you can only handle two emergency calls.
-        <br><div class="spacer"></div>
-        <strong>Consider how quickly the locations will be flooded, how many people are affected, and how accessible they still are</strong>,
-        so you can deploy your emergency units as effectively as possible.
+        <strong>It is 2:00 PM</strong>, and the water is rising relentlessly.
+        
+        Numerous emergency calls are coming in, but the fire department's resources are limited: <strong>You can only respond to two emergency calls.</strong>
+        
+        <div class="spacer"></div>
+        Consider how many people are affected, how quickly the locations will be flooded, 
+        and whether emergency responders can still reach them without being overtaken by the flood themselves.
       challenge:
         intro:
-          title: Dispatch emergency units
+          title: Dispatch Emergency Responders
           question: >
-            <strong>Select exactly two emergency calls</strong> that you want to handle.
-            <br><div class="spacer"></div>
-              Consider:
-            <br><div class="spacer"></div>
+            <strong>It is 2:00 PM. Select exactly two emergency calls.</strong>
+            
+            <div class="spacer"></div>
+              Take into account: 
+            
+            <div class="spacer"></div>
             <strong>
               <ul>
-              <li>how quickly they will be flooded,</li>
-              <li>how many people are affected, and</li>
-              <li>how accessible they still are.</li>
-              </ul>
+              <li>how many people are affected,</li>
+              <li>how quickly the locations will be flooded, and</li>
+              <li>whether ambulances can still reach them safely.</li>
+              <ul>
             </strong>
           win:
-            title: Correct!
+            title: Challenge Solved!
             description: >
-              You prioritized the two most critical emergency calls and saved the greatest number of people
-              without putting emergency units at risk.
-              <br><div class="spacer"></div>
+              You prioritized the two most critical emergency calls and thereby saved the greatest number of people,
+              without putting emergency responders at risk
+              
+              <div class="spacer"></div>
               <strong>Well done!</strong>
           half-fail:
-            title: Almost correct
+            title: Partly Correct
             description: >
-              You prioritized one of the two critical emergency calls correctly, but your second choice wasn't optimal.
-              <br><div class="spacer"></div>
-              <strong>Another call would have saved more lives.</strong>
+              You correctly prioritized one of the two critical emergency calls, but the other call you selected is not as urgent as you think.
+              
+              <div class="spacer"></div>
+              <strong>Pay attention to which areas will be flooded very soon!</strong>
           half-wrong:
-            title: Half correct
+            title: Emergency Responders at Risk
             description: >
-              One of your deployments was correctly prioritized —
-              but your second deployment was not a sensible use of scarce resources during this crisis.
-              <br><div class="spacer"></div>
-              <strong>Consider which emergency calls are truly life-threatening.</strong>
+              You put your responders at risk by selecting an emergency call in an area that is already flooded.
+
+              Your other choice was correct, and you successfully prioritized a call in an area that will be flooded soon.
+              
+              <div class="spacer"></div>
+
+              <strong>Select a different emergency call.</strong>
           wrong-neutral:
-            title: Failed
+            title: Emergency Responders at Risk
             description: >
-              Neither of your chosen deployments was truly critical.
-              One of them was clearly misplaced in a flood disaster.
-              <br><div class="spacer"></div>
-              <strong>Please reconsider!</strong>
+              You put your responders at risk by selecting an emergency call in an area that is already flooded.
+              
+              Your other choice was an emergency call that is not critical, because the area will not be flooded soon and only a small number of people are affected.
+
+              <div class="spacer"></div>
+              <strong>Select two different emergency calls.</strong>
           all-neutral:
-            title: Not optimal
+            title: Resources Wasted
             description: >
-              Your selection wasn't wrong, but it wasn't optimal either.
-              <br><div class="spacer"></div>
-              <strong>The truly life-threatening emergency calls were not prioritized.</strong>
+              The emergency calls you selected were not critical, because the areas will not be flooded soon and only a small number of people are affected.
+              
+              <div class="spacer"></div>
+              <strong>Select two different emergency calls that affect many people and will be flooded soon.</strong>
           fail:
             title: Failed
             description: >
-              Your selection was not ideal.
-              <br><div class="spacer"></div>
-              <strong>Important emergency calls were overlooked, while resources were tied up in less critical areas.</strong>
+              Your selection was not optimal.
+              
+              <div class="spacer"></div>
+              <strong>Critical emergency calls were overlooked while resources were tied up in less urgent areas.</strong>
     police:
-      title: Plan evacuation zones
+      title: Plan Evacuation Zones
       intro: >
-        <strong>It is 1:30 PM.</strong> Flooding is threatening densely populated areas.
-        <br><div class="spacer"></div>
-        <strong>Since police resources are limited, only two zones can be evacuated at first.
-        <br><div class="spacer"></div>
-        Identify densely populated areas at high flood risk,</strong>
-        in order to protect as many people as possible without blocking critical infrastructure.
+        <strong>It is 1:30 PM.</strong> Floodwaters are threatening densely populated areas.
+        To protect the public, some districts must be evacuated.
+        <strong>However, police resources are limited, and only three zones can be evacuated at first.</strong>
+        
+        <div class="spacer"></div>
+        Identify densely populated areas that will soon be flooded,
+        and pay attention to particularly vulnerable infrastructure.
 
       challenge:
         intro:
-          title: Choose evacuation zones
+          title: Select Evacuation Zones
           question: >
-            <strong>Select two zones on the map that you want to evacuate.</strong>
-            <br><div class="spacer"></div>
-            Consider:
-            <br><div class="spacer"></div>
+            <strong>It is 1:30 PM. Select three zones on the map.</strong>
+            <div class="spacer"></div>
+            Take into account
+            
+            <div class="spacer"></div>
             <strong>
             <ul>
-            <li>the flood risk,</li>
-            <li>the population density, and</li>
-            <li>access to critical infrastructure.</li>
-            </ul>
+            <li>when the areas will be flooded, </li>
+            <li>population density, and </li>
+            <li>critical infrastructure that must be evacuated.</li>
             </strong>
           win:
-            title: Correct!
+            title: Challenge Solved!
             description: >
-              Excellent!
-              <br><div class="spacer"></div>
-              <strong>You prioritized the most vulnerable residential areas while keeping access routes to the hospital clear for emergency services.</strong>
+              <div class="spacer"></div>
+              You prioritized the most severely threatened residential areas and took critical infrastructure into account.
           half-fail:
-            title: Almost correct
+            title: Partly Correct
             description: >
-              Almost! One of your areas is not as urgent as you think.
-              <br><div class="spacer"></div>
-              <strong>One of the chosen zones could have deployed resources more effectively.</strong>
-          half-wrong:
-            title: Half correct
-            description: >
-              One of your zones is correct —
-              but the other blocks the access road to the hospital!
-              <br><div class="spacer"></div>
-              <strong>Critical infrastructure must remain accessible at all times.</strong>
-          wrong-neutral:
-            title: Failed
-            description: >
-              The evacuation blocks the access road to the hospital!
-              <br><div class="spacer"></div>
-              <strong>Critical infrastructure must remain accessible even in a crisis.</strong>
+              Not all of the zones you selected were critical, but you did prioritize at least part of the most severely threatened residential areas.
+              
+              <div class="spacer"></div>
+              <strong>Focus on densely populated areas that will be flooded soon.</strong>
           all-neutral:
-            title: Resources wasted
+            title: Resources Wasted
             description: >
-              You are not deploying your emergency forces effectively and are wasting resources.
-              <br><div class="spacer"></div>
-              <strong>The truly endangered areas were not prioritized.</strong>
-          fail:
-            title: Failed
-            description: >
-              The evacuation decision was not sufficient.
-              <br><div class="spacer"></div>
-              <strong>Important zones were flooded while resources were tied up in less critical areas.</strong>
+              None of the zones you selected were critical, because they will not be flooded soon or affect only a small number of people.
+              
+              <div class="spacer"></div>
+              <strong>Focus on densely populated areas that will be flooded soon!</strong>
 
     crisis_staff:
-      title: "Deciding under uncertainty"
+      title: "Decision-Making Under Uncertainty"
       intro: >
-        <strong>It is 11:30 AM.</strong> During the ongoing emergency, rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
-        <br><div class="spacer"></div>
-        Review the information and <strong>consider whether you want to act immediately or gather more information first.</strong>
+        <strong>It is 11:30 AM.</strong> Rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
+        
+        <div class="spacer"></div>
+        Assess the information and <strong>consider whether to act immediately or gather additional information first.</strong>
       challenge:
         intro:
           title: "How do you respond?"
-          question: <strong>Would you like to immediately share the current information with the public, police, or fire brigade, or would you rather send a drone first</strong> to gather more information and better assess the situation?
-          optionA: Share information
-          optionB: Send drone
+          question: <strong>Would you share the current information immediately with the public, police, or fire department, or would you first deploy a drone</strong> to gather more information and assess the situation more accurately?
+          optionA: Share Information
+          optionB: Deploy Drone
           win:
             title: Correct!
-            description: Gather more information first.
-          fail:
-            title: That was not a good decision
             description: >
-              <strong>Communicating unverified information too early increases panic.</strong>
-              <br><div class="spacer"></div>
-              Sharing it internally with the fire brigade and police can also trigger premature or misguided actions.
+              You should not share unverified information, as this can intensify panic. 
+              Instead, you used the drone effectively to gather more information and assess the situation more accurately.
+          fail:
+            title: That Was Not a Good Decision
+            description: >
+              <strong>Communicating unverified information too early intensifies panic.</strong>
+              
+              <div class="spacer"></div>
+              Even sharing it internally with the fire department and police can trigger premature or misguided actions.
         coord-selection:
-          title: Choose the drone deployment area
-          submit: Check deployment area
+          title: Select the Drone Deployment Area
+          submit: Check Deployment Area
           question: >
-            <strong>Review the social media posts</strong> to assess where a breach in the flood protection system is most likely.
-            <br><div class="spacer"></div>
+            <strong>Review the social media posts</strong> to assess where a breach in the flood protection system is most likely
+            
+            <div class="spacer"></div>
             <strong>Then tap a location on the map to send the drone there.</strong>
 
           win:
             title: Correct!
             description: >
-              You deployed the drone in a relevant area and collected important data about the current situation.
-              <br><div class="spacer"></div>
-              <strong>The rumors about the Old Harbor turned out to be true — the area is completely flooded!</strong>
+              You deployed the drone in a relevant area and thereby gathered important data on the current situation.
+              
+              <div class="spacer"></div>
+              <strong>The rumors about the Old Harbor were indeed correct - the area is completely flooded!</strong>
           fail:
             title: Failed
             description: >
-              You deployed the drone in an irrelevant area and wasted valuable resources.
-              <br><div class="spacer"></div>
-              <strong>Try sending the drone to a relevant area.</strong>
+              You deployed the drone in an irrelevant area and thereby wasted valuable resources
+              
+              <div class="spacer"></div>
+              <strong>Review the social media posts</strong>, to assess where a breach in the flood protection system is most likely.
         who-you-wanna-call:
-          title: Pass on information
-          question: <strong>Who would you like to share the verified information with first?</strong>
-          optionA: Fire brigade incident command
+          title: Pass On Information
+          question: <strong>Who would you share the verified information with first?</strong>
+          optionA: Fire Department Incident Command
           optionB: Public
           win:
-            title: Challenge solved!
+            title: Challenge Solved!
             description: >
-              You passed on the information in a way that helps operational units act more effectively without unnecessarily escalating the situation.
-              <br><div class="spacer"></div>
-              This helped close an important information gap — <strong>the emergency units are now better equipped to act.</strong>
+              You passed on the information in a way that enables operational units to act more effectively without unnecessarily escalating the situation
+              
+              <div class="spacer"></div>
+              Your decisions closed a critical information gap, <strong>and emergency responders are now better able to act.</strong>
           fail:
             title: Failed
             description: >
-              Sharing the information with the public too early increases panic.
-              <br><div class="spacer"></div>
-              <strong>The emergency units urgently need precise information to initiate an effective response.</strong>
+              Sharing the information with the public too early intensifies panic
+              
+              <div class="spacer"></div>
+              <strong>Emergency responders urgently need precise information in order to initiate a meaningful response.</strong>
 
 
   common:

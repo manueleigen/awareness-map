@@ -15,8 +15,8 @@
 		},
 		{
 			"id": "critical_site_2",
-			"x": 1950,
-			"y": 605,
+			"x": 1800,
+			"y": 540,
 			"translations": {
 				"name": { "de": "Rechenzentrum", "en": "Data Center" },
 				"status": {
@@ -53,8 +53,8 @@
 		{
 			"id": "critical_site_5",
 			"class": "left-opening",
-			"x": 2336,
-			"y": 1419,
+			"x": 1930,
+			"y": 1440,
 			"translations": {
 				"name": { "de": "Krankenhaus", "en": "Hospital" },
 				"status": {
@@ -65,19 +65,6 @@
 		},
 		{
 			"id": "critical_site_6",
-			"class": "left-opening",
-			"x": 2212,
-			"y": 1095,
-			"translations": {
-				"name": { "de": "Kindergarten", "en": "Kindergarden" },
-				"status": {
-					"de": "Hier halten sich mehr als 70 Kleinkinder auf.",
-					"en": "More than 70 minors are staying here."
-				}
-			}
-		},
-		{
-			"id": "critical_site_7",
 			"class": "left-opening",
 			"x": 2995,
 			"y": 1516,

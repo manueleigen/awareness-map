@@ -6,10 +6,10 @@ story_points:
     target: "#layer-evacuation_zones"
     activeLayerId: evacuation_zones
 
-    solution: ["area-20", "area-21"]
-    wrong_options: ["area-19"]
-    minSelection: 2
-    maxSelection: 2
+    solution: ["area-19", "area-20", "area-21"]
+    wrong_options: []
+    minSelection: 3
+    maxSelection: 3
     step: 1
     total_steps: 2
     next:
