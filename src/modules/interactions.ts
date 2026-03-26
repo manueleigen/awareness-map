@@ -48,3 +48,19 @@ export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | Mo
     el.addEventListener('pointercancel', removeFeedback);
     el.addEventListener('pointerleave', removeFeedback);
 }
+
+/**
+ * Adds a click handler after a short delay to prevent accidental double-taps
+ * when a new quiz screen loads. The button is silent-disabled during the delay.
+ */
+export function addDelayedPointerClick(
+    el: HTMLElement,
+    callback: (e: PointerEvent | MouseEvent) => void,
+    delayMs = 200,
+): void {
+    el.classList.add('silent-disabled');
+    setTimeout(() => {
+        el.classList.remove('silent-disabled');
+        addPointerClick(el, callback);
+    }, delayMs);
+}

@@ -1,5 +1,5 @@
 import { create } from "../lib.js";
-import { addPointerClick } from "../interactions.js";
+import { addPointerClick, addDelayedPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import { InfoStoryPoint, QuizStoryPoint } from "./types.js";
 import { backToRoles } from "../info-box.js";
@@ -35,7 +35,7 @@ export function renderInfo(
 	if (point.terminalStatus === "passed") {
 		const backBtn = create("button");
 		backBtn.innerText = t("challenges.common.back_to_challenges", "Back to Roles");
-		addPointerClick(backBtn, async () => {
+		addDelayedPointerClick(backBtn, async () => {
 			await backToRoles();
 		});
 		controls.append(backBtn);
@@ -47,7 +47,7 @@ export function renderInfo(
 			point.continue_button_key,
 			t("feedback.continue", "Continue"),
 		);
-		addPointerClick(btn, () => onAction(true));
+		addDelayedPointerClick(btn, () => onAction(true));
 		controls.append(btn);
 	}
 }
@@ -112,7 +112,7 @@ export function renderChoice(
 
 	const submit = create("button");
 	submit.innerText = t("challenges.common.submit", "Check Answer");
-	addPointerClick(submit, () => {
+	addDelayedPointerClick(submit, () => {
 		// Enforce minimum required answers
 		if (selected.size < (point.minAnswers ?? 1)) return;
 
