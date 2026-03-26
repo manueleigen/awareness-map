@@ -7,7 +7,11 @@
 		<!-- Content-Security-Policy: only allow scripts from this origin and unpkg CDN -->
 
 		<script type="importmap">
-			{ "imports": { "lottie-web": "./node_modules/lottie-web/build/player/esm/lottie.min.js" } }
+			{
+				"imports": {
+					"lottie-web": "./node_modules/lottie-web/build/player/esm/lottie.min.js"
+				}
+			}
 		</script>
 		<link rel="stylesheet" href="./css/style.css" />
 		<script type="module" src="./dist/js/app.js"></script>
@@ -37,6 +41,7 @@
 				<div id="info-box">
 					<div id="info-box-head">
 						<div id="language-switch">
+							<div id="language-switch-touch-area"></div>
 							<span data-i18n="navigation.languages.en">English</span>
 							<label class="switch">
 								<input type="checkbox" />

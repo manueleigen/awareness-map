@@ -18,7 +18,7 @@ const INTERACTIVE_SELECTORS = [
 	"label",
 	"a",
 	".switch",
-	"#language-switch",
+	"#language-switch-touch-area",
 	"#escape-btn",
 	".poi-marker",
 	".poi-overlay-content",
@@ -61,7 +61,6 @@ function setupPointerGuard(): void {
  */
 function setupGlobalListeners(): void {
 	const { languageSwitch, escapeBtn } = app.ui;
-
 	// Handle language toggle (DE/EN)
 	if (languageSwitch) {
 		languageSwitch.checked = app.language === "de";
@@ -79,10 +78,13 @@ function setupGlobalListeners(): void {
 			}
 		});
 
-		// Allow clicking the labels (English/Deutsch) to toggle the switch
-		const langContainer = languageSwitch.closest("#language-switch");
-		if (langContainer) {
-			addPointerClick(langContainer as HTMLElement, () => {
+		// Handle the language toggle area click
+		const languageClickArea = document.querySelector(
+			"#language-switch-touch-area",
+		);
+
+		if (languageClickArea) {
+			addPointerClick(languageClickArea as HTMLElement, () => {
 				languageSwitch.checked = !languageSwitch.checked;
 				languageSwitch.dispatchEvent(new Event("change"));
 			});
