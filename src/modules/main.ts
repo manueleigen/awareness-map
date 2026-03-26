@@ -95,21 +95,6 @@ function initWatchdog(): void {
 }
 
 /**
- * Environmental Stability: Daily Refresh.
- * Perform a full reload every 24 hours at 4:00 AM to clear GPU memory and JS heap.
- */
-function initDailyRefresh(): void {
-	const checkTime = () => {
-		const now = new Date();
-		if (now.getHours() === 4 && now.getMinutes() === 0) {
-			console.log("[System] Scheduled daily refresh (4:00 AM). Reloading...");
-			window.location.reload();
-		}
-	};
-	setInterval(checkTime, 60000); // Check every minute
-}
-
-/**
  * Caches DOM references into the global app state for easy access.
  */
 export function initUIReferences(): void {
@@ -135,7 +120,6 @@ export async function initApp() {
 		// Technical Implementation Guide (v2.3) initialization
 		lockViewport();
 		initWatchdog();
-		initDailyRefresh();
 
 		// 0. Cache UI References
 		initUIReferences();

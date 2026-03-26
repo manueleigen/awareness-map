@@ -34,9 +34,18 @@
 
 
 .layer img,
-.layer-areas svg,
 .layer-locations .poi-marker {
   // Restore interaction for the actual content
+  pointer-events: auto;
+}
+
+.layer-areas svg {
+  pointer-events: none;
+}
+
+.layer-areas.is-interactive svg,
+.layer-areas.is-interactive polygon,
+.layer-areas.is-interactive path {
   pointer-events: auto;
 }
 

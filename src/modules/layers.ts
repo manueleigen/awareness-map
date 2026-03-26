@@ -145,8 +145,10 @@ export async function ensureLayerBuilt(
 						areaWrapper.innerHTML = svg as string;
 						wrapper.append(areaWrapper);
 						areaWrapper.querySelectorAll("polygon, path").forEach((obj) => {
-							const style = window.getComputedStyle(obj);
-							if (style.fill !== "none" || obj.classList.contains("st0")) {
+							const fill = obj.getAttribute("fill");
+							const hasSt0 = obj.classList.contains("st0");
+							// Robust check: if fill is not 'none' or it has our target class st0
+							if ((fill && fill !== "none") || hasSt0) {
 								obj.classList.add("interactive-area");
 							}
 						});

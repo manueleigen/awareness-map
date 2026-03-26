@@ -37,6 +37,11 @@ let locationSubmitBtnEl: HTMLButtonElement | null = null;
 export function abortSelectionStep(): void {
 	selectionStepAbort?.abort();
 	selectionStepAbort = null;
+	// Reset all interactive layers
+	document.querySelectorAll(".is-interactive").forEach((el) => {
+		el.classList.remove("is-interactive");
+		(el as HTMLElement).style.pointerEvents = "";
+	});
 }
 
 /**
@@ -373,6 +378,8 @@ export function renderSelection(
 
 	// 1. Initial State: Pulse and enable interaction
 	if (target) {
+		target.classList.add("is-interactive");
+		target.style.pointerEvents = "auto";
 		target.querySelectorAll<HTMLElement>(effectiveSelector).forEach((el) => {
 			let isEnabled = true;
 			if (point.type === "point-selection-quiz" && spatialFilter) {
