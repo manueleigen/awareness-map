@@ -31,7 +31,7 @@ home:
   description: >
     Im Krisenfall zählt jede Information.
     Erst das Zusammenspiel verschiedener Informationsquellen ergibt ein vollständiges Lagebild.
-    
+
     <div class="spacer"></div>
     Über die Icons am rechten Bildschirmrand kannst du verschiedene Infos auf der Karte anzeigen.
     <strong>Wähle ein Szenario, das du durchspielen möchtest.</strong>
@@ -76,9 +76,9 @@ challenges:
       title: "Feuerwehr: Notrufe priorisieren"
       intro: >
         <strong>Es ist 14:00 Uhr</strong>, das Wasser steigt unaufhaltsam.
-        
+
         Zahlreiche Notrufe gehen ein, doch die Ressourcen der Feuerwehr sind begrenzt: <strong>Du kannst nur zwei Notrufe bearbeiten.</strong>
-        
+
         <div class="spacer"></div>
         Bedenke, wie viele Menschen betroffen sind, wie schnell die Orte überflutet werden, 
         und ob die Einsatzkräfte sie noch erreichen können, ohne selbst von der Flut erfasst zu werden.
@@ -87,10 +87,10 @@ challenges:
           title: Einsatzkräfte entsenden
           question: >
             <strong>Es ist 14:00 Uhr. Wähle genau zwei Notrufe aus.</strong>
-            
+
             <div class="spacer"></div>
               Berücksichtige: 
-            
+
             <div class="spacer"></div>
             <strong>
               <ul>
@@ -104,14 +104,14 @@ challenges:
             description: >
               Du hast die beiden kritischsten Notrufe priorisiert und damit die meisten Menschen gerettet,
               ohne Einsatzkräfte in Gefahr zu bringen
-              
+
               <div class="spacer"></div>
               <strong>Gut gemacht!</strong>
           half-fail:
             title: Teilweise richtig
             description: >
               Du hast einen der beiden kritischen Notrufe richtig priorisiert, aber der andere Notruf, den du gewählt hast, ist nicht so dringend, wie du denkst.
-              
+
               <div class="spacer"></div>
               <strong>Achte darauf, welche Bereiche schon bald überflutet werden!</strong>
           half-wrong:
@@ -120,7 +120,7 @@ challenges:
               Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf gewählt hast, der schon überflutet ist.
 
               Deine andere Wahl hast du richtig getroffen, und damit einen Notruf in einem Bereich priorisiert, der bald überflutet wird.
-              
+
               <div class="spacer"></div>
 
               <strong>Wähle einen anderen Notruf.</strong>
@@ -128,7 +128,7 @@ challenges:
             title: Einsatzkräfte in Gefahr
             description: >
               Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf in einem Bereich gewählt hast, der schon überflutet ist.
-              
+
               Deine andere Wahl war ein Notruf, der nicht kritisch ist, da er nicht bald überflutet wird und nur wenige Menschen betrifft.
 
               <div class="spacer"></div>
@@ -137,14 +137,14 @@ challenges:
             title: Vergeudete Ressourcen
             description: >
               Deine gewählten Notrufe waren nicht kritisch, da sie nicht bald überflutet werden und nur wenige Menschen betreffen.
-              
+
               <div class="spacer"></div>
               <strong>Wähle zwei andere Notrufe, die viele Menschen betreffen und bald überflutet werden.</strong>
           fail:
             title: Fehlgeschlagen
             description: >
               Deine Auswahl war nicht optimal.
-              
+
               <div class="spacer"></div>
               <strong>Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.</strong>
     police:
@@ -153,7 +153,7 @@ challenges:
         <strong>Es ist 13:30 Uhr.</strong> Überflutungen bedrohen dicht besiedelte Gebiete.
         Um die Menschen zu schützen, müssen einige Bezirke evakuiert werden.
         <strong>Allerdings sind die Ressourcen der Polizei begrenzt, und es können zunächst nur drei Zonen evakuiert werden.</strong>
-        
+
         <div class="spacer"></div>
         Identifiziere dicht besiedelte Gebiete, die bald überschwemmt werden,
         und achte auf besonders schützenswerte Infrastruktur.
@@ -165,7 +165,7 @@ challenges:
             <strong>Es ist 13:30 Uhr. Wähle drei Zonen auf der Karte aus.</strong>
             <div class="spacer"></div>
             Berücksichtige dabei
-            
+
             <div class="spacer"></div>
             <strong>
             <ul>
@@ -182,14 +182,14 @@ challenges:
             title: Teilweise richtig
             description: >
               Nicht alle ausgewählten Zonen waren kritisch, aber du hast zumindest einen Teil der am stärksten gefährdeten Wohngebiete priorisiert.
-              
+
               <div class="spacer"></div>
               <strong>Achte auf dicht besiedelte Gebiete, die bald überflutet werden.</strong>
           all-neutral:
             title: Ressourcen verschwendet
             description: >
               Keine deiner gewählten Zonen waren kritisch, da sie nicht bald überflutet werden oder nur wenige Menschen betreffen.
-              
+
               <div class="spacer"></div>
               <strong>Achte auf dicht besiedelte Gebiete, die bald überflutet werden!</strong>
 
@@ -197,7 +197,7 @@ challenges:
       title: "Entscheiden unter Unsicherheit"
       intro: >
         <strong>Es ist 11:30 Uhr.</strong> Auf Social Media kursieren Gerüchte über einen möglichen Bruch des Hochwasserschutzes im Bereich des Alten Hafens.
-        
+
         <div class="spacer"></div>
         Prüfe die Informationen und <strong>überlege, ob du sofort handeln oder zunächst weitere Informationen sammeln möchtest.</strong>
       challenge:
@@ -215,7 +215,7 @@ challenges:
             title: Das war keine gute Entscheidung
             description: >
               <strong>Die frühe Kommunikation ungesicherter Informationen verstärkt Panik.</strong>
-              
+
               <div class="spacer"></div>
               Auch das interne Teilen mit Feuerwehr und Polizei kann verfrühte oder fehlgeleitete Maßnahmen auslösen.
         coord-selection:
@@ -223,7 +223,7 @@ challenges:
           submit: Einsatzort prüfen
           question: >
             <strong>Prüfe die Social-Media-Posts</strong>, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist
-            
+
             <div class="spacer"></div>
             <strong>Tippe dann einen Ort auf der Karte an, um die Drohne dorthin zu senden.</strong>
 
@@ -231,14 +231,14 @@ challenges:
             title: Richtig!
             description: >
               Du hast die Drohne in einem relevanten Gebiet eingesetzt und damit wichtige Daten über die aktuelle Lage gesammelt.
-              
+
               <div class="spacer"></div>
               <strong>Tatsächlich waren die Gerüchte über den Alten Hafen korrekt - der Bereich ist vollständig überschwemmt!</strong>
           fail:
             title: Fehlgeschlagen
             description: >
               Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit wertvolle Ressourcen vergeudet
-              
+
               <div class="spacer"></div>
               <strong>Prüfe die Social-Media-Posts</strong>, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
         who-you-wanna-call:
@@ -250,24 +250,23 @@ challenges:
             title: Challenge gelöst!
             description: >
               Du hast die Information so weitergegeben, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen
-              
+
               <div class="spacer"></div>
               Du hast mit deinen Entscheidungen eine wichtige Informationslücke geschlossen, <strong>die Einsatzkräfte sind jetzt besser handlungsfähig.</strong>
           fail:
             title: Fehlgeschlagen
             description: >
               Das zu frühe Teilen der Information mit der Öffentlichkeit verstärkt Panik
-              
+
               <div class="spacer"></div>
               <strong>Die Einsatzkräfte brauchen dringend präzise Informationen, um eine sinnvolle Reaktion zu initiieren.</strong>
-
 
   common:
     passed_msg: Herausforderung erfolgreich abgeschlossen!
     failed_msg: Herausforderung leider nicht bestanden.
     retry_button: Erneut versuchen
     start_button: Herausforderung starten
-    restart: Noch einmal von vorn
+    restart: Nochmal versuchen
     back_to_challenges: Zurück zu den Rollen
     submit: Antwort prüfen
     continue: Weiter

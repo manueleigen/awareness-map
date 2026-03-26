@@ -32,6 +32,15 @@ export function getRoleSliderConfig(): { time: string; layer?: string; fixed: bo
 }
 
 /**
+ * Returns layer IDs to activate at the start of the challenge (from context.yaml).
+ */
+export function getRoleActiveLayerIds(): string[] {
+	if (!context || !app.currentScenario || !app.currentRole) return [];
+	const role = context.scenarios[app.currentScenario]?.roles?.[app.currentRole];
+	return role?.activeLayerIds ?? [];
+}
+
+/**
  * Returns the file path for the quiz associated with the current scenario/role.
  */
 export function getQuizPath(): string | null {

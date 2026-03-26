@@ -7,7 +7,7 @@ story_points:
     slider_time_layer: flood_simulation
     slider_time: "14:00"
     slider_time_fixed: false
-    activeLayerId: emergency_calls
+    activeLayerIds: [emergency_calls]
     solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
     wrong_options: ["flood_emergency_call_03"]
     minSelection: 2
@@ -27,7 +27,7 @@ story_points:
     title_key: challenges.flood.fire_brigade.challenge.intro.win.title
     description_key: challenges.flood.fire_brigade.challenge.intro.win.description
     continue_button_key: challenges.common.restart
-    activeLayerId: emergency_calls
+    activeLayerIds: [emergency_calls]
     terminalStatus: passed
     next: intro
 

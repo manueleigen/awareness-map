@@ -15,7 +15,7 @@ navigation:
   back: Back
   next: Next
   close: Close
-  restart: Restart
+  restart: Try again
   home: Start
   scenario: Scenario
   role: Role
@@ -26,13 +26,12 @@ feedback:
   retry: Try again
   continue: Continue
 
-
 home:
   title: Do You Have Situational Awareness?
   description: >
     In a crisis, every piece of information counts.
     Only the combination of different information sources creates a complete situational picture.
-    
+
     <div class="spacer"></div>
     Use the icons on the right side of the screen to display different types of information on the map.
     <strong>Select a scenario you would like to work through.</strong>
@@ -77,9 +76,9 @@ challenges:
       title: "Prioritize Emergency Calls"
       intro: >
         <strong>It is 2:00 PM</strong>, and the water is rising relentlessly.
-        
+
         Numerous emergency calls are coming in, but the fire department's resources are limited: <strong>You can only respond to two emergency calls.</strong>
-        
+
         <div class="spacer"></div>
         Consider how many people are affected, how quickly the locations will be flooded, 
         and whether emergency responders can still reach them without being overtaken by the flood themselves.
@@ -88,10 +87,10 @@ challenges:
           title: Dispatch Emergency Responders
           question: >
             <strong>It is 2:00 PM. Select exactly two emergency calls.</strong>
-            
+
             <div class="spacer"></div>
               Take into account: 
-            
+
             <div class="spacer"></div>
             <strong>
               <ul>
@@ -105,14 +104,14 @@ challenges:
             description: >
               You prioritized the two most critical emergency calls and thereby saved the greatest number of people,
               without putting emergency responders at risk
-              
+
               <div class="spacer"></div>
               <strong>Well done!</strong>
           half-fail:
             title: Partly Correct
             description: >
               You correctly prioritized one of the two critical emergency calls, but the other call you selected is not as urgent as you think.
-              
+
               <div class="spacer"></div>
               <strong>Pay attention to which areas will be flooded very soon!</strong>
           half-wrong:
@@ -121,7 +120,7 @@ challenges:
               You put your responders at risk by selecting an emergency call in an area that is already flooded.
 
               Your other choice was correct, and you successfully prioritized a call in an area that will be flooded soon.
-              
+
               <div class="spacer"></div>
 
               <strong>Select a different emergency call.</strong>
@@ -129,7 +128,7 @@ challenges:
             title: Emergency Responders at Risk
             description: >
               You put your responders at risk by selecting an emergency call in an area that is already flooded.
-              
+
               Your other choice was an emergency call that is not critical, because the area will not be flooded soon and only a small number of people are affected.
 
               <div class="spacer"></div>
@@ -138,14 +137,14 @@ challenges:
             title: Resources Wasted
             description: >
               The emergency calls you selected were not critical, because the areas will not be flooded soon and only a small number of people are affected.
-              
+
               <div class="spacer"></div>
               <strong>Select two different emergency calls that affect many people and will be flooded soon.</strong>
           fail:
             title: Failed
             description: >
               Your selection was not optimal.
-              
+
               <div class="spacer"></div>
               <strong>Critical emergency calls were overlooked while resources were tied up in less urgent areas.</strong>
     police:
@@ -154,7 +153,7 @@ challenges:
         <strong>It is 1:30 PM.</strong> Floodwaters are threatening densely populated areas.
         To protect the public, some districts must be evacuated.
         <strong>However, police resources are limited, and only three zones can be evacuated at first.</strong>
-        
+
         <div class="spacer"></div>
         Identify densely populated areas that will soon be flooded,
         and pay attention to particularly vulnerable infrastructure.
@@ -166,7 +165,7 @@ challenges:
             <strong>It is 1:30 PM. Select three zones on the map.</strong>
             <div class="spacer"></div>
             Take into account
-            
+
             <div class="spacer"></div>
             <strong>
             <ul>
@@ -183,14 +182,14 @@ challenges:
             title: Partly Correct
             description: >
               Not all of the zones you selected were critical, but you did prioritize at least part of the most severely threatened residential areas.
-              
+
               <div class="spacer"></div>
               <strong>Focus on densely populated areas that will be flooded soon.</strong>
           all-neutral:
             title: Resources Wasted
             description: >
               None of the zones you selected were critical, because they will not be flooded soon or affect only a small number of people.
-              
+
               <div class="spacer"></div>
               <strong>Focus on densely populated areas that will be flooded soon!</strong>
 
@@ -198,7 +197,7 @@ challenges:
       title: "Decision-Making Under Uncertainty"
       intro: >
         <strong>It is 11:30 AM.</strong> Rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
-        
+
         <div class="spacer"></div>
         Assess the information and <strong>consider whether to act immediately or gather additional information first.</strong>
       challenge:
@@ -216,7 +215,7 @@ challenges:
             title: That Was Not a Good Decision
             description: >
               <strong>Communicating unverified information too early intensifies panic.</strong>
-              
+
               <div class="spacer"></div>
               Even sharing it internally with the fire department and police can trigger premature or misguided actions.
         coord-selection:
@@ -224,7 +223,7 @@ challenges:
           submit: Check Deployment Area
           question: >
             <strong>Review the social media posts</strong> to assess where a breach in the flood protection system is most likely
-            
+
             <div class="spacer"></div>
             <strong>Then tap a location on the map to send the drone there.</strong>
 
@@ -232,14 +231,14 @@ challenges:
             title: Correct!
             description: >
               You deployed the drone in a relevant area and thereby gathered important data on the current situation.
-              
+
               <div class="spacer"></div>
               <strong>The rumors about the Old Harbor were indeed correct - the area is completely flooded!</strong>
           fail:
             title: Failed
             description: >
               You deployed the drone in an irrelevant area and thereby wasted valuable resources
-              
+
               <div class="spacer"></div>
               <strong>Review the social media posts</strong>, to assess where a breach in the flood protection system is most likely.
         who-you-wanna-call:
@@ -251,17 +250,16 @@ challenges:
             title: Challenge Solved!
             description: >
               You passed on the information in a way that enables operational units to act more effectively without unnecessarily escalating the situation
-              
+
               <div class="spacer"></div>
               Your decisions closed a critical information gap, <strong>and emergency responders are now better able to act.</strong>
           fail:
             title: Failed
             description: >
               Sharing the information with the public too early intensifies panic
-              
+
               <div class="spacer"></div>
               <strong>Emergency responders urgently need precise information in order to initiate a meaningful response.</strong>
-
 
   common:
     passed_msg: Challenge completed successfully!

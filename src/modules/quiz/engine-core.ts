@@ -8,6 +8,7 @@ import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
 import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations, abortSelectionStep } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
+import { getRoleActiveLayerIds } from "../scenarios.js";
 
 /** Local storage for the active quiz run. */
 let currentStoryPoints: StoryPoint[] = [];
@@ -18,6 +19,8 @@ let currentPoint: StoryPoint | null = null;
 let currentOnAction:
 	| ((outcome: boolean | QuizOutcome, resultData?: any) => void)
 	| null = null;
+/** ID of the last answerable quiz step — used to retry after a fail screen. */
+let lastQuizPointId: string | null = null;
 
 /**
  * Temporary state shared between steps (e.g., coordinates from a location step
@@ -79,9 +82,13 @@ export async function runQuiz(
 	currentControls = controls;
 	currentOnFinish = onFinish;
 	lastLocationResult = null; // Reset shared data for new run
+	lastQuizPointId = null;
 
 	// Ensure all layers are in their base state before starting quiz
 	await resetLayers();
+
+	// Activate any layers defined at the role level in context.yaml
+	getRoleActiveLayerIds().forEach((id) => app.activeLayers.add(id));
 
 	clearQuizAnswers();
 	await loadPoint("intro");
@@ -197,6 +204,11 @@ async function loadPoint(id: string): Promise<void> {
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
 	if (point.terminalStatus && currentOnFinish) {
+		if (point.terminalStatus === "failed") {
+			// Go back to the last answerable step instead of ending the quiz
+			loadPoint(lastQuizPointId ?? currentStoryPoints[0]?.id ?? "intro");
+			return;
+		}
 		// Cleanup layers from the final step before finishing
 		if (app.quizStepLayers.size > 0) {
 			app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
@@ -207,6 +219,11 @@ function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	}
 
 	// 2. Resolve the next point ID based on outcome
+	// Track this as the last answerable quiz point (has right/wrong outcomes)
+	if (typeof point.next !== "string") {
+		lastQuizPointId = point.id;
+	}
+
 	let nextId: string;
 	if (typeof point.next === "string") {
 		nextId = point.next;

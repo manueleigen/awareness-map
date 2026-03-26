@@ -4,8 +4,7 @@ story_points:
     title_key: challenges.flood.police.challenge.intro.title
     question_key: challenges.flood.police.challenge.intro.question
     target: "#layer-evacuation_zones"
-    activeLayerId: evacuation_zones
-
+    activeLayerIds: [evacuation_zones]
     solution: ["area-19", "area-20", "area-21"]
     wrong_options: []
     minSelection: 3
@@ -25,7 +24,7 @@ story_points:
     title_key: challenges.flood.police.challenge.intro.win.title
     description_key: challenges.flood.police.challenge.intro.win.description
     continue_button_key: challenges.common.restart
-    activeLayerId: evacuation_zones
+    activeLayerIds: [evacuation_zones]
     terminalStatus: passed
     next: intro
 

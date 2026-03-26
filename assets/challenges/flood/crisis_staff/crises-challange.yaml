@@ -4,6 +4,9 @@ story_points:
     title_key: challenges.flood.crisis_staff.challenge.intro.title
     question_key: challenges.flood.crisis_staff.challenge.intro.question
     activeLayerIds: [social_media_crises]
+    slider_time: 11:30
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
     options:
       - label_key: challenges.flood.crisis_staff.challenge.intro.optionA
         value: a
@@ -24,6 +27,9 @@ story_points:
     question_key: challenges.flood.crisis_staff.challenge.coord-selection.question
     submit_key: challenges.flood.crisis_staff.challenge.coord-selection.submit
     activeLayerIds: [social_media_crises]
+    slider_time: 11:30
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
     target: "#layers"
     initial_position: # Drone starting position when entering this step
       x: 500
@@ -42,7 +48,10 @@ story_points:
     type: info
     title_key: challenges.flood.crisis_staff.challenge.coord-selection.win.title
     description_key: challenges.flood.crisis_staff.challenge.coord-selection.win.description
-    activeLayerId: drone_feed
+    activeLayerIds: [drone_feed]
+    slider_time: 11:30
+    slider_time_layer: flood_simulation
+    slider_time_fixed: true
     next: who-you-wanna-call
     continue_button_key: navigation.next
     step: 3
@@ -52,8 +61,11 @@ story_points:
     type: quiz
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.title
     question_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.question
-    activeLayerId: drone_feed
+    activeLayerIds: [drone_feed]
     excludeLayerIds: [social_media_crises]
+    slider_time: 11:30
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
     options:
       - label_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.optionA
         value: a
@@ -73,7 +85,7 @@ story_points:
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.win.title
     description_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.win.description
     continue_button_key: challenges.common.restart
-    activeLayerId: drone_feed
+    activeLayerIds: [drone_feed]
     terminalStatus: passed
     next: intro
 
@@ -98,7 +110,7 @@ story_points:
     title_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.fail.title
     description_key: challenges.flood.crisis_staff.challenge.who-you-wanna-call.fail.description
     continue_button_key: challenges.common.restart
-    activeLayerId: drone_feed
+    activeLayerIds: [drone_feed]
     terminalStatus: failed
     next: intro
 
@@ -109,7 +121,7 @@ story_points:
     question_key: challenges.flood.crisis_staff.challenge.location.question_detail
     target: "#layer-critical_sites"
     selector: ".poi-marker"
-    activeLayerId: critical_sites
+    activeLayerIds: [critical_sites]
     # usesResultFrom: free-coord-selection (Logic will look at previous point's result)
     solution: ["critical_site_2"]
 

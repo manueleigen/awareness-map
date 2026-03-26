@@ -11,7 +11,7 @@ import {
 } from "./layers.js";
 import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
-import { getQuizPath, getRoleSliderConfig } from "./scenarios.js";
+import { getQuizPath, getRoleSliderConfig, getRoleActiveLayerIds } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
 import { abortLocationStep, abortSelectionStep } from "./quiz/render-map.js";
 import { animateSliderToTime } from "./time-slider.js";
@@ -174,6 +174,7 @@ export function renderRoleSelection(): void {
 					app.currentRole = roleId;
 					app.view = "map";
 					await resetLayers();
+					getRoleActiveLayerIds().forEach((id) => app.activeLayers.add(id));
 					await updateView();
 					previewActivePOILayers();
 					const sliderCfg = getRoleSliderConfig();
