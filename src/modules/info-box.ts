@@ -1,5 +1,5 @@
 import { app } from "./state.js";
-import { addPointerClick } from "./interactions.js";
+import { addDelayedPointerClick } from "./interactions.js";
 import { startQuiz } from "./engine.js";
 import { hidePOIOverlay } from "./poi.js";
 import {
@@ -9,7 +9,7 @@ import {
 	resetSliders,
 	previewActivePOILayers,
 } from "./layers.js";
-import { create, sleep } from "./lib.js";
+import { create } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath, getRoleSliderConfig, getRoleActiveLayerIds } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
@@ -99,7 +99,7 @@ export function renderHome(): void {
 			if (scenario.inactive) {
 				btn.classList.add("is-inactive");
 			} else {
-				addPointerClick(btn, async () => {
+				addDelayedPointerClick(btn, async () => {
 					app.currentScenario = scenarioId;
 					app.view = "role-select";
 					await resetLayers();
@@ -143,7 +143,6 @@ export function renderRoleSelection(): void {
 		const roleCTX = scenarioCTX.roles[roleId];
 		const hasQuiz = roleCTX.quiz;
 		const btn = create("button");
-		btn.classList.add("silent-disabled");
 
 		// Try scenario-specific role title (short version) first, then fallback to challenge title
 		const scenarioRoleTitle = t(
@@ -163,32 +162,24 @@ export function renderRoleSelection(): void {
 				: fallbackTitle;
 
 		if (hasQuiz) {
-			// Technical Implementation Guide (v2.3): Through-click prevention.
-			// Delay listener attachment by 300ms so the same physical touch
-			// that opened this view doesn't immediately trigger a role selection.
-			setTimeout(async function () {
-				await sleep(200);
-				btn.classList.remove("silent-disabled");
-
-				addPointerClick(btn, async () => {
-					app.currentRole = roleId;
-					app.view = "map";
-					await resetLayers();
-					getRoleActiveLayerIds().forEach((id) => app.activeLayers.add(id));
-					await updateView();
-					previewActivePOILayers();
-					const sliderCfg = getRoleSliderConfig();
-					if (sliderCfg) {
-						const targetLayers = sliderCfg.layer
-							? [sliderCfg.layer]
-							: Object.keys(
-									context?.scenarios[app.currentScenario!]?.layers ?? {},
-								);
-						targetLayers.forEach((id) =>
-							animateSliderToTime(id, sliderCfg.time, sliderCfg.fixed),
-						);
-					}
-				});
+			addDelayedPointerClick(btn, async () => {
+				app.currentRole = roleId;
+				app.view = "map";
+				await resetLayers();
+				getRoleActiveLayerIds().forEach((id) => app.activeLayers.add(id));
+				await updateView();
+				previewActivePOILayers();
+				const sliderCfg = getRoleSliderConfig();
+				if (sliderCfg) {
+					const targetLayers = sliderCfg.layer
+						? [sliderCfg.layer]
+						: Object.keys(
+								context?.scenarios[app.currentScenario!]?.layers ?? {},
+							);
+					targetLayers.forEach((id) =>
+						animateSliderToTime(id, sliderCfg.time, sliderCfg.fixed),
+					);
+				}
 			});
 		} else {
 			btn.classList.add("is-inactive");
@@ -260,11 +251,8 @@ export async function renderMapUI(): Promise<void> {
 			btnLabelKey,
 			result ? "Retry" : "Start Challenge",
 		);
-		startQuizBtn.classList.add("silent-disabled");
 		infoBoxControls.append(startQuizBtn);
-		await sleep(200);
-		startQuizBtn.classList.remove("silent-disabled");
-		addPointerClick(startQuizBtn, async () => {
+		addDelayedPointerClick(startQuizBtn, async () => {
 			await startQuiz(quizPath);
 		});
 	}

@@ -1,5 +1,5 @@
 import { create, loadTEXT } from "../lib.js";
-import { addPointerClick } from "../interactions.js";
+import { addDelayedPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import {
 	LocationStoryPoint,
@@ -228,7 +228,7 @@ export function renderLocation(
 	const btn = create("button");
 	btn.innerText = t(point.submit_key ?? "challenges.common.submit", "Check Answer");
 	locationSubmitBtnEl = btn;
-	addPointerClick(btn, () => {
+	addDelayedPointerClick(btn, () => {
 		if (!locationPlaced) return;
 
 		// Calculate Euclidean distance to solution center
@@ -433,7 +433,7 @@ export function renderSelection(
 	};
 	document.addEventListener("quiz-answer-changed", externalHandler, { signal });
 
-	addPointerClick(btn, () => {
+	addDelayedPointerClick(btn, () => {
 		if (selectedIds.length < (point.minSelection ?? 1)) return;
 
 		abortSelectionStep();
