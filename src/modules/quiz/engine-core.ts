@@ -6,7 +6,7 @@ import { t } from "../translater.js";
 import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
-import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations } from "./render-map.js";
+import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations, abortSelectionStep } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
 
 /** Local storage for the active quiz run. */
@@ -114,6 +114,7 @@ async function loadPoint(id: string): Promise<void> {
 	// We don't use full resetLayers() here because it would trigger a redundant
 	// renderLayers() call and reset initially_visible layers we might want to keep.
 	abortLocationStep(); // removes edge guard + capture listener from any previous location step
+	abortSelectionStep();
 	clearQuizAnswers();
 
 	// 3. Explicitly deactivate layers that should be hidden for THIS step

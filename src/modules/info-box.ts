@@ -13,7 +13,7 @@ import { create, sleep } from "./lib.js";
 import { t } from "./translater.js";
 import { getQuizPath, getRoleSliderConfig } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
-import { abortLocationStep } from "./quiz/render-map.js";
+import { abortLocationStep, abortSelectionStep } from "./quiz/render-map.js";
 import { animateSliderToTime } from "./time-slider.js";
 /**
  * Updates the entire application view based on app.view state.
@@ -274,6 +274,7 @@ export async function renderMapUI(): Promise<void> {
  */
 export async function resetApp(): Promise<void> {
 	abortLocationStep();
+	abortSelectionStep();
 	app.currentScenario = null;
 	app.currentRole = null;
 	app.view = "home";
@@ -290,6 +291,7 @@ export async function resetApp(): Promise<void> {
  */
 export async function backToRoles(): Promise<void> {
 	abortLocationStep();
+	abortSelectionStep();
 	app.currentRole = null;
 	app.view = "role-select";
 

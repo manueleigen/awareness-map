@@ -18,6 +18,7 @@ const DRONE_MIN_DURATION_MS  = 600; // minimum travel time for very short moves
 // ── Location-step cleanup ─────────────────────────────────────────────────────
 // Held across calls so any entry point (new step, language switch, …) can clean up.
 let locationStepAbort: AbortController | null = null;
+let selectionStepAbort: AbortController | null = null;
 let locationDroneEl: HTMLDivElement | null = null;
 let locationCrosshairEl: HTMLDivElement | null = null;
 
@@ -28,6 +29,15 @@ let locationTitleEl: HTMLHeadingElement | null = null;
 let locationQuestionEl: HTMLParagraphElement | null = null;
 let locationStatusEl: HTMLParagraphElement | null = null;
 let locationSubmitBtnEl: HTMLButtonElement | null = null;
+
+/**
+ * Removes event listeners added by the active selection step.
+ * Safe to call even if no selection step is active.
+ */
+export function abortSelectionStep(): void {
+	selectionStepAbort?.abort();
+	selectionStepAbort = null;
+}
 
 /**
  * Hides the edge guard, removes the drone marker, and clears the capture listener.
@@ -257,8 +267,9 @@ export function renderSelection(
 	point: SelectionStoryPoint,
 	onAction: (outcome: QuizOutcome) => void,
 ): void {
-	// Safety: clean up any location step that may still be active
+	// Safety: clean up any location or selection step that may still be active
 	abortLocationStep();
+	abortSelectionStep();
 
 	content.innerHTML = "";
 	controls.innerHTML = "";
@@ -295,6 +306,9 @@ export function renderSelection(
 
 	// SPATIAL FILTER: Check if there's a previous reconnaissance area to restrict selection
 	const spatialFilter = getLastLocationResult();
+
+	selectionStepAbort = new AbortController();
+	const { signal } = selectionStepAbort;
 
 	const btn = create("button");
 	btn.innerText = t("challenges.common.submit", "Check Selection");
@@ -382,7 +396,7 @@ export function renderSelection(
 		});
 
 		// Add single listener to container for delegation
-		target.addEventListener("pointerup", clickHandler as any);
+		target.addEventListener("pointerup", clickHandler as any, { signal });
 	}
 
 	// Listen for selection changes from POI detail overlays (still needed for POIs)
@@ -410,20 +424,18 @@ export function renderSelection(
 		}
 		refreshStatus();
 	};
-	document.addEventListener("quiz-answer-changed", externalHandler);
+	document.addEventListener("quiz-answer-changed", externalHandler, { signal });
 
 	addPointerClick(btn, () => {
 		if (selectedIds.length < (point.minSelection ?? 1)) return;
 
-		// Cleanup
+		abortSelectionStep();
+
 		if (target) {
-			target.removeEventListener("pointerup", clickHandler as any);
 			target.querySelectorAll<HTMLElement>(effectiveSelector).forEach((el) => {
 				el.classList.remove("quiz-pulse");
 			});
 		}
-
-		document.removeEventListener("quiz-answer-changed", externalHandler);
 
 		// Calculate Status: right, half, half-wrong, wrong-neutral, all-neutral, all-wrong
 		let outcome: QuizOutcome = "wrong";
