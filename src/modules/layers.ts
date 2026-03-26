@@ -463,14 +463,9 @@ export function rePreviewPOILayer(layerSelector: string): void {
 
 /** Resets all slider positions to the start and syncs the lottie frame via input event. */
 export function resetSliders(): void {
-	// Reset cached slider elements directly — they may not be in the DOM yet
-	// (e.g. after navigating to home view where slidersContainer is empty).
-	sliderElements.forEach((wrapper) => {
-		const range = wrapper.querySelector<HTMLInputElement>(".range-slider");
-		if (range) {
-			range.value = "0";
-			range.dispatchEvent(new Event("input"));
-		}
+	document.querySelectorAll<HTMLInputElement>(".range-slider").forEach((range) => {
+		range.value = "0";
+		range.dispatchEvent(new Event("input"));
 	});
 }
 
