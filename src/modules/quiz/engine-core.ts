@@ -3,6 +3,7 @@ import { addPointerClick } from "../interactions.js";
 import { app } from "../state.js";
 import { resetLayers } from "../layers.js";
 import { t } from "../translater.js";
+import { renderBlockText, renderInlineText } from "../rich-text.js";
 import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
@@ -279,11 +280,17 @@ function renderSuccessInterlude(
 	controls.innerHTML = "";
 
 	const title = create("h2");
-	title.innerHTML = t(success.title_key || "feedback.success_title", "Success");
-	const desc = create("p");
-	desc.innerHTML = t(
+	renderInlineText(
+		title,
+		t(success.title_key || "feedback.success_title", "Success"),
+	);
+	const desc = create("div");
+	renderBlockText(
+		desc,
+		t(
 		success.description_key || "feedback.continue",
 		"Continuing...",
+		),
 	);
 
 	container.append(title, desc);

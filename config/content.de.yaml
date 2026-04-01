@@ -28,13 +28,10 @@ feedback:
 
 home:
   title: Hast du die Lage im Blick?
-  description: >
-    Im Krisenfall zählt jede Information.
-    Erst das Zusammenspiel verschiedener Informationsquellen ergibt ein vollständiges Lagebild.
+  description: |
+    Im Krisenfall zählt jede Information. Erst das Zusammenspiel verschiedener Informationsquellen ergibt ein vollständiges Lagebild.
 
-    <div class="spacer"></div>
-    Über die Icons am rechten Bildschirmrand kannst du verschiedene Infos auf der Karte anzeigen.
-    <strong>Wähle ein Szenario, das du durchspielen möchtest.</strong>
+    Über die Icons am rechten Bildschirmrand kannst du verschiedene Infos auf der Karte anzeigen. **Wähle ein Szenario, das du durchspielen möchtest.**
 
   scenario_selection_label: Wähle ein Szenario
   scenario_1: Hochwasser
@@ -45,14 +42,12 @@ scenarios:
   flood:
     title: Der Fluss tritt über die Ufer
     short_title: Flut
-    description: >
-      <strong>Nach tagelangen Regenfällen steigt der Wasserpegel weiter an.</strong>
+    description: |
+      **Nach tagelangen Regenfällen steigt der Wasserpegel weiter an.**
 
       Die Lage verändert sich schnell, und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt überflutet werden.
 
-      <div class="spacer"></div>
-      Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Informationen.
-      <strong>Wessen Rolle möchtest du übernehmen?</strong>
+      Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Informationen. **Wessen Rolle möchtest du übernehmen?**
     role_selection_label: Wähle deine Rolle
     roles:
       fire_brigade:
@@ -74,192 +69,159 @@ challenges:
   flood:
     fire_brigade:
       title: "Feuerwehr: Notrufe priorisieren"
-      intro: >
-        <strong>Es ist 14:00 Uhr</strong>, das Wasser steigt unaufhaltsam.
+      intro: |
+        **Es ist 14:00 Uhr**, das Wasser steigt unaufhaltsam.
 
-        Zahlreiche Notrufe gehen ein, doch die Ressourcen der Feuerwehr sind begrenzt: <strong>Du kannst nur zwei Notrufe bearbeiten.</strong>
+        Zahlreiche Notrufe gehen ein, doch die Ressourcen der Feuerwehr sind begrenzt: **Du kannst nur zwei Notrufe bearbeiten.**
 
-        <div class="spacer"></div>
-        Bedenke, wie viele Menschen betroffen sind, wie schnell die Orte überflutet werden, 
-        und ob die Einsatzkräfte sie noch erreichen können, ohne selbst von der Flut erfasst zu werden.
+        Bedenke, wie viele Menschen betroffen sind, wie schnell die Orte überflutet werden, und ob die Einsatzkräfte sie noch erreichen können, ohne selbst von der Flut erfasst zu werden.
       challenge:
         intro:
           title: Einsatzkräfte entsenden
-          question: >
-            <strong>Es ist 14:00 Uhr. Wähle genau zwei Notrufe aus.</strong>
+          question: |
+            **Es ist 14:00 Uhr. Wähle genau zwei Notrufe aus.**
 
-            <div class="spacer"></div>
-              Berücksichtige: 
+            Berücksichtige:
 
-            <div class="spacer"></div>
-            <strong>
-              <ul>
-              <li>wie viele Menschen betroffen sind,</li>
-              <li>wie schnell die Orte überflutet werden und</li>
-              <li>ob die Rettungswagen sie noch sicher erreichen können.</li>
-              <ul>
-            </strong>
+            - wie viele Menschen betroffen sind
+            - wie schnell die Orte überflutet werden
+            - ob die Rettungswagen sie noch sicher erreichen können
           win:
             title: Challenge gelöst!
-            description: >
-              Du hast die beiden kritischsten Notrufe priorisiert und damit die meisten Menschen gerettet,
-              ohne Einsatzkräfte in Gefahr zu bringen
+            description: |
+              Du hast die beiden kritischsten Notrufe priorisiert und damit die meisten Menschen gerettet, ohne Einsatzkräfte in Gefahr zu bringen.
 
-              <div class="spacer"></div>
-              <strong>Gut gemacht!</strong>
+              **Gut gemacht!**
           half-fail:
             title: Teilweise richtig
-            description: >
+            description: |
               Du hast einen der beiden kritischen Notrufe richtig priorisiert, aber der andere Notruf, den du gewählt hast, ist nicht so dringend, wie du denkst.
 
-              <div class="spacer"></div>
-              <strong>Achte darauf, welche Bereiche schon bald überflutet werden!</strong>
+              **Achte darauf, welche Bereiche schon bald überflutet werden!**
           half-wrong:
             title: Einsatzkräfte in Gefahr
-            description: >
+            description: |
               Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf gewählt hast, der schon überflutet ist.
 
-              Deine andere Wahl hast du richtig getroffen, und damit einen Notruf in einem Bereich priorisiert, der bald überflutet wird.
+              Deine andere Wahl hast du richtig getroffen und damit einen Notruf in einem Bereich priorisiert, der bald überflutet wird.
 
-              <div class="spacer"></div>
-
-              <strong>Wähle einen anderen Notruf.</strong>
+              **Wähle einen anderen Notruf.**
           wrong-neutral:
             title: Einsatzkräfte in Gefahr
-            description: >
+            description: |
               Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf in einem Bereich gewählt hast, der schon überflutet ist.
 
               Deine andere Wahl war ein Notruf, der nicht kritisch ist, da er nicht bald überflutet wird und nur wenige Menschen betrifft.
 
-              <div class="spacer"></div>
-              <strong>Wähle zwei andere Notrufe.</strong>
+              **Wähle zwei andere Notrufe.**
           all-neutral:
             title: Vergeudete Ressourcen
-            description: >
+            description: |
               Deine gewählten Notrufe waren nicht kritisch, da sie nicht bald überflutet werden und nur wenige Menschen betreffen.
 
-              <div class="spacer"></div>
-              <strong>Wähle zwei andere Notrufe, die viele Menschen betreffen und bald überflutet werden.</strong>
+              **Wähle zwei andere Notrufe, die viele Menschen betreffen und bald überflutet werden.**
           fail:
             title: Fehlgeschlagen
-            description: >
+            description: |
               Deine Auswahl war nicht optimal.
 
-              <div class="spacer"></div>
-              <strong>Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.</strong>
+              **Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.**
     police:
       title: Evakuierungszonen planen
-      intro: >
-        <strong>Es ist 13:30 Uhr.</strong> Überflutungen bedrohen dicht besiedelte Gebiete.
-        Um die Menschen zu schützen, müssen einige Bezirke evakuiert werden.
-        <strong>Allerdings sind die Ressourcen der Polizei begrenzt, und es können zunächst nur drei Zonen evakuiert werden.</strong>
+      intro: |
+        **Es ist 13:30 Uhr.** Überflutungen bedrohen dicht besiedelte Gebiete. Um die Menschen zu schützen, müssen einige Bezirke evakuiert werden. **Allerdings sind die Ressourcen der Polizei begrenzt, und es können zunächst nur drei Zonen evakuiert werden.**
 
-        <div class="spacer"></div>
-        Identifiziere dicht besiedelte Gebiete, die bald überschwemmt werden,
-        und achte auf besonders schützenswerte Infrastruktur.
+        Identifiziere dicht besiedelte Gebiete, die bald überschwemmt werden, und achte auf besonders schützenswerte Infrastruktur.
 
       challenge:
         intro:
           title: Evakuierungszonen wählen
-          question: >
-            <strong>Es ist 13:30 Uhr. Wähle drei Zonen auf der Karte aus.</strong>
-            <div class="spacer"></div>
-            Berücksichtige dabei
+          question: |
+            **Es ist 13:30 Uhr. Wähle drei Zonen auf der Karte aus.**
 
-            <div class="spacer"></div>
-            <strong>
-            <ul>
-            <li>wann die Bereiche überflutet werden, </li>
-            <li>die Bevölkerungsdichte und </li>
-            <li>wichtige Infrastruktur, die evakuiert werden muss.</li>
-            </strong>
+            Berücksichtige dabei:
+
+            - wann die Bereiche überflutet werden
+            - die Bevölkerungsdichte
+            - wichtige Infrastruktur, die evakuiert werden muss
           win:
             title: Challenge gelöst!
-            description: >
-              <div class="spacer"></div>
+            description: |
               Du hast die am stärksten gefährdeten Wohngebiete priorisiert und kritische Infrastruktur berücksichtigt.
           half-fail:
             title: Teilweise richtig
-            description: >
+            description: |
               Nicht alle ausgewählten Zonen waren kritisch, aber du hast zumindest einen Teil der am stärksten gefährdeten Wohngebiete priorisiert.
 
-              <div class="spacer"></div>
-              <strong>Achte auf dicht besiedelte Gebiete, die bald überflutet werden.</strong>
+              **Achte auf dicht besiedelte Gebiete, die bald überflutet werden.**
           all-neutral:
             title: Ressourcen verschwendet
-            description: >
+            description: |
               Keine deiner gewählten Zonen waren kritisch, da sie nicht bald überflutet werden oder nur wenige Menschen betreffen.
 
-              <div class="spacer"></div>
-              <strong>Achte auf dicht besiedelte Gebiete, die bald überflutet werden!</strong>
+              **Achte auf dicht besiedelte Gebiete, die bald überflutet werden!**
 
     crisis_staff:
       title: "Entscheiden unter Unsicherheit"
-      intro: >
-        <strong>Es ist 11:30 Uhr.</strong> Auf Social Media kursieren Gerüchte über einen möglichen Bruch des Hochwasserschutzes im Bereich des Alten Hafens.
+      intro: |
+        **Es ist 11:30 Uhr.** Auf Social Media kursieren Gerüchte über einen möglichen Bruch des Hochwasserschutzes im Bereich des Alten Hafens.
 
-        <div class="spacer"></div>
-        Prüfe die Informationen und <strong>überlege, ob du sofort handeln oder zunächst weitere Informationen sammeln möchtest.</strong>
+        Prüfe die Informationen und **überlege, ob du sofort handeln oder zunächst weitere Informationen sammeln möchtest.**
       challenge:
         intro:
           title: "Wie reagierst du?"
-          question: <strong>Möchtest du die aktuelle Informationslage sofort mit Öffentlichkeit, Polizei oder Feuerwehr teilen oder zunächst eine Drohne entsenden</strong>, um mehr Informationen zu sammeln und die Lage besser einzuschätzen?
+          question: "**Möchtest du die aktuelle Informationslage sofort mit Öffentlichkeit, Polizei oder Feuerwehr teilen oder zunächst eine Drohne entsenden**, um mehr Informationen zu sammeln und die Lage besser einzuschätzen?"
           optionA: Informationen teilen
           optionB: Drohne entsenden
           win:
             title: Richtig!
-            description: >
-              Du solltest keine ungesicherten Informationen teilen, da dies Panik verstärken kann. 
+            description: |
+              Du solltest keine ungesicherten Informationen teilen, da dies Panik verstärken kann.
+
               Stattdessen hast du die Drohne geschickt eingesetzt, um mehr Informationen zu sammeln und die Lage besser einzuschätzen.
           fail:
             title: Das war keine gute Entscheidung
-            description: >
-              <strong>Die frühe Kommunikation ungesicherter Informationen verstärkt Panik.</strong>
+            description: |
+              **Die frühe Kommunikation ungesicherter Informationen verstärkt Panik.**
 
-              <div class="spacer"></div>
               Auch das interne Teilen mit Feuerwehr und Polizei kann verfrühte oder fehlgeleitete Maßnahmen auslösen.
         coord-selection:
           title: Einsatzort der Drohne wählen
           submit: Einsatzort prüfen
-          question: >
-            <strong>Prüfe die Social-Media-Posts</strong>, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist
+          question: |
+            **Prüfe die Social-Media-Posts**, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
 
-            <div class="spacer"></div>
-            <strong>Tippe dann einen Ort auf der Karte an, um die Drohne dorthin zu senden.</strong>
+            **Tippe dann einen Ort auf der Karte an, um die Drohne dorthin zu senden.**
 
           win:
             title: Richtig!
-            description: >
+            description: |
               Du hast die Drohne in einem relevanten Gebiet eingesetzt und damit wichtige Daten über die aktuelle Lage gesammelt.
 
-              <div class="spacer"></div>
-              <strong>Tatsächlich waren die Gerüchte über den Alten Hafen korrekt - der Bereich ist vollständig überschwemmt!</strong>
+              **Tatsächlich waren die Gerüchte über den Alten Hafen korrekt - der Bereich ist vollständig überschwemmt!**
           fail:
             title: Fehlgeschlagen
-            description: >
-              Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit wertvolle Ressourcen vergeudet
+            description: |
+              Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit wertvolle Ressourcen vergeudet.
 
-              <div class="spacer"></div>
-              <strong>Prüfe die Social-Media-Posts</strong>, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
+              **Prüfe die Social-Media-Posts**, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
         who-you-wanna-call:
           title: Information weiterleiten
-          question: <strong>Mit wem möchtest du die gesicherte Information zuerst teilen?</strong>
+          question: "**Mit wem möchtest du die gesicherte Information zuerst teilen?**"
           optionA: Einsatzleitung der Feuerwehr
           optionB: Öffentlichkeit
           win:
             title: Challenge gelöst!
-            description: >
-              Du hast die Information so weitergegeben, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen
+            description: |
+              Du hast die Information so weitergegeben, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen.
 
-              <div class="spacer"></div>
-              Du hast mit deinen Entscheidungen eine wichtige Informationslücke geschlossen, <strong>die Einsatzkräfte sind jetzt besser handlungsfähig.</strong>
+              Du hast mit deinen Entscheidungen eine wichtige Informationslücke geschlossen, **die Einsatzkräfte sind jetzt besser handlungsfähig.**
           fail:
             title: Fehlgeschlagen
-            description: >
-              Das zu frühe Teilen der Information mit der Öffentlichkeit verstärkt Panik
+            description: |
+              Das zu frühe Teilen der Information mit der Öffentlichkeit verstärkt Panik.
 
-              <div class="spacer"></div>
-              <strong>Die Einsatzkräfte brauchen dringend präzise Informationen, um eine sinnvolle Reaktion zu initiieren.</strong>
+              **Die Einsatzkräfte brauchen dringend präzise Informationen, um eine sinnvolle Reaktion zu initiieren.**
 
   common:
     passed_msg: Herausforderung erfolgreich abgeschlossen!

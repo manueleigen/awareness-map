@@ -10,6 +10,7 @@ import {
 	previewActivePOILayers,
 } from "./layers.js";
 import { create } from "./lib.js";
+import { renderBlockText, renderInlineText } from "./rich-text.js";
 import { t } from "./translater.js";
 import { getQuizPath, getRoleSliderConfig, getRoleActiveLayerIds } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
@@ -79,10 +80,10 @@ export function renderHome(): void {
 
 	const title = create("h1");
 	title.id = "app-title";
-	title.innerHTML = t("home.title");
+	renderInlineText(title, t("home.title"));
 
-	const text = create("p");
-	text.innerHTML = t("home.description");
+	const text = create("div");
+	renderBlockText(text, t("home.description"));
 
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
@@ -131,10 +132,10 @@ export function renderRoleSelection(): void {
 	infoBoxControls.innerHTML = "";
 
 	const title = create("h2");
-	title.innerHTML = t(`scenarios.${app.currentScenario}.title`);
+	renderInlineText(title, t(`scenarios.${app.currentScenario}.title`));
 
-	const text = create("p");
-	text.innerHTML = t(`scenarios.${app.currentScenario}.description`);
+	const text = create("div");
+	renderBlockText(text, t(`scenarios.${app.currentScenario}.description`));
 
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
@@ -213,13 +214,15 @@ export async function renderMapUI(): Promise<void> {
 	document.documentElement.dataset.quizPoiSelect = "0";
 
 	const title = create("h2");
-	title.innerHTML = t(
-		`challenges.${app.currentScenario}.${app.currentRole}.title`,
+	renderInlineText(
+		title,
+		t(`challenges.${app.currentScenario}.${app.currentRole}.title`),
 	);
 
-	const desc = create("p");
-	desc.innerHTML = t(
-		`challenges.${app.currentScenario}.${app.currentRole}.intro`,
+	const desc = create("div");
+	renderBlockText(
+		desc,
+		t(`challenges.${app.currentScenario}.${app.currentRole}.intro`),
 	);
 
 	infoBoxContent.append(title, desc);

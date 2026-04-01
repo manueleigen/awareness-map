@@ -86,8 +86,25 @@
 		flex-direction: column;
 		align-content: start;
 
-		p {
+		.rich-text {
+			width: 100%;
 			margin-bottom: 28px;
+		}
+
+		.rich-text-block {
+			margin: 0;
+		}
+
+		.rich-text > * + * {
+			margin-top: 16px;
+		}
+
+		.rich-text-list {
+			padding-left: 1.2em;
+		}
+
+		.rich-text-list li + li {
+			margin-top: 4px;
 		}
 
 		.quiz-progress {

@@ -1,6 +1,7 @@
 import { create } from "../lib.js";
 import { addPointerClick, addDelayedPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
+import { renderBlockText, renderInlineText } from "../rich-text.js";
 import { InfoStoryPoint, QuizStoryPoint } from "./types.js";
 import { backToRoles } from "../info-box.js";
 
@@ -20,12 +21,12 @@ export function renderInfo(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerHTML = t(point.title_key);
+		renderInlineText(title, t(point.title_key));
 		content.append(title);
 	}
 
-	const desc = create("p");
-	desc.innerHTML = t(point.description_key);
+	const desc = create("div");
+	renderBlockText(desc, t(point.description_key));
 	content.append(desc);
 
 	// In terminal steps, we show different buttons based on status:
@@ -67,12 +68,12 @@ export function renderChoice(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerHTML = t(point.title_key);
+		renderInlineText(title, t(point.title_key));
 		content.append(title);
 	}
 
-	const question = create("p");
-	question.innerHTML = t(point.question_key);
+	const question = create("div");
+	renderBlockText(question, t(point.question_key));
 	content.append(question);
 
 	const optionsWrapper = create("div");
@@ -83,7 +84,7 @@ export function renderChoice(
 	point.options.forEach((opt) => {
 		const btn = create("button");
 		btn.className = "quiz-option-btn";
-		btn.innerHTML = t(opt.label_key);
+		btn.innerText = t(opt.label_key);
 
 		addPointerClick(btn, () => {
 			const isMulti = (point.maxAnswers ?? point.solution.length) > 1;

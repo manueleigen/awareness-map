@@ -1,6 +1,7 @@
 import { create, loadTEXT } from "../lib.js";
 import { addDelayedPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
+import { renderBlockText, renderInlineText } from "../rich-text.js";
 import {
 	LocationStoryPoint,
 	SelectionStoryPoint,
@@ -26,8 +27,8 @@ let locationCrosshairEl: HTMLDivElement | null = null;
 let locationCurrentPoint: LocationStoryPoint | null = null;
 let locationPlaced: { x: number; y: number } | null = null;
 let locationTitleEl: HTMLHeadingElement | null = null;
-let locationQuestionEl: HTMLParagraphElement | null = null;
-let locationStatusEl: HTMLParagraphElement | null = null;
+let locationQuestionEl: HTMLElement | null = null;
+let locationStatusEl: HTMLElement | null = null;
 let locationSubmitBtnEl: HTMLButtonElement | null = null;
 
 /**
@@ -71,12 +72,15 @@ export function abortLocationStep(): void {
 export function refreshLocationTranslations(): void {
 	if (!locationCurrentPoint) return;
 	if (locationTitleEl && locationCurrentPoint.title_key)
-		locationTitleEl.innerHTML = t(locationCurrentPoint.title_key);
+		renderInlineText(locationTitleEl, t(locationCurrentPoint.title_key));
 	if (locationQuestionEl)
-		locationQuestionEl.innerHTML = t(locationCurrentPoint.question_key);
+		renderBlockText(locationQuestionEl, t(locationCurrentPoint.question_key));
 	// Only update status if no coordinates have been locationPlaced yet
 	if (locationStatusEl && !locationPlaced)
-		locationStatusEl.innerHTML = t("challenges.common.click_to_place", "Click to place a point.");
+		locationStatusEl.innerText = t(
+			"challenges.common.click_to_place",
+			"Click to place a point.",
+		);
 	if (locationSubmitBtnEl)
 		locationSubmitBtnEl.innerText = t(
 			locationCurrentPoint.submit_key ?? "challenges.common.submit",
@@ -104,17 +108,17 @@ export function renderLocation(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerHTML = t(point.title_key);
+		renderInlineText(title, t(point.title_key));
 		locationTitleEl = title;
 		content.append(title);
 	}
 
-	const question = create("p");
-	question.innerHTML = t(point.question_key);
+	const question = create("div");
+	renderBlockText(question, t(point.question_key));
 	locationQuestionEl = question;
 	const status = create("p");
 	status.className = "quiz-status";
-	status.innerHTML = t(
+	status.innerText = t(
 		"challenges.common.click_to_place",
 		"Click to place a point.",
 	);
@@ -288,12 +292,12 @@ export function renderSelection(
 
 	if (point.title_key) {
 		const title = create("h2");
-		title.innerHTML = t(point.title_key);
+		renderInlineText(title, t(point.title_key));
 		content.append(title);
 	}
 
-	const question = create("p");
-	question.innerHTML = t(point.question_key);
+	const question = create("div");
+	renderBlockText(question, t(point.question_key));
 	const status = create("p");
 	status.className = "quiz-status";
 	content.append(question, status);

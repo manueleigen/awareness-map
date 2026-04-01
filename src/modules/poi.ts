@@ -1,6 +1,7 @@
 import { app } from "./state.js";
 import { create, loadJSON, loadTEXT } from "./lib.js";
 import { addPointerClick } from "./interactions.js";
+import { renderBlockText, renderInlineText } from "./rich-text.js";
 import { t } from "./translater.js";
 import { ContextLayer } from "./types.js";
 
@@ -127,7 +128,7 @@ export async function showPOIOverlay(
 	const nameText = loc.translations?.name?.[app.language];
 	if (nameText) {
 		const title = create("h3");
-		title.innerText = nameText;
+		renderInlineText(title, nameText);
 		head.append(title);
 	}
 
@@ -168,9 +169,9 @@ export async function showPOIOverlay(
 	// Body section (optional Status Text / Description)
 	const statusText = loc.translations?.status?.[app.language];
 	if (statusText) {
-		const bodyText = create("p");
+		const bodyText = create("div");
 		bodyText.className = "status-text";
-		bodyText.innerText = statusText;
+		renderBlockText(bodyText, statusText);
 		content.append(bodyText);
 	}
 
