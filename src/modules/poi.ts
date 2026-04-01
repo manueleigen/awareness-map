@@ -69,8 +69,6 @@ export async function renderPOILayer(
 				marker.append(iconWrapper);
 			}
 
-			marker.title = loc.translations?.title?.[app.language] || "";
-
 			// Store loc data for use by previewPOILayer
 			markerLocMap.set(marker, loc);
 
@@ -125,10 +123,10 @@ export async function showPOIOverlay(
 	const head = create("div");
 	head.className = "poi-overlay-head";
 
-	const nameText = loc.translations?.name?.[app.language];
-	if (nameText) {
+	const titleText = loc.translations?.title?.[app.language];
+	if (titleText) {
 		const title = create("h3");
-		renderInlineText(title, nameText);
+		renderInlineText(title, titleText);
 		head.append(title);
 	}
 
@@ -167,13 +165,13 @@ export async function showPOIOverlay(
 	content.append(head);
 
 	// Body section (optional Status Text / Description)
-	const statusText = loc.translations?.status?.[app.language];
-	if (statusText) {
-		const bodyText = create("div");
-		bodyText.className = "status-text";
-		renderBlockText(bodyText, statusText);
-		content.append(bodyText);
-	}
+		const descriptionText = loc.translations?.description?.[app.language];
+		if (descriptionText) {
+			const bodyText = create("div");
+			bodyText.className = "poi-description";
+			renderBlockText(bodyText, descriptionText);
+			content.append(bodyText);
+		}
 
 	// Show "Select" button only during the active POI-selection quiz step
 	// and only for the targeted layer.

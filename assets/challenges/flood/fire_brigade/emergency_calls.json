@@ -6,8 +6,8 @@
       "x": 1230,
       "y": 1085,
       "translations": {
-        "name": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
-        "status": { "de": "Mehrere verletzte Personen nach einem Verkehrsunfall.", 
+        "title": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
+        "description": { "de": "Mehrere verletzte Personen nach einem Verkehrsunfall.", 
                     "en": "Several people injured in a traffic accident." }
       }
     },
@@ -16,8 +16,8 @@
       "x": 1920,
       "y": 1320,
       "translations": {
-        "name": { "de": "Stromausfall im Altenheim", "en": "Power Outage at Senior Center" },
-        "status": { "de": "Mehrere Personen in einem Altenheim sind auf Beatmungsgeräte angeweisen.", "en": "Several people in a senior center are relying on ventilators." }
+        "title": { "de": "Stromausfall im Altenheim", "en": "Power Outage at Senior Center" },
+        "description": { "de": "Mehrere Personen in einem Altenheim sind auf Beatmungsgeräte angeweisen.", "en": "Several people in a senior center are relying on ventilators." }
       }
     },
     {
@@ -25,8 +25,8 @@
       "x": 2440,
       "y": 730,
       "translations": {
-        "name": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
-        "status": { "de": "Personen können das Haus nicht mehr verlassen.", 
+        "title": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
+        "description": { "de": "Personen können das Haus nicht mehr verlassen.", 
                     "en": "People can no longer leave the house." }
       }
     },
@@ -35,8 +35,8 @@
       "x": 1600,
       "y": 496,
       "translations": {
-        "name": { "de": "Keller überflutet", "en": "Basements Flooded" },
-        "status": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
+        "title": { "de": "Keller überflutet", "en": "Basements Flooded" },
+        "description": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
                     "en": "Multiple reports of flooded basements" }
       }
     },
@@ -45,8 +45,8 @@
       "x": 2700,
       "y": 1700,
       "translations": {
-        "name": { "de": "Katze im Baum", "en": "Cat in Tree" },
-        "status": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
+        "title": { "de": "Katze im Baum", "en": "Cat in Tree" },
+        "description": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
                     "en": "A cat is stuck in a tree and cannot get down." }
       }
     },
@@ -55,8 +55,8 @@
       "x": 2800,
       "y": 1150,
       "translations": {
-        "name": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
-        "status": { "de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.", 
+        "title": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
+        "description": { "de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.", 
                     "en": "An underpass is flooded and several cars are trapped." }
       }
     }

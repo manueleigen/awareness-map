@@ -6,8 +6,8 @@
 			"x": 265,
 			"y": 798,
 			"translations": {
-				"name": { "de": "Umspannwerk", "en": "Substation" },
-				"status": {
+				"title": { "de": "Umspannwerk", "en": "Substation" },
+				"description": {
 					"de": "Sichert die Stromversorgung großer Teile der Stadt.",
 					"en": "Secures the power supply for large parts of the city."
 				}
@@ -18,8 +18,8 @@
 			"x": 1800,
 			"y": 540,
 			"translations": {
-				"name": { "de": "Rechenzentrum", "en": "Data Center" },
-				"status": {
+				"title": { "de": "Rechenzentrum", "en": "Data Center" },
+				"description": {
 					"de": "Hier laufen wichtige digitale Dienste der Stadt zusammen.",
 					"en": "Important digital services of the city are centralized here."
 				}
@@ -31,8 +31,8 @@
 			"x": 3144,
 			"y": 979,
 			"translations": {
-				"name": { "de": "Polizeihauptwache", "en": "Main Police Station" },
-				"status": {
+				"title": { "de": "Polizeihauptwache", "en": "Main Police Station" },
+				"description": {
 					"de": "Wichtig für Sicherheit und Einsatzkoordination im Krisenfall.",
 					"en": "Important for security and emergency coordination in a crisis."
 				}
@@ -43,8 +43,8 @@
 			"x": 1600,
 			"y": 1677,
 			"translations": {
-				"name": { "de": "Hauptbahnhof", "en": "Central Station" },
-				"status": {
+				"title": { "de": "Hauptbahnhof", "en": "Central Station" },
+				"description": {
 					"de": "Zentraler Verkehrsknotenpunkt, wichtig für Evakuierungen",
 					"en": "Central transport hub, important for evacuations."
 				}
@@ -56,8 +56,8 @@
 			"x": 1930,
 			"y": 1440,
 			"translations": {
-				"name": { "de": "Krankenhaus", "en": "Hospital" },
-				"status": {
+				"title": { "de": "Krankenhaus", "en": "Hospital" },
+				"description": {
 					"de": "Wichtig für die medizinische Versorgung im Notfall.",
 					"en": "Important for emergency medical care."
 				}
@@ -69,8 +69,8 @@
 			"x": 2995,
 			"y": 1516,
 			"translations": {
-				"name": { "de": "Veranstaltungshalle", "en": "Event Venue" },
-				"status": {
+				"title": { "de": "Veranstaltungshalle", "en": "Event Venue" },
+				"description": {
 					"de": "Ort mit vielen Menschen und hoher Relevanz im Krisenfall.",
 					"en": "A place with many people and high relevance in a crisis."
 				}

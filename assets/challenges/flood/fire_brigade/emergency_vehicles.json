@@ -6,8 +6,8 @@
 			"x": 1232,
 			"y": 755,
 			"translations": {
-				"name": { "de": "Einsatzfahrzeug 1", "en": "Emergency Vehicle 1" },
-				"status": { "de": "Verfügbar", "en": "Available" }
+				"title": { "de": "Einsatzfahrzeug 1", "en": "Emergency Vehicle 1" },
+				"description": { "de": "Verfügbar", "en": "Available" }
 			}
 		},
 		{
@@ -15,8 +15,8 @@
 			"x": 2556,
 			"y": 1330,
 			"translations": {
-				"name": { "de": "Einsatzfahrzeug 2", "en": "Emergency Vehicle 2" },
-				"status": { "de": "Im Einsatz", "en": "In Operation" }
+				"title": { "de": "Einsatzfahrzeug 2", "en": "Emergency Vehicle 2" },
+				"description": { "de": "Im Einsatz", "en": "In Operation" }
 			}
 		},
 		{
@@ -25,8 +25,8 @@
 			"x": 3332,
 			"y": 1051,
 			"translations": {
-				"name": { "de": "Einsatzfahrzeug 3", "en": "Emergency Vehicle 3" },
-				"status": { "de": "Verfügbar", "en": "Available" }
+				"title": { "de": "Einsatzfahrzeug 3", "en": "Emergency Vehicle 3" },
+				"description": { "de": "Verfügbar", "en": "Available" }
 			}
 		},
 		{
@@ -34,8 +34,8 @@
 			"x": 1896,
 			"y": 1731,
 			"translations": {
-				"name": { "de": "Einsatzfahrzeug 4", "en": "Emergency Vehicle 4" },
-				"status": { "de": "Im Einsatz", "en": "In Operation" }
+				"title": { "de": "Einsatzfahrzeug 4", "en": "Emergency Vehicle 4" },
+				"description": { "de": "Im Einsatz", "en": "In Operation" }
 			}
 		}
 	]
