@@ -4,18 +4,12 @@ import { t } from "../translater.js";
 import { renderBlockText, renderInlineText } from "../rich-text.js";
 import { InfoStoryPoint, QuizStoryPoint } from "./types.js";
 import { backToRoles } from "../info-box.js";
-import { app } from "../state.js";
-
-function getInlineText(
-	point: InfoStoryPoint | QuizStoryPoint,
-	field: "title" | "question" | "description",
-): string | null {
-	return point.text?.[app.language]?.[field] ?? null;
-}
-
-function getOptionLabel(point: QuizStoryPoint["options"][number]): string {
-	return point.text?.[app.language] ?? (point.label_key ? t(point.label_key) : point.value);
-}
+import {
+	getQuizOptionLabel,
+	getStoryPointDescription,
+	getStoryPointQuestion,
+	getStoryPointTitle,
+} from "./challenge-normalizer.js";
 
 /**
  * Renders a simple information screen with a continue button.
@@ -31,7 +25,7 @@ export function renderInfo(
 
 	document.documentElement.dataset.quizPoiSelect = "0";
 
-	const titleText = getInlineText(point, "title");
+	const titleText = getStoryPointTitle(point);
 	if (titleText || point.title_key) {
 		const title = create("h2");
 		renderInlineText(title, titleText ?? t(point.title_key!));
@@ -39,10 +33,7 @@ export function renderInfo(
 	}
 
 	const desc = create("div");
-	renderBlockText(
-		desc,
-		getInlineText(point, "description") ?? t(point.description_key),
-	);
+	renderBlockText(desc, getStoryPointDescription(point));
 	content.append(desc);
 
 	// In terminal steps, we show different buttons based on status:
@@ -82,7 +73,7 @@ export function renderChoice(
 	content.innerHTML = "";
 	controls.innerHTML = "";
 
-	const titleText = getInlineText(point, "title");
+	const titleText = getStoryPointTitle(point);
 	if (titleText || point.title_key) {
 		const title = create("h2");
 		renderInlineText(title, titleText ?? t(point.title_key!));
@@ -90,10 +81,7 @@ export function renderChoice(
 	}
 
 	const question = create("div");
-	renderBlockText(
-		question,
-		getInlineText(point, "question") ?? t(point.question_key!),
-	);
+	renderBlockText(question, getStoryPointQuestion(point));
 	content.append(question);
 
 	const optionsWrapper = create("div");
@@ -104,7 +92,7 @@ export function renderChoice(
 	point.options.forEach((opt) => {
 		const btn = create("button");
 		btn.className = "quiz-option-btn";
-		btn.innerText = getOptionLabel(opt);
+		btn.innerText = getQuizOptionLabel(opt);
 
 		addPointerClick(btn, () => {
 			const isMulti = (point.maxAnswers ?? point.solution.length) > 1;

@@ -6,6 +6,7 @@ import {
 	ProjectContext,
 	PrototypeScenario,
 } from "./types.js";
+import { getChallengeIntroText, normalizeChallengeDefinition } from "./quiz/challenge-normalizer.js";
 
 /** Local cache for project context data. */
 let context: ProjectContext | null = null;
@@ -20,8 +21,9 @@ async function loadPrototypeChallenge(path: string): Promise<any | null> {
 
 	try {
 		const data = await loadYAML<any>(path);
-		prototypeChallenges.set(path, data ?? null);
-		return data ?? null;
+		const normalized = data ? normalizeChallengeDefinition(data) : null;
+		prototypeChallenges.set(path, normalized);
+		return normalized;
 	} catch {
 		prototypeChallenges.set(path, null);
 		return null;
@@ -122,16 +124,7 @@ export async function getCurrentPrototypeChallengeIntro(): Promise<{
 	if (!challengePath) return null;
 
 	const challenge = await loadPrototypeChallenge(challengePath);
-	const introPoint = challenge?.story_points?.find(
-		(point: any) => point?.id === "intro" && point?.type === "info",
-	);
-	const text = introPoint?.text?.[app.language];
-	if (!text) return null;
-
-	return {
-		title: text.title,
-		description: text.description,
-	};
+	return challenge ? getChallengeIntroText(challenge) : null;
 }
 
 /**

@@ -10,9 +10,13 @@ import {
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
-import { app } from "../state.js";
 import { resolveLayerSelectorAlias } from "../prototype-context.js";
 import { rePreviewPOILayer } from "../layers.js";
+import {
+	getLocationSubmitLabel,
+	getStoryPointQuestion,
+	getStoryPointTitle,
+} from "./challenge-normalizer.js";
 
 // ── Drone speed ───────────────────────────────────────────────────────────────
 // Adjust this value to change how fast the drone flies (native pixels / second).
@@ -33,18 +37,6 @@ let locationTitleEl: HTMLHeadingElement | null = null;
 let locationQuestionEl: HTMLElement | null = null;
 let locationStatusEl: HTMLElement | null = null;
 let locationSubmitBtnEl: HTMLButtonElement | null = null;
-
-function getPointText(
-	point: LocationStoryPoint | SelectionStoryPoint,
-	field: "title" | "question",
-): string | null {
-	return point.text?.[app.language]?.[field] ?? null;
-}
-
-function getSubmitText(point: LocationStoryPoint): string {
-	return point.submit?.[app.language] ??
-		t(point.submit_key ?? "challenges.common.submit", "Check Answer");
-}
 
 /**
  * Removes event listeners added by the active selection step.
@@ -87,7 +79,7 @@ export function abortLocationStep(): void {
 export function refreshLocationTranslations(): void {
 	if (!locationCurrentPoint) return;
 	if (locationTitleEl) {
-		const titleText = getPointText(locationCurrentPoint, "title");
+		const titleText = getStoryPointTitle(locationCurrentPoint);
 		if (titleText || locationCurrentPoint.title_key) {
 			renderInlineText(
 				locationTitleEl,
@@ -98,8 +90,7 @@ export function refreshLocationTranslations(): void {
 	if (locationQuestionEl)
 		renderBlockText(
 			locationQuestionEl,
-			getPointText(locationCurrentPoint, "question") ??
-				t(locationCurrentPoint.question_key!),
+			getStoryPointQuestion(locationCurrentPoint),
 		);
 	// Only update status if no coordinates have been locationPlaced yet
 	if (locationStatusEl && !locationPlaced)
@@ -108,7 +99,7 @@ export function refreshLocationTranslations(): void {
 			"Click to place a point.",
 		);
 	if (locationSubmitBtnEl)
-		locationSubmitBtnEl.innerText = getSubmitText(locationCurrentPoint);
+		locationSubmitBtnEl.innerText = getLocationSubmitLabel(locationCurrentPoint);
 }
 
 /**
@@ -129,7 +120,7 @@ export function renderLocation(
 	locationCurrentPoint = point;
 	locationPlaced = null;
 
-	const titleText = getPointText(point, "title");
+	const titleText = getStoryPointTitle(point);
 	if (titleText || point.title_key) {
 		const title = create("h2");
 		renderInlineText(title, titleText ?? t(point.title_key!));
@@ -138,10 +129,7 @@ export function renderLocation(
 	}
 
 	const question = create("div");
-	renderBlockText(
-		question,
-		getPointText(point, "question") ?? t(point.question_key!),
-	);
+	renderBlockText(question, getStoryPointQuestion(point));
 	locationQuestionEl = question;
 	const status = create("p");
 	status.className = "quiz-status";
@@ -259,7 +247,7 @@ export function renderLocation(
 	}
 
 	const btn = create("button");
-	btn.innerText = getSubmitText(point);
+	btn.innerText = getLocationSubmitLabel(point);
 	locationSubmitBtnEl = btn;
 	addDelayedPointerClick(btn, () => {
 		if (!locationPlaced) return;
@@ -320,7 +308,7 @@ export function renderSelection(
 			? resolveLayerSelectorAlias(point.target?.trim() ?? "")
 			: "";
 
-	const titleText = getPointText(point, "title");
+	const titleText = getStoryPointTitle(point);
 	if (titleText || point.title_key) {
 		const title = create("h2");
 		renderInlineText(title, titleText ?? t(point.title_key!));
@@ -328,10 +316,7 @@ export function renderSelection(
 	}
 
 	const question = create("div");
-	renderBlockText(
-		question,
-		getPointText(point, "question") ?? t(point.question_key!),
-	);
+	renderBlockText(question, getStoryPointQuestion(point));
 	const status = create("p");
 	status.className = "quiz-status";
 	content.append(question, status);

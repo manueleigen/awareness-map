@@ -11,6 +11,7 @@ import { renderLocation, renderSelection, abortLocationStep, refreshLocationTran
 import { animateSliderToTime } from "../time-slider.js";
 import { getRoleActiveLayerIds } from "../scenarios.js";
 import { resolveLayerIdAlias } from "../prototype-context.js";
+import { normalizeChallengeDefinition } from "./challenge-normalizer.js";
 
 /** Local storage for the active quiz run. */
 let currentStoryPoints: StoryPoint[] = [];
@@ -76,7 +77,8 @@ export async function runQuiz(
 	controls: HTMLElement,
 	onFinish: (status: "passed" | "failed") => void,
 ): Promise<void> {
-	const data = await loadYAML<{ story_points: StoryPoint[] }>(path);
+	const rawData = await loadYAML<{ story_points: StoryPoint[] }>(path);
+	const data = normalizeChallengeDefinition(rawData);
 	if (!data) return;
 
 	currentStoryPoints = data.story_points;
