@@ -16,6 +16,8 @@ import {
 	getCurrentPrototypeScenario,
 	getCurrentPrototypeChallengeIntro,
 	getCurrentPrototypeRoleTitle,
+	getCurrentPrototypeScenarioText,
+	getPrototypeScenarioText,
 	getQuizPath,
 	getRoleSliderConfig,
 	getRoleActiveLayerIds,
@@ -98,8 +100,11 @@ export function renderHome(): void {
 	if (context) {
 		Object.keys(context.scenarios).forEach((scenarioId) => {
 			const scenario = context!.scenarios[scenarioId];
+			const prototypeText = getPrototypeScenarioText(scenarioId);
 			const btn = create("button");
 			const btnTitle =
+				prototypeText?.short_title ||
+				prototypeText?.title ||
 				t(`scenarios.${scenarioId}.short_title`) ||
 				t(`scenarios.${scenarioId}.title`);
 			btn.innerText = btnTitle;
@@ -135,15 +140,25 @@ export function renderRoleSelection(): void {
 	const scenario = context.scenarios[app.currentScenario];
 	if (!scenario) return;
 	const prototypeScenario = getCurrentPrototypeScenario();
+	const prototypeScenarioText = getCurrentPrototypeScenarioText();
 
 	infoBoxContent.innerHTML = "";
 	infoBoxControls.innerHTML = "";
 
 	const title = create("h2");
-	renderInlineText(title, t(`scenarios.${app.currentScenario}.title`));
+	renderInlineText(
+		title,
+		prototypeScenarioText?.title ??
+			t(`scenarios.${app.currentScenario}.title`),
+	);
 
 	const text = create("div");
-	renderBlockText(text, t(`scenarios.${app.currentScenario}.description`));
+	renderBlockText(
+		text,
+		prototypeScenarioText?.description ??
+			t(`scenarios.${app.currentScenario}.description`),
+	);
+	infoBoxContent.append(title, text);
 
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
@@ -217,7 +232,6 @@ export function renderRoleSelection(): void {
         await updateView();
     });*/
 
-	infoBoxContent.append(title, text);
 	infoBoxControls.append(btnGroup);
 }
 

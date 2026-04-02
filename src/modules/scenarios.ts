@@ -1,6 +1,11 @@
 import { app } from "./state.js";
 import { loadYAML } from "./lib.js";
-import { ProjectContext, PrototypeScenario } from "./types.js";
+import {
+	Language,
+	LocalizedScenarioText,
+	ProjectContext,
+	PrototypeScenario,
+} from "./types.js";
 
 /** Local cache for project context data. */
 let context: ProjectContext | null = null;
@@ -85,6 +90,19 @@ export function getPrototypeScenario(scenarioId: string): PrototypeScenario | nu
 export function getCurrentPrototypeScenario(): PrototypeScenario | null {
 	if (!app.currentScenario) return null;
 	return getPrototypeScenario(app.currentScenario);
+}
+
+export function getPrototypeScenarioText(
+	scenarioId: string,
+): LocalizedScenarioText | null {
+	const scenario = getPrototypeScenario(scenarioId);
+	if (!scenario) return null;
+	return scenario.text?.[app.language] ?? null;
+}
+
+export function getCurrentPrototypeScenarioText(): LocalizedScenarioText | null {
+	if (!app.currentScenario) return null;
+	return getPrototypeScenarioText(app.currentScenario);
 }
 
 export function getCurrentPrototypeRoleTitle(): string | null {
