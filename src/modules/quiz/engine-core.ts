@@ -10,6 +10,7 @@ import { renderInfo, renderChoice } from "./render-text.js";
 import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations, abortSelectionStep } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
 import { getRoleActiveLayerIds } from "../scenarios.js";
+import { resolveLayerIdAlias } from "../prototype-context.js";
 
 /** Local storage for the active quiz run. */
 let currentStoryPoints: StoryPoint[] = [];
@@ -128,13 +129,14 @@ async function loadPoint(id: string): Promise<void> {
 	// 3. Explicitly deactivate layers that should be hidden for THIS step
 	if (point.excludeLayerIds && point.excludeLayerIds.length > 0) {
 		point.excludeLayerIds.forEach((layerId) => {
-			app.activeLayers.delete(layerId);
+			app.activeLayers.delete(resolveLayerIdAlias(layerId));
 		});
 	}
 
 	// 4. Handle automatic layer activation for THIS specific step
 	const layersToActivate =
-		point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []);
+		(point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []))
+			.map((layerId) => resolveLayerIdAlias(layerId));
 
 	if (layersToActivate.length > 0) {
 		layersToActivate.forEach((layerId) => {
@@ -158,7 +160,7 @@ async function loadPoint(id: string): Promise<void> {
 	// 6. Animate slider to the step's target time (if specified)
 	if (point.slider_time) {
 		const targetLayers = point.slider_time_layer
-			? [point.slider_time_layer]
+			? [resolveLayerIdAlias(point.slider_time_layer)]
 			: layersToActivate;
 		targetLayers.forEach((layerId) => {
 			animateSliderToTime(

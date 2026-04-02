@@ -20,6 +20,46 @@ export interface PrototypeScenario {
 	roles: Record<string, PrototypeScenarioRole>;
 }
 
+export interface PrototypeContextLayer {
+	layer_type: string;
+	available_from?: "scenario" | "role" | "global";
+	toggle?: "available" | "deactivated" | "hidden" | "none";
+	label?: Partial<Record<Language, string>>;
+	class?: string;
+	opacity_control?: boolean;
+	playback_control?: boolean;
+	start_time?: string;
+	end_time?: string;
+	src: string;
+	src_overlay?: string;
+	icon?: string;
+	slider_icon?: string;
+	poi_icon?: string;
+	initially_visible?: boolean;
+	quiz_only?: boolean;
+	map_only?: boolean;
+	z_index?: number;
+	toggle_order?: number;
+}
+
+export interface PrototypeContextRole {
+	exclude_layers?: string[];
+	layers?: Record<string, PrototypeContextLayer>;
+}
+
+export interface PrototypeContextScenario {
+	layers?: Record<string, PrototypeContextLayer>;
+	roles?: Record<string, PrototypeContextRole>;
+	inactive?: boolean;
+}
+
+export interface PrototypeProjectContext {
+	global?: {
+		layers?: Record<string, PrototypeContextLayer>;
+	};
+	scenarios?: Record<string, PrototypeContextScenario>;
+}
+
 /** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {
 	id: string;

@@ -11,6 +11,8 @@ import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
 import { app } from "../state.js";
+import { resolveLayerSelectorAlias } from "../prototype-context.js";
+import { rePreviewPOILayer } from "../layers.js";
 
 // ── Drone speed ───────────────────────────────────────────────────────────────
 // Adjust this value to change how fast the drone flies (native pixels / second).
@@ -150,7 +152,9 @@ export function renderLocation(
 	locationStatusEl = status;
 	content.append(question);
 
-	const target = document.querySelector<HTMLElement>(point.target);
+	const target = document.querySelector<HTMLElement>(
+		resolveLayerSelectorAlias(point.target),
+	);
 	if (target) target.classList.add("quiz-location-pulse");
 
 	let marker: HTMLDivElement | null = null;
@@ -312,7 +316,9 @@ export function renderSelection(
 	document.documentElement.dataset.quizPoiSelect =
 		point.type === "point-selection-quiz" ? "1" : "0";
 	document.documentElement.dataset.quizPoiSelectTarget =
-		point.type === "point-selection-quiz" ? (point.target?.trim() ?? "") : "";
+		point.type === "point-selection-quiz"
+			? resolveLayerSelectorAlias(point.target?.trim() ?? "")
+			: "";
 
 	const titleText = getPointText(point, "title");
 	if (titleText || point.title_key) {
@@ -330,8 +336,14 @@ export function renderSelection(
 	status.className = "quiz-status";
 	content.append(question, status);
 
-	const target = document.querySelector<HTMLElement>(point.target);
+	const target = document.querySelector<HTMLElement>(
+		resolveLayerSelectorAlias(point.target),
+	);
 	clearQuizAnswers();
+
+	if (point.type === "point-selection-quiz") {
+		rePreviewPOILayer(resolveLayerSelectorAlias(point.target));
+	}
 
 	// Intelligent Default Selector Logic
 	const effectiveSelector =

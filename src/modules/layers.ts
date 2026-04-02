@@ -11,6 +11,7 @@ import {
 } from "./time-slider.js";
 import { renderPOILayer, hidePOIOverlay, previewPOILayer } from "./poi.js";
 import { clearQuizAnswers } from "./quiz/ui.js";
+import { initPrototypeContext } from "./prototype-context.js";
 
 /** Local cache for layer definitions and project context. */
 export let layerDefinitions: LayerConfig[] = [];
@@ -44,6 +45,9 @@ export async function initLayers(): Promise<void> {
 		layerDefinitions = layerData?.layers || [];
 		context = ctxWrapper?.contexts || null;
 		app.context = context;
+		if (context) {
+			await initPrototypeContext(context);
+		}
 
 		// 0. Perform initial visibility sync for global base state
 		syncActiveLayers();
