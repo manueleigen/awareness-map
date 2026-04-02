@@ -14,15 +14,29 @@ export type NextConfig =
 		"all-wrong"?: string;
 	};
 
+export interface LocalizedInlineText {
+    title?: string;
+    question?: string;
+    description?: string;
+}
+
 export interface QuizOption {
-    label_key: string;
+    label_key?: string;
     value: string;
+    text?: {
+        de?: string;
+        en?: string;
+    };
 }
 
 export interface BaseStoryPoint {
     id: string;
     type: StoryPointType;
     title_key?: string;
+    text?: {
+        de?: LocalizedInlineText;
+        en?: LocalizedInlineText;
+    };
     next: NextConfig;
     activeLayerId?: string;
     activeLayerIds?: string[];
@@ -57,8 +71,12 @@ export interface QuizStoryPoint extends BaseStoryPoint {
 
 export interface LocationStoryPoint extends BaseStoryPoint {
     type: 'location-quiz';
-    question_key: string;
+    question_key?: string;
     submit_key?: string;
+    submit?: {
+        de?: string;
+        en?: string;
+    };
     target: string;
     selector?: string;
     solution: { x: number; y: number };
@@ -68,7 +86,7 @@ export interface LocationStoryPoint extends BaseStoryPoint {
 
 export interface SelectionStoryPoint extends BaseStoryPoint {
     type: 'area-selection-quiz' | 'point-selection-quiz';
-    question_key: string;
+    question_key?: string;
     target: string;
     selector?: string;
     interactionLayerId?: string;

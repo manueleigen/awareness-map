@@ -10,6 +10,7 @@ import {
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
+import { app } from "../state.js";
 
 // ── Drone speed ───────────────────────────────────────────────────────────────
 // Adjust this value to change how fast the drone flies (native pixels / second).
@@ -30,6 +31,18 @@ let locationTitleEl: HTMLHeadingElement | null = null;
 let locationQuestionEl: HTMLElement | null = null;
 let locationStatusEl: HTMLElement | null = null;
 let locationSubmitBtnEl: HTMLButtonElement | null = null;
+
+function getPointText(
+	point: LocationStoryPoint | SelectionStoryPoint,
+	field: "title" | "question",
+): string | null {
+	return point.text?.[app.language]?.[field] ?? null;
+}
+
+function getSubmitText(point: LocationStoryPoint): string {
+	return point.submit?.[app.language] ??
+		t(point.submit_key ?? "challenges.common.submit", "Check Answer");
+}
 
 /**
  * Removes event listeners added by the active selection step.
@@ -71,10 +84,21 @@ export function abortLocationStep(): void {
  */
 export function refreshLocationTranslations(): void {
 	if (!locationCurrentPoint) return;
-	if (locationTitleEl && locationCurrentPoint.title_key)
-		renderInlineText(locationTitleEl, t(locationCurrentPoint.title_key));
+	if (locationTitleEl) {
+		const titleText = getPointText(locationCurrentPoint, "title");
+		if (titleText || locationCurrentPoint.title_key) {
+			renderInlineText(
+				locationTitleEl,
+				titleText ?? t(locationCurrentPoint.title_key!),
+			);
+		}
+	}
 	if (locationQuestionEl)
-		renderBlockText(locationQuestionEl, t(locationCurrentPoint.question_key));
+		renderBlockText(
+			locationQuestionEl,
+			getPointText(locationCurrentPoint, "question") ??
+				t(locationCurrentPoint.question_key!),
+		);
 	// Only update status if no coordinates have been locationPlaced yet
 	if (locationStatusEl && !locationPlaced)
 		locationStatusEl.innerText = t(
@@ -82,10 +106,7 @@ export function refreshLocationTranslations(): void {
 			"Click to place a point.",
 		);
 	if (locationSubmitBtnEl)
-		locationSubmitBtnEl.innerText = t(
-			locationCurrentPoint.submit_key ?? "challenges.common.submit",
-			"Check Answer",
-		);
+		locationSubmitBtnEl.innerText = getSubmitText(locationCurrentPoint);
 }
 
 /**
@@ -106,15 +127,19 @@ export function renderLocation(
 	locationCurrentPoint = point;
 	locationPlaced = null;
 
-	if (point.title_key) {
+	const titleText = getPointText(point, "title");
+	if (titleText || point.title_key) {
 		const title = create("h2");
-		renderInlineText(title, t(point.title_key));
+		renderInlineText(title, titleText ?? t(point.title_key!));
 		locationTitleEl = title;
 		content.append(title);
 	}
 
 	const question = create("div");
-	renderBlockText(question, t(point.question_key));
+	renderBlockText(
+		question,
+		getPointText(point, "question") ?? t(point.question_key!),
+	);
 	locationQuestionEl = question;
 	const status = create("p");
 	status.className = "quiz-status";
@@ -230,7 +255,7 @@ export function renderLocation(
 	}
 
 	const btn = create("button");
-	btn.innerText = t(point.submit_key ?? "challenges.common.submit", "Check Answer");
+	btn.innerText = getSubmitText(point);
 	locationSubmitBtnEl = btn;
 	addDelayedPointerClick(btn, () => {
 		if (!locationPlaced) return;
@@ -289,15 +314,18 @@ export function renderSelection(
 	document.documentElement.dataset.quizPoiSelectTarget =
 		point.type === "point-selection-quiz" ? (point.target?.trim() ?? "") : "";
 
-
-	if (point.title_key) {
+	const titleText = getPointText(point, "title");
+	if (titleText || point.title_key) {
 		const title = create("h2");
-		renderInlineText(title, t(point.title_key));
+		renderInlineText(title, titleText ?? t(point.title_key!));
 		content.append(title);
 	}
 
 	const question = create("div");
-	renderBlockText(question, t(point.question_key));
+	renderBlockText(
+		question,
+		getPointText(point, "question") ?? t(point.question_key!),
+	);
 	const status = create("p");
 	status.className = "quiz-status";
 	content.append(question, status);

@@ -4,6 +4,18 @@ import { t } from "../translater.js";
 import { renderBlockText, renderInlineText } from "../rich-text.js";
 import { InfoStoryPoint, QuizStoryPoint } from "./types.js";
 import { backToRoles } from "../info-box.js";
+import { app } from "../state.js";
+
+function getInlineText(
+	point: InfoStoryPoint | QuizStoryPoint,
+	field: "title" | "question" | "description",
+): string | null {
+	return point.text?.[app.language]?.[field] ?? null;
+}
+
+function getOptionLabel(point: QuizStoryPoint["options"][number]): string {
+	return point.text?.[app.language] ?? (point.label_key ? t(point.label_key) : point.value);
+}
 
 /**
  * Renders a simple information screen with a continue button.
@@ -19,14 +31,18 @@ export function renderInfo(
 
 	document.documentElement.dataset.quizPoiSelect = "0";
 
-	if (point.title_key) {
+	const titleText = getInlineText(point, "title");
+	if (titleText || point.title_key) {
 		const title = create("h2");
-		renderInlineText(title, t(point.title_key));
+		renderInlineText(title, titleText ?? t(point.title_key!));
 		content.append(title);
 	}
 
 	const desc = create("div");
-	renderBlockText(desc, t(point.description_key));
+	renderBlockText(
+		desc,
+		getInlineText(point, "description") ?? t(point.description_key),
+	);
 	content.append(desc);
 
 	// In terminal steps, we show different buttons based on status:
@@ -66,14 +82,18 @@ export function renderChoice(
 	content.innerHTML = "";
 	controls.innerHTML = "";
 
-	if (point.title_key) {
+	const titleText = getInlineText(point, "title");
+	if (titleText || point.title_key) {
 		const title = create("h2");
-		renderInlineText(title, t(point.title_key));
+		renderInlineText(title, titleText ?? t(point.title_key!));
 		content.append(title);
 	}
 
 	const question = create("div");
-	renderBlockText(question, t(point.question_key));
+	renderBlockText(
+		question,
+		getInlineText(point, "question") ?? t(point.question_key!),
+	);
 	content.append(question);
 
 	const optionsWrapper = create("div");
@@ -84,7 +104,7 @@ export function renderChoice(
 	point.options.forEach((opt) => {
 		const btn = create("button");
 		btn.className = "quiz-option-btn";
-		btn.innerText = t(opt.label_key);
+		btn.innerText = getOptionLabel(opt);
 
 		addPointerClick(btn, () => {
 			const isMulti = (point.maxAnswers ?? point.solution.length) > 1;

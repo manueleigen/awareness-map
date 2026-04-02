@@ -118,7 +118,15 @@ export function getRoleActiveLayerIds(): string[] {
  * Returns the file path for the quiz associated with the current scenario/role.
  */
 export function getQuizPath(): string | null {
-	if (!context || !app.currentScenario) return null;
+	if (!app.currentScenario) return null;
+
+	const prototypeScenario = getCurrentPrototypeScenario();
+	if (prototypeScenario && app.currentRole) {
+		const prototypeRole = prototypeScenario.roles[app.currentRole];
+		if (prototypeRole?.challenge) return prototypeRole.challenge;
+	}
+
+	if (!context) return null;
 	const scenario = context.scenarios[app.currentScenario];
 	if (!scenario) return null;
 
