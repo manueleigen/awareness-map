@@ -92,7 +92,7 @@ export async function runQuiz(
 	await resetLayers();
 
 	// Activate any layers defined at the role level in context.yaml
-	getRoleActiveLayerIds().forEach((id) => app.activeLayers.add(id));
+	(await getRoleActiveLayerIds()).forEach((id) => app.activeLayers.add(id));
 
 	clearQuizAnswers();
 	await loadPoint("intro");

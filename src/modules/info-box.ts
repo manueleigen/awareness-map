@@ -200,10 +200,10 @@ export function renderRoleSelection(): void {
 				app.currentRole = roleId;
 				app.view = "map";
 				await resetLayers();
-				getRoleActiveLayerIds().forEach((id) => app.activeLayers.add(id));
+				(await getRoleActiveLayerIds()).forEach((id) => app.activeLayers.add(id));
 				await updateView();
 				previewActivePOILayers();
-				const sliderCfg = getRoleSliderConfig();
+				const sliderCfg = await getRoleSliderConfig();
 				if (sliderCfg) {
 					const targetLayers = sliderCfg.layer
 						? [sliderCfg.layer]

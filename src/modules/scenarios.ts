@@ -30,6 +30,14 @@ async function loadPrototypeChallenge(path: string): Promise<any | null> {
 	}
 }
 
+async function getCurrentPrototypeChallenge(): Promise<any | null> {
+	const scenario = getCurrentPrototypeScenario();
+	if (!scenario || !app.currentRole) return null;
+	const challengePath = scenario.roles[app.currentRole]?.challenge;
+	if (!challengePath) return null;
+	return loadPrototypeChallenge(challengePath);
+}
+
 function getPrototypeScenarioPath(scenarioId: string): string {
 	return `/assets/scenarios/${scenarioId}/scenario.yaml`;
 }
@@ -117,13 +125,7 @@ export async function getCurrentPrototypeChallengeIntro(): Promise<{
 	title?: string;
 	description?: string;
 } | null> {
-	const scenario = getCurrentPrototypeScenario();
-	if (!scenario || !app.currentRole) return null;
-
-	const challengePath = scenario.roles[app.currentRole]?.challenge;
-	if (!challengePath) return null;
-
-	const challenge = await loadPrototypeChallenge(challengePath);
+	const challenge = await getCurrentPrototypeChallenge();
 	return challenge ? getChallengeIntroText(challenge) : null;
 }
 
@@ -150,7 +152,19 @@ export async function initScenarios(): Promise<void> {
 /**
  * Returns slider time config for the current role (if defined in context.yaml).
  */
-export function getRoleSliderConfig(): { time: string; layer?: string; fixed: boolean } | null {
+export async function getRoleSliderConfig(): Promise<{ time: string; layer?: string; fixed: boolean } | null> {
+	const prototypeChallenge = await getCurrentPrototypeChallenge();
+	const prototypeIntro = prototypeChallenge?.story_points?.find(
+		(point: any) => point?.id === "intro" && point?.type === "info",
+	);
+	if (prototypeIntro?.slider_time) {
+		return {
+			time: prototypeIntro.slider_time,
+			layer: prototypeIntro.slider_time_layer,
+			fixed: prototypeIntro.slider_time_fixed ?? false,
+		};
+	}
+
 	if (!context || !app.currentScenario || !app.currentRole) return null;
 	const role = context.scenarios[app.currentScenario]?.roles?.[app.currentRole];
 	if (!role?.slider_time) return null;
@@ -164,7 +178,15 @@ export function getRoleSliderConfig(): { time: string; layer?: string; fixed: bo
 /**
  * Returns layer IDs to activate at the start of the challenge (from context.yaml).
  */
-export function getRoleActiveLayerIds(): string[] {
+export async function getRoleActiveLayerIds(): Promise<string[]> {
+	const prototypeChallenge = await getCurrentPrototypeChallenge();
+	const prototypeIntro = prototypeChallenge?.story_points?.find(
+		(point: any) => point?.id === "intro" && point?.type === "info",
+	);
+	if (prototypeIntro?.activeLayerIds?.length) {
+		return prototypeIntro.activeLayerIds;
+	}
+
 	if (!context || !app.currentScenario || !app.currentRole) return [];
 	const role = context.scenarios[app.currentScenario]?.roles?.[app.currentRole];
 	return role?.activeLayerIds ?? [];
