@@ -3,14 +3,11 @@ import { loadYAML } from "./lib.js";
 import {
 	Language,
 	LocalizedScenarioText,
-	ProjectContext,
 	PrototypeProjectContext,
 	PrototypeScenario,
 } from "./types.js";
 import { getChallengeIntroText, normalizeChallengeDefinition } from "./quiz/challenge-normalizer.js";
 
-/** Local cache for project context data. */
-let context: ProjectContext | null = null;
 /** Prototype scenario metadata loaded from assets/scenarios/<id>/scenario.yaml. */
 const prototypeScenarios = new Map<string, PrototypeScenario | null>();
 const prototypeChallenges = new Map<string, any | null>();
@@ -134,18 +131,11 @@ export async function getCurrentPrototypeChallengeIntro(): Promise<{
  * Loads the project context (scenarios and roles) from YAML.
  */
 export async function initScenarios(): Promise<void> {
-	const ctxWrapper = await loadYAML<{ contexts: ProjectContext }>(
-		"/config/context.yaml",
-	);
-	if (ctxWrapper) {
-		context = ctxWrapper.contexts;
-	}
-
 	const prototypeContext = await loadYAML<PrototypeProjectContext>(
 		"/config/context.prototype.yaml",
 	).catch(() => null);
 
-	const scenarioIds = new Set<string>(Object.keys(context?.scenarios ?? {}));
+	const scenarioIds = new Set<string>();
 	Object.keys(prototypeContext?.scenarios ?? {}).forEach((scenarioId) =>
 		scenarioIds.add(scenarioId),
 	);
@@ -156,7 +146,7 @@ export async function initScenarios(): Promise<void> {
 }
 
 /**
- * Returns slider time config for the current role (if defined in context.yaml).
+ * Returns slider time config for the current role.
  */
 export async function getRoleSliderConfig(): Promise<{ time: string; layer?: string; fixed: boolean } | null> {
 	const prototypeChallenge = await getCurrentPrototypeChallenge();
@@ -170,19 +160,11 @@ export async function getRoleSliderConfig(): Promise<{ time: string; layer?: str
 			fixed: prototypeIntro.slider_time_fixed ?? false,
 		};
 	}
-
-	if (!context || !app.currentScenario || !app.currentRole) return null;
-	const role = context.scenarios[app.currentScenario]?.roles?.[app.currentRole];
-	if (!role?.slider_time) return null;
-	return {
-		time: role.slider_time,
-		layer: role.slider_time_layer,
-		fixed: role.slider_time_fixed ?? false,
-	};
+	return null;
 }
 
 /**
- * Returns layer IDs to activate at the start of the challenge (from context.yaml).
+ * Returns layer IDs to activate at the start of the challenge.
  */
 export async function getRoleActiveLayerIds(): Promise<string[]> {
 	const prototypeChallenge = await getCurrentPrototypeChallenge();
@@ -192,14 +174,11 @@ export async function getRoleActiveLayerIds(): Promise<string[]> {
 	if (prototypeIntro?.activeLayerIds?.length) {
 		return prototypeIntro.activeLayerIds;
 	}
-
-	if (!context || !app.currentScenario || !app.currentRole) return [];
-	const role = context.scenarios[app.currentScenario]?.roles?.[app.currentRole];
-	return role?.activeLayerIds ?? [];
+	return [];
 }
 
 /**
- * Returns the file path for the quiz associated with the current scenario/role.
+ * Returns the file path for the challenge associated with the current scenario/role.
  */
 export function getQuizPath(): string | null {
 	if (!app.currentScenario) return null;
@@ -209,17 +188,5 @@ export function getQuizPath(): string | null {
 		const prototypeRole = prototypeScenario.roles[app.currentRole];
 		if (prototypeRole?.challenge) return prototypeRole.challenge;
 	}
-
-	if (!context) return null;
-	const scenario = context.scenarios[app.currentScenario];
-	if (!scenario) return null;
-
-	// Check if role-specific quiz exists
-	if (app.currentRole) {
-		const role = scenario.roles[app.currentRole];
-		if (role?.quiz) return role.quiz;
-	}
-
-	// Fallback to scenario-level quiz
-	return scenario.quiz || null;
+	return null;
 }

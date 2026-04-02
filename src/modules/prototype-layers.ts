@@ -1,12 +1,11 @@
 import { loadYAML } from "./lib.js";
 import {
 	LayerConfig,
-	ProjectContext,
 	PrototypeContextLayer,
 	PrototypeLayerType,
 	PrototypeLayerTypesFile,
 } from "./types.js";
-import { getPrototypeContext, resolveLayerIdAlias } from "./prototype-context.js";
+import { getPrototypeContext } from "./prototype-context.js";
 
 let normalizedPrototypeLayers: LayerConfig[] | null = null;
 
@@ -36,30 +35,23 @@ function buildPrototypeLayerConfig(
 	prototypeId: string,
 	instance: PrototypeContextLayer,
 	layerType: PrototypeLayerType,
-	legacy: LayerConfig | undefined,
 ): LayerConfig {
-	const id = resolveLayerIdAlias(prototypeId);
-
 	return {
-		id,
-		class: instance.class ?? legacy?.class ?? "",
+		id: prototypeId,
+		class: instance.class ?? "",
 		type: layerType.type,
-		title_key: legacy?.title_key,
-		description_key: legacy?.description_key,
-		toggle: instance.toggle ?? legacy?.toggle ?? "hidden",
-		available_from: instance.available_from ?? legacy?.available_from,
-		interaction: layerType.interaction ?? legacy?.interaction ?? "none",
-		opacity_control: instance.opacity_control ?? legacy?.opacity_control,
-		playback_control: instance.playback_control ?? layerType.playback_control ?? legacy?.playback_control,
-		start_time: instance.start_time ?? legacy?.start_time,
-		end_time: instance.end_time ?? legacy?.end_time,
-		icon_mode: layerType.icon_mode ?? legacy?.icon_mode,
+		toggle: instance.toggle ?? "hidden",
+		available_from: instance.available_from,
+		interaction: layerType.interaction ?? "none",
+		opacity_control: instance.opacity_control,
+		playback_control: instance.playback_control ?? layerType.playback_control,
+		start_time: instance.start_time,
+		end_time: instance.end_time,
+		icon_mode: layerType.icon_mode,
 	};
 }
 
-export async function initPrototypeLayers(
-	legacyLayerDefinitions: LayerConfig[],
-): Promise<void> {
+export async function initPrototypeLayers(): Promise<void> {
 	normalizedPrototypeLayers = null;
 
 	const prototypeContext = getPrototypeContext();
@@ -69,23 +61,13 @@ export async function initPrototypeLayers(
 		const data = await loadYAML<PrototypeLayerTypesFile>("/config/layers.prototype.yaml");
 		if (!data?.layer_types) return;
 
-		const legacyById = new Map(legacyLayerDefinitions.map((layer) => [layer.id, layer]));
-		const nextById = new Map<string, LayerConfig>(
-			legacyLayerDefinitions.map((layer) => [layer.id, { ...layer }]),
-		);
-
-		collectPrototypeLayers(prototypeContext).forEach(([prototypeId, layer]) => {
+		normalizedPrototypeLayers = collectPrototypeLayers(prototypeContext)
+			.map(([prototypeId, layer]) => {
 			const typeConfig = data.layer_types[layer.layer_type];
-			if (!typeConfig) return;
-			const legacyId = resolveLayerIdAlias(prototypeId);
-			const legacy = legacyById.get(legacyId);
-			nextById.set(
-				legacyId,
-				buildPrototypeLayerConfig(prototypeId, layer, typeConfig, legacy),
-			);
-		});
-
-		normalizedPrototypeLayers = Array.from(nextById.values());
+			if (!typeConfig) return null;
+			return buildPrototypeLayerConfig(prototypeId, layer, typeConfig);
+		})
+			.filter((layer): layer is LayerConfig => layer !== null);
 	} catch {
 		// Prototype layer config is optional during migration.
 	}

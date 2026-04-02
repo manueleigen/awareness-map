@@ -1,5 +1,3 @@
-# Prototype target file. The runtime does not read this yet.
-
 layer_types:
   static_image:
     type: static-image

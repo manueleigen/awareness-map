@@ -1,5 +1,3 @@
-# Prototype target file. The runtime does not read this yet.
-
 global:
   layers:
     base_layer_river:
@@ -143,3 +141,13 @@ scenarios:
             toggle_order: 5
             src: /assets/challenges/drone_unten.webp
             src_overlay: /assets/challenges/drone_oben.webp
+
+  blackout:
+    inactive: true
+    layers: {}
+    roles: {}
+
+  mass_event:
+    inactive: true
+    layers: {}
+    roles: {}

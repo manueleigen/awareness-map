@@ -21,7 +21,6 @@ export interface LocalizedInlineText {
 }
 
 export interface QuizOption {
-    label_key?: string;
     value: string;
     text?: {
         de?: string;
@@ -32,7 +31,6 @@ export interface QuizOption {
 export interface BaseStoryPoint {
     id: string;
     type: StoryPointType;
-    title_key?: string;
     text?: {
         de?: LocalizedInlineText;
         en?: LocalizedInlineText;
@@ -42,11 +40,6 @@ export interface BaseStoryPoint {
     activeLayerIds?: string[];
     excludeLayerIds?: string[];
     terminalStatus?: 'passed' | 'failed';
-    success_screen?: {
-        title_key?: string;
-        description_key?: string;
-        duration_ms?: number;
-    };
     step?: number;
     total_steps?: number;
     slider_time?: string;
@@ -56,13 +49,11 @@ export interface BaseStoryPoint {
 
 export interface InfoStoryPoint extends BaseStoryPoint {
     type: 'info';
-    description_key: string;
     continue_button_key: string;
 }
 
 export interface QuizStoryPoint extends BaseStoryPoint {
     type: 'quiz';
-    question_key: string;
     options: QuizOption[];
     solution: string[];
     minAnswers?: number;
@@ -71,8 +62,6 @@ export interface QuizStoryPoint extends BaseStoryPoint {
 
 export interface LocationStoryPoint extends BaseStoryPoint {
     type: 'location-quiz';
-    question_key?: string;
-    submit_key?: string;
     submit?: {
         de?: string;
         en?: string;
@@ -86,7 +75,6 @@ export interface LocationStoryPoint extends BaseStoryPoint {
 
 export interface SelectionStoryPoint extends BaseStoryPoint {
     type: 'area-selection-quiz' | 'point-selection-quiz';
-    question_key?: string;
     target: string;
     selector?: string;
     interactionLayerId?: string;

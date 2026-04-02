@@ -42,7 +42,6 @@ function normalizeLocalizedInlineText(value: any): LocalizedValue<LocalizedInlin
 function normalizeOption(option: any): QuizOption {
 	return {
 		value: option.value,
-		label_key: option.label_key,
 		text: normalizeLocalizedValue<string>(option.text),
 	};
 }
@@ -81,25 +80,24 @@ export function getStoryPointText(
 	return getLocalizedInlineText(point.text)?.[field] ?? null;
 }
 
-export function getStoryPointDescription(point: BaseStoryPoint & { description_key?: string }): string {
-	return getStoryPointText(point, "description") ?? t(point.description_key!, "");
+export function getStoryPointDescription(point: BaseStoryPoint): string {
+	return getStoryPointText(point, "description") ?? "";
 }
 
-export function getStoryPointQuestion(point: BaseStoryPoint & { question_key?: string }): string {
-	return getStoryPointText(point, "question") ?? t(point.question_key!, "");
+export function getStoryPointQuestion(point: BaseStoryPoint): string {
+	return getStoryPointText(point, "question") ?? "";
 }
 
 export function getStoryPointTitle(point: BaseStoryPoint): string | null {
-	return getStoryPointText(point, "title") ?? (point.title_key ? t(point.title_key) : null);
+	return getStoryPointText(point, "title");
 }
 
 export function getQuizOptionLabel(option: QuizOption): string {
-	return option.text?.[app.language] ?? (option.label_key ? t(option.label_key) : option.value);
+	return option.text?.[app.language] ?? option.value;
 }
 
 export function getLocationSubmitLabel(point: LocationStoryPoint): string {
-	return point.submit?.[app.language] ??
-		t(point.submit_key ?? "challenges.common.submit", "Check Answer");
+	return point.submit?.[app.language] ?? t("challenges.common.submit", "Check Answer");
 }
 
 export function getChallengeIntroText(challenge: { story_points?: StoryPoint[] }): {

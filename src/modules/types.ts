@@ -76,8 +76,6 @@ export interface LayerConfig {
 	id: string;
 	class: string;
 	type: "static-image" | "pulsing-image" | "dynamic-image" | "locations" | "areas";
-	title_key?: string;
-	description_key?: string;
 	toggle: "available" | "deactivated" | "hidden" | "none";
 	available_from?: "scenario" | "role" | "global";
 	interaction: "none" | "all" | "timeline" | "areas" | "locations" | string;

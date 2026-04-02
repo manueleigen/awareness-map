@@ -10,7 +10,6 @@ import {
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
-import { resolveLayerSelectorAlias } from "../prototype-context.js";
 import { rePreviewPOILayer } from "../layers.js";
 import {
 	getLocationSubmitLabel,
@@ -80,11 +79,8 @@ export function refreshLocationTranslations(): void {
 	if (!locationCurrentPoint) return;
 	if (locationTitleEl) {
 		const titleText = getStoryPointTitle(locationCurrentPoint);
-		if (titleText || locationCurrentPoint.title_key) {
-			renderInlineText(
-				locationTitleEl,
-				titleText ?? t(locationCurrentPoint.title_key!),
-			);
+		if (titleText) {
+			renderInlineText(locationTitleEl, titleText);
 		}
 	}
 	if (locationQuestionEl)
@@ -121,9 +117,9 @@ export function renderLocation(
 	locationPlaced = null;
 
 	const titleText = getStoryPointTitle(point);
-	if (titleText || point.title_key) {
+	if (titleText) {
 		const title = create("h2");
-		renderInlineText(title, titleText ?? t(point.title_key!));
+		renderInlineText(title, titleText);
 		locationTitleEl = title;
 		content.append(title);
 	}
@@ -141,7 +137,7 @@ export function renderLocation(
 	content.append(question);
 
 	const target = document.querySelector<HTMLElement>(
-		resolveLayerSelectorAlias(point.target),
+		point.target,
 	);
 	if (target) target.classList.add("quiz-location-pulse");
 
@@ -305,13 +301,13 @@ export function renderSelection(
 		point.type === "point-selection-quiz" ? "1" : "0";
 	document.documentElement.dataset.quizPoiSelectTarget =
 		point.type === "point-selection-quiz"
-			? resolveLayerSelectorAlias(point.target?.trim() ?? "")
+			? point.target?.trim() ?? ""
 			: "";
 
 	const titleText = getStoryPointTitle(point);
-	if (titleText || point.title_key) {
+	if (titleText) {
 		const title = create("h2");
-		renderInlineText(title, titleText ?? t(point.title_key!));
+		renderInlineText(title, titleText);
 		content.append(title);
 	}
 
@@ -322,12 +318,12 @@ export function renderSelection(
 	content.append(question, status);
 
 	const target = document.querySelector<HTMLElement>(
-		resolveLayerSelectorAlias(point.target),
+		point.target,
 	);
 	clearQuizAnswers();
 
 	if (point.type === "point-selection-quiz") {
-		rePreviewPOILayer(resolveLayerSelectorAlias(point.target));
+		rePreviewPOILayer(point.target);
 	}
 
 	// Intelligent Default Selector Logic

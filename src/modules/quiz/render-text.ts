@@ -26,9 +26,9 @@ export function renderInfo(
 	document.documentElement.dataset.quizPoiSelect = "0";
 
 	const titleText = getStoryPointTitle(point);
-	if (titleText || point.title_key) {
+	if (titleText) {
 		const title = create("h2");
-		renderInlineText(title, titleText ?? t(point.title_key!));
+		renderInlineText(title, titleText);
 		content.append(title);
 	}
 
@@ -74,9 +74,9 @@ export function renderChoice(
 	controls.innerHTML = "";
 
 	const titleText = getStoryPointTitle(point);
-	if (titleText || point.title_key) {
+	if (titleText) {
 		const title = create("h2");
-		renderInlineText(title, titleText ?? t(point.title_key!));
+		renderInlineText(title, titleText);
 		content.append(title);
 	}
 

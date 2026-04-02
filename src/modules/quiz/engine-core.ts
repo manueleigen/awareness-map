@@ -1,16 +1,12 @@
-import { loadYAML, create } from "../lib.js";
-import { addPointerClick } from "../interactions.js";
+import { loadYAML } from "../lib.js";
 import { app } from "../state.js";
 import { resetLayers } from "../layers.js";
-import { t } from "../translater.js";
-import { renderBlockText, renderInlineText } from "../rich-text.js";
-import { StoryPoint, BaseStoryPoint, QuizOutcome } from "./types.js";
+import { StoryPoint, QuizOutcome } from "./types.js";
 import { renderProgress, clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
 import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations, abortSelectionStep } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
 import { getRoleActiveLayerIds } from "../scenarios.js";
-import { resolveLayerIdAlias } from "../prototype-context.js";
 import { normalizeChallengeDefinition } from "./challenge-normalizer.js";
 
 /** Local storage for the active quiz run. */
@@ -131,14 +127,14 @@ async function loadPoint(id: string): Promise<void> {
 	// 3. Explicitly deactivate layers that should be hidden for THIS step
 	if (point.excludeLayerIds && point.excludeLayerIds.length > 0) {
 		point.excludeLayerIds.forEach((layerId) => {
-			app.activeLayers.delete(resolveLayerIdAlias(layerId));
+			app.activeLayers.delete(layerId);
 		});
 	}
 
 	// 4. Handle automatic layer activation for THIS specific step
 	const layersToActivate =
 		(point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []))
-			.map((layerId) => resolveLayerIdAlias(layerId));
+			.map((layerId) => layerId);
 
 	if (layersToActivate.length > 0) {
 		layersToActivate.forEach((layerId) => {
@@ -162,7 +158,7 @@ async function loadPoint(id: string): Promise<void> {
 	// 6. Animate slider to the step's target time (if specified)
 	if (point.slider_time) {
 		const targetLayers = point.slider_time_layer
-			? [resolveLayerIdAlias(point.slider_time_layer)]
+			? [point.slider_time_layer]
 			: layersToActivate;
 		targetLayers.forEach((layerId) => {
 			animateSliderToTime(
@@ -249,69 +245,5 @@ function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 		}
 	}
 
-	// 3. Show optional "Correct!" interlude or load next point immediately
-	const isCorrect = outcome === true || outcome === "right";
-
-	if (
-		isCorrect &&
-		typeof point.next !== "string" &&
-		point.success_screen &&
-		currentContent &&
-		currentControls
-	) {
-		renderSuccessInterlude(
-			currentContent,
-			currentControls,
-			point.success_screen,
-			() => loadPoint(nextId),
-		);
-	} else {
-		loadPoint(nextId);
-	}
-}
-
-/**
- * Renders a brief "Success" screen before proceeding to the next step.
- * Shows a continue button; if duration_ms is set, also auto-advances after that delay.
- */
-function renderSuccessInterlude(
-	container: HTMLElement,
-	controls: HTMLElement,
-	success: NonNullable<BaseStoryPoint["success_screen"]>,
-	callback: () => void,
-): void {
-	container.innerHTML = "";
-	controls.innerHTML = "";
-
-	const title = create("h2");
-	renderInlineText(
-		title,
-		t(success.title_key || "feedback.success_title", "Success"),
-	);
-	const desc = create("div");
-	renderBlockText(
-		desc,
-		t(
-		success.description_key || "feedback.continue",
-		"Continuing...",
-		),
-	);
-
-	container.append(title, desc);
-
-	let fired = false;
-	const proceed = () => {
-		if (fired) return;
-		fired = true;
-		callback();
-	};
-
-	const btn = create("button");
-	btn.innerText = t("feedback.continue", "Weiter");
-	addPointerClick(btn, proceed);
-	controls.append(btn);
-
-	if (success.duration_ms) {
-		window.setTimeout(proceed, success.duration_ms);
-	}
+	loadPoint(nextId);
 }

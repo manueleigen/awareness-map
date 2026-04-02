@@ -1,8 +1,7 @@
 import lottie from "lottie-web";
 import { app } from "./state.js";
-import { create, loadJSON, loadYAML, loadTEXT, el } from "./lib.js";
+import { create, loadTEXT, el } from "./lib.js";
 import { addPointerClick } from "./interactions.js";
-import { t } from "./translater.js";
 import { LayerConfig, ContextLayer, ProjectContext } from "./types.js";
 import {
 	buildSlider,
@@ -44,25 +43,11 @@ const EYE_HIDDEN = `<svg fill="currentColor" viewBox="0 0 256 256" xmlns="http:/
  */
 export async function initLayers(): Promise<void> {
 	try {
-		const [layerData, ctxWrapper] = await Promise.all([
-			loadYAML<{ layers: LayerConfig[] }>("/config/layers.yaml"),
-			loadYAML<{ contexts: ProjectContext }>("/config/context.yaml"),
-		]);
-
-		const legacyLayerDefinitions = layerData?.layers || [];
-		const legacyContext = ctxWrapper?.contexts || null;
-
-		layerDefinitions = legacyLayerDefinitions;
-		context = legacyContext;
+		await initPrototypeContext();
+		await initPrototypeLayers();
+		context = getNormalizedPrototypeContext();
+		layerDefinitions = getNormalizedPrototypeLayerDefinitions() || [];
 		app.context = context;
-		if (legacyContext) {
-			await initPrototypeContext(legacyContext);
-			await initPrototypeLayers(legacyLayerDefinitions);
-			context = getNormalizedPrototypeContext() || legacyContext;
-			layerDefinitions =
-				getNormalizedPrototypeLayerDefinitions() || legacyLayerDefinitions;
-			app.context = context;
-		}
 
 		// 0. Perform initial visibility sync for global base state
 		syncActiveLayers();
@@ -305,9 +290,7 @@ async function buildControlUI(
 
 	const label = create("label");
 	const translatedTitle = ctxLayer?.title?.[app.language];
-	label.innerText =
-		translatedTitle ||
-		(config.title_key ? t(config.title_key, "Layer") : "Layer");
+	label.innerText = translatedTitle || "Layer";
 	toggle.append(label);
 
 	controlParent.append(toggle);
