@@ -12,7 +12,14 @@ import {
 import { create } from "./lib.js";
 import { renderBlockText, renderInlineText } from "./rich-text.js";
 import { t } from "./translater.js";
-import { getQuizPath, getRoleSliderConfig, getRoleActiveLayerIds } from "./scenarios.js";
+import {
+	getCurrentPrototypeScenario,
+	getCurrentPrototypeChallengeIntro,
+	getCurrentPrototypeRoleTitle,
+	getQuizPath,
+	getRoleSliderConfig,
+	getRoleActiveLayerIds,
+} from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
 import { abortLocationStep, abortSelectionStep } from "./quiz/render-map.js";
 import { animateSliderToTime } from "./time-slider.js";
@@ -127,6 +134,7 @@ export function renderRoleSelection(): void {
 
 	const scenario = context.scenarios[app.currentScenario];
 	if (!scenario) return;
+	const prototypeScenario = getCurrentPrototypeScenario();
 
 	infoBoxContent.innerHTML = "";
 	infoBoxControls.innerHTML = "";
@@ -140,27 +148,37 @@ export function renderRoleSelection(): void {
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
 
-	Object.keys(scenario.roles).forEach((roleId) => {
+	const roleIds = prototypeScenario
+		? Object.keys(prototypeScenario.roles)
+		: Object.keys(scenario.roles);
+
+	roleIds.forEach((roleId) => {
 		const roleCTX = scenarioCTX.roles[roleId];
-		const hasQuiz = roleCTX.quiz;
+		const prototypeRole = prototypeScenario?.roles[roleId];
+		const hasQuiz = !!(prototypeRole?.challenge || roleCTX?.quiz);
 		const btn = create("button");
 
-		// Try scenario-specific role title (short version) first, then fallback to challenge title
-		const scenarioRoleTitle = t(
-			`scenarios.${app.currentScenario}.roles.${roleId}.title`,
-			"",
-		);
-		const fallbackTitle = t(
-			`challenges.${app.currentScenario}.${roleId}.title`,
-			roleId,
-		);
+		const prototypeRoleTitle = prototypeRole?.text?.[app.language]?.title;
+		if (prototypeRoleTitle) {
+			btn.innerText = prototypeRoleTitle;
+		} else {
+			// Try scenario-specific role title (short version) first, then fallback to challenge title
+			const scenarioRoleTitle = t(
+				`scenarios.${app.currentScenario}.roles.${roleId}.title`,
+				"",
+			);
+			const fallbackTitle = t(
+				`challenges.${app.currentScenario}.${roleId}.title`,
+				roleId,
+			);
 
-		btn.innerText =
-			scenarioRoleTitle &&
-			scenarioRoleTitle !==
-				`scenarios.${app.currentScenario}.roles.${roleId}.title`
-				? scenarioRoleTitle
-				: fallbackTitle;
+			btn.innerText =
+				scenarioRoleTitle &&
+				scenarioRoleTitle !==
+					`scenarios.${app.currentScenario}.roles.${roleId}.title`
+					? scenarioRoleTitle
+					: fallbackTitle;
+		}
 
 		if (hasQuiz) {
 			addDelayedPointerClick(btn, async () => {
@@ -213,16 +231,22 @@ export async function renderMapUI(): Promise<void> {
 
 	document.documentElement.dataset.quizPoiSelect = "0";
 
+	const prototypeRoleTitle = getCurrentPrototypeRoleTitle();
+	const prototypeChallengeIntro = await getCurrentPrototypeChallengeIntro();
+
 	const title = create("h2");
 	renderInlineText(
 		title,
-		t(`challenges.${app.currentScenario}.${app.currentRole}.title`),
+		prototypeChallengeIntro?.title ??
+			prototypeRoleTitle ??
+			t(`challenges.${app.currentScenario}.${app.currentRole}.title`),
 	);
 
 	const desc = create("div");
 	renderBlockText(
 		desc,
-		t(`challenges.${app.currentScenario}.${app.currentRole}.intro`),
+		prototypeChallengeIntro?.description ??
+			t(`challenges.${app.currentScenario}.${app.currentRole}.intro`),
 	);
 
 	infoBoxContent.append(title, desc);

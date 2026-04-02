@@ -11,7 +11,14 @@ import {
 } from "./time-slider.js";
 import { renderPOILayer, hidePOIOverlay, previewPOILayer } from "./poi.js";
 import { clearQuizAnswers } from "./quiz/ui.js";
-import { initPrototypeContext } from "./prototype-context.js";
+import {
+	getNormalizedPrototypeContext,
+	initPrototypeContext,
+} from "./prototype-context.js";
+import {
+	getNormalizedPrototypeLayerDefinitions,
+	initPrototypeLayers,
+} from "./prototype-layers.js";
 
 /** Local cache for layer definitions and project context. */
 export let layerDefinitions: LayerConfig[] = [];
@@ -42,11 +49,19 @@ export async function initLayers(): Promise<void> {
 			loadYAML<{ contexts: ProjectContext }>("/config/context.yaml"),
 		]);
 
-		layerDefinitions = layerData?.layers || [];
-		context = ctxWrapper?.contexts || null;
+		const legacyLayerDefinitions = layerData?.layers || [];
+		const legacyContext = ctxWrapper?.contexts || null;
+
+		layerDefinitions = legacyLayerDefinitions;
+		context = legacyContext;
 		app.context = context;
-		if (context) {
-			await initPrototypeContext(context);
+		if (legacyContext) {
+			await initPrototypeContext(legacyContext);
+			await initPrototypeLayers(legacyLayerDefinitions);
+			context = getNormalizedPrototypeContext() || legacyContext;
+			layerDefinitions =
+				getNormalizedPrototypeLayerDefinitions() || legacyLayerDefinitions;
+			app.context = context;
 		}
 
 		// 0. Perform initial visibility sync for global base state

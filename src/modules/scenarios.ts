@@ -6,6 +6,22 @@ import { ProjectContext, PrototypeScenario } from "./types.js";
 let context: ProjectContext | null = null;
 /** Prototype scenario metadata loaded from assets/scenarios/<id>/scenario.yaml. */
 const prototypeScenarios = new Map<string, PrototypeScenario | null>();
+const prototypeChallenges = new Map<string, any | null>();
+
+async function loadPrototypeChallenge(path: string): Promise<any | null> {
+	if (prototypeChallenges.has(path)) {
+		return prototypeChallenges.get(path) ?? null;
+	}
+
+	try {
+		const data = await loadYAML<any>(path);
+		prototypeChallenges.set(path, data ?? null);
+		return data ?? null;
+	} catch {
+		prototypeChallenges.set(path, null);
+		return null;
+	}
+}
 
 function getPrototypeScenarioPath(scenarioId: string): string {
 	return `/assets/scenarios/${scenarioId}/scenario.yaml`;
@@ -69,6 +85,35 @@ export function getPrototypeScenario(scenarioId: string): PrototypeScenario | nu
 export function getCurrentPrototypeScenario(): PrototypeScenario | null {
 	if (!app.currentScenario) return null;
 	return getPrototypeScenario(app.currentScenario);
+}
+
+export function getCurrentPrototypeRoleTitle(): string | null {
+	const scenario = getCurrentPrototypeScenario();
+	if (!scenario || !app.currentRole) return null;
+	return scenario.roles[app.currentRole]?.text?.[app.language]?.title ?? null;
+}
+
+export async function getCurrentPrototypeChallengeIntro(): Promise<{
+	title?: string;
+	description?: string;
+} | null> {
+	const scenario = getCurrentPrototypeScenario();
+	if (!scenario || !app.currentRole) return null;
+
+	const challengePath = scenario.roles[app.currentRole]?.challenge;
+	if (!challengePath) return null;
+
+	const challenge = await loadPrototypeChallenge(challengePath);
+	const introPoint = challenge?.story_points?.find(
+		(point: any) => point?.id === "intro" && point?.type === "info",
+	);
+	const text = introPoint?.text?.[app.language];
+	if (!text) return null;
+
+	return {
+		title: text.title,
+		description: text.description,
+	};
 }
 
 /**

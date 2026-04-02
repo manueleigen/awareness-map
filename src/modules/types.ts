@@ -60,6 +60,17 @@ export interface PrototypeProjectContext {
 	scenarios?: Record<string, PrototypeContextScenario>;
 }
 
+export interface PrototypeLayerType {
+	type: LayerConfig["type"];
+	interaction: string;
+	playback_control?: boolean;
+	icon_mode?: string;
+}
+
+export interface PrototypeLayerTypesFile {
+	layer_types: Record<string, PrototypeLayerType>;
+}
+
 /** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {
 	id: string;
