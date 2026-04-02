@@ -1,0 +1,214 @@
+story_points:
+  - id: intro
+    type: info
+    activeLayerIds: [flood_crisis_unit_social_media]
+    slider_time: "11:30"
+    continue_button_key: challenges.common.start_button
+    text:
+      de:
+        title: "Entscheiden unter Unsicherheit"
+        description: |
+          **Es ist 11:30 Uhr.** Auf Social Media kursieren Gerüchte über einen möglichen Bruch des Hochwasserschutzes im Bereich des Alten Hafens.
+
+          Prüfe die Informationen und **überlege, ob du sofort handeln oder zunächst weitere Informationen sammeln möchtest.**
+      en:
+        title: "Decision-Making Under Uncertainty"
+        description: |
+          **It is 11:30 AM.** Rumors are spreading on social media about a possible breach in the flood protection system near the Old Harbor.
+
+          Assess the information and **consider whether to act immediately or gather additional information first.**
+    next: challenge_core
+
+  - id: challenge_core
+    type: quiz
+    activeLayerIds: [flood_crisis_unit_social_media]
+    slider_time: "11:30"
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
+    options:
+      - value: a
+        text:
+          de: Informationen teilen
+          en: Share Information
+      - value: b
+        text:
+          de: Drohne entsenden
+          en: Deploy Drone
+    solution: ["b"]
+    step: 1
+    total_steps: 5
+    text:
+      de:
+        title: Wie reagierst du?
+        question: "**Möchtest du die aktuelle Informationslage sofort mit Öffentlichkeit, Polizei oder Feuerwehr teilen oder zunächst eine Drohne entsenden**, um mehr Informationen zu sammeln und die Lage besser einzuschätzen?"
+      en:
+        title: How do you respond?
+        question: "**Would you share the current information immediately with the public, police, or fire department, or would you first deploy a drone** to gather more information and assess the situation more accurately?"
+    next:
+      right: coord-selection
+      wrong: fail-screen-1
+
+  - id: coord-selection
+    type: location-quiz
+    activeLayerIds: [flood_crisis_unit_social_media]
+    slider_time: "11:30"
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
+    target: "#layers"
+    initial_position:
+      x: 500
+      y: 500
+    solution:
+      x: 2414
+      y: 757
+    maxDistance: 400
+    submit:
+      de: Einsatzort prüfen
+      en: Check Deployment Area
+    step: 2
+    total_steps: 5
+    text:
+      de:
+        title: Einsatzort der Drohne wählen
+        question: |
+          **Prüfe die Social-Media-Posts**, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
+
+          **Tippe dann einen Ort auf der Karte an, um die Drohne dorthin zu senden.**
+      en:
+        title: Select the Drone Deployment Area
+        question: |
+          **Review the social media posts** to assess where a breach in the flood protection system is most likely.
+
+          **Then tap a location on the map to send the drone there.**
+    next:
+      right: drone-win-screen
+      wrong: fail-screen-2
+
+  - id: drone-win-screen
+    type: info
+    activeLayerIds: [flood_crisis_unit_drone_feed]
+    slider_time: "11:30"
+    slider_time_layer: flood_simulation
+    slider_time_fixed: true
+    continue_button_key: navigation.next
+    step: 3
+    total_steps: 5
+    text:
+      de:
+        title: Richtig!
+        description: |
+          Du hast die Drohne in einem relevanten Gebiet eingesetzt und damit wichtige Daten über die aktuelle Lage gesammelt.
+
+          **Tatsächlich waren die Gerüchte über den Alten Hafen korrekt - der Bereich ist vollständig überschwemmt!**
+      en:
+        title: Correct!
+        description: |
+          You deployed the drone in a relevant area and thereby gathered important data on the current situation.
+
+          **The rumors about the Old Harbor were indeed correct - the area is completely flooded!**
+    next:
+      right: who-you-wanna-call
+
+  - id: who-you-wanna-call
+    type: quiz
+    activeLayerIds: [flood_crisis_unit_drone_feed]
+    excludeLayerIds: [flood_crisis_unit_social_media]
+    slider_time: "11:30"
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
+    options:
+      - value: a
+        text:
+          de: Einsatzleitung der Feuerwehr
+          en: Fire Department Incident Command
+      - value: b
+        text:
+          de: Öffentlichkeit
+          en: Public
+    solution: ["a"]
+    step: 4
+    total_steps: 5
+    text:
+      de:
+        title: Information weiterleiten
+        question: "**Mit wem möchtest du die gesicherte Information zuerst teilen?**"
+      en:
+        title: Pass On Information
+        question: "**Who would you share the verified information with first?**"
+    next:
+      right: win-screen
+      wrong: fail-screen-3
+
+  - id: win-screen
+    type: info
+    activeLayerIds: [flood_crisis_unit_drone_feed]
+    terminalStatus: passed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Challenge gelöst!
+        description: |
+          Du hast die Information so weitergegeben, dass operative Einheiten besser handeln können, ohne die Lage unnötig zu verschärfen.
+
+          Du hast mit deinen Entscheidungen eine wichtige Informationslücke geschlossen, **die Einsatzkräfte sind jetzt besser handlungsfähig.**
+      en:
+        title: Challenge Solved!
+        description: |
+          You passed on the information in a way that enables operational units to act more effectively without unnecessarily escalating the situation.
+
+          Your decisions closed a critical information gap, **and emergency responders are now better able to act.**
+
+  - id: fail-screen-1
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Das war keine gute Entscheidung
+        description: |
+          **Die frühe Kommunikation ungesicherter Informationen verstärkt Panik.**
+
+          Auch das interne Teilen mit Feuerwehr und Polizei kann verfrühte oder fehlgeleitete Maßnahmen auslösen.
+      en:
+        title: That Was Not a Good Decision
+        description: |
+          **Communicating unverified information too early intensifies panic.**
+
+          Even sharing it internally with the fire department and police can trigger premature or misguided actions.
+
+  - id: fail-screen-2
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Fehlgeschlagen
+        description: |
+          Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit wertvolle Ressourcen vergeudet.
+
+          **Prüfe die Social-Media-Posts**, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
+      en:
+        title: Failed
+        description: |
+          You deployed the drone in an irrelevant area and thereby wasted valuable resources.
+
+          **Review the social media posts** to assess where a breach in the flood protection system is most likely.
+
+  - id: fail-screen-3
+    type: info
+    activeLayerIds: [flood_crisis_unit_drone_feed]
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Fehlgeschlagen
+        description: |
+          Das zu frühe Teilen der Information mit der Öffentlichkeit verstärkt Panik.
+
+          **Die Einsatzkräfte brauchen dringend präzise Informationen, um eine sinnvolle Reaktion zu initiieren.**
+      en:
+        title: Failed
+        description: |
+          Sharing the information with the public too early intensifies panic.
+
+          **Emergency responders urgently need precise information in order to initiate a meaningful response.**

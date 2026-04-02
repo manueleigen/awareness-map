@@ -1,0 +1,182 @@
+story_points:
+  - id: intro
+    type: info
+    slider_time: "14:00"
+    continue_button_key: challenges.common.start_button
+    text:
+      de:
+        title: "Feuerwehr: Notrufe priorisieren"
+        description: |
+          **Es ist 14:00 Uhr**, das Wasser steigt unaufhaltsam.
+
+          Zahlreiche Notrufe gehen ein, doch die Ressourcen der Feuerwehr sind begrenzt: **Du kannst nur zwei Notrufe bearbeiten.**
+
+          Bedenke, wie viele Menschen betroffen sind, wie schnell die Orte überflutet werden, und ob die Einsatzkräfte sie noch erreichen können, ohne selbst von der Flut erfasst zu werden.
+      en:
+        title: "Prioritize Emergency Calls"
+        description: |
+          **It is 2:00 PM**, and the water is rising relentlessly.
+
+          Numerous emergency calls are coming in, but the fire department's resources are limited: **You can only respond to two emergency calls.**
+
+          Consider how many people are affected, how quickly the locations will be flooded, and whether emergency responders can still reach them without being overtaken by the flood themselves.
+    next: challenge_core
+
+  - id: challenge_core
+    type: point-selection-quiz
+    target: "#layer-flood_fire_brigade_emergency_calls"
+    activeLayerIds: [flood_fire_brigade_emergency_calls]
+    slider_time: "14:00"
+    slider_time_layer: flood_simulation
+    slider_time_fixed: false
+    solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
+    wrong_options: ["flood_emergency_call_03"]
+    minSelection: 2
+    maxSelection: 2
+    step: 1
+    total_steps: 2
+    text:
+      de:
+        title: Einsatzkräfte entsenden
+        question: |
+          **Es ist 14:00 Uhr. Wähle genau zwei Notrufe aus.**
+
+          Berücksichtige:
+
+          - wie viele Menschen betroffen sind
+          - wie schnell die Orte überflutet werden
+          - ob die Rettungswagen sie noch sicher erreichen können
+      en:
+        title: Dispatch Emergency Responders
+        question: |
+          **It is 2:00 PM. Select exactly two emergency calls.**
+
+          Take into account:
+
+          - how many people are affected
+          - how quickly the locations will be flooded
+          - whether ambulances can still reach them safely
+    next:
+      right: win-screen
+      half: half-fail-screen
+      half-wrong: half-wrong-screen
+      wrong-neutral: fail-screen-wrong-neutral
+      all-neutral: fail-screen-all-neutral
+      all-wrong: fail-screen-1
+
+  - id: win-screen
+    type: info
+    terminalStatus: passed
+    continue_button_key: challenges.common.restart
+    activeLayerIds: [flood_fire_brigade_emergency_calls]
+    text:
+      de:
+        title: Challenge gelöst!
+        description: |
+          Du hast die beiden kritischsten Notrufe priorisiert und damit die meisten Menschen gerettet, ohne Einsatzkräfte in Gefahr zu bringen.
+
+          **Gut gemacht!**
+      en:
+        title: Challenge Solved!
+        description: |
+          You prioritized the two most critical emergency calls and thereby saved the greatest number of people, without putting emergency responders at risk.
+
+          **Well done!**
+
+  - id: half-fail-screen
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Teilweise richtig
+        description: |
+          Du hast einen der beiden kritischen Notrufe richtig priorisiert, aber der andere Notruf, den du gewählt hast, ist nicht so dringend, wie du denkst.
+
+          **Achte darauf, welche Bereiche schon bald überflutet werden!**
+      en:
+        title: Partly Correct
+        description: |
+          You correctly prioritized one of the two critical emergency calls, but the other call you selected is not as urgent as you think.
+
+          **Pay attention to which areas will be flooded very soon!**
+
+  - id: half-wrong-screen
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Einsatzkräfte in Gefahr
+        description: |
+          Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf gewählt hast, der schon überflutet ist.
+
+          Deine andere Wahl hast du richtig getroffen und damit einen Notruf in einem Bereich priorisiert, der bald überflutet wird.
+
+          **Wähle einen anderen Notruf.**
+      en:
+        title: Emergency Responders at Risk
+        description: |
+          You put your responders at risk by selecting an emergency call in an area that is already flooded.
+
+          Your other choice was correct, and you successfully prioritized a call in an area that will be flooded soon.
+
+          **Select a different emergency call.**
+
+  - id: fail-screen-wrong-neutral
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Einsatzkräfte in Gefahr
+        description: |
+          Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf in einem Bereich gewählt hast, der schon überflutet ist.
+
+          Deine andere Wahl war ein Notruf, der nicht kritisch ist, da er nicht bald überflutet wird und nur wenige Menschen betrifft.
+
+          **Wähle zwei andere Notrufe.**
+      en:
+        title: Emergency Responders at Risk
+        description: |
+          You put your responders at risk by selecting an emergency call in an area that is already flooded.
+
+          Your other choice was an emergency call that is not critical, because the area will not be flooded soon and only a small number of people are affected.
+
+          **Select two different emergency calls.**
+
+  - id: fail-screen-all-neutral
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Vergeudete Ressourcen
+        description: |
+          Deine gewählten Notrufe waren nicht kritisch, da sie nicht bald überflutet werden und nur wenige Menschen betreffen.
+
+          **Wähle zwei andere Notrufe, die viele Menschen betreffen und bald überflutet werden.**
+      en:
+        title: Resources Wasted
+        description: |
+          The emergency calls you selected were not critical, because the areas will not be flooded soon and only a small number of people are affected.
+
+          **Select two different emergency calls that affect many people and will be flooded soon.**
+
+  - id: fail-screen-1
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Fehlgeschlagen
+        description: |
+          Deine Auswahl war nicht optimal.
+
+          **Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.**
+      en:
+        title: Failed
+        description: |
+          Your selection was not optimal.
+
+          **Critical emergency calls were overlooked while resources were tied up in less urgent areas.**

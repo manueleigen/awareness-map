@@ -1,0 +1,110 @@
+story_points:
+  - id: intro
+    type: info
+    activeLayerIds: [critical_sites]
+    slider_time: "13:30"
+    continue_button_key: challenges.common.start_button
+    text:
+      de:
+        title: Evakuierungszonen planen
+        description: |
+          **Es ist 13:30 Uhr.** Überflutungen bedrohen dicht besiedelte Gebiete. Um die Menschen zu schützen, müssen einige Bezirke evakuiert werden. **Allerdings sind die Ressourcen der Polizei begrenzt, und es können zunächst nur drei Zonen evakuiert werden.**
+
+          Identifiziere dicht besiedelte Gebiete, die bald überschwemmt werden, und achte auf besonders schützenswerte Infrastruktur.
+      en:
+        title: Plan Evacuation Zones
+        description: |
+          **It is 1:30 PM.** Floodwaters are threatening densely populated areas. To protect the public, some districts must be evacuated. **However, police resources are limited, and only three zones can be evacuated at first.**
+
+          Identify densely populated areas that will soon be flooded, and pay attention to particularly vulnerable infrastructure.
+    next: challenge_core
+
+  - id: challenge_core
+    type: area-selection-quiz
+    target: "#layer-flood_police_evacuation_zones"
+    activeLayerIds: [flood_police_evacuation_zones]
+    solution: ["area-19", "area-20", "area-21"]
+    wrong_options: []
+    minSelection: 3
+    maxSelection: 3
+    step: 1
+    total_steps: 3
+    text:
+      de:
+        title: Evakuierungszonen wählen
+        question: |
+          **Es ist 13:30 Uhr. Wähle drei Zonen auf der Karte aus.**
+
+          Berücksichtige dabei:
+
+          - wann die Bereiche überflutet werden
+          - die Bevölkerungsdichte
+          - wichtige Infrastruktur, die evakuiert werden muss
+      en:
+        title: Select Evacuation Zones
+        question: |
+          **It is 1:30 PM. Select three zones on the map.**
+
+          Take into account:
+
+          - when the areas will be flooded
+          - population density
+          - critical infrastructure that must be evacuated
+    next:
+      right: win-screen
+      half: half-fail-screen
+      half-wrong: half-fail-screen
+      wrong-neutral: fail-screen-all-neutral
+      all-neutral: fail-screen-all-neutral
+      all-wrong: fail-screen-all-neutral
+
+  - id: win-screen
+    type: info
+    terminalStatus: passed
+    continue_button_key: challenges.common.restart
+    activeLayerIds: [flood_police_evacuation_zones]
+    text:
+      de:
+        title: Challenge gelöst!
+        description: |
+          Du hast die am stärksten gefährdeten Wohngebiete priorisiert und kritische Infrastruktur berücksichtigt.
+      en:
+        title: Challenge Solved!
+        description: |
+          You prioritized the most severely threatened residential areas and took critical infrastructure into account.
+
+  - id: half-fail-screen
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Teilweise richtig
+        description: |
+          Nicht alle ausgewählten Zonen waren kritisch, aber du hast zumindest einen Teil der am stärksten gefährdeten Wohngebiete priorisiert.
+
+          **Achte auf dicht besiedelte Gebiete, die bald überflutet werden.**
+      en:
+        title: Partly Correct
+        description: |
+          Not all of the zones you selected were critical, but you did prioritize at least part of the most severely threatened residential areas.
+
+          **Focus on densely populated areas that will be flooded soon.**
+
+  - id: fail-screen-all-neutral
+    type: info
+    terminalStatus: failed
+    continue_button_key: challenges.common.restart
+    text:
+      de:
+        title: Ressourcen verschwendet
+        description: |
+          Keine deiner gewählten Zonen waren kritisch, da sie nicht bald überflutet werden oder nur wenige Menschen betreffen.
+
+          **Achte auf dicht besiedelte Gebiete, die bald überflutet werden!**
+      en:
+        title: Resources Wasted
+        description: |
+          None of the zones you selected were critical, because they will not be flooded soon or affect only a small number of people.
+
+          **Focus on densely populated areas that will be flooded soon!**

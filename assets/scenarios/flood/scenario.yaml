@@ -1,0 +1,49 @@
+id: flood
+inactive: false
+
+text:
+  de:
+    title: Der Fluss tritt über die Ufer
+    short_title: Flut
+    description: |
+      **Nach tagelangen Regenfällen steigt der Wasserpegel weiter an.**
+
+      Die Lage verändert sich schnell, und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt überflutet werden.
+
+      Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Informationen. **Wessen Rolle möchtest du übernehmen?**
+    role_selection_label: Wähle deine Rolle
+  en:
+    title: The River Overflows Its Banks
+    short_title: Flood
+    description: |
+      **After days of heavy rainfall, the water level continues to rise.**
+
+      The situation is changing rapidly, and the flood simulation shows that several parts of the city will be inundated over the next few hours.
+
+      In a crisis, different actors have different responsibilities and access to different information. **Which role would you like to take on?**
+    role_selection_label: Select your role
+
+roles:
+  fire_brigade:
+    text:
+      de:
+        title: Feuerwehr
+      en:
+        title: Fire Brigade
+    challenge: ./fire_brigade/challenge.yaml
+
+  police:
+    text:
+      de:
+        title: Polizei
+      en:
+        title: Police
+    challenge: ./police/challenge.yaml
+
+  crisis_unit:
+    text:
+      de:
+        title: Krisenstab
+      en:
+        title: Crisis Unit
+    challenge: ./crisis_unit/challenge.yaml
