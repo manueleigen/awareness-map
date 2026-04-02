@@ -1,9 +1,75 @@
 import { app } from "./state.js";
 import { loadYAML } from "./lib.js";
-import { ProjectContext } from "./types.js";
+import { ProjectContext, PrototypeScenario } from "./types.js";
 
 /** Local cache for project context data. */
 let context: ProjectContext | null = null;
+/** Prototype scenario metadata loaded from assets/scenarios/<id>/scenario.yaml. */
+const prototypeScenarios = new Map<string, PrototypeScenario | null>();
+
+function getPrototypeScenarioPath(scenarioId: string): string {
+	return `/assets/scenarios/${scenarioId}/scenario.yaml`;
+}
+
+function resolvePrototypeScenario(
+	scenarioId: string,
+	data: PrototypeScenario,
+): PrototypeScenario {
+	const roles = Object.fromEntries(
+		Object.entries(data.roles ?? {}).map(([roleId, role]) => {
+			const challengePath = role.challenge?.startsWith("./")
+				? `/assets/scenarios/${scenarioId}/${role.challenge.slice(2)}`
+				: role.challenge;
+			return [
+				roleId,
+				{
+					...role,
+					challenge: challengePath,
+				},
+			];
+		}),
+	);
+
+	return {
+		...data,
+		id: data.id || scenarioId,
+		roles,
+	};
+}
+
+export async function loadPrototypeScenario(
+	scenarioId: string,
+): Promise<PrototypeScenario | null> {
+	if (prototypeScenarios.has(scenarioId)) {
+		return prototypeScenarios.get(scenarioId) ?? null;
+	}
+
+	try {
+		const data = await loadYAML<PrototypeScenario>(
+			getPrototypeScenarioPath(scenarioId),
+		);
+		if (!data) {
+			prototypeScenarios.set(scenarioId, null);
+			return null;
+		}
+
+		const resolved = resolvePrototypeScenario(scenarioId, data);
+		prototypeScenarios.set(scenarioId, resolved);
+		return resolved;
+	} catch {
+		prototypeScenarios.set(scenarioId, null);
+		return null;
+	}
+}
+
+export function getPrototypeScenario(scenarioId: string): PrototypeScenario | null {
+	return prototypeScenarios.get(scenarioId) ?? null;
+}
+
+export function getCurrentPrototypeScenario(): PrototypeScenario | null {
+	if (!app.currentScenario) return null;
+	return getPrototypeScenario(app.currentScenario);
+}
 
 /**
  * Loads the project context (scenarios and roles) from YAML.
@@ -14,6 +80,14 @@ export async function initScenarios(): Promise<void> {
 	);
 	if (ctxWrapper) {
 		context = ctxWrapper.contexts;
+	}
+
+	if (context?.scenarios) {
+		await Promise.all(
+			Object.keys(context.scenarios).map((scenarioId) =>
+				loadPrototypeScenario(scenarioId),
+			),
+		);
 	}
 }
 

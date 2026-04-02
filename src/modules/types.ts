@@ -1,6 +1,25 @@
 /** Supported languages for the application. */
 export type Language = "de" | "en";
 
+export interface LocalizedScenarioText {
+	title: string;
+	short_title?: string;
+	description?: string;
+	role_selection_label?: string;
+}
+
+export interface PrototypeScenarioRole {
+	text?: Partial<Record<Language, { title: string }>>;
+	challenge?: string;
+}
+
+export interface PrototypeScenario {
+	id: string;
+	inactive?: boolean;
+	text?: Partial<Record<Language, LocalizedScenarioText>>;
+	roles: Record<string, PrototypeScenarioRole>;
+}
+
 /** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {
 	id: string;
