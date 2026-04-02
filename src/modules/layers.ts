@@ -189,7 +189,7 @@ export async function ensureLayerBuilt(
 					});
 					break;
 				case "locations":
-					const poiContainer = await renderPOILayer(src, ctxLayer);
+					const poiContainer = await renderPOILayer(src, ctxLayer, config.id);
 					wrapper.append(poiContainer);
 					break;
 			}

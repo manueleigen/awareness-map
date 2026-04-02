@@ -85,9 +85,7 @@ export async function initPrototypeLayers(
 			);
 		});
 
-		normalizedPrototypeLayers = legacyLayerDefinitions.map(
-			(layer) => nextById.get(layer.id) ?? layer,
-		);
+		normalizedPrototypeLayers = Array.from(nextById.values());
 	} catch {
 		// Prototype layer config is optional during migration.
 	}

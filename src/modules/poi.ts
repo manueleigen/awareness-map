@@ -22,6 +22,7 @@ let previewGeneration = 0;
 export async function renderPOILayer(
 	src: string,
 	ctxLayer: ContextLayer | null,
+	runtimeLayerId?: string,
 ): Promise<HTMLElement> {
 	const poiSize = 150;
 	const poiContainer = create("div");
@@ -33,13 +34,16 @@ export async function renderPOILayer(
 	}>(src);
 	if (data && data.locations) {
 		console.log(`[POI] ${src.split("/").pop()} loaded`);
-		if (data.layer_id) poiContainer.dataset.layerId = data.layer_id;
+		const effectiveLayerId = runtimeLayerId || data.layer_id;
+		if (effectiveLayerId) poiContainer.dataset.layerId = effectiveLayerId;
 		containerPoiSizeMap.set(poiContainer, poiSize);
 
 		data.locations.forEach((loc, index) => {
 			const marker = create("div");
 			marker.className = "poi-marker";
-			if (data.layer_id) marker.classList.add(`poi-marker--${data.layer_id}`);
+			if (effectiveLayerId) {
+				marker.classList.add(`poi-marker--${effectiveLayerId}`);
+			}
 
 			// Assign a stable ID for quiz interactions
 			if (!marker.id) {

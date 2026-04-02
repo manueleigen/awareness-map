@@ -4,6 +4,7 @@ import {
 	Language,
 	LocalizedScenarioText,
 	ProjectContext,
+	PrototypeProjectContext,
 	PrototypeScenario,
 } from "./types.js";
 import { getChallengeIntroText, normalizeChallengeDefinition } from "./quiz/challenge-normalizer.js";
@@ -140,13 +141,18 @@ export async function initScenarios(): Promise<void> {
 		context = ctxWrapper.contexts;
 	}
 
-	if (context?.scenarios) {
-		await Promise.all(
-			Object.keys(context.scenarios).map((scenarioId) =>
-				loadPrototypeScenario(scenarioId),
-			),
-		);
-	}
+	const prototypeContext = await loadYAML<PrototypeProjectContext>(
+		"/config/context.prototype.yaml",
+	).catch(() => null);
+
+	const scenarioIds = new Set<string>(Object.keys(context?.scenarios ?? {}));
+	Object.keys(prototypeContext?.scenarios ?? {}).forEach((scenarioId) =>
+		scenarioIds.add(scenarioId),
+	);
+
+	await Promise.all(
+		Array.from(scenarioIds).map((scenarioId) => loadPrototypeScenario(scenarioId)),
+	);
 }
 
 /**
