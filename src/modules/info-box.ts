@@ -13,14 +13,14 @@ import { create } from "./lib.js";
 import { renderBlockText, renderInlineText } from "./rich-text.js";
 import { t } from "./translater.js";
 import {
-	getCurrentPrototypeScenario,
-	getCurrentPrototypeChallengeIntro,
-	getCurrentPrototypeRoleTitle,
-	getCurrentPrototypeScenarioText,
-	getPrototypeScenarioText,
+	getCurrentChallengeIntro,
+	getCurrentRoleTitle,
+	getCurrentScenarioDefinition,
+	getCurrentScenarioText,
 	getQuizPath,
 	getRoleSliderConfig,
 	getRoleActiveLayerIds,
+	getScenarioText,
 } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
 import { abortLocationStep, abortSelectionStep } from "./quiz/render-map.js";
@@ -100,11 +100,11 @@ export function renderHome(): void {
 	if (context) {
 		Object.keys(context.scenarios).forEach((scenarioId) => {
 			const scenario = context!.scenarios[scenarioId];
-			const prototypeText = getPrototypeScenarioText(scenarioId);
+			const scenarioText = getScenarioText(scenarioId);
 			const btn = create("button");
 			const btnTitle =
-				prototypeText?.short_title ||
-				prototypeText?.title ||
+				scenarioText?.short_title ||
+				scenarioText?.title ||
 				t(`scenarios.${scenarioId}.short_title`) ||
 				t(`scenarios.${scenarioId}.title`);
 			btn.innerText = btnTitle;
@@ -139,8 +139,8 @@ export function renderRoleSelection(): void {
 
 	const scenario = context.scenarios[app.currentScenario];
 	if (!scenario) return;
-	const prototypeScenario = getCurrentPrototypeScenario();
-	const prototypeScenarioText = getCurrentPrototypeScenarioText();
+	const scenarioDefinition = getCurrentScenarioDefinition();
+	const scenarioText = getCurrentScenarioText();
 
 	infoBoxContent.innerHTML = "";
 	infoBoxControls.innerHTML = "";
@@ -148,14 +148,14 @@ export function renderRoleSelection(): void {
 	const title = create("h2");
 	renderInlineText(
 		title,
-		prototypeScenarioText?.title ??
+		scenarioText?.title ??
 			t(`scenarios.${app.currentScenario}.title`),
 	);
 
 	const text = create("div");
 	renderBlockText(
 		text,
-		prototypeScenarioText?.description ??
+		scenarioText?.description ??
 			t(`scenarios.${app.currentScenario}.description`),
 	);
 	infoBoxContent.append(title, text);
@@ -163,22 +163,22 @@ export function renderRoleSelection(): void {
 	const btnGroup = create("div");
 	btnGroup.className = "button-group large-buttons";
 
-	const roleIds = prototypeScenario
-		? Object.keys(prototypeScenario.roles)
+	const roleIds = scenarioDefinition
+		? Object.keys(scenarioDefinition.roles)
 		: Object.keys(scenario.roles);
 
 	roleIds.forEach((roleId) => {
 		const roleCTX = scenarioCTX.roles[roleId];
-		const prototypeRole = prototypeScenario?.roles[roleId];
-		const hasQuiz = !!(prototypeRole?.challenge || roleCTX?.quiz);
+		const scenarioRole = scenarioDefinition?.roles[roleId];
+		const hasQuiz = !!scenarioRole?.challenge;
 		const btn = create("button");
 
-		const prototypeRoleTitle = prototypeRole?.text?.[app.language]?.title;
-		if (prototypeRoleTitle) {
-			btn.innerText = prototypeRoleTitle;
+		const scenarioRoleTitle = scenarioRole?.text?.[app.language]?.title;
+		if (scenarioRoleTitle) {
+			btn.innerText = scenarioRoleTitle;
 		} else {
 			// Try scenario-specific role title (short version) first, then fallback to challenge title
-			const scenarioRoleTitle = t(
+			const localizedRoleTitle = t(
 				`scenarios.${app.currentScenario}.roles.${roleId}.title`,
 				"",
 			);
@@ -188,10 +188,10 @@ export function renderRoleSelection(): void {
 			);
 
 			btn.innerText =
-				scenarioRoleTitle &&
-				scenarioRoleTitle !==
+				localizedRoleTitle &&
+				localizedRoleTitle !==
 					`scenarios.${app.currentScenario}.roles.${roleId}.title`
-					? scenarioRoleTitle
+					? localizedRoleTitle
 					: fallbackTitle;
 		}
 
@@ -245,21 +245,21 @@ export async function renderMapUI(): Promise<void> {
 
 	document.documentElement.dataset.quizPoiSelect = "0";
 
-	const prototypeRoleTitle = getCurrentPrototypeRoleTitle();
-	const prototypeChallengeIntro = await getCurrentPrototypeChallengeIntro();
+	const roleTitle = getCurrentRoleTitle();
+	const challengeIntro = await getCurrentChallengeIntro();
 
 	const title = create("h2");
 	renderInlineText(
 		title,
-		prototypeChallengeIntro?.title ??
-			prototypeRoleTitle ??
+		challengeIntro?.title ??
+			roleTitle ??
 			t(`challenges.${app.currentScenario}.${app.currentRole}.title`),
 	);
 
 	const desc = create("div");
 	renderBlockText(
 		desc,
-		prototypeChallengeIntro?.description ??
+		challengeIntro?.description ??
 			t(`challenges.${app.currentScenario}.${app.currentRole}.intro`),
 	);
 

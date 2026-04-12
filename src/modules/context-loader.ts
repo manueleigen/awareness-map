@@ -1,10 +1,10 @@
 import { loadYAML } from "./lib.js";
-import { ProjectContext, PrototypeContextLayer, PrototypeProjectContext } from "./types.js";
+import { ContextLayerDefinition, ProjectContext, ProjectContextDefinition } from "./types.js";
 
-let prototypeContext: PrototypeProjectContext | null = null;
-let normalizedPrototypeContext: ProjectContext | null = null;
+let loadedContext: ProjectContextDefinition | null = null;
+let normalizedContext: ProjectContext | null = null;
 
-function normalizeLayer(layer: PrototypeContextLayer) {
+function normalizeLayer(layer: ContextLayerDefinition) {
 	return {
 		title: {
 			de: layer.label?.de ?? "",
@@ -23,18 +23,18 @@ function normalizeLayer(layer: PrototypeContextLayer) {
 	};
 }
 
-function normalizePrototypeContext(prototype: PrototypeProjectContext): ProjectContext {
+function normalizeContext(definition: ProjectContextDefinition): ProjectContext {
 	return {
 		global: {
 			layers: Object.fromEntries(
-				Object.entries(prototype.global?.layers ?? {}).map(([id, layer]) => [
+				Object.entries(definition.global?.layers ?? {}).map(([id, layer]) => [
 					id,
 					normalizeLayer(layer),
 				]),
 			),
 		},
 		scenarios: Object.fromEntries(
-			Object.entries(prototype.scenarios ?? {}).map(([scenarioId, scenario]) => [
+			Object.entries(definition.scenarios ?? {}).map(([scenarioId, scenario]) => [
 				scenarioId,
 				{
 					layers: Object.fromEntries(
@@ -64,27 +64,27 @@ function normalizePrototypeContext(prototype: PrototypeProjectContext): ProjectC
 	};
 }
 
-export async function initPrototypeContext(): Promise<void> {
-	prototypeContext = null;
-	normalizedPrototypeContext = null;
+export async function initContextLoader(): Promise<void> {
+	loadedContext = null;
+	normalizedContext = null;
 
 	try {
-		const loaded = await loadYAML<PrototypeProjectContext>(
-			"/config/context.prototype.yaml",
+		const loaded = await loadYAML<ProjectContextDefinition>(
+			"/config/context.yaml",
 		);
 		if (!loaded) return;
 
-		prototypeContext = loaded;
-		normalizedPrototypeContext = normalizePrototypeContext(loaded);
+		loadedContext = loaded;
+		normalizedContext = normalizeContext(loaded);
 	} catch {
-		// Prototype config is optional during migration.
+		// Context config is optional during startup.
 	}
 }
 
-export function getPrototypeContext(): PrototypeProjectContext | null {
-	return prototypeContext;
+export function getLoadedContext(): ProjectContextDefinition | null {
+	return loadedContext;
 }
 
-export function getNormalizedPrototypeContext(): ProjectContext | null {
-	return normalizedPrototypeContext;
+export function getNormalizedContext(): ProjectContext | null {
+	return normalizedContext;
 }

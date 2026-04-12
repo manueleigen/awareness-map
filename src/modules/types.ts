@@ -8,19 +8,19 @@ export interface LocalizedScenarioText {
 	role_selection_label?: string;
 }
 
-export interface PrototypeScenarioRole {
+export interface ScenarioRoleDefinition {
 	text?: Partial<Record<Language, { title: string }>>;
 	challenge?: string;
 }
 
-export interface PrototypeScenario {
+export interface ScenarioDefinition {
 	id: string;
 	inactive?: boolean;
 	text?: Partial<Record<Language, LocalizedScenarioText>>;
-	roles: Record<string, PrototypeScenarioRole>;
+	roles: Record<string, ScenarioRoleDefinition>;
 }
 
-export interface PrototypeContextLayer {
+export interface ContextLayerDefinition {
 	layer_type: string;
 	available_from?: "scenario" | "role" | "global";
 	toggle?: "available" | "deactivated" | "hidden" | "none";
@@ -42,33 +42,33 @@ export interface PrototypeContextLayer {
 	toggle_order?: number;
 }
 
-export interface PrototypeContextRole {
+export interface ContextRoleDefinition {
 	exclude_layers?: string[];
-	layers?: Record<string, PrototypeContextLayer>;
+	layers?: Record<string, ContextLayerDefinition>;
 }
 
-export interface PrototypeContextScenario {
-	layers?: Record<string, PrototypeContextLayer>;
-	roles?: Record<string, PrototypeContextRole>;
+export interface ContextScenarioDefinition {
+	layers?: Record<string, ContextLayerDefinition>;
+	roles?: Record<string, ContextRoleDefinition>;
 	inactive?: boolean;
 }
 
-export interface PrototypeProjectContext {
+export interface ProjectContextDefinition {
 	global?: {
-		layers?: Record<string, PrototypeContextLayer>;
+		layers?: Record<string, ContextLayerDefinition>;
 	};
-	scenarios?: Record<string, PrototypeContextScenario>;
+	scenarios?: Record<string, ContextScenarioDefinition>;
 }
 
-export interface PrototypeLayerType {
+export interface LayerTypeDefinition {
 	type: LayerConfig["type"];
 	interaction: string;
 	playback_control?: boolean;
 	icon_mode?: string;
 }
 
-export interface PrototypeLayerTypesFile {
-	layer_types: Record<string, PrototypeLayerType>;
+export interface LayerTypesFile {
+	layer_types: Record<string, LayerTypeDefinition>;
 }
 
 /** Configuration for a single data layer as defined in layers.yaml. */

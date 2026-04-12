@@ -3,47 +3,47 @@ import { loadYAML } from "./lib.js";
 import {
 	Language,
 	LocalizedScenarioText,
-	PrototypeProjectContext,
-	PrototypeScenario,
+	ProjectContextDefinition,
+	ScenarioDefinition,
 } from "./types.js";
 import { getChallengeIntroText, normalizeChallengeDefinition } from "./quiz/challenge-normalizer.js";
 
-/** Prototype scenario metadata loaded from assets/scenarios/<id>/scenario.yaml. */
-const prototypeScenarios = new Map<string, PrototypeScenario | null>();
-const prototypeChallenges = new Map<string, any | null>();
+/** Scenario metadata loaded from assets/scenarios/<id>/scenario.yaml. */
+const loadedScenarios = new Map<string, ScenarioDefinition | null>();
+const loadedChallenges = new Map<string, any | null>();
 
-async function loadPrototypeChallenge(path: string): Promise<any | null> {
-	if (prototypeChallenges.has(path)) {
-		return prototypeChallenges.get(path) ?? null;
+async function loadChallengeDefinition(path: string): Promise<any | null> {
+	if (loadedChallenges.has(path)) {
+		return loadedChallenges.get(path) ?? null;
 	}
 
 	try {
 		const data = await loadYAML<any>(path);
 		const normalized = data ? normalizeChallengeDefinition(data) : null;
-		prototypeChallenges.set(path, normalized);
+		loadedChallenges.set(path, normalized);
 		return normalized;
 	} catch {
-		prototypeChallenges.set(path, null);
+		loadedChallenges.set(path, null);
 		return null;
 	}
 }
 
-async function getCurrentPrototypeChallenge(): Promise<any | null> {
-	const scenario = getCurrentPrototypeScenario();
+async function getCurrentChallengeDefinition(): Promise<any | null> {
+	const scenario = getCurrentScenarioDefinition();
 	if (!scenario || !app.currentRole) return null;
 	const challengePath = scenario.roles[app.currentRole]?.challenge;
 	if (!challengePath) return null;
-	return loadPrototypeChallenge(challengePath);
+	return loadChallengeDefinition(challengePath);
 }
 
-function getPrototypeScenarioPath(scenarioId: string): string {
+function getScenarioPath(scenarioId: string): string {
 	return `/assets/scenarios/${scenarioId}/scenario.yaml`;
 }
 
-function resolvePrototypeScenario(
+function resolveScenarioDefinition(
 	scenarioId: string,
-	data: PrototypeScenario,
-): PrototypeScenario {
+	data: ScenarioDefinition,
+): ScenarioDefinition {
 	const roles = Object.fromEntries(
 		Object.entries(data.roles ?? {}).map(([roleId, role]) => {
 			const challengePath = role.challenge?.startsWith("./")
@@ -66,64 +66,64 @@ function resolvePrototypeScenario(
 	};
 }
 
-export async function loadPrototypeScenario(
+export async function loadScenarioDefinition(
 	scenarioId: string,
-): Promise<PrototypeScenario | null> {
-	if (prototypeScenarios.has(scenarioId)) {
-		return prototypeScenarios.get(scenarioId) ?? null;
+): Promise<ScenarioDefinition | null> {
+	if (loadedScenarios.has(scenarioId)) {
+		return loadedScenarios.get(scenarioId) ?? null;
 	}
 
 	try {
-		const data = await loadYAML<PrototypeScenario>(
-			getPrototypeScenarioPath(scenarioId),
+		const data = await loadYAML<ScenarioDefinition>(
+			getScenarioPath(scenarioId),
 		);
 		if (!data) {
-			prototypeScenarios.set(scenarioId, null);
+			loadedScenarios.set(scenarioId, null);
 			return null;
 		}
 
-		const resolved = resolvePrototypeScenario(scenarioId, data);
-		prototypeScenarios.set(scenarioId, resolved);
+		const resolved = resolveScenarioDefinition(scenarioId, data);
+		loadedScenarios.set(scenarioId, resolved);
 		return resolved;
 	} catch {
-		prototypeScenarios.set(scenarioId, null);
+		loadedScenarios.set(scenarioId, null);
 		return null;
 	}
 }
 
-export function getPrototypeScenario(scenarioId: string): PrototypeScenario | null {
-	return prototypeScenarios.get(scenarioId) ?? null;
+export function getScenarioDefinition(scenarioId: string): ScenarioDefinition | null {
+	return loadedScenarios.get(scenarioId) ?? null;
 }
 
-export function getCurrentPrototypeScenario(): PrototypeScenario | null {
+export function getCurrentScenarioDefinition(): ScenarioDefinition | null {
 	if (!app.currentScenario) return null;
-	return getPrototypeScenario(app.currentScenario);
+	return getScenarioDefinition(app.currentScenario);
 }
 
-export function getPrototypeScenarioText(
+export function getScenarioText(
 	scenarioId: string,
 ): LocalizedScenarioText | null {
-	const scenario = getPrototypeScenario(scenarioId);
+	const scenario = getScenarioDefinition(scenarioId);
 	if (!scenario) return null;
 	return scenario.text?.[app.language] ?? null;
 }
 
-export function getCurrentPrototypeScenarioText(): LocalizedScenarioText | null {
+export function getCurrentScenarioText(): LocalizedScenarioText | null {
 	if (!app.currentScenario) return null;
-	return getPrototypeScenarioText(app.currentScenario);
+	return getScenarioText(app.currentScenario);
 }
 
-export function getCurrentPrototypeRoleTitle(): string | null {
-	const scenario = getCurrentPrototypeScenario();
+export function getCurrentRoleTitle(): string | null {
+	const scenario = getCurrentScenarioDefinition();
 	if (!scenario || !app.currentRole) return null;
 	return scenario.roles[app.currentRole]?.text?.[app.language]?.title ?? null;
 }
 
-export async function getCurrentPrototypeChallengeIntro(): Promise<{
+export async function getCurrentChallengeIntro(): Promise<{
 	title?: string;
 	description?: string;
 } | null> {
-	const challenge = await getCurrentPrototypeChallenge();
+	const challenge = await getCurrentChallengeDefinition();
 	return challenge ? getChallengeIntroText(challenge) : null;
 }
 
@@ -131,17 +131,17 @@ export async function getCurrentPrototypeChallengeIntro(): Promise<{
  * Loads the project context (scenarios and roles) from YAML.
  */
 export async function initScenarios(): Promise<void> {
-	const prototypeContext = await loadYAML<PrototypeProjectContext>(
-		"/config/context.prototype.yaml",
+	const contextDefinition = await loadYAML<ProjectContextDefinition>(
+		"/config/context.yaml",
 	).catch(() => null);
 
 	const scenarioIds = new Set<string>();
-	Object.keys(prototypeContext?.scenarios ?? {}).forEach((scenarioId) =>
+	Object.keys(contextDefinition?.scenarios ?? {}).forEach((scenarioId) =>
 		scenarioIds.add(scenarioId),
 	);
 
 	await Promise.all(
-		Array.from(scenarioIds).map((scenarioId) => loadPrototypeScenario(scenarioId)),
+		Array.from(scenarioIds).map((scenarioId) => loadScenarioDefinition(scenarioId)),
 	);
 }
 
@@ -149,15 +149,15 @@ export async function initScenarios(): Promise<void> {
  * Returns slider time config for the current role.
  */
 export async function getRoleSliderConfig(): Promise<{ time: string; layer?: string; fixed: boolean } | null> {
-	const prototypeChallenge = await getCurrentPrototypeChallenge();
-	const prototypeIntro = prototypeChallenge?.story_points?.find(
+	const challenge = await getCurrentChallengeDefinition();
+	const intro = challenge?.story_points?.find(
 		(point: any) => point?.id === "intro" && point?.type === "info",
 	);
-	if (prototypeIntro?.slider_time) {
+	if (intro?.slider_time) {
 		return {
-			time: prototypeIntro.slider_time,
-			layer: prototypeIntro.slider_time_layer,
-			fixed: prototypeIntro.slider_time_fixed ?? false,
+			time: intro.slider_time,
+			layer: intro.slider_time_layer,
+			fixed: intro.slider_time_fixed ?? false,
 		};
 	}
 	return null;
@@ -167,12 +167,12 @@ export async function getRoleSliderConfig(): Promise<{ time: string; layer?: str
  * Returns layer IDs to activate at the start of the challenge.
  */
 export async function getRoleActiveLayerIds(): Promise<string[]> {
-	const prototypeChallenge = await getCurrentPrototypeChallenge();
-	const prototypeIntro = prototypeChallenge?.story_points?.find(
+	const challenge = await getCurrentChallengeDefinition();
+	const intro = challenge?.story_points?.find(
 		(point: any) => point?.id === "intro" && point?.type === "info",
 	);
-	if (prototypeIntro?.activeLayerIds?.length) {
-		return prototypeIntro.activeLayerIds;
+	if (intro?.activeLayerIds?.length) {
+		return intro.activeLayerIds;
 	}
 	return [];
 }
@@ -183,10 +183,10 @@ export async function getRoleActiveLayerIds(): Promise<string[]> {
 export function getQuizPath(): string | null {
 	if (!app.currentScenario) return null;
 
-	const prototypeScenario = getCurrentPrototypeScenario();
-	if (prototypeScenario && app.currentRole) {
-		const prototypeRole = prototypeScenario.roles[app.currentRole];
-		if (prototypeRole?.challenge) return prototypeRole.challenge;
+	const scenario = getCurrentScenarioDefinition();
+	if (scenario && app.currentRole) {
+		const role = scenario.roles[app.currentRole];
+		if (role?.challenge) return role.challenge;
 	}
 	return null;
 }

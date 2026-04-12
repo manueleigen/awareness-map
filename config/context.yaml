@@ -1,60 +1,153 @@
-# Project Context Mapping
-# z_index: Reihenfolge aus layers.yaml (1=unten, 14=oben).
-# Map layers unter UI-Elementen (z-index 2000+).
+global:
+  layers:
+    base_layer_river:
+      layer_type: static_image
+      available_from: global
+      toggle: hidden
+      initially_visible: true
+      z_index: 10
+      src: /assets/challenges/base-layer_river.webp
 
-contexts:
-  global:
+    base_layer_buildings:
+      layer_type: static_image
+      available_from: global
+      toggle: hidden
+      initially_visible: true
+      z_index: 71
+      src: /assets/challenges/buildings.webp
+
+    base_layer_streets:
+      layer_type: static_image
+      available_from: global
+      toggle: hidden
+      initially_visible: true
+      z_index: 60
+      src: /assets/challenges/streets.webp
+
+    base_layer_glow:
+      layer_type: static_image
+      available_from: global
+      toggle: hidden
+      class: glow-layer
+      initially_visible: true
+      z_index: 40
+      src: /assets/challenges/glow.webp
+
+    critical_sites:
+      layer_type: locations
+      available_from: global
+      toggle: available
+      label:
+        de: "Kritische\nInfrastruktur"
+        en: "Critical\nInfrastructure"
+      initially_visible: false
+      z_index: 110
+      toggle_order: 1
+      src: /assets/challenges/flood/critical_sites.json
+      icon: /assets/icons/critical_sites.svg
+      poi_icon: /assets/icons/marker_poi.svg
+
+    population_density:
+      layer_type: static_image
+      available_from: global
+      toggle: available
+      label:
+        de: "Bevölkerungs\ndichte"
+        en: "Population\nDensity"
+      opacity_control: true
+      initially_visible: false
+      z_index: 74
+      toggle_order: 2
+      src: /assets/challenges/density.webp
+      icon: /assets/icons/population_density.svg
+
+scenarios:
+  flood:
     layers:
-      base_layer_buildings:
-        src: /assets/challenges/buildings.webp
+      flood_simulation:
+        layer_type: timeline_animation
+        available_from: scenario
+        toggle: available
+        label:
+          de: "Flut\nSimulation"
+          en: "Flood\nSimulation"
+        start_time: "08:00"
+        end_time: "18:00"
         initially_visible: true
-        z_index: 71
-      base_layer_river:
-        src: /assets/challenges/base-layer_river.webp
-        initially_visible: true
-        z_index: 10
+        z_index: 78
+        toggle_order: 3
+        src: /assets/challenges/flood/flood_simulation.json
+        icon: /assets/icons/flood.svg
+        slider_icon: /assets/icons/flood-slider.svg
 
-      base_layer_streets:
-        src: /assets/challenges/streets.webp
-        initially_visible: true
-        z_index: 60
+    roles:
+      fire_brigade:
+        exclude_layers: [flood_police_evacuation_zones]
+        layers:
+          flood_fire_brigade_emergency_calls:
+            layer_type: locations
+            available_from: role
+            toggle: available
+            label:
+              de: "Aktuelle\nNotrufe"
+              en: "Emergency\nCalls"
+            initially_visible: true
+            z_index: 100
+            toggle_order: 4
+            src: /assets/challenges/flood/fire_brigade/emergency_calls.json
+            icon: /assets/icons/emergency_calls.svg
+            poi_icon: /assets/icons/marker_emergency_call.svg
 
-      base_layer_glow:
-        src: /assets/challenges/glow.webp
-        icon: /assets/icons/default_icon.svg
-        initially_visible: true
-        z_index: 40
+      police:
+        layers:
+          flood_police_evacuation_zones:
+            layer_type: area_overlay
+            available_from: role
+            toggle: available
+            quiz_only: true
+            label:
+              de: "Evakuierungs\nzonen"
+              en: "Evacuation\nZones"
+            initially_visible: false
+            z_index: 77
+            toggle_order: 5
+            src: /assets/challenges/flood/police/evacuation_zones.svg
+            icon: /assets/icons/evacuation_zones.svg
 
-      location_coord_check:
-        src: /assets/location_coord_check.jpg
-        initially_visible: false
-        z_index: 100
+      crisis_unit:
+        exclude_layers: [flood_police_evacuation_zones]
+        layers:
+          flood_crisis_unit_social_media:
+            layer_type: locations
+            available_from: role
+            toggle: available
+            label:
+              de: Social Media
+              en: Social Media
+            initially_visible: true
+            z_index: 180
+            toggle_order: 4
+            src: /assets/challenges/flood/crisis_staff/social_media.json
+            icon: /assets/icons/social_media.svg
+            poi_icon: /assets/icons/marker_social_media.svg
 
-      critical_sites:
-        src: /assets/challenges/flood/critical_sites.json
-        icon: /assets/icons/critical_sites.svg
-        poi_icon: /assets/icons/marker_poi.svg
-        initially_visible: false
-        z_index: 110
-        toggle_order: 1
-        title:
-          { de: "Kritische\nInfrastruktur", en: "Critical\nInfrastructure" }
+          flood_crisis_unit_drone_feed:
+            layer_type: pulsing_overlay
+            available_from: role
+            toggle: hidden
+            quiz_only: true
+            initially_visible: false
+            z_index: 80
+            toggle_order: 5
+            src: /assets/challenges/drone_unten.webp
+            src_overlay: /assets/challenges/drone_oben.webp
 
-      population_density:
-        src: /assets/challenges/density.webp
-        icon: /assets/icons/population_density.svg
-        initially_visible: false
-        z_index: 74
-        toggle_order: 2
-        title: { de: "Bevölkerungs\ndichte", en: "Population\nDensity" }
+  blackout:
+    inactive: true
+    layers: {}
+    roles: {}
 
-  scenarios:
-    blackout:
-      inactive: true
-      layers: false
-      roles: false
-
-    mass_event:
-      inactive: true
-      layers: false
-      roles: false
+  mass_event:
+    inactive: true
+    layers: {}
+    roles: {}

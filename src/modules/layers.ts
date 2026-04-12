@@ -10,14 +10,8 @@ import {
 } from "./time-slider.js";
 import { renderPOILayer, hidePOIOverlay, previewPOILayer } from "./poi.js";
 import { clearQuizAnswers } from "./quiz/ui.js";
-import {
-	getNormalizedPrototypeContext,
-	initPrototypeContext,
-} from "./prototype-context.js";
-import {
-	getNormalizedPrototypeLayerDefinitions,
-	initPrototypeLayers,
-} from "./prototype-layers.js";
+import { getNormalizedContext, initContextLoader } from "./context-loader.js";
+import { getNormalizedLayerDefinitions, initLayerLoader } from "./layer-loader.js";
 
 /** Local cache for layer definitions and project context. */
 export let layerDefinitions: LayerConfig[] = [];
@@ -43,10 +37,10 @@ const EYE_HIDDEN = `<svg fill="currentColor" viewBox="0 0 256 256" xmlns="http:/
  */
 export async function initLayers(): Promise<void> {
 	try {
-		await initPrototypeContext();
-		await initPrototypeLayers();
-		context = getNormalizedPrototypeContext();
-		layerDefinitions = getNormalizedPrototypeLayerDefinitions() || [];
+		await initContextLoader();
+		await initLayerLoader();
+		context = getNormalizedContext();
+		layerDefinitions = getNormalizedLayerDefinitions() || [];
 		app.context = context;
 
 		// 0. Perform initial visibility sync for global base state

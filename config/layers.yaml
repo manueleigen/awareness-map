@@ -1,118 +1,22 @@
-layers:
-  # --- z-index: lowest (bottom) → highest (top) ---
-
-  - id: base_layer_river
+layer_types:
+  static_image:
     type: static-image
-    toggle: hidden
-    available_from: global
     interaction: none
 
-  - id: base_layer_buildings
-    type: static-image
-    toggle: hidden
-    available_from: global
-    interaction: none
-
-  - id: base_layer_streets
-    type: static-image
-    toggle: hidden
-    available_from: global
-    interaction: none
-
-  - id: base_layer_glow
-    class: glow-layer
-    type: static-image
-    toggle: hidden
-    available_from: global
-    interaction: none
-
-  - id: critical_sites
+  locations:
     type: locations
-    title_key: challenges.global.critical_sites.title
-    toggle: available
-    interaction: inspect-location
-    available_from: global
-    icon_mode: per-location
-
-  - id: population_density
-    type: static-image
-    title_key: challenges.global.population_density.title
-    toggle: available
-    interaction: none
-    available_from: global
-    opacity_control: true
-
-  - id: emergency_vehicles
-    type: locations
-    title_key: challenges.scenarios.flood.roles.fire_brigade.layers.emergency_vehicles.title
-    toggle: available
-    available_from: role
     interaction: inspect-location
     icon_mode: per-location
 
-  - id: emergency_calls
-    type: locations
-    title_key: challenges.scenarios.flood.roles.fire_brigade.layers.emergency_calls.title
-    toggle: available
-    available_from: role
-    interaction: inspect-location
-    icon_mode: per-location
-
-  - id: social_media_police
-    type: locations
-    title_key: challenges.scenarios.flood.roles.police.layers.social_media_police.title
-    toggle: available
-    available_from: role
-    interaction: inspect-location
-    icon_mode: per-location
-
-  - id: social_media_crises
-    type: locations
-    title_key: challenges.scenarios.flood.roles.police.layers.social_media_crises.title
-    toggle: available
-    available_from: role
-    interaction: inspect-location
-    icon_mode: per-location
-
-  - id: evacuation_zones
+  area_overlay:
     type: areas
-    title_key: challenges.scenarios.flood.roles.police.layers.evacuation_zones.title
-    toggle: available
-    available_from: role
-    interaction: inspect-area # Kept from original to allow interaction
-    opacity_control: true
-
-  - id: flood_simulation
-    type: dynamic-image
-    title_key: challenges.scenarios.flood.layers.flood_simulation.title
-    toggle: available
-    available_from: scenario
-    interaction: timeline
-    playback_control: true
-    start_time: "08:00"
-    end_time: "18:00"
-
-  - id: drone_feed
-    type: pulsing-image
-    title_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.title
-    description_key: challenges.scenarios.flood.roles.crisis_staff.layers.drone_feed.description
-    toggle: hidden
-    available_from: role
     interaction: inspect-area
 
-  # --- Internal / Quiz Layers ---
-  - id: quiz_location_marker
-    type: locations
-    toggle: hidden
-    interaction: none
+  timeline_animation:
+    type: dynamic-image
+    interaction: timeline
+    playback_control: true
 
-  - id: quiz_location_radius
-    type: static-image
-    toggle: hidden
-    interaction: none
-
-  - id: location_coord_check
-    type: static-image
-    toggle: hidden
-    available_from: global
-    interaction: none
+  pulsing_overlay:
+    type: pulsing-image
+    interaction: inspect-area

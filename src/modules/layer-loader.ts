@@ -1,16 +1,16 @@
 import { loadYAML } from "./lib.js";
 import {
+	ContextLayerDefinition,
 	LayerConfig,
-	PrototypeContextLayer,
-	PrototypeLayerType,
-	PrototypeLayerTypesFile,
+	LayerTypeDefinition,
+	LayerTypesFile,
 } from "./types.js";
-import { getPrototypeContext } from "./prototype-context.js";
+import { getLoadedContext } from "./context-loader.js";
 
-let normalizedPrototypeLayers: LayerConfig[] | null = null;
+let normalizedLayerDefinitions: LayerConfig[] | null = null;
 
-function collectPrototypeLayers(context: ReturnType<typeof getPrototypeContext>): Array<[string, PrototypeContextLayer]> {
-	const layers: Array<[string, PrototypeContextLayer]> = [];
+function collectContextLayers(context: ReturnType<typeof getLoadedContext>): Array<[string, ContextLayerDefinition]> {
+	const layers: Array<[string, ContextLayerDefinition]> = [];
 	if (!context) return layers;
 
 	Object.entries(context.global?.layers ?? {}).forEach(([id, layer]) => {
@@ -31,13 +31,13 @@ function collectPrototypeLayers(context: ReturnType<typeof getPrototypeContext>)
 	return layers;
 }
 
-function buildPrototypeLayerConfig(
-	prototypeId: string,
-	instance: PrototypeContextLayer,
-	layerType: PrototypeLayerType,
+function buildLayerConfig(
+	layerId: string,
+	instance: ContextLayerDefinition,
+	layerType: LayerTypeDefinition,
 ): LayerConfig {
 	return {
-		id: prototypeId,
+		id: layerId,
 		class: instance.class ?? "",
 		type: layerType.type,
 		toggle: instance.toggle ?? "hidden",
@@ -51,28 +51,28 @@ function buildPrototypeLayerConfig(
 	};
 }
 
-export async function initPrototypeLayers(): Promise<void> {
-	normalizedPrototypeLayers = null;
+export async function initLayerLoader(): Promise<void> {
+	normalizedLayerDefinitions = null;
 
-	const prototypeContext = getPrototypeContext();
-	if (!prototypeContext) return;
+	const loadedContext = getLoadedContext();
+	if (!loadedContext) return;
 
 	try {
-		const data = await loadYAML<PrototypeLayerTypesFile>("/config/layers.prototype.yaml");
+		const data = await loadYAML<LayerTypesFile>("/config/layers.yaml");
 		if (!data?.layer_types) return;
 
-		normalizedPrototypeLayers = collectPrototypeLayers(prototypeContext)
-			.map(([prototypeId, layer]) => {
+		normalizedLayerDefinitions = collectContextLayers(loadedContext)
+			.map(([layerId, layer]) => {
 			const typeConfig = data.layer_types[layer.layer_type];
 			if (!typeConfig) return null;
-			return buildPrototypeLayerConfig(prototypeId, layer, typeConfig);
+			return buildLayerConfig(layerId, layer, typeConfig);
 		})
 			.filter((layer): layer is LayerConfig => layer !== null);
 	} catch {
-		// Prototype layer config is optional during migration.
+		// Layer config is optional during startup.
 	}
 }
 
-export function getNormalizedPrototypeLayerDefinitions(): LayerConfig[] | null {
-	return normalizedPrototypeLayers;
+export function getNormalizedLayerDefinitions(): LayerConfig[] | null {
+	return normalizedLayerDefinitions;
 }

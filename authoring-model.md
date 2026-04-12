@@ -1,7 +1,6 @@
 # Scenario Authoring Model
 
-This document defines the next target model for self-contained scenarios.
-It is intentionally additive: the current runtime is not switched over yet.
+This document defines the current model for self-contained scenarios.
 
 ## Goals
 
@@ -16,11 +15,10 @@ It is intentionally additive: the current runtime is not switched over yet.
 
 Use two global config files with distinct responsibilities:
 
-- `config/layers.prototype.yaml`
+- `config/layers.yaml`
   Technical layer behavior only.
   Example: `locations`, `areas`, `dynamic-image`, timeline playback, opacity support.
-- `config/context.prototype.yaml`
-  Prototype successor for the current `config/context.yaml`.
+- `config/context.yaml`
   It contains concrete layer instances and all instance-specific configuration.
   This is the place for:
   - labels
@@ -62,9 +60,9 @@ assets/scenarios/<scenario-id>/
 
 This keeps each challenge readable in one place.
 
-## `config/layers.prototype.yaml` Scope
+## `config/layers.yaml` Scope
 
-`layers.prototype.yaml` should contain reusable technical behavior, not scenario wiring.
+`layers.yaml` should contain reusable technical behavior, not scenario wiring.
 
 The current codebase supports exactly these five base layer types:
 
@@ -113,14 +111,14 @@ layer_types:
 This avoids duplicated layer types for things that follow the same mechanics.
 For example, `flood_police_social_media` and `flood_crisis_unit_social_media` should both use the same `locations` type.
 
-Recommended scope for `layers.prototype.yaml`:
+Recommended scope for `layers.yaml`:
 
 - `type`
 - `interaction`
 - `playback_control`
 - `icon_mode`
 
-Keep instance-specific fields out of `layers.prototype.yaml` and in `context.prototype.yaml`, for example:
+Keep instance-specific fields out of `layers.yaml` and in `context.yaml`, for example:
 
 - `label`
 - `src`, `src_overlay`
@@ -132,9 +130,9 @@ Keep instance-specific fields out of `layers.prototype.yaml` and in `context.pro
 - `initially_visible`, `quiz_only`, `map_only`
 - `z_index`, `toggle_order`
 
-## `config/context.prototype.yaml` Scope
+## `config/context.yaml` Scope
 
-`context.prototype.yaml` should contain the concrete layer configuration used by the app.
+`context.yaml` should contain the concrete layer configuration used by the app.
 Its structure should stay close to the current `context.yaml`: first `global`, then `scenarios`, then `roles`.
 
 Example:
@@ -246,7 +244,7 @@ scenarios:
             src_overlay: /assets/challenges/drone_oben.webp
 ```
 
-Why the previous prototype had two sections:
+Why an earlier draft had two sections:
 
 - one section for abstract layer entries
 - one section for contextual placement
@@ -259,10 +257,10 @@ Keeping the structure closer to `context.yaml` is clearer, as long as each layer
 - `toggle`
 - `available_from`
 
-So the new recommendation is:
+So the recommendation is:
 
-- keep `layers.prototype.yaml` separate
-- but make `context.prototype.yaml` structurally close to `context.yaml`
+- keep `layers.yaml` separate
+- but make `context.yaml` structurally close to `context.yaml`
 
 ## `scenario.yaml` Schema
 
@@ -462,9 +460,9 @@ The confusing part in the current model is the cross-file jump between:
 
 The target split makes that clearer:
 
-- `layers.prototype.yaml`
+- `layers.yaml`
   "What kind of layer behavior exists?"
-- `context.prototype.yaml`
+- `context.yaml`
   "Which layer instances exist, what are their labels, and where/how are they configured?"
 - `scenario.yaml`
   "What is this scenario and which roles does it offer?"
@@ -475,20 +473,17 @@ The target split makes that clearer:
 
 Recommended order:
 
-1. Introduce `config/layers.prototype.yaml` as a prototype source for technical layer behavior.
-2. Introduce `config/context.prototype.yaml` as a prototype source for complete layer-instance configuration.
-3. Keep the current `config/layers.yaml` and `config/context.yaml` as fallback during migration.
-4. Introduce a loader for `assets/scenarios/<id>/scenario.yaml`.
-5. Teach the challenge loader to read inline multilingual text from `challenge.yaml`.
-6. Migrate one scenario (`flood`) completely.
-7. Remove the legacy config files once the new path is proven.
+1. Introduce `config/layers.yaml` for technical layer behavior.
+2. Introduce `config/context.yaml` for complete layer-instance configuration.
+3. Introduce a loader for `assets/scenarios/<id>/scenario.yaml`.
+4. Teach the challenge loader to read inline multilingual text from `challenge.yaml`.
+5. Migrate one scenario (`flood`) completely.
+6. Remove legacy config and content entries once the new path is proven.
 
-## Current Prototype
+## Current Structure
 
-Prototype files for the new model exist at:
+Files for the current model live at:
 
 - `assets/scenarios/flood/`
-- `config/layers.prototype.yaml`
-- `config/context.prototype.yaml`
-
-It is documentation/prototype only for now.
+- `config/layers.yaml`
+- `config/context.yaml`
