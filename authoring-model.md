@@ -146,7 +146,7 @@ global:
       toggle: hidden
       initially_visible: true
       z_index: 10
-      src: /assets/challenges/base-layer_river.webp
+      src: /assets/scenarios/global/base-layer_river.webp
 
     critical_sites:
       layer_type: locations
@@ -158,7 +158,7 @@ global:
       initially_visible: false
       z_index: 110
       toggle_order: 1
-      src: /assets/challenges/flood/critical_sites.json
+      src: /assets/scenarios/global/critical_sites.json
       icon: /assets/icons/critical_sites.svg
       poi_icon: /assets/icons/marker_poi.svg
 
@@ -177,7 +177,7 @@ scenarios:
         initially_visible: true
         z_index: 78
         toggle_order: 3
-        src: /assets/challenges/flood/flood_simulation.json
+        src: /assets/scenarios/flood/flood_simulation.json
         icon: /assets/icons/flood.svg
         slider_icon: /assets/icons/flood-slider.svg
 
@@ -192,7 +192,7 @@ scenarios:
               en: "Emergency\nCalls"
             toggle: available
             available_from: role
-            src: /assets/challenges/flood/fire_brigade/emergency_calls.json
+            src: /assets/scenarios/flood/fire_brigade/emergency_calls.json
             icon: /assets/icons/emergency_calls.svg
             poi_icon: /assets/icons/marker_emergency_call.svg
             initially_visible: true
@@ -212,7 +212,7 @@ scenarios:
             initially_visible: false
             z_index: 77
             toggle_order: 5
-            src: /assets/challenges/flood/police/evacuation_zones.svg
+            src: /assets/scenarios/flood/police/evacuation_zones.svg
             icon: /assets/icons/evacuation_zones.svg
 
       crisis_unit:
@@ -225,7 +225,7 @@ scenarios:
               en: Social Media
             toggle: available
             available_from: role
-            src: /assets/challenges/flood/crisis_staff/social_media.json
+            src: /assets/scenarios/flood/crisis_unit/social_media.json
             icon: /assets/icons/social_media.svg
             poi_icon: /assets/icons/marker_social_media.svg
             initially_visible: true
@@ -240,8 +240,8 @@ scenarios:
             initially_visible: false
             z_index: 80
             toggle_order: 5
-            src: /assets/challenges/drone_unten.webp
-            src_overlay: /assets/challenges/drone_oben.webp
+            src: /assets/scenarios/flood/crisis_unit/drone_unten.webp
+            src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 ```
 
 Why an earlier draft had two sections:
