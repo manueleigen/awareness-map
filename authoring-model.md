@@ -9,7 +9,7 @@ This document defines the current model for self-contained scenarios.
 - Keep challenge logic and challenge text together.
 - Avoid defining one global layer entry per scenario-specific layer instance.
 
-## Target Split
+## Structure
 
 ### Global Engine Config
 
@@ -133,7 +133,7 @@ Keep instance-specific fields out of `layers.yaml` and in `context.yaml`, for ex
 ## `config/context.yaml` Scope
 
 `context.yaml` should contain the concrete layer configuration used by the app.
-Its structure should stay close to the current `context.yaml`: first `global`, then `scenarios`, then `roles`.
+Its structure is: first `global`, then `scenarios`, then `roles`.
 
 Example:
 
@@ -244,23 +244,12 @@ scenarios:
             src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 ```
 
-Why an earlier draft had two sections:
-
-- one section for abstract layer entries
-- one section for contextual placement
-
-That separation was useful for thinking through responsibilities, but it is too indirect for authors.
-Keeping the structure closer to `context.yaml` is clearer, as long as each layer entry now also carries:
+The important point is that each concrete layer entry carries:
 
 - `layer_type`
 - `label`
 - `toggle`
 - `available_from`
-
-So the recommendation is:
-
-- keep `layers.yaml` separate
-- but make `context.yaml` structurally close to `context.yaml`
 
 ## `scenario.yaml` Schema
 
@@ -280,7 +269,6 @@ text:
       Die Lage verändert sich schnell, und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt überflutet werden.
 
       Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Informationen. **Wessen Rolle möchtest du übernehmen?**
-    role_selection_label: Wähle deine Rolle
   en:
     title: The River Overflows Its Banks
     short_title: Flood
@@ -290,7 +278,6 @@ text:
       The situation is changing rapidly, and the flood simulation shows that several parts of the city will be inundated over the next few hours.
 
       In a crisis, different actors have different responsibilities and access to different information. **Which role would you like to take on?**
-    role_selection_label: Select your role
 
 roles:
   fire_brigade:
@@ -323,7 +310,7 @@ All concrete layer wiring stays out of `scenario.yaml`.
 ## Quiz Schema
 
 Each challenge owns one `challenge.yaml`.
-The quiz keeps branching logic, challenge intro, and language-specific challenge text together.
+The file keeps branching logic, intro content, and language-specific challenge text together.
 
 Example:
 
@@ -450,7 +437,7 @@ Current authoring direction:
 
 ## Why This Split Helps Authors
 
-The confusing part in the current model is the cross-file jump between:
+The old pain point was the cross-file jump between:
 
 - layer behavior
 - layer availability
@@ -468,22 +455,3 @@ The target split makes that clearer:
   "What is this scenario and which roles does it offer?"
 - `challenge.yaml`
   "How does this challenge work, and what text does it show?"
-
-## Migration Strategy
-
-Recommended order:
-
-1. Introduce `config/layers.yaml` for technical layer behavior.
-2. Introduce `config/context.yaml` for complete layer-instance configuration.
-3. Introduce a loader for `assets/scenarios/<id>/scenario.yaml`.
-4. Teach the challenge loader to read inline multilingual text from `challenge.yaml`.
-5. Migrate one scenario (`flood`) completely.
-6. Remove legacy config and content entries once the new path is proven.
-
-## Current Structure
-
-Files for the current model live at:
-
-- `assets/scenarios/flood/`
-- `config/layers.yaml`
-- `config/context.yaml`

@@ -5,26 +5,9 @@ navigation:
   languages:
     en: English
     de: Deutsch
-  start: Start
   escape: Abbrechen
-  challenge-start: Challenge starten
-  challenge-solved: Challenge gelöst
-  challenge-failed: Challenge nicht gelöst
-  challenge-next: Nächste Challenge
-  # Kept from original for app compatibility
   back: Zurück
   next: Weiter
-  close: Schließen
-  restart: Neu starten
-  home: Start
-  scenario: Szenario
-  role: Rolle
-
-feedback:
-  success_title: Aufgabe erfolgreich
-  failure_title: Aufgabe nicht erfolgreich
-  retry: Erneut versuchen
-  continue: Weiter
 
 home:
   title: Hast du die Lage im Blick?
@@ -32,11 +15,6 @@ home:
     Im Krisenfall zählt jede Information. Erst das Zusammenspiel verschiedener Informationsquellen ergibt ein vollständiges Lagebild.
 
     Über die Icons am rechten Bildschirmrand kannst du verschiedene Infos auf der Karte anzeigen. **Wähle ein Szenario, das du durchspielen möchtest.**
-
-  scenario_selection_label: Wähle ein Szenario
-  scenario_1: Hochwasser
-  scenario_2: Blackout
-  scenario_3: Veranstaltung
 
 scenarios:
   blackout:
@@ -47,27 +25,19 @@ scenarios:
     title: Großveranstaltung
     short_title: Massen-Event
 
+
+feedback:
+  continue: Weiter
+
 challenges:
   common:
     passed_msg: Herausforderung erfolgreich abgeschlossen!
     failed_msg: Herausforderung leider nicht bestanden.
-    retry_button: Erneut versuchen
     start_button: Herausforderung starten
     restart: Nochmal versuchen
     back_to_challenges: Zurück zu den Rollen
     submit: Antwort prüfen
-    continue: Weiter
-    selection_hint: Wähle die passende Fläche oder den passenden Punkt auf der Karte aus.
-    location_hint: Setze einen Punkt auf der Karte.
-    target_missing: "Zielbereich nicht gefunden: {target}"
     selected_count: "Ausgewählt: {count}"
     click_to_place: Klicke, um einen Punkt zu setzen.
-    nothing_selected: ""
     select_poi: Auswählen
     deselect_poi: Abwählen
-
-  global:
-    critical_sites:
-      title: "Kritische\nInfrastruktur"
-    population_density:
-      title: "Bevölkerungs\ndichte"
