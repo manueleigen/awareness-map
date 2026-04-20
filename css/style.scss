@@ -10,6 +10,7 @@
 @use 'language-select';
 @use 'layer-control';
 @use 'time-slider';
+@use 'error-overlay';
 
 // Hinweis:
 // - Aus dieser SCSS-Datei kompiliert dein Build-Tool die finale style.css.

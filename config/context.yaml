@@ -76,7 +76,7 @@ scenarios:
         initially_visible: true
         z_index: 78
         toggle_order: 3
-        src: /assets/scenarios/flood/flood_sim_png/manifest.json
+        src: /assets/scenarios/flood/flood_sim_svg/manifest.json
         icon: /assets/icons/flood.svg
         slider_icon: /assets/icons/flood-slider.svg
 

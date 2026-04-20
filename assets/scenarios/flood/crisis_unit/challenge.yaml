@@ -35,8 +35,6 @@ story_points:
           de: Drohne entsenden
           en: Deploy Drone
     solution: ["b"]
-    step: 1
-    total_steps: 5
     text:
       de:
         title: Wie reagierst du?
@@ -58,15 +56,11 @@ story_points:
     initial_position:
       x: 500
       y: 500
-    solution:
-      x: 2414
-      y: 757
+    solution: ["{x: 2414, y: 757}"]
     maxDistance: 400
     submit:
       de: Einsatzort prüfen
       en: Check Deployment Area
-    step: 2
-    total_steps: 5
     text:
       de:
         title: Einsatzort der Drohne wählen
@@ -91,8 +85,6 @@ story_points:
     slider_time_layer: flood_simulation
     slider_time_fixed: true
     continue_button_key: navigation.next
-    step: 3
-    total_steps: 5
     text:
       de:
         title: Richtig!
@@ -126,8 +118,6 @@ story_points:
           de: Öffentlichkeit
           en: Public
     solution: ["a"]
-    step: 4
-    total_steps: 5
     text:
       de:
         title: Information weiterleiten

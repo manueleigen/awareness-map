@@ -36,12 +36,8 @@ export interface BaseStoryPoint {
         en?: LocalizedInlineText;
     };
     next: NextConfig;
-    activeLayerId?: string;
     activeLayerIds?: string[];
     excludeLayerIds?: string[];
-    terminalStatus?: 'passed' | 'failed';
-    step?: number;
-    total_steps?: number;
     slider_time?: string;
     slider_time_layer?: string;
     slider_time_fixed?: boolean;
@@ -49,6 +45,7 @@ export interface BaseStoryPoint {
 
 export interface InfoStoryPoint extends BaseStoryPoint {
     type: 'info';
+    terminalStatus?: 'passed' | 'failed';
     continue_button_key: string;
 }
 

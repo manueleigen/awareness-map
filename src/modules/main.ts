@@ -134,13 +134,13 @@ export async function initApp() {
 			console.error("Failed to load translation files:", err);
 		});
 
-		// 2. Initialize Scenarios (loads scenario metadata)
-		await initScenarios();
-
-		// 3. Initialize Layers (loads layer configuration)
+		// 2. Initialize Layers (loads context.yaml + layer configuration)
 		await initLayers().catch((err) => {
 			console.error("Failed to load layer configuration:", err);
 		});
+
+		// 3. Initialize Scenarios (reads context from cache via getLoadedContext)
+		await initScenarios();
 
 		// 4. Initialize dynamic scaling for 4K displays
 		initDualScale();

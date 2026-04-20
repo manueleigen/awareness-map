@@ -2,7 +2,7 @@ import { loadYAML } from "../lib.js";
 import { app } from "../state.js";
 import { resetLayers } from "../layers.js";
 import { StoryPoint, QuizOutcome } from "./types.js";
-import { renderProgress, clearQuizAnswers } from "./ui.js";
+import { clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
 import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations, abortSelectionStep } from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
@@ -35,7 +35,6 @@ let lastLocationResult: { x: number; y: number; maxDistance: number } | null =
 export function refreshCurrentPoint(): void {
 	if (!currentPoint || !currentContent || !currentControls || !currentOnAction)
 		return;
-	renderProgress(currentContent, currentPoint);
 	if (currentPoint.type === "info")
 		renderInfo(currentContent, currentControls, currentPoint, currentOnAction);
 	else if (currentPoint.type === "quiz")
@@ -140,9 +139,7 @@ async function loadPoint(id: string): Promise<void> {
 	}
 
 	// 4. Handle automatic layer activation for THIS specific step
-	const layersToActivate =
-		(point.activeLayerIds || (point.activeLayerId ? [point.activeLayerId] : []))
-			.map((layerId) => layerId);
+	const layersToActivate = point.activeLayerIds ?? [];
 
 	if (layersToActivate.length > 0) {
 		layersToActivate.forEach((layerId) => {
@@ -177,8 +174,6 @@ async function loadPoint(id: string): Promise<void> {
 		});
 	}
 
-	renderProgress(currentContent, point);
-
 	currentPoint = point;
 
 	/**
@@ -212,7 +207,7 @@ async function loadPoint(id: string): Promise<void> {
  */
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
-	if (point.terminalStatus && currentOnFinish) {
+	if (point.type === "info" && point.terminalStatus && currentOnFinish) {
 		if (point.terminalStatus === "failed") {
 			// Go back to the last answerable step instead of ending the quiz
 			loadPoint(lastQuizPointId ?? currentStoryPoints[0]?.id ?? "intro");

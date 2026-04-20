@@ -1,6 +1,19 @@
 import { layerDefinitions, ensureLayerBuilt, context, findAnyContextLayer } from './layers.js';
 import { loadYAML, loadJSON, loadTEXT, preloadIMAGE } from './lib.js';
 import { ContextLayer, Language } from './types.js';
+import { getLoadedContext } from './context-loader.js';
+import {
+	validateContextYaml,
+	validateLayersYaml,
+	validateScenarioYaml,
+	validateChallengeYaml,
+	validateLocationJson,
+	validateContextRelations,
+	validateScenarioRelations,
+	validateChallengeRelations,
+	collectLayerIds,
+} from './validation.js';
+import { reportValidationErrors } from './error-overlay.js';
 
 /**
  * Technical Implementation Guide (v2.3): Environmental Stability & Performance.
@@ -84,19 +97,23 @@ export async function startBackgroundPreload() {
     if (context) {
         const quizPaths = new Set<string>();
         const iconPaths = new Set<string>();
+        const overlayImagePaths = new Set<string>();
         // Using a Map to track unique sources and their associated type for preloading
-        const layerAssetMap = new Map<string, string>(); 
+        const layerAssetMap = new Map<string, string>();
 
         const scan = (layers: Record<string, ContextLayer>) => {
             Object.entries(layers).forEach(([id, l]) => {
                 if (l.icon) iconPaths.add(l.icon);
                 if (l.poi_icon) iconPaths.add(l.poi_icon);
                 if (l.slider_icon) iconPaths.add(l.slider_icon);
-                
+
                 if (l.src) {
                     const config = layerDefinitions.find(d => d.id === id);
                     if (config) {
                         layerAssetMap.set(l.src, config.type);
+                        if (config.type === 'pulsing-image' && (l as any).src_overlay) {
+                            overlayImagePaths.add((l as any).src_overlay);
+                        }
                     }
                 }
             });
@@ -121,6 +138,14 @@ export async function startBackgroundPreload() {
             });
         });
 
+        // Schedule Overlay Image Loads (pulsing-image src_overlay)
+        overlayImagePaths.forEach(path => {
+            scheduleTask(async () => {
+                await preloadIMAGE(path);
+                console.log(`[Preloader] Overlay preloaded: ${path}`);
+            });
+        });
+
         // Schedule Quiz Loads
         quizPaths.forEach(path => {
             scheduleTask(async () => {
@@ -133,12 +158,15 @@ export async function startBackgroundPreload() {
         layerAssetMap.forEach((type, src) => {
             scheduleTask(async () => {
                 try {
-                    if (type === 'static-image' || type === 'population-density') {
+                    if (type === 'static-image' || type === 'population-density' || type === 'pulsing-image') {
                         await preloadIMAGE(src);
                     } else if (type === 'areas' || type === 'lottie-sequence') {
                         await loadTEXT(src);
-                    } else if (type === 'locations') {
+                    } else if (type === 'locations' || type === 'svg-sequence' || type === 'png-sequence') {
                         await loadJSON(src);
+                    } else {
+                        console.warn(`[Preloader] No preload handler for type "${type}": ${src}`);
+                        return;
                     }
                     console.log(`[Preloader] Deep Preload (${type}): ${src}`);
                 } catch (e) {}
@@ -153,4 +181,95 @@ export async function startBackgroundPreload() {
             await ensureLayerBuilt(config.id);
         });
     });
+
+    // 3. Phase 2: Deep validation (Low Priority, non-blocking)
+    scheduleTask(async () => runDeepValidation());
+}
+
+async function runDeepValidation(): Promise<void> {
+    console.log("[Validator] Starting deep validation...");
+    const errors: import('./error-overlay.js').ValidationError[] = [];
+
+    // Validate context.yaml structure
+    const rawContext = getLoadedContext();
+    if (rawContext) {
+        errors.push(...validateContextYaml("context.yaml", rawContext));
+        errors.push(...validateContextRelations("context.yaml", rawContext));
+    }
+
+    // Validate layers.yaml structure
+    try {
+        const rawLayers = await loadYAML<unknown>("/config/layers.yaml");
+        errors.push(...validateLayersYaml("layers.yaml", rawLayers));
+    } catch { /* already logged by loadYAML */ }
+
+    // Validate each scenario + challenge
+    const knownLayerIds = rawContext ? collectLayerIds(rawContext) : new Set<string>();
+    const scenarioIds = Object.keys(rawContext?.scenarios ?? {});
+
+    for (const scenarioId of scenarioIds) {
+        if ((rawContext as any)?.scenarios?.[scenarioId]?.inactive) continue;
+        const scenarioFile = `assets/scenarios/${scenarioId}/scenario.yaml`;
+        try {
+            const rawScenario = await loadYAML<unknown>(`/${scenarioFile}`);
+            errors.push(...validateScenarioYaml(scenarioFile, rawScenario));
+
+            // Always run relational checks even when structural errors exist —
+            // a single bad field shouldn't silence all downstream validation.
+            try {
+                errors.push(...validateScenarioRelations(scenarioFile, rawScenario as any, knownLayerIds));
+
+                const roles = (rawScenario as any).roles;
+                if (!roles || typeof roles !== "object" || Array.isArray(roles)) continue;
+                for (const [roleId, role] of Object.entries(roles) as [string, any][]) {
+                    if (!role.challenge) continue;
+                    const challengePath = role.challenge.startsWith("./")
+                        ? `/assets/scenarios/${scenarioId}/${role.challenge.slice(2)}`
+                        : role.challenge;
+                    const challengeFile = challengePath.replace(/^\//, "");
+                    try {
+                        const rawChallenge = await loadYAML<unknown>(challengePath);
+                        errors.push(...validateChallengeYaml(challengeFile, rawChallenge));
+                        try {
+                            errors.push(...validateChallengeRelations(
+                                challengeFile,
+                                rawChallenge as any,
+                                knownLayerIds,
+                            ));
+                        } catch { /* structure too broken for relational checks */ }
+                    } catch { /* logged by loadYAML */ }
+                }
+            } catch { /* structure too broken for relational checks */ }
+        } catch { /* logged by loadYAML */ }
+    }
+
+    // Validate all location JSON files discovered through layer assets
+    if (context) {
+        const locationSources = new Set<string>();
+        const scan = (layers: Record<string, ContextLayer>) => {
+            Object.entries(layers).forEach(([id, l]) => {
+                const config = layerDefinitions.find((d) => d.id === id);
+                if (config?.type === "locations" && l.src) locationSources.add(l.src);
+            });
+        };
+        if (context.global?.layers) scan(context.global.layers);
+        Object.values(context.scenarios).forEach((s) => {
+            if (s.layers) scan(s.layers);
+            Object.values(s.roles).forEach((r) => { if (r.layers) scan(r.layers); });
+        });
+
+        for (const src of locationSources) {
+            try {
+                const rawJson = await loadJSON<unknown>(src);
+                errors.push(...validateLocationJson(src, rawJson));
+            } catch { /* logged by loadJSON */ }
+        }
+    }
+
+    if (errors.length > 0) {
+        console.warn(`[Validator] Found ${errors.length} issue(s).`);
+        reportValidationErrors(errors);
+    } else {
+        console.log("[Validator] All files valid.");
+    }
 }

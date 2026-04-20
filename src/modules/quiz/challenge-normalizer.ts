@@ -48,8 +48,21 @@ function normalizeOption(option: any): QuizOption {
 	};
 }
 
+/**
+ * Parses the YAML coordinate notation "{x: NNN, y: NNN}" (string or array-of-one)
+ * into the { x, y } object expected by renderLocation.
+ */
+function parseLocationSolution(raw: any): { x: number; y: number } | undefined {
+	if (raw && typeof raw === "object" && !Array.isArray(raw)) return raw;
+	const str: unknown = Array.isArray(raw) ? raw[0] : raw;
+	if (typeof str !== "string") return undefined;
+	const m = str.match(/x:\s*(-?\d+(?:\.\d+)?)\s*,\s*y:\s*(-?\d+(?:\.\d+)?)/);
+	if (!m) return undefined;
+	return { x: parseFloat(m[1]), y: parseFloat(m[2]) };
+}
+
 function normalizeStoryPoint(point: any): StoryPoint {
-	return {
+	const normalized: any = {
 		...point,
 		text: normalizeLocalizedInlineText(point.text),
 		options: Array.isArray(point.options)
@@ -57,6 +70,10 @@ function normalizeStoryPoint(point: any): StoryPoint {
 			: point.options,
 		submit: normalizeLocalizedValue<string>(point.submit),
 	};
+	if (point.type === "location-quiz") {
+		normalized.solution = parseLocationSolution(point.solution);
+	}
+	return normalized;
 }
 
 export function normalizeChallengeDefinition<

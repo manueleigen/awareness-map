@@ -3,10 +3,10 @@ import { loadYAML } from "./lib.js";
 import {
 	Language,
 	LocalizedScenarioText,
-	ProjectContextDefinition,
 	ScenarioDefinition,
 } from "./types.js";
 import { getChallengeIntroText, normalizeChallengeDefinition } from "./quiz/challenge-normalizer.js";
+import { getLoadedContext } from "./context-loader.js";
 
 /** Scenario metadata loaded from assets/scenarios/<id>/scenario.yaml. */
 const loadedScenarios = new Map<string, ScenarioDefinition | null>();
@@ -131,14 +131,12 @@ export async function getCurrentChallengeIntro(): Promise<{
  * Loads the project context (scenarios and roles) from YAML.
  */
 export async function initScenarios(): Promise<void> {
-	const contextDefinition = await loadYAML<ProjectContextDefinition>(
-		"/config/context.yaml",
-	).catch(() => null);
+	const contextDefinition = getLoadedContext();
 
 	const scenarioIds = new Set<string>();
-	Object.keys(contextDefinition?.scenarios ?? {}).forEach((scenarioId) =>
-		scenarioIds.add(scenarioId),
-	);
+	Object.entries(contextDefinition?.scenarios ?? {}).forEach(([scenarioId, scenarioDef]) => {
+		if (!(scenarioDef as any)?.inactive) scenarioIds.add(scenarioId);
+	});
 
 	await Promise.all(
 		Array.from(scenarioIds).map((scenarioId) => loadScenarioDefinition(scenarioId)),

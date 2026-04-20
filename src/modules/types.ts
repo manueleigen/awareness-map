@@ -1,82 +1,36 @@
 /** Supported languages for the application. */
 export type Language = "de" | "en";
 
-export interface LocalizedScenarioText {
-	title: string;
-	short_title?: string;
-	description?: string;
-	role_selection_label?: string;
-}
-
-export interface ScenarioRoleDefinition {
-	text?: Partial<Record<Language, { title: string }>>;
-	challenge?: string;
-}
-
-export interface ScenarioDefinition {
-	id: string;
-	inactive?: boolean;
-	text?: Partial<Record<Language, LocalizedScenarioText>>;
-	roles: Record<string, ScenarioRoleDefinition>;
-}
-
-export interface ContextLayerDefinition {
-	layer_type: string;
-	available_from?: "scenario" | "role" | "global";
-	toggle?: "available" | "deactivated" | "hidden" | "none";
-	label?: Partial<Record<Language, string>>;
-	class?: string;
-	opacity_control?: boolean;
-	playback_control?: boolean;
-	start_time?: string;
-	end_time?: string;
-	src: string;
-	src_overlay?: string;
-	icon?: string;
-	slider_icon?: string;
-	poi_icon?: string;
-	status_poi_icons?: Record<string, string>;
-	initially_visible?: boolean;
-	quiz_only?: boolean;
-	map_only?: boolean;
-	z_index?: number;
-	toggle_order?: number;
-}
-
-export interface ContextRoleDefinition {
-	exclude_layers?: string[];
-	layers?: Record<string, ContextLayerDefinition>;
-}
-
-export interface ContextScenarioDefinition {
-	layers?: Record<string, ContextLayerDefinition>;
-	roles?: Record<string, ContextRoleDefinition>;
-	inactive?: boolean;
-}
-
-export interface ProjectContextDefinition {
-	global?: {
-		layers?: Record<string, ContextLayerDefinition>;
-	};
-	scenarios?: Record<string, ContextScenarioDefinition>;
-}
-
-export interface LayerTypeDefinition {
-	type: LayerConfig["type"];
-	interaction: string;
-	playback_control?: boolean;
-	icon_mode?: string;
-}
-
-export interface LayerTypesFile {
-	layer_types: Record<string, LayerTypeDefinition>;
-}
+// Types derived from YAML/JSON file schemas live in schemas.ts.
+// Re-exported here for backwards-compatible imports across the codebase.
+export type {
+	ContextLayerDefinition,
+	ContextRoleDefinition,
+	ContextScenarioDefinition,
+	ProjectContextDefinition,
+	LayerTypeDefinition,
+	LayersYamlFile as LayerTypesFile,
+	LocalizedScenarioText,
+	ScenarioRoleDefinition,
+	ScenarioDefinition,
+	StoryPoint,
+	ChallengeYaml,
+	LocationEntry,
+	LocationJson,
+} from "./schemas.js";
 
 /** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {
 	id: string;
 	class: string;
-	type: "static-image" | "pulsing-image" | "lottie-sequence" | "locations" | "areas" | "png-sequence" | "svg-sequence";
+	type:
+		| "static-image"
+		| "pulsing-image"
+		| "locations"
+		| "areas"
+		| "lottie-sequence"
+		| "png-sequence"
+		| "svg-sequence";
 	toggle: "available" | "deactivated" | "hidden" | "none";
 	available_from?: "scenario" | "role" | "global";
 	interaction: "none" | "all" | "timeline" | "areas" | "locations" | string;

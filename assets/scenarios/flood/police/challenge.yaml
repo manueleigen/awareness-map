@@ -27,8 +27,6 @@ story_points:
     wrong_options: []
     minSelection: 3
     maxSelection: 3
-    step: 1
-    total_steps: 3
     text:
       de:
         title: Evakuierungszonen wählen

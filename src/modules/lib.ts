@@ -10,42 +10,56 @@ export const group = <T extends HTMLElement>(css: string): NodeListOf<T> => docu
 /** Shorthand for document.createElement */
 export const create = <K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K] => document.createElement(tagName);
 
-const cache = new Map<string, any>();
+const cache = new Map<string, Promise<any>>();
+
+function logPath(url: string): string {
+    const parts = url.split('/').filter(Boolean);
+    return parts.length >= 2 ? parts.slice(-2).join('/') : parts[parts.length - 1] ?? url;
+}
 
 /** Loads a JSON file and returns its parsed content (cached). */
-export const loadJSON = async <T>(url: string): Promise<T> => {
-    if (cache.has(url)) return cache.get(url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Failed to load JSON from ${url}`);
-    const data = await response.json();
-    cache.set(url, data);
-    console.log(`[JSON] ${url.split('/').pop()} fetched`);
-    return data;
+export const loadJSON = <T>(url: string): Promise<T> => {
+    if (cache.has(url)) return cache.get(url)!;
+    const promise = (async () => {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to load JSON from ${url}`);
+        const data = await response.json();
+        console.log(`[JSON] ${logPath(url)} fetched`);
+        return data as T;
+    })();
+    cache.set(url, promise);
+    return promise;
 };
 
 /**
  * Loads a YAML file and returns its parsed content as an object (cached).
  */
-export const loadYAML = async <T>(url: string): Promise<T> => {
-    if (cache.has(url)) return cache.get(url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Failed to load YAML from ${url}`);
-    const text = await response.text();
-    const data = yaml.load(text) as T;
-    cache.set(url, data);
-    console.log(`[YAML] ${url.split('/').pop()} fetched`);
-    return data;
+export const loadYAML = <T>(url: string): Promise<T> => {
+    if (cache.has(url)) return cache.get(url)!;
+    const promise = (async () => {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to load YAML from ${url}`);
+        const text = await response.text();
+        const data = yaml.load(text) as T;
+        console.log(`[YAML] ${logPath(url)} fetched`);
+        return data;
+    })();
+    cache.set(url, promise);
+    return promise;
 };
 
 /** Loads a plain text file (e.g. SVG source) (cached). */
-export const loadTEXT = async <T>(url: string): Promise<T> => {
-    if (cache.has(url)) return cache.get(url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Failed to load TEXT from ${url}`);
-    const text = await response.text();
-    cache.set(url, text);
-    console.log(`[SVG] ${url.split('/').pop()} fetched`);
-    return text as any;
+export const loadTEXT = <T>(url: string): Promise<T> => {
+    if (cache.has(url)) return cache.get(url)!;
+    const promise = (async () => {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Failed to load TEXT from ${url}`);
+        const text = await response.text();
+        console.log(`[TEXT] ${logPath(url)} fetched`);
+        return text as any as T;
+    })();
+    cache.set(url, promise);
+    return promise;
 };
 
 /**

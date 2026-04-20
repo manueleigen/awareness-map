@@ -33,8 +33,6 @@ story_points:
     wrong_options: ["flood_emergency_call_03"]
     minSelection: 2
     maxSelection: 2
-    step: 1
-    total_steps: 2
     text:
       de:
         title: Einsatzkräfte entsenden
