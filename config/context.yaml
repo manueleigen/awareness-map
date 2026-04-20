@@ -65,7 +65,7 @@ scenarios:
   flood:
     layers:
       flood_simulation:
-        layer_type: png_sequence
+        layer_type: svg_sequence
         available_from: scenario
         toggle: available
         label:
