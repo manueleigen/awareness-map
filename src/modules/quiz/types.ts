@@ -35,7 +35,7 @@ export interface BaseStoryPoint {
         de?: LocalizedInlineText;
         en?: LocalizedInlineText;
     };
-    next: NextConfig;
+    next?: NextConfig;
     activeLayerIds?: string[];
     excludeLayerIds?: string[];
     slider_time?: string;
@@ -45,12 +45,11 @@ export interface BaseStoryPoint {
 
 export interface InfoStoryPoint extends BaseStoryPoint {
     type: 'info';
-    terminalStatus?: 'passed' | 'failed';
-    continue_button_key: string;
 }
 
 export interface QuizStoryPoint extends BaseStoryPoint {
     type: 'quiz';
+    next: NextConfig;
     options: QuizOption[];
     solution: string[];
     minAnswers?: number;
@@ -59,6 +58,7 @@ export interface QuizStoryPoint extends BaseStoryPoint {
 
 export interface LocationStoryPoint extends BaseStoryPoint {
     type: 'location-quiz';
+    next: NextConfig;
     submit?: {
         de?: string;
         en?: string;
@@ -72,6 +72,7 @@ export interface LocationStoryPoint extends BaseStoryPoint {
 
 export interface SelectionStoryPoint extends BaseStoryPoint {
     type: 'area-selection-quiz' | 'point-selection-quiz';
+    next: NextConfig;
     target: string;
     selector?: string;
     interactionLayerId?: string;

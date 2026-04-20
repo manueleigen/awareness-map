@@ -319,6 +319,9 @@ export function renderSelection(
 	const target = document.querySelector<HTMLElement>(
 		point.target,
 	);
+	if (!target) {
+		console.error(`[Quiz] Target container not found: ${point.target}`);
+	}
 	clearQuizAnswers();
 
 
@@ -326,7 +329,7 @@ export function renderSelection(
 	// Intelligent Default Selector Logic
 	const effectiveSelector =
 		point.selector ||
-		(point.type === "area-selection-quiz" ? "polygon, path" : ".poi-marker");
+		(point.type === "area-selection-quiz" ? "polygon, path, .interactive-area" : ".poi-marker");
 
 	// Track selection order for FIFO logic
 	const selectedIds: string[] = [];
@@ -402,6 +405,12 @@ export function renderSelection(
 	if (target) {
 		target.classList.add("is-interactive");
 		target.style.pointerEvents = "auto";
+		
+		// Ensure the SVG container itself is interactable
+		target.querySelectorAll('svg, .area-wrapper').forEach(el => {
+			(el as HTMLElement).style.pointerEvents = 'auto';
+		});
+
 		target.querySelectorAll<HTMLElement>(effectiveSelector).forEach((el) => {
 			let isEnabled = true;
 			if (point.type === "point-selection-quiz" && spatialFilter) {

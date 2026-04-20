@@ -3,7 +3,6 @@ story_points:
     type: info
     activeLayerIds: [flood_crisis_unit_social_media]
     slider_time: "11:30"
-    continue_button_key: challenges.common.start_button
     text:
       de:
         title: "Entscheiden unter Unsicherheit"
@@ -84,7 +83,6 @@ story_points:
     slider_time: "11:30"
     slider_time_layer: flood_simulation
     slider_time_fixed: true
-    continue_button_key: navigation.next
     text:
       de:
         title: Richtig!
@@ -132,8 +130,6 @@ story_points:
   - id: win-screen
     type: info
     activeLayerIds: [flood_crisis_unit_drone_feed]
-    terminalStatus: passed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Challenge gelöst!
@@ -150,8 +146,6 @@ story_points:
 
   - id: fail-screen-1
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Das war keine gute Entscheidung
@@ -168,8 +162,6 @@ story_points:
 
   - id: fail-screen-2
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Fehlgeschlagen
@@ -187,8 +179,6 @@ story_points:
   - id: fail-screen-3
     type: info
     activeLayerIds: [flood_crisis_unit_drone_feed]
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Fehlgeschlagen

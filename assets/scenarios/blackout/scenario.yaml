@@ -1,0 +1,12 @@
+id: blackout
+active: false
+
+text:
+  de:
+    short_title: Blackout
+    title: Der Strom fällt aus
+    description: ""
+  en:
+    short_title: Blackout
+    title: The Power Goes Out
+    description: ""

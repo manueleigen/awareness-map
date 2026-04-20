@@ -91,7 +91,7 @@ export async function ensureLayerBuilt(
 			wrapper.classList.add("hidden");
 		}
 
-		if (config.interaction === "none") {
+		if (config.interaction === "none" || config.interaction === "timeline") {
 			wrapper.classList.add("no-interaction");
 		}
 
@@ -140,6 +140,7 @@ export async function ensureLayerBuilt(
 					const svg = await loadTEXT(src);
 					if (svg) {
 						const areaWrapper = create("div");
+						areaWrapper.className = "area-wrapper";
 						areaWrapper.innerHTML = svg as string;
 						wrapper.append(areaWrapper);
 						areaWrapper.querySelectorAll("polygon, path").forEach((obj) => {

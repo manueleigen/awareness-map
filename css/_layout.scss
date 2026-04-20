@@ -33,9 +33,11 @@
 }
 
 
-.layer img,
-.layer-locations .poi-marker {
-  // Restore interaction for the actual content
+.layer-locations .poi-marker,
+.layer-areas.is-interactive svg,
+.layer-areas.is-interactive .area-wrapper,
+.layer-pulsing-image:not(.no-interaction) img {
+  // Restore interaction only for truly interactive content
   pointer-events: auto;
 }
 
@@ -43,10 +45,11 @@
   pointer-events: none;
 }
 
-.layer-areas.is-interactive svg,
-.layer-areas.is-interactive polygon,
-.layer-areas.is-interactive path {
-  pointer-events: auto;
+// Ensure simulation and background layers are never clickable
+.layer-static-image img,
+.layer-png-sequence img,
+.layer-svg-sequence img {
+  pointer-events: none !important;
 }
 
 .layer img,

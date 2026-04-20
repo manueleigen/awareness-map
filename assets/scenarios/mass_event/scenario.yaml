@@ -1,0 +1,12 @@
+id: mass_event
+active: false
+
+text:
+  de:
+    short_title: Massen-Event
+    title: Großveranstaltung
+    description: ""
+  en:
+    short_title: Mass Event
+    title: Major Event
+    description: ""

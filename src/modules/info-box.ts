@@ -101,15 +101,15 @@ export function renderHome(): void {
 		Object.keys(context.scenarios).forEach((scenarioId) => {
 			const scenario = context!.scenarios[scenarioId];
 			const scenarioText = getScenarioText(scenarioId);
+
+			if (!scenarioText || (!scenarioText.title && !scenarioText.short_title))
+				return;
+
 			const btn = create("button");
-			const btnTitle =
-				scenarioText?.short_title ||
-				scenarioText?.title ||
-				t(`scenarios.${scenarioId}.short_title`) ||
-				t(`scenarios.${scenarioId}.title`);
+			const btnTitle = scenarioText.short_title || scenarioText.title;
 			btn.innerText = btnTitle;
 
-			if (scenario.inactive) {
+			if (scenario.active === false) {
 				btn.classList.add("is-inactive");
 			} else {
 				addDelayedPointerClick(btn, async () => {
@@ -272,11 +272,8 @@ export async function renderMapUI(): Promise<void> {
 
 	if (result && includeLastResult) {
 		const statusMsg = create("div");
-		statusMsg.className = `challenge-status challenge-${result.status}`;
-		statusMsg.innerText =
-			result.status === "passed"
-				? t("challenges.common.passed_msg", "Challenge completed successfully!")
-				: t("challenges.common.failed_msg", "Challenge failed.");
+		statusMsg.className = `challenge-status challenge-passed`;
+		statusMsg.innerText = t("challenges.common.passed_msg", "Challenge completed successfully!");
 		infoBoxContent.append(statusMsg);
 	}
 

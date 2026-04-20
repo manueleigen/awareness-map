@@ -1,6 +1,3 @@
-app:
-  title: Awareness Map
-
 navigation:
   languages:
     en: English
@@ -16,25 +13,10 @@ home:
 
     Über die Icons am rechten Bildschirmrand kannst du verschiedene Infos auf der Karte anzeigen. **Wähle ein Szenario, das du durchspielen möchtest.**
 
-scenarios:
-  blackout:
-    title: Der Strom fällt aus
-    short_title: Blackout
-
-  mass_event:
-    title: Großveranstaltung
-    short_title: Massen-Event
-
-
-feedback:
-  continue: Weiter
-
 challenges:
   common:
     passed_msg: Herausforderung erfolgreich abgeschlossen!
-    failed_msg: Herausforderung leider nicht bestanden.
     start_button: Herausforderung starten
-    restart: Nochmal versuchen
     back_to_challenges: Zurück zu den Rollen
     submit: Antwort prüfen
     selected_count: "Ausgewählt: {count}"

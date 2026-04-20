@@ -3,7 +3,6 @@ story_points:
     type: info
     activeLayerIds: [critical_sites]
     slider_time: "13:30"
-    continue_button_key: challenges.common.start_button
     text:
       de:
         title: Evakuierungszonen planen
@@ -58,8 +57,6 @@ story_points:
 
   - id: win-screen
     type: info
-    terminalStatus: passed
-    continue_button_key: challenges.common.restart
     activeLayerIds: [flood_police_evacuation_zones]
     text:
       de:
@@ -73,8 +70,6 @@ story_points:
 
   - id: half-fail-screen
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Teilweise richtig
@@ -91,8 +86,6 @@ story_points:
 
   - id: fail-screen-all-neutral
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Ressourcen verschwendet

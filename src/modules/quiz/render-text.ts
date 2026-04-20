@@ -36,25 +36,27 @@ export function renderInfo(
 	renderBlockText(desc, getStoryPointDescription(point));
 	content.append(desc);
 
-	// In terminal steps, we show different buttons based on status:
-	// - "Win": Only "Back to Roles"
-	// - "Fail": Only the retry button (default continue button)
-	// - regular info steps: standard "Continue" button.
-	if (point.terminalStatus === "passed") {
+	// In terminal steps (no next point), we show "Back to Roles".
+	// Otherwise, we show "Continue" (or "Start" for intro).
+	if (!point.next) {
 		const backBtn = create("button");
-		backBtn.innerText = t("challenges.common.back_to_challenges", "Back to Roles");
+		backBtn.innerText = t(
+			"challenges.common.back_to_challenges",
+			"Back to Roles",
+		);
 		addDelayedPointerClick(backBtn, async () => {
 			await backToRoles();
 		});
 		controls.append(backBtn);
 	} else {
-		// This covers both terminalStatus === "failed" (retry) 
-		// and regular info steps (continue).
+		// Determine the button key based on the step type
+		let buttonKey = "navigation.next";
+		if (point.id === "intro") {
+			buttonKey = "challenges.common.start_button";
+		}
+
 		const btn = create("button");
-		btn.innerText = t(
-			point.continue_button_key,
-			t("feedback.continue", "Continue"),
-		);
+		btn.innerText = t(buttonKey, t("navigation.next"));
 		addDelayedPointerClick(btn, () => onAction(true));
 		controls.append(btn);
 	}

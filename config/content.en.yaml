@@ -1,30 +1,10 @@
-app:
-  title: Awareness Map
-
 navigation:
   languages:
     en: English
     de: Deutsch
-  start: Start
   escape: Cancel
-  challenge-start: Start challenge
-  challenge-solved: Challenge solved
-  challenge-failed: Challenge not solved
-  challenge-next: Next challenge
-  # Kept from original for app compatibility
   back: Back
   next: Next
-  close: Close
-  restart: Try again
-  home: Start
-  scenario: Scenario
-  role: Role
-
-feedback:
-  success_title: Task successful
-  failure_title: Task unsuccessful
-  retry: Try again
-  continue: Continue
 
 home:
   title: Do You Have Situational Awareness?
@@ -33,41 +13,13 @@ home:
 
     Use the icons on the right side of the screen to display different types of information on the map. **Select a scenario you would like to work through.**
 
-  scenario_selection_label: Select a scenario
-  scenario_1: Flooding
-  scenario_2: Blackout
-  scenario_3: Public Event
-
-scenarios:
-  blackout:
-    title: The Power Goes Out
-    short_title: Blackout
-
-  mass_event:
-    title: Major Event
-    short_title: Mass Event
-
 challenges:
   common:
     passed_msg: Challenge completed successfully!
-    failed_msg: Challenge not completed.
-    retry_button: Try again
     start_button: Start challenge
-    restart: Start over
     back_to_challenges: Back to roles
     submit: Check answer
-    continue: Continue
-    selection_hint: Select the matching area or point on the map.
-    location_hint: Place a point on the map.
-    target_missing: "Target area not found: {target}"
     selected_count: "Selected: {count}"
     click_to_place: Click to place a point.
-    nothing_selected: ""
     select_poi: Select
     deselect_poi: Deselect
-
-  global:
-    critical_sites:
-      title: "Critical\nInfrastructure"
-    population_density:
-      title: "Population\nDensity"

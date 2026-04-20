@@ -76,7 +76,7 @@ export interface ScenarioContext {
 	layers: Record<string, ContextLayer>;
 	roles: Record<string, Role>;
 	quiz?: string;
-	inactive?: boolean;
+	active?: boolean;
 }
 
 /** The root structure for context.yaml. */
@@ -91,8 +91,7 @@ export interface ProjectContext {
 export interface ChallengeResult {
 	scenarioId: string;
 	roleId: string;
-	status: "passed" | "failed";
-	score?: number;
+	completed: boolean;
 }
 
 /** The central Application State interface. */
@@ -111,7 +110,7 @@ export interface AppState {
 	/** Set of IDs for layers specifically enabled by a quiz step. */
 	quizStepLayers: Set<string>;
 	view: "home" | "scenario-select" | "role-select" | "map" | "quiz";
-	/** Stores passed/failed status for challenges identified by "scenario_role". */
+	/** Stores completion status for challenges identified by "scenario_role". */
 	challengeResults: Record<string, ChallengeResult>;
 	/** Cached DOM references for UI manipulation. */
 	ui: {

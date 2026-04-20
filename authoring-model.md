@@ -257,7 +257,7 @@ The important point is that each concrete layer entry carries:
 
 ```yaml
 id: flood
-inactive: false
+active: true
 
 text:
   de:
@@ -319,7 +319,6 @@ story_points:
   - id: intro
     type: info
     slider_time: "14:00"
-    continue_button_key: challenges.common.start_button
     text:
       de:
         title: "Feuerwehr: Notrufe priorisieren"
@@ -412,13 +411,12 @@ Commonly used fields across story points:
   Layer whose slider should be controlled.
 - `slider_time_fixed`
   Whether the time slider should be locked for this step.
-- `terminalStatus`
-  Marks the step as `passed` or `failed`.
+
 
 Type-specific fields:
 
 - `info`
-  Uses `text.<lang>.title`, `text.<lang>.description`, and usually `continue_button_key`.
+  Uses `text.<lang>.title`, `text.<lang>.description`.
 - `quiz`
   Uses `text.<lang>.title`, `text.<lang>.question`, `options`, `solution`, `minAnswers`, `maxAnswers`.
 - `location-quiz`

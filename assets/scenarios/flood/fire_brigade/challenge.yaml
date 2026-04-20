@@ -2,7 +2,6 @@ story_points:
   - id: intro
     type: info
     slider_time: "14:00"
-    continue_button_key: challenges.common.start_button
     text:
       de:
         title: "Feuerwehr: Notrufe priorisieren"
@@ -64,8 +63,6 @@ story_points:
 
   - id: win-screen
     type: info
-    terminalStatus: passed
-    continue_button_key: challenges.common.restart
     activeLayerIds: [flood_fire_brigade_emergency_calls]
     text:
       de:
@@ -83,8 +80,6 @@ story_points:
 
   - id: half-fail-screen
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Teilweise richtig
@@ -101,8 +96,6 @@ story_points:
 
   - id: half-wrong-screen
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Einsatzkräfte in Gefahr
@@ -123,8 +116,6 @@ story_points:
 
   - id: fail-screen-wrong-neutral
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Einsatzkräfte in Gefahr
@@ -145,8 +136,6 @@ story_points:
 
   - id: fail-screen-all-neutral
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Vergeudete Ressourcen
@@ -163,8 +152,6 @@ story_points:
 
   - id: fail-screen-1
     type: info
-    terminalStatus: failed
-    continue_button_key: challenges.common.restart
     text:
       de:
         title: Fehlgeschlagen

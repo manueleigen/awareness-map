@@ -60,7 +60,7 @@ const knownLayerIds = rawContext ? collectLayerIds(rawContext) : new Set();
 const scenarioIds = Object.keys(rawContext?.scenarios ?? {});
 
 for (const scenarioId of scenarioIds) {
-    if (rawContext?.scenarios?.[scenarioId]?.inactive) continue;
+    if (rawContext?.scenarios?.[scenarioId]?.active === false) continue;
     const scenarioFile = `assets/scenarios/${scenarioId}/scenario.yaml`;
     let rawScenario;
     try {

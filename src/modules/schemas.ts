@@ -49,7 +49,7 @@ export const ContextRoleDefinitionSchema = z.object({
 export const ContextScenarioDefinitionSchema = z.object({
 	layers: z.record(z.string(), ContextLayerDefinitionSchema).optional(),
 	roles: z.record(z.string(), ContextRoleDefinitionSchema).optional(),
-	inactive: z.boolean().optional(),
+	active: z.boolean().optional(),
 });
 
 export const ProjectContextDefinitionSchema = z.object({
@@ -92,7 +92,6 @@ const LocalizedScenarioTextSchema = z.object({
 	title: z.string(),
 	short_title: z.string().optional(),
 	description: z.string().optional(),
-	role_selection_label: z.string().optional(),
 });
 
 export const ScenarioRoleDefinitionSchema = z.object({
@@ -104,7 +103,7 @@ export const ScenarioRoleDefinitionSchema = z.object({
 
 export const ScenarioDefinitionSchema = z.object({
 	id: z.string(),
-	inactive: z.boolean().optional(),
+	active: z.boolean().optional(),
 	text: z.record(z.string(), LocalizedScenarioTextSchema).optional(),
 	roles: z.record(z.string(), ScenarioRoleDefinitionSchema),
 });
@@ -157,8 +156,7 @@ const InfoStoryPointSchema = z.object({
 	...storyPointBase,
 	type: z.literal("info"),
 	text: StoryPointTextSchema.optional(),
-	terminalStatus: z.enum(["passed", "failed"]).optional(),
-	continue_button_key: z.string().optional(),
+
 	next: z.union([z.string(), QuizOutcomeMapSchema]).optional(),
 }).strict();
 

@@ -1,5 +1,5 @@
 id: flood
-inactive: false
+active: true
 
 text:
   de:
@@ -11,7 +11,6 @@ text:
       Die Lage verändert sich schnell, und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt überflutet werden.
 
       Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Informationen. **Wessen Rolle möchtest du übernehmen?**
-    role_selection_label: Wähle deine Rolle
   en:
     title: The River Overflows Its Banks
     short_title: Flood
@@ -21,7 +20,6 @@ text:
       The situation is changing rapidly, and the flood simulation shows that several parts of the city will be inundated over the next few hours.
 
       In a crisis, different actors have different responsibilities and access to different information. **Which role would you like to take on?**
-    role_selection_label: Select your role
 
 roles:
   fire_brigade:

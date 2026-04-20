@@ -134,8 +134,8 @@ export async function initScenarios(): Promise<void> {
 	const contextDefinition = getLoadedContext();
 
 	const scenarioIds = new Set<string>();
-	Object.entries(contextDefinition?.scenarios ?? {}).forEach(([scenarioId, scenarioDef]) => {
-		if (!(scenarioDef as any)?.inactive) scenarioIds.add(scenarioId);
+	Object.keys(contextDefinition?.scenarios ?? {}).forEach((scenarioId) => {
+		scenarioIds.add(scenarioId);
 	});
 
 	await Promise.all(

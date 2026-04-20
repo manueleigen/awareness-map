@@ -207,23 +207,18 @@ async function loadPoint(id: string): Promise<void> {
  */
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
-	if (point.type === "info" && point.terminalStatus && currentOnFinish) {
-		if (point.terminalStatus === "failed") {
-			// Go back to the last answerable step instead of ending the quiz
-			loadPoint(lastQuizPointId ?? currentStoryPoints[0]?.id ?? "intro");
-			return;
-		}
+	if (!point.next) {
 		// Cleanup layers from the final step before finishing
 		if (app.quizStepLayers.size > 0) {
 			app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
 			app.quizStepLayers.clear();
 		}
-		currentOnFinish(point.terminalStatus);
+		if (currentOnFinish) currentOnFinish("passed"); // status is legacy/ignored
 		return;
 	}
 
 	// 2. Resolve the next point ID based on outcome
-	// Track this as the last answerable quiz point (has right/wrong outcomes)
+	// Track this as the last answerable quiz step (has right/wrong outcomes)
 	if (typeof point.next !== "string") {
 		lastQuizPointId = point.id;
 	}

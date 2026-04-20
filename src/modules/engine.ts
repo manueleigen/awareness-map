@@ -20,14 +20,14 @@ export async function startQuiz(quizPath: string): Promise<void> {
         quizPath,
         infoBoxContent,
         infoBoxControls,
-        (status) => {
-            // Callback executed when the quiz reaches a terminal state (win/fail)
+        () => {
+            // Callback executed when the quiz reaches a terminal state
             if (app.currentScenario && app.currentRole) {
                 const resultId = `${app.currentScenario}_${app.currentRole}`;
                 app.challengeResults[resultId] = {
                     scenarioId: app.currentScenario,
                     roleId: app.currentRole,
-                    status: status
+                    completed: true
                 };
             }
             

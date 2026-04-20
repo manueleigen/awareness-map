@@ -56,7 +56,7 @@
 }
 
 // Evakuierungszonen-Flächen haben geringere Deckkraft, wenn Bevölkerungsdichte aktiv ist
-#layer-population_density:not(.hidden) ~ #layer-evacuation_zones {
+#layer-population_density:not(.hidden) ~ #layer-flood_police_evacuation_zones {
 	polygon,
 	path.st0,
 	.interactive-area {

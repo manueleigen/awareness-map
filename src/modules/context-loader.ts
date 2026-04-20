@@ -58,7 +58,7 @@ function normalizeContext(definition: ProjectContextDefinition): ProjectContext 
 							},
 						]),
 					),
-					inactive: scenario.inactive,
+					active: scenario.active,
 				},
 			]),
 		),

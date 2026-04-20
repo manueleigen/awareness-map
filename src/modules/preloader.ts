@@ -208,7 +208,7 @@ async function runDeepValidation(): Promise<void> {
     const scenarioIds = Object.keys(rawContext?.scenarios ?? {});
 
     for (const scenarioId of scenarioIds) {
-        if ((rawContext as any)?.scenarios?.[scenarioId]?.inactive) continue;
+        if ((rawContext as any)?.scenarios?.[scenarioId]?.active === false) continue;
         const scenarioFile = `assets/scenarios/${scenarioId}/scenario.yaml`;
         try {
             const rawScenario = await loadYAML<unknown>(`/${scenarioFile}`);

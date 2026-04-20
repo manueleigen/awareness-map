@@ -143,11 +143,11 @@ scenarios:
             src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 
   blackout:
-    inactive: true
+    active: false
     layers: {}
     roles: {}
 
   mass_event:
-    inactive: true
+    active: false
     layers: {}
     roles: {}
