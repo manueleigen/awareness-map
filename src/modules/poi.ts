@@ -9,6 +9,74 @@ import { ContextLayer } from "./types.js";
 const markerLocMap = new WeakMap<HTMLDivElement, any>();
 const containerPoiSizeMap = new WeakMap<HTMLDivElement, number>();
 
+function parseTimeH(t: string): number {
+    const [h, m] = t.split(':').map(Number);
+    return h + (m || 0) / 60;
+}
+
+function updateOverlayText(overlay: HTMLElement, loc: any, status: string): void {
+    const lang = app.language;
+    const statusTrans = status ? loc.status_translations?.[status] : undefined;
+
+    const titleEl = overlay.querySelector<HTMLElement>('.poi-overlay-head h3');
+    const titleText = statusTrans?.title?.[lang] ?? loc.translations?.title?.[lang];
+    if (titleEl && titleText) {
+        titleEl.innerHTML = '';
+        renderInlineText(titleEl, titleText);
+    }
+
+    const descEl = overlay.querySelector<HTMLElement>('.poi-description');
+    const descText = statusTrans?.description?.[lang] ?? loc.translations?.description?.[lang];
+    if (descEl && descText) {
+        descEl.innerHTML = '';
+        renderBlockText(descEl, descText);
+    }
+}
+
+function applyMarkerStatus(
+    marker: HTMLElement,
+    status: string,
+    statusPOIIcons: Record<string, string>,
+    defaultIcon: string,
+    loc?: any,
+): void {
+    if (marker.dataset.currentStatus === status) return;
+    marker.dataset.currentStatus = status;
+    Array.from(marker.classList)
+        .filter(c => c.startsWith('poi-status--'))
+        .forEach(c => marker.classList.remove(c));
+    if (status) marker.classList.add(`poi-status--${status}`);
+    const iconWrapper = marker.querySelector<HTMLElement>('.poi-icon');
+    if (iconWrapper) {
+        const iconSrc = (status && statusPOIIcons[status]) || defaultIcon;
+        if (iconSrc) loadTEXT<string>(iconSrc).then(s => { iconWrapper.innerHTML = s; }).catch(() => {});
+    }
+    if (loc) {
+        const openOverlay = document.querySelector<HTMLElement>(`.poi-overlay[data-marker-id="${marker.id}"]`);
+        if (openOverlay) updateOverlayText(openOverlay, loc, status);
+    }
+}
+
+function updateMarkersForTime(
+    container: HTMLElement,
+    timeStr: string,
+    statusPOIIcons: Record<string, string>,
+    defaultIcon: string,
+): void {
+    const currentH = parseTimeH(timeStr);
+    container.querySelectorAll<HTMLElement>('.poi-marker').forEach(marker => {
+        const raw = marker.dataset.statusTimeline;
+        if (!raw) return;
+        const timeline: Array<{ time: string; status: string }> = JSON.parse(raw);
+        let status = marker.dataset.initialStatus || '';
+        for (const entry of timeline) {
+            if (parseTimeH(entry.time) <= currentH) status = entry.status;
+        }
+        const loc = markerLocMap.get(marker as HTMLDivElement);
+        applyMarkerStatus(marker, status, statusPOIIcons, defaultIcon, loc);
+    });
+}
+
 // Timer for the 3-second auto-close after layer preview
 let previewTimeout: ReturnType<typeof setTimeout> | null = null;
 // Incremented on every hidePOIOverlay() call — in-flight previews check this to self-cancel
@@ -38,6 +106,10 @@ export async function renderPOILayer(
 		if (effectiveLayerId) poiContainer.dataset.layerId = effectiveLayerId;
 		containerPoiSizeMap.set(poiContainer, poiSize);
 
+		const statusPOIIcons: Record<string, string> = ctxLayer?.status_poi_icons || {};
+		const defaultIcon = ctxLayer?.poi_icon || '';
+		let hasTimeline = false;
+
 		data.locations.forEach((loc, index) => {
 			const marker = create("div");
 			marker.className = "poi-marker";
@@ -61,15 +133,24 @@ export async function renderPOILayer(
 			marker.style.width = `${poiSize}px`;
 			marker.style.height = `${poiSize}px`;
 
-			// Inject SVG icon if configured
-			if (ctxLayer?.poi_icon) {
+			// Initial status (optional)
+			const initialStatus: string = loc.status || '';
+			if (initialStatus) marker.classList.add(`poi-status--${initialStatus}`);
+			marker.dataset.currentStatus = initialStatus;
+
+			// Status timeline (optional)
+			if (Array.isArray(loc.status_timeline) && loc.status_timeline.length > 0) {
+				marker.dataset.statusTimeline = JSON.stringify(loc.status_timeline);
+				marker.dataset.initialStatus = initialStatus;
+				hasTimeline = true;
+			}
+
+			// Inject SVG icon — use status-specific icon if available, else default
+			const initialIconSrc = (initialStatus && statusPOIIcons[initialStatus]) || defaultIcon;
+			if (initialIconSrc) {
 				const iconWrapper = create("div");
 				iconWrapper.className = "poi-icon";
-				loadTEXT<string>(ctxLayer.poi_icon)
-					.then((svgText) => {
-						iconWrapper.innerHTML = svgText;
-					})
-					.catch(() => {});
+				loadTEXT<string>(initialIconSrc).then(s => { iconWrapper.innerHTML = s; }).catch(() => {});
 				marker.append(iconWrapper);
 			}
 
@@ -84,6 +165,18 @@ export async function renderPOILayer(
 
 			poiContainer.append(marker);
 		});
+
+		// Register time listener only when at least one marker has a timeline
+		if (hasTimeline) {
+			const onSliderTime = (e: Event) => {
+				if (!poiContainer.isConnected) {
+					document.removeEventListener('slidertime', onSliderTime);
+					return;
+				}
+				updateMarkersForTime(poiContainer, (e as CustomEvent<{ time: string }>).detail.time, statusPOIIcons, defaultIcon);
+			};
+			document.addEventListener('slidertime', onSliderTime);
+		}
 	}
 
 	return poiContainer;
@@ -127,7 +220,10 @@ export async function showPOIOverlay(
 	const head = create("div");
 	head.className = "poi-overlay-head";
 
-	const titleText = loc.translations?.title?.[app.language];
+	const currentStatus = marker.dataset.currentStatus || '';
+	const statusTrans = currentStatus ? loc.status_translations?.[currentStatus] : undefined;
+
+	const titleText = statusTrans?.title?.[app.language] ?? loc.translations?.title?.[app.language];
 	if (titleText) {
 		const title = create("h3");
 		renderInlineText(title, titleText);
@@ -169,7 +265,7 @@ export async function showPOIOverlay(
 	content.append(head);
 
 	// Body section (optional Status Text / Description)
-		const descriptionText = loc.translations?.description?.[app.language];
+		const descriptionText = statusTrans?.description?.[app.language] ?? loc.translations?.description?.[app.language];
 		if (descriptionText) {
 			const bodyText = create("div");
 			bodyText.className = "poi-description";

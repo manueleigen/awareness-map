@@ -35,6 +35,7 @@ export interface ContextLayerDefinition {
 	icon?: string;
 	slider_icon?: string;
 	poi_icon?: string;
+	status_poi_icons?: Record<string, string>;
 	initially_visible?: boolean;
 	quiz_only?: boolean;
 	map_only?: boolean;
@@ -97,6 +98,7 @@ export interface ContextLayer {
 	icon?: string;
 	slider_icon?: string;
 	poi_icon?: string;
+	status_poi_icons?: Record<string, string>;
 	initially_visible?: boolean;
 	quiz_only?: boolean;
 	map_only?: boolean;

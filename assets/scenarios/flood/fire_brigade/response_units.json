@@ -1,0 +1,137 @@
+{
+  "layer_id": "flood_fire_brigade_response_units",
+  "locations": [
+    {
+      "id": "response_unit_01",
+      "x": 820,
+      "y": 380,
+      "status": "available",
+      "status_timeline": [
+        { "time": "10:00", "status": "active" },
+        { "time": "13:30", "status": "unavailable" }
+      ],
+      "translations": {
+        "title": { "de": "Station Nord", "en": "Station North" },
+        "description": {
+          "de": "Fahrzeuge verfügbar.",
+          "en": "Vehicles available."
+        }
+      },
+      "status_translations": {
+        "active": {
+          "description": {
+            "de": "Im Einsatz seit 10:00 Uhr.",
+            "en": "Deployed since 10:00."
+          }
+        },
+        "unavailable": {
+          "title": { "de": "Station Nord — Gesperrt", "en": "Station North — Blocked" },
+          "description": {
+            "de": "Bereich ab 13:30 Uhr durch Hochwasser unzugänglich.",
+            "en": "Area inaccessible due to flooding from 13:30."
+          }
+        }
+      }
+    },
+    {
+      "id": "response_unit_02",
+      "x": 1900,
+      "y": 1050,
+      "status": "available",
+      "status_timeline": [
+        { "time": "11:30", "status": "active" }
+      ],
+      "translations": {
+        "title": { "de": "Station Mitte", "en": "Station Central" },
+        "description": {
+          "de": "Fahrzeuge verfügbar.",
+          "en": "Vehicles available."
+        }
+      },
+      "status_translations": {
+        "active": {
+          "description": {
+            "de": "Im Einsatz seit 11:30 Uhr.",
+            "en": "Deployed since 11:30."
+          }
+        }
+      }
+    },
+    {
+      "id": "response_unit_03",
+      "x": 580,
+      "y": 1620,
+      "status": "unavailable",
+      "translations": {
+        "title": { "de": "Station West — Gesperrt", "en": "Station West — Blocked" },
+        "description": {
+          "de": "Bereits bei Einsatzbeginn durch Hochwasser unzugänglich.",
+          "en": "Already inaccessible due to flooding at the start of operations."
+        }
+      }
+    },
+    {
+      "id": "response_unit_04",
+      "x": 3020,
+      "y": 860,
+      "status": "available",
+      "status_timeline": [
+        { "time": "09:00", "status": "active" },
+        { "time": "12:00", "status": "available" }
+      ],
+      "translations": {
+        "title": { "de": "Station Ost", "en": "Station East" },
+        "description": {
+          "de": "Fahrzeuge verfügbar.",
+          "en": "Vehicles available."
+        }
+      },
+      "status_translations": {
+        "active": {
+          "description": {
+            "de": "Im Einsatz seit 09:00 Uhr.",
+            "en": "Deployed since 09:00."
+          }
+        },
+        "available": {
+          "description": {
+            "de": "Einsatz beendet — ab 12:00 Uhr zurück an der Basis.",
+            "en": "Mission complete — back at base from 12:00."
+          }
+        }
+      }
+    },
+    {
+      "id": "response_unit_05",
+      "x": 2150,
+      "y": 1720,
+      "status": "available",
+      "status_timeline": [
+        { "time": "10:30", "status": "active" },
+        { "time": "14:00", "status": "unavailable" }
+      ],
+      "translations": {
+        "title": { "de": "Sammelstelle Süd", "en": "Staging Area South" },
+        "description": {
+          "de": "Sammelpunkt für Einsatzkräfte.",
+          "en": "Assembly point for response units."
+        }
+      },
+      "status_translations": {
+        "active": {
+          "description": {
+            "de": "Aktiv seit 10:30 Uhr — Einsatzkräfte vor Ort.",
+            "en": "Active since 10:30 — units on site."
+          }
+        },
+        "unavailable": {
+          "title": { "de": "Sammelstelle Süd — Überflutet", "en": "Staging Area South — Flooded" },
+          "description": {
+            "de": "Ab 14:00 Uhr durch Hochwasser nicht mehr erreichbar.",
+            "en": "Inaccessible due to flooding from 14:00."
+          }
+        }
+      }
+    }
+  ]
+}

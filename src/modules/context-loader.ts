@@ -15,6 +15,7 @@ function normalizeLayer(layer: ContextLayerDefinition) {
 		icon: layer.icon,
 		slider_icon: layer.slider_icon,
 		poi_icon: layer.poi_icon,
+		status_poi_icons: layer.status_poi_icons,
 		initially_visible: layer.initially_visible,
 		quiz_only: layer.quiz_only,
 		map_only: layer.map_only,

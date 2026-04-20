@@ -1,6 +1,18 @@
 import { create } from './lib.js';
 import { LayerConfig, ContextLayer } from './types.js';
 
+function parseTimeH(t: string): number {
+    const [h, m] = t.split(':').map(Number);
+    return h + (m || 0) / 60;
+}
+
+function formatTimeH(totalH: number): string {
+    const h = Math.floor(totalH);
+    const m = Math.round((totalH - h) * 60);
+    if (m === 60) return `${(h + 1).toString().padStart(2, '0')}:00`;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+}
+
 /**
  * Helper to wait for the lottie-web AnimationItem to be fully loaded.
  * Polls until the instance is attached to the container, then waits for DOMLoaded.
@@ -115,6 +127,11 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
                 if (img) img.src = frames[frameIndex];
             }
         }
+        const startH = parseTimeH(sliderWrapper.dataset.startTime || '00:00');
+        const endH   = parseTimeH(sliderWrapper.dataset.endTime   || '24:00');
+        document.dispatchEvent(new CustomEvent('slidertime', {
+            detail: { time: formatTimeH(startH + (val / 100) * (endH - startH)) },
+        }));
         lottieTicking = false;
     };
 
@@ -162,7 +179,6 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 function calculateTimeSteps(start: string, end: string): string[] {
     const parseH = (t: string) => parseInt(t.split(':')[0], 10);
     const formatH = (h: number) => `${h.toString().padStart(2, '0')}:00`;
-
     const s = parseH(start);
     const e = parseH(end);
     const diff = e - s;
@@ -198,14 +214,9 @@ export function animateSliderToTime(layerId: string, targetTime: string, fixed: 
     const range = sliderWrapper.querySelector<HTMLInputElement>('.range-slider');
     if (!range) return;
 
-    const parseH = (t: string) => {
-        const [h, m] = t.split(':').map(Number);
-        return h + (m || 0) / 60;
-    };
-
-    const startH = parseH(sliderWrapper.dataset.startTime || '00:00');
-    const endH = parseH(sliderWrapper.dataset.endTime || '24:00');
-    const targetH = parseH(targetTime);
+    const startH = parseTimeH(sliderWrapper.dataset.startTime || '00:00');
+    const endH = parseTimeH(sliderWrapper.dataset.endTime || '24:00');
+    const targetH = parseTimeH(targetTime);
 
     const span = endH - startH;
     if (span <= 0) return;

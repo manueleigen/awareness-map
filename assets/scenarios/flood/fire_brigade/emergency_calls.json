@@ -1,64 +1,80 @@
 {
-  "layer_id": "emergency_calls",
-  "locations": [
-    {
-      "id": "flood_emergency_call_01",
-      "x": 1230,
-      "y": 1085,
-      "translations": {
-        "title": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
-        "description": { "de": "Mehrere verletzte Personen nach einem Verkehrsunfall.", 
-                    "en": "Several people injured in a traffic accident." }
-      }
-    },
-    {
-      "id": "flood_emergency_call_02",  
-      "x": 1920,
-      "y": 1320,
-      "translations": {
-        "title": { "de": "Stromausfall im Altenheim", "en": "Power Outage at Senior Center" },
-        "description": { "de": "Mehrere Personen in einem Altenheim sind auf Beatmungsgeräte angeweisen.", "en": "Several people in a senior center are relying on ventilators." }
-      }
-    },
-    {
-      "id": "flood_emergency_call_03",
-      "x": 2440,
-      "y": 730,
-      "translations": {
-        "title": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
-        "description": { "de": "Personen können das Haus nicht mehr verlassen.", 
-                    "en": "People can no longer leave the house." }
-      }
-    },
-{
-      "id": "flood_emergency_call_04",
-      "x": 1600,
-      "y": 496,
-      "translations": {
-        "title": { "de": "Keller überflutet", "en": "Basements Flooded" },
-        "description": { "de": "Mehrere Meldungen zu überfluteten Kellern.", 
-                    "en": "Multiple reports of flooded basements" }
-      }
-    },
-    {
-      "id": "flood_emergency_call_05",
-      "x": 2700,
-      "y": 1700,
-      "translations": {
-        "title": { "de": "Katze im Baum", "en": "Cat in Tree" },
-        "description": { "de": "Eine Katze sitzt im Baum und kommt nicht herunter.", 
-                    "en": "A cat is stuck in a tree and cannot get down." }
-      }
-    },
-    {
-      "id": "flood_emergency_call_06",
-      "x": 2800,
-      "y": 1150,
-      "translations": {
-        "title": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
-        "description": { "de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.", 
-                    "en": "An underpass is flooded and several cars are trapped." }
-      }
-    }
-  ]
+	"layer_id": "emergency_calls",
+	"locations": [
+		{
+			"id": "flood_emergency_call_01",
+			"x": 1230,
+			"y": 1085,
+			"translations": {
+				"title": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
+				"description": {
+					"de": "Mehrere verletzte Personen nach einem Verkehrsunfall.",
+					"en": "Several people injured in a traffic accident."
+				}
+			}
+		},
+		{
+			"id": "flood_emergency_call_02",
+			"x": 1920,
+			"y": 1320,
+			"translations": {
+				"title": {
+					"de": "Stromausfall im Altenheim",
+					"en": "Power Outage at Senior Center"
+				},
+				"description": {
+					"de": "Mehrere Personen in einem Altenheim sind auf Beatmungsgeräte angeweisen.",
+					"en": "Several people in a senior center are relying on ventilators."
+				}
+			}
+		},
+		{
+			"id": "flood_emergency_call_03",
+			"x": 2440,
+			"y": 730,
+			"translations": {
+				"title": { "de": "Erdgeschoss geflutet", "en": "Ground Floor Flooded" },
+				"description": {
+					"de": "Personen können das Haus nicht mehr verlassen.",
+					"en": "People can no longer leave the house."
+				}
+			}
+		},
+		{
+			"id": "flood_emergency_call_04",
+			"x": 1600,
+			"y": 496,
+			"translations": {
+				"title": { "de": "Keller überflutet", "en": "Basements Flooded" },
+				"description": {
+					"de": "Mehrere Meldungen zu überfluteten Kellern.",
+					"en": "Multiple reports of flooded basements"
+				}
+			}
+		},
+		{
+			"id": "flood_emergency_call_05",
+			"x": 2700,
+			"y": 1700,
+			"translations": {
+				"title": { "de": "Katze im Baum", "en": "Cat in Tree" },
+				"description": {
+					"de": "Eine Katze sitzt im Baum und kommt nicht herunter.",
+					"en": "A cat is stuck in a tree and cannot get down."
+				}
+			}
+		},
+		{
+			"id": "flood_emergency_call_06",
+			"x": 2800,
+			"y": 1150,
+			"translations": {
+				"title": { "de": "Unterführung überflutet", "en": "Underpass Flooded" },
+				"description": {
+					"de": "Eine Unterführung steht unter Wasser, mehrere Autos sitzen fest.",
+					"en": "An underpass is flooded and several cars are trapped."
+				}
+			}
+		}
+	]
 }
