@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lottie Frame Exporter</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #111; color: #eee; padding: 40px; }
+    h1 { font-size: 1.4rem; margin-bottom: 24px; }
+    .card { background: #1e1e1e; border-radius: 10px; padding: 24px; margin-bottom: 20px; }
+    label { display: block; font-size: 0.85rem; color: #aaa; margin-bottom: 6px; }
+    input { width: 100%; padding: 8px 10px; background: #2a2a2a; border: 1px solid #444; border-radius: 6px; color: #eee; font-size: 0.9rem; margin-bottom: 14px; }
+    .row { display: flex; gap: 16px; }
+    .row > div { flex: 1; }
+    button { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; font-weight: 600; margin-right: 10px; }
+    #btnPng  { background: #3b82f6; color: #fff; }
+    #btnSvg  { background: #8b5cf6; color: #fff; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    #progress-wrap { display: none; margin-top: 20px; }
+    #bar-bg { background: #2a2a2a; border-radius: 6px; height: 14px; overflow: hidden; }
+    #bar { background: #3b82f6; height: 100%; width: 0%; transition: width 80ms linear; border-radius: 6px; }
+    #status { font-size: 0.82rem; color: #aaa; margin-top: 8px; }
+    #log { margin-top: 12px; font-size: 0.78rem; color: #6ee7b7; max-height: 160px; overflow-y: auto; background: #0d1117; padding: 10px; border-radius: 6px; white-space: pre; }
+  </style>
+</head>
+<body>
+  <h1>Lottie → PNG / SVG Sequence Exporter</h1>
+
+  <div class="card">
+    <label>Lottie JSON path (relative to app root, served by dev server)</label>
+    <input type="text" id="lottieSrc" value="/assets/scenarios/flood/flood_simulation.json" />
+
+    <div class="row">
+      <div>
+        <label>Scale (%)</label>
+        <input type="number" id="scale" value="100" min="1" max="100" />
+      </div>
+      <div>
+        <label>Frame step (1 = every frame)</label>
+        <input type="number" id="step" value="1" min="1" max="50" />
+      </div>
+      <div>
+        <label>Output folder name</label>
+        <input type="text" id="outFolder" value="flood_sim_png" />
+      </div>
+    </div>
+
+    <button id="btnPng">Export PNG sequence</button>
+    <button id="btnSvg">Export SVG sequence</button>
+
+    <div id="progress-wrap">
+      <div id="bar-bg"><div id="bar"></div></div>
+      <div id="status">Starting…</div>
+      <div id="log"></div>
+    </div>
+  </div>
+
+  <!-- Off-screen SVG host — sized per export, kept off-screen -->
+  <div id="lottie-svg-host" style="position:fixed;left:-9999px;top:0;visibility:hidden;"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.13.0/lottie.min.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const log  = msg => { $('log').textContent += msg + '\n'; $('log').scrollTop = 9999; };
+    const setBar    = pct => { $('bar').style.width = Math.min(pct, 100) + '%'; };
+    const setStatus = msg => { $('status').textContent = msg; };
+    const raf       = ()  => new Promise(r => requestAnimationFrame(r));
+
+    function disableButtons(v) { $('btnPng').disabled = v; $('btnSvg').disabled = v; }
+
+    // ── File System Access helpers ─────────────────────────────────────────────
+
+    async function pickOutputDir(folderName) {
+      const root = await window.showDirectoryPicker({ mode: 'readwrite' });
+      return root.getDirectoryHandle(folderName, { create: true });
+    }
+
+    async function writeFile(dir, filename, blob) {
+      const fh = await dir.getFileHandle(filename, { create: true });
+      const w  = await fh.createWritable();
+      await w.write(blob);
+      await w.close();
+    }
+
+    // ── Lottie loader ──────────────────────────────────────────────────────────
+
+    function loadLottie(w, h) {
+      const host = $('lottie-svg-host');
+      host.innerHTML = '';
+      host.style.width  = w + 'px';
+      host.style.height = h + 'px';
+
+      return new Promise((resolve, reject) => {
+        const anim = lottie.loadAnimation({
+          container: host,
+          renderer: 'svg',
+          loop: false,
+          autoplay: false,
+          path: $('lottieSrc').value.trim(),
+          rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
+        });
+        anim.addEventListener('DOMLoaded', () => resolve(anim), { once: true });
+        anim.addEventListener('data_failed', () => reject(new Error('Lottie data_failed')), { once: true });
+      });
+    }
+
+    // ── PNG Export ─────────────────────────────────────────────────────────────
+    // Strategy: use the SVG renderer (correct colors) then rasterize each frame
+    // to PNG via canvas.drawImage(svgBlobURL). The canvas renderer mis-handles
+    // blend modes, producing black instead of the correct hues.
+
+    $('btnPng').addEventListener('click', async () => {
+      if (!window.showDirectoryPicker) { alert('Use Chrome/Chromium — File System Access API required.'); return; }
+
+      const folderName = $('outFolder').value.trim() || 'lottie_png_export';
+      const scale  = Math.max(0.01, parseFloat($('scale').value) / 100);
+      const step   = Math.max(1, parseInt($('step').value));
+      const W = Math.round(3840 * scale);
+      const H = Math.round(2160 * scale);
+
+      // Off-screen canvas used only for rasterization — never added to the DOM
+      const offCanvas = document.createElement('canvas');
+      offCanvas.width  = W;
+      offCanvas.height = H;
+      const ctx = offCanvas.getContext('2d');
+
+      try {
+        const dir = await pickOutputDir(folderName);
+        disableButtons(true);
+        $('progress-wrap').style.display = 'block';
+        setBar(0); $('log').textContent = '';
+
+        log(`Loading Lottie (SVG renderer → PNG rasterize) at ${W}×${H}…`);
+        const anim   = await loadLottie(W, H);
+        const host   = $('lottie-svg-host');
+        const serial = new XMLSerializer();
+
+        // Warmup: render one frame so the SVG DOM is fully initialised
+        // before we start capturing — prevents a blank first export frame.
+        anim.goToAndStop(1, true);
+        await raf(); await raf();
+
+        const totalFrames = anim.totalFrames;
+        log(`Total frames: ${totalFrames}  |  step: ${step}  |  output: ${Math.ceil(totalFrames / step)} files`);
+
+        const frames = [];
+        let written = 0;
+
+        for (let i = 0; i < totalFrames; i += step) {
+          anim.goToAndStop(i, true);
+          await raf();
+
+          const svgEl = host.querySelector('svg');
+          if (!svgEl) { log(`  frame ${i}: no <svg> — skipping`); continue; }
+
+          // SVG → blob URL → Image → canvas → PNG
+          const svgBlob = new Blob([serial.serializeToString(svgEl)], { type: 'image/svg+xml' });
+          const url = URL.createObjectURL(svgBlob);
+          const img = new Image();
+          await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = url; });
+          URL.revokeObjectURL(url);
+
+          ctx.clearRect(0, 0, W, H);
+          ctx.drawImage(img, 0, 0, W, H);
+
+          const blob = await new Promise(res => offCanvas.toBlob(res, 'image/png'));
+          if (!blob) throw new Error(`toBlob returned null at frame ${i}`);
+
+          const pad      = String(i).padStart(4, '0');
+          const filename = `frame_${pad}.png`;
+          await writeFile(dir, filename, blob);
+          frames.push(`/assets/scenarios/flood/${folderName}/${filename}`);
+          written++;
+
+          const pct = Math.round((written / Math.ceil(totalFrames / step)) * 99);
+          setBar(pct);
+          setStatus(`PNG: frame ${i + 1} / ${totalFrames} — ${written} written`);
+          if (written % 10 === 0) log(`  frame ${i} → ${filename} (${(blob.size / 1024).toFixed(0)} KB)`);
+        }
+
+        const manifest = JSON.stringify({ frames }, null, 2);
+        await writeFile(dir, 'manifest.json', new Blob([manifest], { type: 'application/json' }));
+        setBar(100);
+        setStatus(`Done! ${frames.length} PNG frames in "${folderName}/"`);
+        log(`\n✅ PNG export complete.\nAdd to context.yaml:\n  layer_type: png_sequence\n  src: /assets/scenarios/flood/${folderName}/manifest.json`);
+        anim.destroy();
+      } catch (e) {
+        setStatus('Error: ' + e.message);
+        log('❌ ' + e);
+      } finally {
+        disableButtons(false);
+      }
+    });
+
+    // ── SVG Export ─────────────────────────────────────────────────────────────
+
+    $('btnSvg').addEventListener('click', async () => {
+      if (!window.showDirectoryPicker) { alert('Use Chrome/Chromium — File System Access API required.'); return; }
+
+      const rawFolder  = $('outFolder').value.trim() || 'lottie_svg_export';
+      const folderName = rawFolder.replace(/_png$/, '_svg');
+      const scale  = Math.max(0.01, parseFloat($('scale').value) / 100);
+      const step   = Math.max(1, parseInt($('step').value));
+      const W = Math.round(3840 * scale);
+      const H = Math.round(2160 * scale);
+
+      try {
+        const dir = await pickOutputDir(folderName);
+        disableButtons(true);
+        $('progress-wrap').style.display = 'block';
+        setBar(0); $('log').textContent = '';
+
+        log(`Loading Lottie (SVG renderer) at ${W}×${H}…`);
+        const anim   = await loadLottie(W, H);
+        const host   = $('lottie-svg-host');
+        const serial = new XMLSerializer();
+        const totalFrames = anim.totalFrames;
+        log(`Total frames: ${totalFrames}  |  step: ${step}  |  output: ${Math.ceil(totalFrames / step)} files`);
+
+        const frames = [];
+        let written = 0;
+
+        for (let i = 0; i < totalFrames; i += step) {
+          anim.goToAndStop(i, true);
+          await raf();
+
+          const svgEl = host.querySelector('svg');
+          if (!svgEl) { log(`  frame ${i}: no <svg> found, skipping`); continue; }
+
+          const svgStr  = '<?xml version="1.0" encoding="UTF-8"?>\n' + serial.serializeToString(svgEl);
+          const blob    = new Blob([svgStr], { type: 'image/svg+xml' });
+          const pad      = String(i).padStart(4, '0');
+          const filename = `frame_${pad}.svg`;
+          await writeFile(dir, filename, blob);
+          frames.push(`/assets/scenarios/flood/${folderName}/${filename}`);
+          written++;
+
+          const pct = Math.round((written / Math.ceil(totalFrames / step)) * 99);
+          setBar(pct);
+          setStatus(`SVG: frame ${i + 1} / ${totalFrames} — ${written} written`);
+          if (written % 10 === 0) log(`  frame ${i} → ${filename} (${(blob.size / 1024).toFixed(0)} KB)`);
+        }
+
+        const manifest = JSON.stringify({ frames }, null, 2);
+        await writeFile(dir, 'manifest.json', new Blob([manifest], { type: 'application/json' }));
+        setBar(100);
+        setStatus(`Done! ${frames.length} SVG frames in "${folderName}/"`);
+        log(`\n✅ SVG export complete.\nAdd to context.yaml:\n  layer_type: svg_sequence\n  src: /assets/scenarios/flood/${folderName}/manifest.json`);
+        anim.destroy();
+      } catch (e) {
+        setStatus('Error: ' + e.message);
+        log('❌ ' + e);
+      } finally {
+        disableButtons(false);
+      }
+    });
+  </script>
+</body>
+</html>

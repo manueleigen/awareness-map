@@ -10,7 +10,6 @@ import {
 import { clearQuizAnswers } from "./ui.js";
 import { getAppScale } from "../screen-zoom.js";
 import { getLastLocationResult } from "./engine-core.js";
-import { rePreviewPOILayer } from "../layers.js";
 import {
 	getLocationSubmitLabel,
 	getStoryPointQuestion,
@@ -322,9 +321,7 @@ export function renderSelection(
 	);
 	clearQuizAnswers();
 
-	if (point.type === "point-selection-quiz") {
-		rePreviewPOILayer(point.target);
-	}
+
 
 	// Intelligent Default Selector Logic
 	const effectiveSelector =

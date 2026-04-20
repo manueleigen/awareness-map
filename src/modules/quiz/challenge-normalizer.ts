@@ -19,7 +19,9 @@ function normalizeLocalizedValue<T>(value: any): LocalizedValue<T> | undefined {
 	};
 }
 
-function normalizeLocalizedInlineText(value: any): LocalizedValue<LocalizedInlineText> | undefined {
+function normalizeLocalizedInlineText(
+	value: any,
+): LocalizedValue<LocalizedInlineText> | undefined {
 	if (!value || typeof value !== "object") return undefined;
 	return {
 		de: value.de
@@ -57,9 +59,9 @@ function normalizeStoryPoint(point: any): StoryPoint {
 	};
 }
 
-export function normalizeChallengeDefinition<T extends { story_points?: any[] }>(
-	data: T,
-): { story_points: StoryPoint[] } {
+export function normalizeChallengeDefinition<
+	T extends { story_points?: any[] },
+>(data: T): { story_points: StoryPoint[] } {
 	return {
 		story_points: Array.isArray(data.story_points)
 			? data.story_points.map(normalizeStoryPoint)
@@ -97,10 +99,12 @@ export function getQuizOptionLabel(option: QuizOption): string {
 }
 
 export function getLocationSubmitLabel(point: LocationStoryPoint): string {
-	return point.submit?.[app.language] ?? t("challenges.common.submit", "Check Answer");
+	return point.submit?.[app.language] ?? t("challenges.common.submit");
 }
 
-export function getChallengeIntroText(challenge: { story_points?: StoryPoint[] }): {
+export function getChallengeIntroText(challenge: {
+	story_points?: StoryPoint[];
+}): {
 	title?: string;
 	description?: string;
 } | null {

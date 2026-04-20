@@ -153,7 +153,7 @@ export async function ensureLayerBuilt(
 					}
 					break;
 
-				case "dynamic-image":
+				case "lottie-sequence":
 					const container = create("div");
 					container.id = `player-${config.id}`;
 					container.style.width = "100%";
@@ -167,6 +167,32 @@ export async function ensureLayerBuilt(
 						path: src,
 					});
 					break;
+				case "png-sequence":
+				case "svg-sequence": {
+					const seqContainer = create("div");
+					seqContainer.id = `player-${config.id}`;
+					seqContainer.className = "sequence-player";
+					try {
+						const manifest = await fetch(src).then((r) => r.json()) as { frames: string[] };
+						const frames: string[] = manifest.frames || [];
+						(seqContainer as any)._sequenceFrames = frames;
+						// Keep preloaded Image objects alive on the element to retain browser cache
+						(seqContainer as any)._sequencePreloaded = frames.map((frameSrc: string) => {
+							const img = new Image();
+							img.src = frameSrc;
+							return img;
+						});
+						const frameImg = create("img");
+						frameImg.className = "sequence-frame";
+						if (frames.length > 0) frameImg.src = frames[0];
+						seqContainer.append(frameImg);
+					} catch (e) {
+						console.warn(`[${config.type}] Failed to load manifest: ${src}`, e);
+						(seqContainer as any)._sequenceFrames = [];
+					}
+					wrapper.append(seqContainer);
+					break;
+				}
 				case "locations":
 					const poiContainer = await renderPOILayer(src, ctxLayer, config.id);
 					wrapper.append(poiContainer);
@@ -463,9 +489,10 @@ export function previewActivePOILayers(): void {
 export function rePreviewPOILayer(layerSelector: string): void {
 	const layerId = layerSelector.replace(/^#layer-/, "").trim();
 	if (!layerId) return;
+	if (layerPreviewDone.has(layerId)) return; // already previewed in this challenge run
 	const layerEl = layerElements.get(layerId);
 	if (!layerEl || layerEl.classList.contains("hidden")) return;
-	layerPreviewDone.add(layerId); // prevent double-trigger from previewActivePOILayers
+	layerPreviewDone.add(layerId);
 	previewPOILayer(layerEl);
 }
 

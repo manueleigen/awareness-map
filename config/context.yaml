@@ -65,7 +65,7 @@ scenarios:
   flood:
     layers:
       flood_simulation:
-        layer_type: timeline_animation
+        layer_type: png_sequence
         available_from: scenario
         toggle: available
         label:
@@ -76,7 +76,7 @@ scenarios:
         initially_visible: true
         z_index: 78
         toggle_order: 3
-        src: /assets/scenarios/flood/flood_simulation.json
+        src: /assets/scenarios/flood/flood_sim_png/manifest.json
         icon: /assets/icons/flood.svg
         slider_icon: /assets/icons/flood-slider.svg
 

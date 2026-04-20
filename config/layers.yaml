@@ -12,11 +12,21 @@ layer_types:
     type: areas
     interaction: inspect-area
 
-  timeline_animation:
-    type: dynamic-image
+  lottie_sequence:
+    type: lottie-sequence
     interaction: timeline
     playback_control: true
 
   pulsing_overlay:
     type: pulsing-image
     interaction: inspect-area
+
+  png_sequence:
+    type: png-sequence
+    interaction: timeline
+    playback_control: true
+
+  svg_sequence:
+    type: svg-sequence
+    interaction: timeline
+    playback_control: true

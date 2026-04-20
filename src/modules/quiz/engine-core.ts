@@ -91,7 +91,15 @@ export async function runQuiz(
 	(await getRoleActiveLayerIds()).forEach((id) => app.activeLayers.add(id));
 
 	clearQuizAnswers();
-	await loadPoint("intro");
+
+	// The intro step's text is already shown in renderMapUI (map view), so skip re-rendering
+	// it as the first quiz step. Jump directly to intro's next step.
+	const introPoint = currentStoryPoints.find(
+		(p) => p.id === "intro" && p.type === "info",
+	);
+	const firstStepId =
+		introPoint && typeof introPoint.next === "string" ? introPoint.next : "intro";
+	await loadPoint(firstStepId);
 }
 
 /**

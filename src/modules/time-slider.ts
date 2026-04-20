@@ -74,7 +74,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
         // 2. Pointer Capture: Keeps the slider attached to the finger even if it slides far off-track.
         try { range.setPointerCapture(e.pointerId); } catch(err) {}
 
-        if (cachedCore && !cachedCore.isPaused) cachedCore.pause();
+        if (cachedCore && !cachedCore.isPaused) cachedCore.pause(); // no-op for frame sequences
 
         performUpdate();
     });
@@ -94,6 +94,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
 
     let lottieTicking = false;
     let cachedCore: any = null;
+    let cachedSeqPlayer: HTMLElement | null = null;
     let cachedWidth: number = 0;
 
     const syncThumb = () => {
@@ -101,11 +102,18 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
         updateThumbPosition(range, thumbIcon, cachedWidth);
     };
 
-    const syncLottieFrame = () => {
+    const syncFrame = () => {
+        const val = parseFloat(range.value);
         if (cachedCore) {
-            const val = parseFloat(range.value);
             const totalFrames = cachedCore.totalFrames || 100;
             cachedCore.goToAndStop(Math.round((val / 100) * (totalFrames - 1)), true);
+        } else if (cachedSeqPlayer) {
+            const frames = (cachedSeqPlayer as any)._sequenceFrames as string[];
+            if (frames && frames.length > 0) {
+                const frameIndex = Math.round((val / 100) * (frames.length - 1));
+                const img = cachedSeqPlayer.querySelector<HTMLImageElement>('.sequence-frame');
+                if (img) img.src = frames[frameIndex];
+            }
         }
         lottieTicking = false;
     };
@@ -113,7 +121,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     const performUpdate = () => {
         syncThumb();
         if (!lottieTicking) {
-            requestAnimationFrame(syncLottieFrame);
+            requestAnimationFrame(syncFrame);
             lottieTicking = true;
         }
     };
@@ -121,7 +129,7 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     range.addEventListener('input', () => {
         syncThumb();
         if (!lottieTicking) {
-            requestAnimationFrame(syncLottieFrame);
+            requestAnimationFrame(syncFrame);
             lottieTicking = true;
         }
     });
@@ -129,14 +137,19 @@ export function buildSlider(config: LayerConfig, ctxLayer: ContextLayer | null):
     // Handle layout changes
     window.addEventListener('resize', () => { cachedWidth = 0; });
 
-    // Link slider to its corresponding Lottie player
-    const player = document.getElementById(`player-${config.id}`) as any;
+    // Link slider to Lottie player or frame sequence container
+    const player = document.getElementById(`player-${config.id}`) as HTMLElement | null;
     if (player) {
-        waitForPlayerReady(player).then(core => {
-            cachedCore = core;
-            if (!core.isPaused) core.pause();
+        if ((player as any)._sequenceFrames !== undefined) {
+            cachedSeqPlayer = player;
             performUpdate();
-        }).catch(() => {});
+        } else {
+            waitForPlayerReady(player).then(core => {
+                cachedCore = core;
+                if (!core.isPaused) core.pause();
+                performUpdate();
+            }).catch(() => {});
+        }
     }
 
     return sliderWrapper;

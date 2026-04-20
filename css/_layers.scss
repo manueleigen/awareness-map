@@ -137,6 +137,24 @@
 	transition-duration: 900ms; // overridden by JS
 }
 
+// ── PNG / SVG Sequence ────────────────────────────────────────────────────────
+.layer-png-sequence,
+.layer-svg-sequence {
+	.sequence-player {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+
+	.sequence-frame {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
 // ── Pulsing Drone Feed ────────────────────────────────────────────────────────
 // Grid stacking: both images occupy the same cell, no position:absolute needed.
 .layer-pulsing-image {

@@ -135,7 +135,7 @@ export async function startBackgroundPreload() {
                 try {
                     if (type === 'static-image' || type === 'population-density') {
                         await preloadIMAGE(src);
-                    } else if (type === 'areas' || type === 'dynamic-image') {
+                    } else if (type === 'areas' || type === 'lottie-sequence') {
                         await loadTEXT(src);
                     } else if (type === 'locations') {
                         await loadJSON(src);

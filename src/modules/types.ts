@@ -75,7 +75,7 @@ export interface LayerTypesFile {
 export interface LayerConfig {
 	id: string;
 	class: string;
-	type: "static-image" | "pulsing-image" | "dynamic-image" | "locations" | "areas";
+	type: "static-image" | "pulsing-image" | "lottie-sequence" | "locations" | "areas" | "png-sequence" | "svg-sequence";
 	toggle: "available" | "deactivated" | "hidden" | "none";
 	available_from?: "scenario" | "role" | "global";
 	interaction: "none" | "all" | "timeline" | "areas" | "locations" | string;
