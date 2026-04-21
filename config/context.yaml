@@ -61,6 +61,9 @@ global:
       src: /assets/scenarios/global/density.webp
       icon: /assets/icons/population_density.svg
 
+
+
+
 scenarios:
   flood:
     layers:
@@ -143,9 +146,41 @@ scenarios:
             src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 
   blackout:
-    active: false
-    layers: {}
-    roles: {}
+    active: true
+
+    layers:
+      critical_sites_THW:
+        layer_type: locations
+        available_from: role
+        toggle: available
+        label:
+          de: "Kritische\nStandorte"
+          en: "Critical\nSites"
+        initially_visible: true
+        z_index: 100
+        toggle_order: 4
+        src: /assets/scenarios/blackout/THW/critical_sites.json
+        icon: /assets/icons/critical_sites.svg
+        poi_icon: /assets/icons/marker_poi.svg
+    roles:
+      thw:
+        layers:
+          critical_sites_THW:
+            layer_type: locations
+            available_from: role
+            toggle: available
+            label:
+              de: "Kritische\nStandorte"
+              en: "Critical\nSites"
+            initially_visible: true
+            z_index: 100
+            toggle_order: 4
+            src: /assets/scenarios/blackout/THW/critical_sites.json
+            icon: /assets/icons/critical_sites.svg
+            poi_icon: /assets/icons/marker_poi.svg
+
+
+      
 
   mass_event:
     active: false

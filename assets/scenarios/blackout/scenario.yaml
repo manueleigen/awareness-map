@@ -1,12 +1,37 @@
 id: blackout
-active: false
+active: true
 
 text:
   de:
     short_title: Blackout
     title: Der Strom fällt aus
-    description: ""
+    description: "Hier ist Test Text"
   en:
     short_title: Blackout
     title: The Power Goes Out
-    description: ""
+    description: "This is a test description"
+
+roles:
+  fire_brigade:
+    text:
+      de:
+        title: THW
+      en:
+        title: THW
+    challenge: ./THW/challenge.yaml
+
+  crisis_unit:
+    text:
+      de:
+        title: Krisenstab
+      en:
+        title: Crisis Unit
+    challenge: ./THW/challenge.yaml
+
+  police:
+    text:
+      de:
+        title: PSNV
+      en:
+        title: PSNV
+    challenge: ./THW/challenge.yaml
