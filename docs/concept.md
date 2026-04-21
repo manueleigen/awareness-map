@@ -21,11 +21,11 @@ The interface is purpose-built for a 65-inch touch table:
 ## 4. Museum Constraints
 - **Offline Reliability:** All assets are stored locally for 100% uptime without internet.
 - **High Visual Impact:** Uses Lottie animations and SVG filters to create a "living" map that attracts visitors.
-- **Ease of Content Updates:** Non-developers can update stories or swap assets via YAML configuration files.
+- **Ease of Content Updates:** Non-developers can update stories or swap assets via YAML configuration files. → **[authoring-guide.md](./authoring-guide.md)**
 
 ---
 **Project Documentation:**
-- **Readme:** Overview, installation, and project structure.
-- **Context:** Technical architecture, state management, and module logic.
-- **Concept:** Vision, storytelling, and UI/UX design goals.
-- **Todo:** Current status, milestones, and upcoming tasks.
+- **[README.md](../README.md):** Installation and quick start.
+- **[concept.md](./concept.md):** Vision, storytelling, and UI/UX goals.
+- **[authoring-guide.md](./authoring-guide.md):** How to create scenarios, challenges, and POI content.
+- **[developer-guide.md](./developer-guide.md):** Module map, layer system, quiz engine, and extension guides.

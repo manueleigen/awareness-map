@@ -203,7 +203,7 @@ const PointSelectionQuizStoryPointSchema = z.object({
 	minSelection: z.number(),
 	maxSelection: z.number(),
 	next: QuizOutcomeMapSchema.optional(),
-});
+}).strict();
 
 export const StoryPointSchema = z.discriminatedUnion("type", [
 	InfoStoryPointSchema,

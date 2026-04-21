@@ -17,21 +17,15 @@ https://github.com/IMAGINARY/kiosk-browser/releases/tag/v0.19.0-alpha.1
 5. **Access:** Open `http://localhost:3000/` in a Chromium-based browser (optimized for 3840x2160).
 
 ## Project Structure
-- **/assets/layers/**: Core map assets (SVG, PNG, JSON).
-- **/assets/icons/**: UI and marker icons.
-- **/config/**: YAML files for layers, context mappings, and translations.
+- **/assets/scenarios/**: Per-scenario assets, YAML configs, and location JSON.
+- **/assets/icons/**: SVG icons for markers and layer toggles.
+- **/config/**: Global YAML files (`layers.yaml`, `context.yaml`, `content.*.yaml`).
 - **/css/**: 4K-optimized stylesheets using `vw` and `rem` units.
-- **/src/modules/**: TypeScript source code (Logic, State, Rendering).
-- **/src/modules/dotlottie/**: Local Lottie Web Component libraries.
-
-## Key Technical Concepts
-- **Offline Reliability:** All libraries and assets are bundled locally.
-- **Context-Driven:** Visibility and availability of layers are controlled via `config/context.yaml` using the `initially_visible` flag.
-- **Performance:** Time-sliders are optimized with `requestAnimationFrame` to ensure 60fps on 4K displays.
+- **/src/modules/**: TypeScript source code.
+- **/docs/**: Project documentation (see below).
 
 ---
 **Project Documentation:**
-- **Readme:** Overview, installation, and project structure.
-- **Context:** Technical architecture, state management, and module logic.
-- **Concept:** Vision, storytelling, and UI/UX design goals.
-- **Todo:** Current status, milestones, and upcoming tasks.
+- **[docs/concept.md](./docs/concept.md):** Vision, storytelling, and UI/UX goals.
+- **[docs/authoring-guide.md](./docs/authoring-guide.md):** How to create scenarios, challenges, and POI content.
+- **[docs/developer-guide.md](./docs/developer-guide.md):** Module map, layer system, quiz engine, and extension guides.
