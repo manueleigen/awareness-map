@@ -12,7 +12,7 @@ text:
     description: "This is a test description"
 
 roles:
-  fire_brigade:
+  thw:
     text:
       de:
         title: THW
