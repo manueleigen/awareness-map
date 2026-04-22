@@ -62,7 +62,7 @@ story_points:
       all-wrong: fail-screen-1
 
   - id: win-screen
-    type: info
+    type: end-screen
     activeLayerIds: [flood_fire_brigade_emergency_calls]
     text:
       de:
@@ -79,7 +79,7 @@ story_points:
           **Well done!**
 
   - id: half-fail-screen
-    type: info
+    type: end-screen
     text:
       de:
         title: Teilweise richtig
@@ -95,7 +95,7 @@ story_points:
           **Pay attention to which areas will be flooded very soon!**
 
   - id: half-wrong-screen
-    type: info
+    type: end-screen
     text:
       de:
         title: Einsatzkräfte in Gefahr
@@ -115,7 +115,7 @@ story_points:
           **Select a different emergency call.**
 
   - id: fail-screen-wrong-neutral
-    type: info
+    type: end-screen
     text:
       de:
         title: Einsatzkräfte in Gefahr
@@ -135,7 +135,7 @@ story_points:
           **Select two different emergency calls.**
 
   - id: fail-screen-all-neutral
-    type: info
+    type: end-screen
     text:
       de:
         title: Vergeudete Ressourcen
@@ -151,7 +151,7 @@ story_points:
           **Select two different emergency calls that affect many people and will be flooded soon.**
 
   - id: fail-screen-1
-    type: info
+    type: end-screen
     text:
       de:
         title: Fehlgeschlagen

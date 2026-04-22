@@ -35,7 +35,7 @@ let lastLocationResult: { x: number; y: number; maxDistance: number } | null =
 export function refreshCurrentPoint(): void {
 	if (!currentPoint || !currentContent || !currentControls || !currentOnAction)
 		return;
-	if (currentPoint.type === "info")
+	if (currentPoint.type === "info" || currentPoint.type === "end-screen")
 		renderInfo(currentContent, currentControls, currentPoint, currentOnAction);
 	else if (currentPoint.type === "quiz")
 		renderChoice(
@@ -189,7 +189,7 @@ async function loadPoint(id: string): Promise<void> {
 	currentOnAction = onAction;
 
 	// Delegate to specialized renderers
-	if (point.type === "info")
+	if (point.type === "info" || point.type === "end-screen")
 		renderInfo(currentContent, currentControls, point, onAction);
 	else if (point.type === "quiz")
 		renderChoice(currentContent, currentControls, point, onAction);
@@ -207,7 +207,7 @@ async function loadPoint(id: string): Promise<void> {
  */
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
-	if (!point.next) {
+	if (point.type === "end-screen" || !point.next) {
 		// Cleanup layers from the final step before finishing
 		if (app.quizStepLayers.size > 0) {
 			app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));

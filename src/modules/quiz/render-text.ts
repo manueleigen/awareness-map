@@ -2,7 +2,7 @@ import { create } from "../lib.js";
 import { addPointerClick, addDelayedPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import { renderBlockText, renderInlineText } from "../rich-text.js";
-import { InfoStoryPoint, QuizStoryPoint } from "./types.js";
+import { InfoStoryPoint, QuizStoryPoint, EndScreenStoryPoint } from "./types.js";
 import { backToRoles } from "../info-box.js";
 import {
 	getQuizOptionLabel,
@@ -17,7 +17,7 @@ import {
 export function renderInfo(
 	content: HTMLElement,
 	controls: HTMLElement,
-	point: InfoStoryPoint,
+	point: InfoStoryPoint | EndScreenStoryPoint,
 	onAction: (isCorrect: boolean) => void,
 ): void {
 	content.innerHTML = "";

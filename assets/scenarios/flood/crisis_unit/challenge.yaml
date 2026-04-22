@@ -128,7 +128,7 @@ story_points:
       wrong: fail-screen-3
 
   - id: win-screen
-    type: info
+    type: end-screen
     activeLayerIds: [flood_crisis_unit_drone_feed]
     text:
       de:
@@ -145,7 +145,7 @@ story_points:
           Your decisions closed a critical information gap, **and emergency responders are now better able to act.**
 
   - id: fail-screen-1
-    type: info
+    type: end-screen
     text:
       de:
         title: Das war keine gute Entscheidung
@@ -161,7 +161,7 @@ story_points:
           Even sharing it internally with the fire department and police can trigger premature or misguided actions.
 
   - id: fail-screen-2
-    type: info
+    type: end-screen
     text:
       de:
         title: Fehlgeschlagen
@@ -177,7 +177,7 @@ story_points:
           **Review the social media posts** to assess where a breach in the flood protection system is most likely.
 
   - id: fail-screen-3
-    type: info
+    type: end-screen
     activeLayerIds: [flood_crisis_unit_drone_feed]
     text:
       de:

@@ -143,7 +143,7 @@ scenarios:
             src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 
   blackout:
-    layers:
+    layers: {}
     roles:
       thw:
         layers:
@@ -155,7 +155,7 @@ scenarios:
               de: "Kritische\nStandorte"
               en: "Critical\nSites"
             initially_visible: true
-            z_index: 100
+            z_index: 101
             toggle_order: 4
             src: /assets/scenarios/blackout/THW/critical_sites.json
             icon: /assets/icons/critical_sites.svg

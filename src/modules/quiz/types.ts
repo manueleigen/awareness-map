@@ -1,4 +1,4 @@
-export type StoryPointType = 'info' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'location-quiz';
+export type StoryPointType = 'info' | 'end-screen' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'location-quiz';
 
 export type QuizOutcome = "right" | "wrong" | "half" | "half-wrong" | "wrong-neutral" | "all-neutral" | "all-wrong";
 
@@ -47,6 +47,11 @@ export interface InfoStoryPoint extends BaseStoryPoint {
     type: 'info';
 }
 
+export interface EndScreenStoryPoint extends BaseStoryPoint {
+    type: 'end-screen';
+    next?: never;
+}
+
 export interface QuizStoryPoint extends BaseStoryPoint {
     type: 'quiz';
     next: NextConfig;
@@ -82,4 +87,4 @@ export interface SelectionStoryPoint extends BaseStoryPoint {
     maxSelection?: number;
 }
 
-export type StoryPoint = InfoStoryPoint | QuizStoryPoint | LocationStoryPoint | SelectionStoryPoint;
+export type StoryPoint = InfoStoryPoint | EndScreenStoryPoint | QuizStoryPoint | LocationStoryPoint | SelectionStoryPoint;

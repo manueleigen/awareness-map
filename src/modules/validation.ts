@@ -21,74 +21,56 @@ function zodErrors(file: string, error: ZodError): ValidationError[] {
 	}));
 }
 
-export function validateContextYaml(
-	file: string,
-	data: unknown,
-): ValidationError[] {
+export function validateContextYaml(file: string, data: unknown): ValidationError[] {
 	const result = ProjectContextDefinitionSchema.safeParse(data);
 	return result.success ? [] : zodErrors(file, result.error);
 }
 
-export function validateLayersYaml(
-	file: string,
-	data: unknown,
-): ValidationError[] {
+export function validateLayersYaml(file: string, data: unknown): ValidationError[] {
 	const result = LayersYamlSchema.safeParse(data);
 	return result.success ? [] : zodErrors(file, result.error);
 }
 
-export function validateScenarioYaml(
-	file: string,
-	data: unknown,
-): ValidationError[] {
+export function validateScenarioYaml(file: string, data: unknown): ValidationError[] {
 	const result = ScenarioDefinitionSchema.safeParse(data);
 	return result.success ? [] : zodErrors(file, result.error);
 }
 
-export function validateChallengeYaml(
-	file: string,
-	data: unknown,
-): ValidationError[] {
+export function validateChallengeYaml(file: string, data: unknown): ValidationError[] {
 	const result = ChallengeYamlSchema.safeParse(data);
-	return result.success ? [] : zodErrors(file, result.error);
-}
-
-export function validateLocationJson(
-	file: string,
-	data: unknown,
-): ValidationError[] {
-	const result = LocationJsonSchema.safeParse(data);
 	return result.success ? [] : zodErrors(file, result.error);
 }
 
 // ─── Relational validation (business logic) ───────────────────────────────────
 
-/** All layer IDs declared in context.yaml, collected once for cross-checks. */
-function collectLayerIds(context: ProjectContextDefinition): Set<string> {
-	const ids = new Set<string>();
-	const addLayers = (layers: Record<string, unknown> = {}) =>
-		Object.keys(layers).forEach((id) => ids.add(id));
+/** All layer IDs and their definitions declared in context.yaml. */
+export function collectLayerMap(context: ProjectContextDefinition): Map<string, any> {
+	const layers = new Map<string, any>();
+	const addLayers = (l: Record<string, any> | undefined) => {
+		if (l) Object.entries(l).forEach(([id, def]) => layers.set(id, def));
+	};
 
 	addLayers(context.global?.layers);
 	Object.values(context.scenarios ?? {}).forEach((scenario) => {
 		addLayers(scenario.layers);
 		Object.values(scenario.roles ?? {}).forEach((role) => addLayers(role.layers));
 	});
-	return ids;
+	return layers;
 }
 
 export function validateChallengeRelations(
 	file: string,
 	challenge: ChallengeYaml,
-	knownLayerIds: Set<string>,
+	knownLayers: Map<string, any>,
 ): ValidationError[] {
 	const errors: ValidationError[] = [];
 	const pointIds = new Set(challenge.story_points.map((p) => p.id));
+	const knownLayerIds = new Set(knownLayers.keys());
 
 	for (const point of challenge.story_points) {
 		const at = `story_points[${point.id}]`;
 
-		// slider_time_layer must reference a real layer
+		// 1. Layer existence
 		if (point.slider_time_layer && !knownLayerIds.has(point.slider_time_layer)) {
 			errors.push({
 				file,
@@ -96,8 +78,6 @@ export function validateChallengeRelations(
 				message: `Layer "${point.slider_time_layer}" is not defined in context.yaml`,
 			});
 		}
-
-		// activeLayerIds must reference real layers
 		for (const layerId of point.activeLayerIds ?? []) {
 			if (!knownLayerIds.has(layerId)) {
 				errors.push({
@@ -108,17 +88,45 @@ export function validateChallengeRelations(
 			}
 		}
 
-		// next strings must reference existing point IDs
-		if (typeof point.next === "string") {
-			if (!pointIds.has(point.next)) {
+		// 2. Quiz Flow Integrity (Dead ends)
+		if (point.type !== "end-screen" && !point.next) {
+			errors.push({
+				file,
+				path: at,
+				message: `Story point of type "${point.type}" is not terminal but has no "next" destination`,
+			});
+		}
+
+		// 3. Timeline Consistency
+		if (point.slider_time && point.slider_time_layer) {
+			const layer = knownLayers.get(point.slider_time_layer);
+			if (layer && layer.start_time && layer.end_time) {
+				const parse = (t: string) => parseInt(t.replace(":", ""), 10);
+				const current = parse(point.slider_time);
+				const start = parse(layer.start_time);
+				const end = parse(layer.end_time);
+				if (current < start || current > end) {
+					errors.push({
+						file,
+						path: `${at}.slider_time`,
+						message: `Time "${point.slider_time}" is outside layer bounds (${layer.start_time} - ${layer.end_time})`,
+					});
+				}
+			}
+		}
+
+		// 4. Next strings must reference existing point IDs
+		const pointWithNext = point as any;
+		if (typeof pointWithNext.next === "string") {
+			if (!pointIds.has(pointWithNext.next)) {
 				errors.push({
 					file,
 					path: `${at}.next`,
-					message: `References unknown story point "${point.next}"`,
+					message: `References unknown story point "${pointWithNext.next}"`,
 				});
 			}
-		} else if (point.next && typeof point.next === "object") {
-			for (const [outcome, targetId] of Object.entries(point.next)) {
+		} else if (pointWithNext.next && typeof pointWithNext.next === "object") {
+			for (const [outcome, targetId] of Object.entries(pointWithNext.next as Record<string, string>)) {
 				if (targetId && !pointIds.has(targetId)) {
 					errors.push({
 						file,
@@ -129,10 +137,10 @@ export function validateChallengeRelations(
 			}
 		}
 
-		// solution IDs must not overlap with wrong_options (selection quiz types only)
+		// 5. Solution IDs must not overlap with wrong_options
 		if (point.type === "area-selection-quiz" || point.type === "point-selection-quiz") {
 			const overlap = point.solution.filter((id) =>
-				point.wrong_options.includes(id),
+				point.wrong_options?.includes(id),
 			);
 			if (overlap.length > 0) {
 				errors.push({
@@ -150,7 +158,8 @@ export function validateChallengeRelations(
 export function validateScenarioRelations(
 	file: string,
 	scenario: ScenarioDefinition,
-	_knownLayerIds: Set<string>,
+	_scenarioId: string,
+	_context: ProjectContextDefinition,
 ): ValidationError[] {
 	const errors: ValidationError[] = [];
 
@@ -175,10 +184,38 @@ export function validateContextRelations(
 	context: ProjectContextDefinition,
 ): ValidationError[] {
 	const errors: ValidationError[] = [];
-	const layerIds = collectLayerIds(context);
+	const layerMap = collectLayerMap(context);
+	const layerIds = new Set(layerMap.keys());
+
+	// 1. Z-Index Conflicts (only for layers from active scenarios or global)
+	const zIndices = new Map<number, string>();
+	const checkLayer = (id: string, def: any) => {
+		if (def.z_index !== undefined) {
+			if (zIndices.has(def.z_index)) {
+				errors.push({
+					file,
+					path: `layers.${id}.z_index`,
+					message: `Z-Index ${def.z_index} conflict with layer "${zIndices.get(def.z_index)}"`,
+				});
+			} else {
+				zIndices.set(def.z_index, id);
+			}
+		}
+	};
+
+	if (context.global?.layers) {
+		Object.entries(context.global.layers).forEach(([id, def]) => checkLayer(id, def));
+	}
 
 	for (const [scenarioId, scenario] of Object.entries(context.scenarios ?? {})) {
+		if (scenario.active === false) continue;
+		if (scenario.layers) {
+			Object.entries(scenario.layers).forEach(([id, def]) => checkLayer(id, def));
+		}
 		for (const [roleId, role] of Object.entries(scenario.roles ?? {})) {
+			if (role.layers) {
+				Object.entries(role.layers).forEach(([id, def]) => checkLayer(id, def));
+			}
 			for (const excludedId of role.exclude_layers ?? []) {
 				if (!layerIds.has(excludedId)) {
 					errors.push({
@@ -194,22 +231,42 @@ export function validateContextRelations(
 	return errors;
 }
 
-export function validateScenarioContextRoles(
+export function validateLocationJson(
 	file: string,
-	scenario: ScenarioDefinition,
-	contextRoleIds: Set<string>,
+	data: any,
+	layerDef?: any,
 ): ValidationError[] {
-	const errors: ValidationError[] = [];
-	for (const roleId of Object.keys(scenario.roles ?? {})) {
-		if (!contextRoleIds.has(roleId)) {
-			errors.push({
-				file,
-				path: `roles.${roleId}`,
-				message: `Role "${roleId}" is defined in scenario.yaml but missing from context.yaml — layers for this role will not load`,
-			});
-		}
+	const result = LocationJsonSchema.safeParse(data);
+	const errors: ValidationError[] = result.success ? [] : zodErrors(file, result.error);
+
+	if (Array.isArray(data)) {
+		data.forEach((loc, idx) => {
+			const path = `[${idx}]`;
+			// 1. Status POI Icon Check
+			if (loc.status && layerDef?.status_poi_icons) {
+				if (!layerDef.status_poi_icons[loc.status]) {
+					errors.push({
+						file,
+						path: `${path}.status`,
+						message: `Status "${loc.status}" has no corresponding icon in layer definition`,
+					});
+				}
+			}
+
+			// 2. Status Translation Check
+			if (loc.status && loc.status_translations) {
+				if (!loc.status_translations[loc.status]) {
+					errors.push({
+						file,
+						path: `${path}.status_translations`,
+						message: `Current status "${loc.status}" is missing from status_translations`,
+					});
+				}
+			}
+		});
 	}
+
 	return errors;
 }
 
-export { collectLayerIds };
+export { collectLayerMap as collectLayerIds };

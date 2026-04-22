@@ -56,7 +56,7 @@ story_points:
       all-wrong: fail-screen-all-neutral
 
   - id: win-screen
-    type: info
+    type: end-screen
     activeLayerIds: [flood_police_evacuation_zones]
     text:
       de:
@@ -69,7 +69,7 @@ story_points:
           You prioritized the most severely threatened residential areas and took critical infrastructure into account.
 
   - id: half-fail-screen
-    type: info
+    type: end-screen
     text:
       de:
         title: Teilweise richtig
@@ -85,7 +85,7 @@ story_points:
           **Focus on densely populated areas that will be flooded soon.**
 
   - id: fail-screen-all-neutral
-    type: info
+    type: end-screen
     text:
       de:
         title: Ressourcen verschwendet

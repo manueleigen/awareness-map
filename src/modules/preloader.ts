@@ -11,9 +11,13 @@ import {
 	validateContextRelations,
 	validateScenarioRelations,
 	validateChallengeRelations,
-	validateScenarioContextRoles,
-	collectLayerIds,
+	collectLayerMap,
 } from './validation.js';
+import {
+	validateI18nContext,
+	validateI18nScenario,
+	validateI18nChallenge,
+} from './validator-i18n.js';
 import { reportValidationErrors } from './error-overlay.js';
 
 /**
@@ -196,6 +200,7 @@ async function runDeepValidation(): Promise<void> {
     if (rawContext) {
         errors.push(...validateContextYaml("context.yaml", rawContext));
         errors.push(...validateContextRelations("context.yaml", rawContext));
+        errors.push(...validateI18nContext("context.yaml", rawContext));
     }
 
     // Validate layers.yaml structure
@@ -205,23 +210,31 @@ async function runDeepValidation(): Promise<void> {
     } catch { /* already logged by loadYAML */ }
 
     // Validate each scenario + challenge
-    const knownLayerIds = rawContext ? collectLayerIds(rawContext) : new Set<string>();
+    const knownLayers = rawContext ? collectLayerMap(rawContext) : new Map<string, any>();
     const scenarioIds = Object.keys(rawContext?.scenarios ?? {});
 
     for (const scenarioId of scenarioIds) {
         const scenarioFile = `assets/scenarios/${scenarioId}/scenario.yaml`;
         try {
-            const rawScenario = await loadYAML<unknown>(`/${scenarioFile}`);
-            if ((rawScenario as any)?.active === false) continue;
+            const rawScenario = await loadYAML<any>(`/${scenarioFile}`);
+            if (!rawScenario) continue;
+
+            // Skip all validation if scenario is marked inactive
+            if (rawScenario.active === false) continue;
+
             errors.push(...validateScenarioYaml(scenarioFile, rawScenario));
+            errors.push(...validateI18nScenario(scenarioFile, rawScenario));
 
-            // Always run relational checks even when structural errors exist —
-            // a single bad field shouldn't silence all downstream validation.
+            // Always run relational checks even when structural errors exist
             try {
-                errors.push(...validateScenarioRelations(scenarioFile, rawScenario as any, knownLayerIds));
-
-                const contextRoleIds = new Set(Object.keys(rawContext?.scenarios?.[scenarioId]?.roles ?? {}));
-                errors.push(...validateScenarioContextRoles(scenarioFile, rawScenario as any, contextRoleIds));
+                if (rawContext) {
+                    errors.push(...validateScenarioRelations(
+                        scenarioFile,
+                        rawScenario as any,
+                        scenarioId,
+                        rawContext
+                    ));
+                }
 
                 const roles = (rawScenario as any).roles;
                 if (!roles || typeof roles !== "object" || Array.isArray(roles)) continue;
@@ -234,11 +247,12 @@ async function runDeepValidation(): Promise<void> {
                     try {
                         const rawChallenge = await loadYAML<unknown>(challengePath);
                         errors.push(...validateChallengeYaml(challengeFile, rawChallenge));
+                        errors.push(...validateI18nChallenge(challengeFile, rawChallenge as any));
                         try {
                             errors.push(...validateChallengeRelations(
                                 challengeFile,
                                 rawChallenge as any,
-                                knownLayerIds,
+                                knownLayers,
                             ));
                         } catch { /* structure too broken for relational checks */ }
                     } catch { /* logged by loadYAML */ }
@@ -248,25 +262,15 @@ async function runDeepValidation(): Promise<void> {
     }
 
     // Validate all location JSON files discovered through layer assets
-    if (context) {
-        const locationSources = new Set<string>();
-        const scan = (layers: Record<string, ContextLayer>) => {
-            Object.entries(layers).forEach(([id, l]) => {
-                const config = layerDefinitions.find((d) => d.id === id);
-                if (config?.type === "locations" && l.src) locationSources.add(l.src);
-            });
-        };
-        if (context.global?.layers) scan(context.global.layers);
-        Object.values(context.scenarios).forEach((s) => {
-            if (s.layers) scan(s.layers);
-            Object.values(s.roles).forEach((r) => { if (r.layers) scan(r.layers); });
-        });
-
-        for (const src of locationSources) {
-            try {
-                const rawJson = await loadJSON<unknown>(src);
-                errors.push(...validateLocationJson(src, rawJson));
-            } catch { /* logged by loadJSON */ }
+    if (rawContext) {
+        const layerMap = collectLayerMap(rawContext);
+        for (const [id, l] of layerMap.entries()) {
+            if (l.layer_type === "locations" && l.src) {
+                try {
+                    const rawJson = await loadJSON<unknown>(l.src);
+                    errors.push(...validateLocationJson(l.src, rawJson, l));
+                } catch { /* logged by loadJSON */ }
+            }
         }
     }
 

@@ -47,6 +47,7 @@ export const ContextRoleDefinitionSchema = z.object({
 });
 
 export const ContextScenarioDefinitionSchema = z.object({
+	active: z.boolean().optional(),
 	layers: z.record(z.string(), ContextLayerDefinitionSchema).optional(),
 	roles: z.record(z.string(), ContextRoleDefinitionSchema).optional(),
 });
@@ -159,6 +160,13 @@ const InfoStoryPointSchema = z.object({
 	next: z.union([z.string(), QuizOutcomeMapSchema]).optional(),
 }).strict();
 
+const EndScreenStoryPointSchema = z.object({
+	...storyPointBase,
+	type: z.literal("end-screen"),
+	text: StoryPointTextSchema.optional(),
+	// No 'next' allowed here
+}).strict();
+
 const QuizStoryPointSchema = z.object({
 	...storyPointBase,
 	type: z.literal("quiz"),
@@ -206,6 +214,7 @@ const PointSelectionQuizStoryPointSchema = z.object({
 
 export const StoryPointSchema = z.discriminatedUnion("type", [
 	InfoStoryPointSchema,
+	EndScreenStoryPointSchema,
 	QuizStoryPointSchema,
 	LocationQuizStoryPointSchema,
 	AreaSelectionQuizStoryPointSchema,
