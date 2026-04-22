@@ -164,7 +164,7 @@ const EndScreenStoryPointSchema = z.object({
 	...storyPointBase,
 	type: z.literal("end-screen"),
 	text: StoryPointTextSchema.optional(),
-	// No 'next' allowed here
+	result: z.enum(["passed", "failed"]),
 }).strict();
 
 const QuizStoryPointSchema = z.object({

@@ -17,7 +17,8 @@ challenges:
   common:
     passed_msg: Challenge completed successfully!
     start_button: Start challenge
-    back_to_challenges: Back to roles
+    back_to_challenges: Back to start
+    try_again: Try again
     submit: Check answer
     selected_count: "Selected: {count}"
     click_to_place: Click to place a point.

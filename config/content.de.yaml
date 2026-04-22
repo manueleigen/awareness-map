@@ -17,7 +17,8 @@ challenges:
   common:
     passed_msg: Herausforderung erfolgreich abgeschlossen!
     start_button: Herausforderung starten
-    back_to_challenges: Zurück zu den Rollen
+    back_to_start: Zurück zum Start
+    try_again: Nochmal versuchen
     submit: Antwort prüfen
     selected_count: "Ausgewählt: {count}"
     click_to_place: Klicke, um einen Punkt zu setzen.

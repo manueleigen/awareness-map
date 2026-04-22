@@ -102,7 +102,7 @@ Layers are built once (`ensureLayerBuilt`) and then toggled via `syncActiveLayer
 
 Supports branching logic via the `next` field. 
 - **`info` points**: Progress on button click.
-- **`end-screen` points**: Signal the end of the challenge; clear quiz state.
+- **`end-screen` points**: Terminal step. `result: passed` → clears quiz state and calls `onFinish`. `result: failed` → engine redirects to `lastQuizPointId` (the last step with a branching `next` map) so the user retries without leaving the challenge.
 - **Outcome Logic**: Scores correct/wrong choices and selects the next point based on performance.
 
 ---

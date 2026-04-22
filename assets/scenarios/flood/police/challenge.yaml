@@ -57,6 +57,7 @@ story_points:
 
   - id: win-screen
     type: end-screen
+    result: passed
     activeLayerIds: [flood_police_evacuation_zones]
     text:
       de:
@@ -70,6 +71,7 @@ story_points:
 
   - id: half-fail-screen
     type: end-screen
+    result: failed
     text:
       de:
         title: Teilweise richtig
@@ -86,6 +88,7 @@ story_points:
 
   - id: fail-screen-all-neutral
     type: end-screen
+    result: failed
     text:
       de:
         title: Ressourcen verschwendet

@@ -49,6 +49,7 @@ export interface InfoStoryPoint extends BaseStoryPoint {
 
 export interface EndScreenStoryPoint extends BaseStoryPoint {
     type: 'end-screen';
+    result: 'passed' | 'failed';
     next?: never;
 }
 

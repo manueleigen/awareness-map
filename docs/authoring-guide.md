@@ -135,7 +135,14 @@ Challenges consist of `story_points`. The engine steps through them based on the
 A text screen with a "Continue" button. **Must have a `next` destination.**
 
 ### `end-screen`
-Final step of a challenge. Shows a "Back to Roles" button. **Must NOT have a `next` field.**
+Final step of a challenge. **Must NOT have a `next` field.** Requires a `result` field:
+
+```yaml
+result: passed   # challenge completed → "Back to Roles" button
+result: failed   # challenge failed   → "Try Again" button → engine reloads last quiz step
+```
+
+The engine tracks the last answerable quiz step (`lastQuizPointId`). On `result: failed`, it redirects there instead of exiting to the role-selection screen.
 
 ### `quiz`
 Multiple choice question.

@@ -2,14 +2,18 @@ import { create } from "../lib.js";
 import { addPointerClick, addDelayedPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import { renderBlockText, renderInlineText } from "../rich-text.js";
-import { InfoStoryPoint, QuizStoryPoint, EndScreenStoryPoint } from "./types.js";
-import { backToRoles } from "../info-box.js";
+import {
+	InfoStoryPoint,
+	QuizStoryPoint,
+	EndScreenStoryPoint,
+} from "./types.js";
 import {
 	getQuizOptionLabel,
 	getStoryPointDescription,
 	getStoryPointQuestion,
 	getStoryPointTitle,
 } from "./challenge-normalizer.js";
+import { resetApp } from "../info-box.js";
 
 /**
  * Renders a simple information screen with a continue button.
@@ -36,17 +40,18 @@ export function renderInfo(
 	renderBlockText(desc, getStoryPointDescription(point));
 	content.append(desc);
 
-	// In terminal steps (no next point), we show "Back to Roles".
-	// Otherwise, we show "Continue" (or "Start" for intro).
+	// In terminal steps (no next point), we show "Back to Roles" (passed) or
+	// "Try Again" (failed — engine-core will redirect to the last quiz point).
 	if (!point.next) {
 		const backBtn = create("button");
-		backBtn.innerText = t(
-			"challenges.common.back_to_challenges",
-			"Back to Roles",
+		const isFailed = (point as EndScreenStoryPoint).result === "failed";
+		backBtn.innerText = isFailed
+			? t("challenges.common.try_again")
+			: t("challenges.common.back_to_start");
+		addDelayedPointerClick(
+			backBtn,
+			isFailed ? () => onAction(true) : () => resetApp(),
 		);
-		addDelayedPointerClick(backBtn, async () => {
-			await backToRoles();
-		});
 		controls.append(backBtn);
 	} else {
 		// Determine the button key based on the step type

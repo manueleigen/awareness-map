@@ -208,12 +208,16 @@ async function loadPoint(id: string): Promise<void> {
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
 	if (point.type === "end-screen" || !point.next) {
+		if (point.type === "end-screen" && (point as any).result === "failed" && lastQuizPointId) {
+			loadPoint(lastQuizPointId);
+			return;
+		}
 		// Cleanup layers from the final step before finishing
 		if (app.quizStepLayers.size > 0) {
 			app.quizStepLayers.forEach((layerId) => app.activeLayers.delete(layerId));
 			app.quizStepLayers.clear();
 		}
-		if (currentOnFinish) currentOnFinish("passed"); // status is legacy/ignored
+		if (currentOnFinish) currentOnFinish("passed");
 		return;
 	}
 

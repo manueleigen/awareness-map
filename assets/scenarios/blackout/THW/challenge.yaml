@@ -59,6 +59,7 @@ story_points:
 
   - id: win-screen
     type: end-screen
+    result: passed
     activeLayerIds: [flood_fire_brigade_emergency_calls]
     text:
       de:
@@ -76,6 +77,7 @@ story_points:
 
   - id: half-fail-screen
     type: end-screen
+    result: failed
     text:
       de:
         title: Teilweise richtig
@@ -92,6 +94,7 @@ story_points:
 
   - id: half-wrong-screen
     type: end-screen
+    result: failed
     text:
       de:
         title: Einsatzkräfte in Gefahr
@@ -112,6 +115,7 @@ story_points:
 
   - id: fail-screen-wrong-neutral
     type: end-screen
+    result: failed
     text:
       de:
         title: Einsatzkräfte in Gefahr
@@ -132,6 +136,7 @@ story_points:
 
   - id: fail-screen-all-neutral
     type: end-screen
+    result: failed
     text:
       de:
         title: Vergeudete Ressourcen
@@ -148,6 +153,7 @@ story_points:
 
   - id: fail-screen-1
     type: end-screen
+    result: failed
     text:
       de:
         title: Fehlgeschlagen
