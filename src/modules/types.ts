@@ -76,7 +76,6 @@ export interface ScenarioContext {
 	layers: Record<string, ContextLayer>;
 	roles: Record<string, Role>;
 	quiz?: string;
-	active?: boolean;
 }
 
 /** The root structure for context.yaml. */

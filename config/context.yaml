@@ -61,9 +61,6 @@ global:
       src: /assets/scenarios/global/density.webp
       icon: /assets/icons/population_density.svg
 
-
-
-
 scenarios:
   flood:
     layers:
@@ -146,8 +143,6 @@ scenarios:
             src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 
   blackout:
-    active: true
-
     layers:
     roles:
       thw:
@@ -166,10 +161,6 @@ scenarios:
             icon: /assets/icons/critical_sites.svg
             poi_icon: /assets/icons/marker_poi.svg
 
-
-      
-
   mass_event:
-    active: false
     layers: {}
     roles: {}

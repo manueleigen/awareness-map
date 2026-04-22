@@ -11,7 +11,10 @@ import {
 import { renderPOILayer, hidePOIOverlay, previewPOILayer } from "./poi.js";
 import { clearQuizAnswers } from "./quiz/ui.js";
 import { getNormalizedContext, initContextLoader } from "./context-loader.js";
-import { getNormalizedLayerDefinitions, initLayerLoader } from "./layer-loader.js";
+import {
+	getNormalizedLayerDefinitions,
+	initLayerLoader,
+} from "./layer-loader.js";
 
 /** Local cache for layer definitions and project context. */
 export let layerDefinitions: LayerConfig[] = [];
@@ -100,42 +103,42 @@ export async function ensureLayerBuilt(
 		const src = ctxLayer?.src;
 		if (src) {
 			switch (config.type) {
-			case "static-image":
-				const img = create("img");
-				img.src = src;
-				img.onload = () =>
-					console.log(`[Image] ${src.split("/").pop()} loaded`);
-				img.onerror = () => {
-					console.warn(`Image missing or broken: ${src}`);
-					img.style.display = "none";
-				};
-				wrapper.append(img);
-				break;
-			case "pulsing-image": {
-				const baseImg = create("img");
-				baseImg.src = src;
-				baseImg.onload = () =>
-					console.log(`[Image] ${src.split("/").pop()} loaded`);
-				baseImg.onerror = () => {
-					console.warn(`Image missing or broken: ${src}`);
-					baseImg.style.display = "none";
-				};
-				wrapper.append(baseImg);
-				const overlaySrc = ctxLayer?.src_overlay;
-				if (overlaySrc) {
-					const overlayImg = create("img");
-					overlayImg.src = overlaySrc;
-					overlayImg.className = "pulsing-overlay";
-					overlayImg.onload = () =>
-						console.log(`[Image] ${overlaySrc.split("/").pop()} loaded`);
-					overlayImg.onerror = () => {
-						console.warn(`Image missing or broken: ${overlaySrc}`);
-						overlayImg.style.display = "none";
+				case "static-image":
+					const img = create("img");
+					img.src = src;
+					img.onload = () =>
+						console.log(`[Image] ${src.split("/").pop()} loaded`);
+					img.onerror = () => {
+						console.warn(`Image missing or broken: ${src}`);
+						img.style.display = "none";
 					};
-					wrapper.append(overlayImg);
+					wrapper.append(img);
+					break;
+				case "pulsing-image": {
+					const baseImg = create("img");
+					baseImg.src = src;
+					baseImg.onload = () =>
+						console.log(`[Image] ${src.split("/").pop()} loaded`);
+					baseImg.onerror = () => {
+						console.warn(`Image missing or broken: ${src}`);
+						baseImg.style.display = "none";
+					};
+					wrapper.append(baseImg);
+					const overlaySrc = ctxLayer?.src_overlay;
+					if (overlaySrc) {
+						const overlayImg = create("img");
+						overlayImg.src = overlaySrc;
+						overlayImg.className = "pulsing-overlay";
+						overlayImg.onload = () =>
+							console.log(`[Image] ${overlaySrc.split("/").pop()} loaded`);
+						overlayImg.onerror = () => {
+							console.warn(`Image missing or broken: ${overlaySrc}`);
+							overlayImg.style.display = "none";
+						};
+						wrapper.append(overlayImg);
+					}
+					break;
 				}
-				break;
-			}
 				case "areas":
 					const svg = await loadTEXT(src);
 					if (svg) {
@@ -174,15 +177,19 @@ export async function ensureLayerBuilt(
 					seqContainer.id = `player-${config.id}`;
 					seqContainer.className = "sequence-player";
 					try {
-						const manifest = await fetch(src).then((r) => r.json()) as { frames: string[] };
+						const manifest = (await fetch(src).then((r) => r.json())) as {
+							frames: string[];
+						};
 						const frames: string[] = manifest.frames || [];
 						(seqContainer as any)._sequenceFrames = frames;
 						// Keep preloaded Image objects alive on the element to retain browser cache
-						(seqContainer as any)._sequencePreloaded = frames.map((frameSrc: string) => {
-							const img = new Image();
-							img.src = frameSrc;
-							return img;
-						});
+						(seqContainer as any)._sequencePreloaded = frames.map(
+							(frameSrc: string) => {
+								const img = new Image();
+								img.src = frameSrc;
+								return img;
+							},
+						);
 						const frameImg = create("img");
 						frameImg.className = "sequence-frame";
 						if (frames.length > 0) frameImg.src = frames[0];
@@ -419,6 +426,7 @@ function getAvailableLayers(): LayerConfig[] {
 			(app.view === "role-select" || app.view === "map" || app.view === "quiz")
 		) {
 			const role = scenario.roles[app.currentRole];
+			if (!role) return layerDefinitions.filter((d) => availableIds.has(d.id) && !excludedIds.has(d.id));
 			if (role.layers) processLayers(role.layers);
 			(role.exclude_layers || []).forEach((id) => excludedIds.add(id));
 		}
@@ -552,17 +560,20 @@ export async function resetLayers(): Promise<void> {
 	});
 
 	// 5. Remove crosshair markers added by location/solution steps
-	document.querySelectorAll(".quiz-location-crosshair, .quiz-solution-crosshair").forEach((el) => el.remove());
+	document
+		.querySelectorAll(".quiz-location-crosshair, .quiz-solution-crosshair")
+		.forEach((el) => el.remove());
 
 	// 6. Reset POI-selection quiz mode
 	document.documentElement.dataset.quizPoiSelect = "0";
 	document.documentElement.dataset.quizPoiSelectTarget = "";
 
 	// 7. Release any slider locks from fixed story points or role entry
-	document.querySelectorAll<HTMLElement>('.slider-wrapper.slider-fixed').forEach((el) => {
-		el.classList.remove('slider-fixed');
-	});
-
+	document
+		.querySelectorAll<HTMLElement>(".slider-wrapper.slider-fixed")
+		.forEach((el) => {
+			el.classList.remove("slider-fixed");
+		});
 
 	// 6. Re-sync with context (restores initially_visible layers)
 	syncActiveLayers();

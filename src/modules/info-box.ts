@@ -20,6 +20,7 @@ import {
 	getQuizPath,
 	getRoleSliderConfig,
 	getRoleActiveLayerIds,
+	getScenarioDefinition,
 	getScenarioText,
 } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
@@ -109,11 +110,12 @@ export function renderHome(): void {
 			const btnTitle = scenarioText.short_title || scenarioText.title;
 			btn.innerText = btnTitle;
 
-			if (scenario.active === false) {
+			if (getScenarioDefinition(scenarioId)?.active === false) {
 				btn.classList.add("is-inactive");
 			} else {
 				addDelayedPointerClick(btn, async () => {
 					app.currentScenario = scenarioId;
+					app.currentRole = null;
 					app.view = "role-select";
 					await resetLayers();
 					await updateView();
@@ -195,7 +197,7 @@ export function renderRoleSelection(): void {
 					: fallbackTitle;
 		}
 
-		if (hasQuiz) {
+		if (hasQuiz && roleCTX) {
 			addDelayedPointerClick(btn, async () => {
 				app.currentRole = roleId;
 				app.view = "map";

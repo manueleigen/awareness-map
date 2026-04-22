@@ -194,4 +194,22 @@ export function validateContextRelations(
 	return errors;
 }
 
+export function validateScenarioContextRoles(
+	file: string,
+	scenario: ScenarioDefinition,
+	contextRoleIds: Set<string>,
+): ValidationError[] {
+	const errors: ValidationError[] = [];
+	for (const roleId of Object.keys(scenario.roles ?? {})) {
+		if (!contextRoleIds.has(roleId)) {
+			errors.push({
+				file,
+				path: `roles.${roleId}`,
+				message: `Role "${roleId}" is defined in scenario.yaml but missing from context.yaml — layers for this role will not load`,
+			});
+		}
+	}
+	return errors;
+}
+
 export { collectLayerIds };

@@ -5,11 +5,11 @@ text:
   de:
     short_title: Blackout
     title: Der Strom fällt aus
-    description: "Hier ist Test Text"
+    description: Hier ist Test Text
   en:
     short_title: Blackout
     title: The Power Goes Out
-    description: "This is a test description"
+    description: This is a test description
 
 roles:
   thw:

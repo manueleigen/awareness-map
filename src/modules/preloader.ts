@@ -11,6 +11,7 @@ import {
 	validateContextRelations,
 	validateScenarioRelations,
 	validateChallengeRelations,
+	validateScenarioContextRoles,
 	collectLayerIds,
 } from './validation.js';
 import { reportValidationErrors } from './error-overlay.js';
@@ -208,10 +209,10 @@ async function runDeepValidation(): Promise<void> {
     const scenarioIds = Object.keys(rawContext?.scenarios ?? {});
 
     for (const scenarioId of scenarioIds) {
-        if ((rawContext as any)?.scenarios?.[scenarioId]?.active === false) continue;
         const scenarioFile = `assets/scenarios/${scenarioId}/scenario.yaml`;
         try {
             const rawScenario = await loadYAML<unknown>(`/${scenarioFile}`);
+            if ((rawScenario as any)?.active === false) continue;
             errors.push(...validateScenarioYaml(scenarioFile, rawScenario));
 
             // Always run relational checks even when structural errors exist —
@@ -219,9 +220,12 @@ async function runDeepValidation(): Promise<void> {
             try {
                 errors.push(...validateScenarioRelations(scenarioFile, rawScenario as any, knownLayerIds));
 
+                const contextRoleIds = new Set(Object.keys(rawContext?.scenarios?.[scenarioId]?.roles ?? {}));
+                errors.push(...validateScenarioContextRoles(scenarioFile, rawScenario as any, contextRoleIds));
+
                 const roles = (rawScenario as any).roles;
                 if (!roles || typeof roles !== "object" || Array.isArray(roles)) continue;
-                for (const [roleId, role] of Object.entries(roles) as [string, any][]) {
+                for (const [_roleId, role] of Object.entries(roles) as [string, any][]) {
                     if (!role.challenge) continue;
                     const challengePath = role.challenge.startsWith("./")
                         ? `/assets/scenarios/${scenarioId}/${role.challenge.slice(2)}`

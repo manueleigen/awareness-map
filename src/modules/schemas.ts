@@ -49,7 +49,6 @@ export const ContextRoleDefinitionSchema = z.object({
 export const ContextScenarioDefinitionSchema = z.object({
 	layers: z.record(z.string(), ContextLayerDefinitionSchema).optional(),
 	roles: z.record(z.string(), ContextRoleDefinitionSchema).optional(),
-	active: z.boolean().optional(),
 });
 
 export const ProjectContextDefinitionSchema = z.object({
