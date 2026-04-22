@@ -61,7 +61,7 @@ export function renderInfo(
 		}
 
 		const btn = create("button");
-		btn.innerText = t(buttonKey, t("navigation.next"));
+		btn.innerText = t(buttonKey);
 		addDelayedPointerClick(btn, () => onAction(true));
 		controls.append(btn);
 	}
@@ -127,7 +127,7 @@ export function renderChoice(
 	content.append(optionsWrapper);
 
 	const submit = create("button");
-	submit.innerText = t("challenges.common.submit", "Check Answer");
+	submit.innerText = t("challenges.common.submit");
 	addDelayedPointerClick(submit, () => {
 		// Enforce minimum required answers
 		if (selected.size < (point.minAnswers ?? 1)) return;

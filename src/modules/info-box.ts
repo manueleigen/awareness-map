@@ -44,9 +44,9 @@ export async function updateView(): Promise<void> {
 			const span = escapeBtn.querySelector("span");
 			if (span) {
 				if (app.view === "role-select") {
-					span.innerText = t("navigation.back", "Back");
+					span.innerText = t("navigation.back");
 				} else {
-					span.innerText = t("navigation.escape", "Cancel");
+					span.innerText = t("navigation.escape");
 				}
 			}
 		}
@@ -150,8 +150,7 @@ export function renderRoleSelection(): void {
 	const title = create("h2");
 	renderInlineText(
 		title,
-		scenarioText?.title ??
-			t(`scenarios.${app.currentScenario}.title`),
+		scenarioText?.title ?? t(`scenarios.${app.currentScenario}.title`),
 	);
 
 	const text = create("div");
@@ -182,11 +181,9 @@ export function renderRoleSelection(): void {
 			// Try scenario-specific role title (short version) first, then fallback to challenge title
 			const localizedRoleTitle = t(
 				`scenarios.${app.currentScenario}.roles.${roleId}.title`,
-				"",
 			);
 			const fallbackTitle = t(
 				`challenges.${app.currentScenario}.${roleId}.title`,
-				roleId,
 			);
 
 			btn.innerText =
@@ -202,7 +199,9 @@ export function renderRoleSelection(): void {
 				app.currentRole = roleId;
 				app.view = "map";
 				await resetLayers();
-				(await getRoleActiveLayerIds()).forEach((id) => app.activeLayers.add(id));
+				(await getRoleActiveLayerIds()).forEach((id) =>
+					app.activeLayers.add(id),
+				);
 				await updateView();
 				previewActivePOILayers();
 				const sliderCfg = await getRoleSliderConfig();
@@ -275,7 +274,7 @@ export async function renderMapUI(): Promise<void> {
 	if (result && includeLastResult) {
 		const statusMsg = create("div");
 		statusMsg.className = `challenge-status challenge-passed`;
-		statusMsg.innerText = t("challenges.common.passed_msg", "Challenge completed successfully!");
+		statusMsg.innerText = t("challenges.common.passed_msg");
 		infoBoxContent.append(statusMsg);
 	}
 
@@ -284,13 +283,10 @@ export async function renderMapUI(): Promise<void> {
 	if (quizPath) {
 		const startQuizBtn = create("button");
 		const btnLabelKey = result
-			? "challenges.common.start_button" // "challenges.common.retry_button"
+			? "challenges.common.start_button"
 			: "challenges.common.start_button";
 
-		startQuizBtn.innerText = t(
-			btnLabelKey,
-			result ? "Retry" : "Start Challenge",
-		);
+		startQuizBtn.innerText = t(btnLabelKey);
 		infoBoxControls.append(startQuizBtn);
 		addDelayedPointerClick(startQuizBtn, async () => {
 			await startQuiz(quizPath);

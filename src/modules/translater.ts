@@ -22,16 +22,15 @@ export async function initTranslator(lang: Language): Promise<void> {
  * @param key The translation key
  * @param fallback The value to return if key is not found (optional)
  */
-export function t(key: string, fallback?: string): string {
-	if (!content) return fallback ?? key;
+export function t(key: string): string {
+	if (!content) return key;
 
 	// Resolve nested keys (e.g. "a.b.c")
 	const value = key.split(".").reduce((obj, i) => obj?.[i], content);
 
 	if (typeof value !== "string") {
-		if (!fallback)
-			console.warn(`Translation key not found or not a string: ${key}`);
-		return fallback ?? key;
+		console.warn(`Translation key not found or not a string: ${key}`);
+		return key;
 	}
 
 	return value;

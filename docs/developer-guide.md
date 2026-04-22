@@ -24,12 +24,12 @@ This is an open-source interactive exhibit built for 65-inch 4K touch tables. It
 
 ## 1. Tech Stack
 
-| Layer | Technology |
-|---|---|
+| Layer    | Technology                               |
+| -------- | ---------------------------------------- |
 | Language | TypeScript (target: ESNext, module: ESM) |
-| Styles | SCSS → CSS (direct `<link>` in HTML) |
-| Config | `js-yaml` + `zod` (runtime validation) |
-| Build | `tsc --watch` only; no bundler |
+| Styles   | SCSS → CSS (direct `<link>` in HTML)     |
+| Config   | `js-yaml` + `zod` (runtime validation)   |
+| Build    | `tsc --watch` only; no bundler           |
 
 There is intentionally no framework (no React, no Vue). All DOM manipulation is done with a thin `create()` helper. The lack of a bundler means every `.ts` file compiles to a `.js` file at the same path — imports must include the `.js` extension even when importing TypeScript sources.
 
@@ -87,23 +87,26 @@ The `app` singleton holds all mutable runtime state. It is imported directly by 
 
 ```ts
 export const app: AppState = {
-    context: null,
-    language: "de",
-    width: 3840,
-    height: 2160,
-    currentScenario: null,
-    currentRole: null,
-    activeLayers: new Set(),
-    quizStepLayers: new Set(),
-    view: "home",
-    challengeResults: {},
-    ui: { /* DOM element refs */ },
+	context: null,
+	language: "de",
+	width: 3840,
+	height: 2160,
+	currentScenario: null,
+	currentRole: null,
+	activeLayers: new Set(),
+	quizStepLayers: new Set(),
+	view: "home",
+	challengeResults: {},
+	ui: {
+		/* DOM element refs */
+	},
 };
 ```
 
 ### `layers.ts`
 
 The core rendering engine. Responsible for:
+
 - Building layer DOM elements once (`ensureLayerBuilt`) and caching them in `layerElements`.
 - Syncing visibility via `renderLayers()` — toggles the `hidden` class and rebuilds the sidebar toggle buttons.
 - Determining which layers are available for the current view/scenario/role via `getAvailableLayers()`.
@@ -118,12 +121,14 @@ Renders `locations`-type layer content. Builds `div.poi-marker` elements, wires 
 ### `quiz/engine-core.ts`
 
 Navigates between story points. Entry point is `runQuiz(path, content, controls, onFinish)`. Internally:
+
 - `loadPoint(id)` — cleans up previous step state, activates new layers, fires `app-request-view-update`, then delegates rendering to `render-text.ts` or `render-map.ts`.
 - `handleAction(point, outcome)` — resolves the next step ID from `point.next`, tracks `lastQuizPointId` for retry-on-fail, and calls `loadPoint` again.
 
 ### `info-box.ts`
 
 The view router. `updateView()` switches the info panel content based on `app.view`:
+
 - `"home"` → `renderHome()`: scenario selection buttons
 - `"role-select"` → `renderRoleSelection()`: role buttons for the current scenario
 - `"map"` → `renderMapUI()`: challenge intro text + start button
@@ -151,16 +156,16 @@ All state lives in the `app` singleton (`state.ts`). It is not reactive — modu
 
 ### Key fields
 
-| Field | Type | Description |
-|---|---|---|
-| `view` | `"home" \| "role-select" \| "map" \| "quiz"` | Current screen. Changing it and calling `updateView()` transitions the UI. |
-| `currentScenario` | `string \| null` | ID of the selected scenario (e.g. `"flood"`). |
-| `currentRole` | `string \| null` | ID of the selected role (e.g. `"fire_brigade"`). |
-| `activeLayers` | `Set<string>` | Layer IDs currently visible on the map. Modified by user toggles and quiz steps. |
-| `quizStepLayers` | `Set<string>` | Subset of `activeLayers` that were added by the current quiz step. Cleared on step transition. |
-| `context` | `ProjectContext \| null` | Parsed `context.yaml` — the source of truth for all layer definitions. |
-| `language` | `"de" \| "en"` | Current UI language. Changing it and calling `clearLayerCache()` + `updateView()` re-renders everything. |
-| `ui` | object | Cached DOM element references, populated once during `main.ts` init. |
+| Field             | Type                                         | Description                                                                                              |
+| ----------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `view`            | `"home" \| "role-select" \| "map" \| "quiz"` | Current screen. Changing it and calling `updateView()` transitions the UI.                               |
+| `currentScenario` | `string \| null`                             | ID of the selected scenario (e.g. `"flood"`).                                                            |
+| `currentRole`     | `string \| null`                             | ID of the selected role (e.g. `"fire_brigade"`).                                                         |
+| `activeLayers`    | `Set<string>`                                | Layer IDs currently visible on the map. Modified by user toggles and quiz steps.                         |
+| `quizStepLayers`  | `Set<string>`                                | Subset of `activeLayers` that were added by the current quiz step. Cleared on step transition.           |
+| `context`         | `ProjectContext \| null`                     | Parsed `context.yaml` — the source of truth for all layer definitions.                                   |
+| `language`        | `"de" \| "en"`                               | Current UI language. Changing it and calling `clearLayerCache()` + `updateView()` re-renders everything. |
+| `ui`              | object                                       | Cached DOM element references, populated once during `main.ts` init.                                     |
 
 ### View transition example
 
@@ -176,6 +181,7 @@ await updateView();
 ### Layer activation rules
 
 `activeLayers` is the merged result of:
+
 1. Layers with `initially_visible: true` and `quiz_only: false` in `context.yaml` — set by `syncActiveLayers()` on each reset.
 2. Layers added by the current quiz step (`activeLayerIds` in the story point) — tracked in `quizStepLayers`.
 3. User toggle actions — add/remove individual IDs directly.
@@ -195,17 +201,18 @@ Every YAML and JSON file has a corresponding Zod schema. Files are parsed and va
 ```ts
 // schemas.ts — example: end-screen requires result
 const EndScreenStoryPointSchema = z.object({
-    id: z.string(),
-    type: z.literal("end-screen"),
-    result: z.enum(["passed", "failed"]),  // required, enforced at load time
-    next: z.never().optional(),
-    // ...
+	id: z.string(),
+	type: z.literal("end-screen"),
+	result: z.enum(["passed", "failed"]), // required, enforced at load time
+	next: z.never().optional(),
+	// ...
 });
 ```
 
 ### Tier 2 — Relational validation (`validation.ts`)
 
 Checks cross-file consistency after parsing. Examples:
+
 - Every `next` target ID must exist as a story point in the same challenge.
 - Every `activeLayerIds` entry must exist as a layer key in `context.yaml`.
 - Every role ID in `scenario.yaml` must have a corresponding entry in `context.yaml`.
@@ -277,10 +284,10 @@ if (layerElements.has(id)) return layerElements.get(id)!;
 if (buildingLayers.has(id)) return buildingLayers.get(id)!;
 
 const buildPromise = (async () => {
-    // ... build DOM element for this layer type ...
-    layerElements.set(id, wrapper);
-    buildingLayers.delete(id);
-    return wrapper;
+	// ... build DOM element for this layer type ...
+	layerElements.set(id, wrapper);
+	buildingLayers.delete(id);
+	return wrapper;
 })();
 
 buildingLayers.set(id, buildPromise);
@@ -302,8 +309,8 @@ layerEl.classList.toggle("hidden", !isActive);
 
 ```ts
 const currentRender = (async () => {
-    await lastRenderPromise;  // wait for previous render
-    // ... do work ...
+	await lastRenderPromise; // wait for previous render
+	// ... do work ...
 })();
 lastRenderPromise = currentRender;
 return currentRender;
@@ -312,6 +319,7 @@ return currentRender;
 ### Layer availability rules
 
 `getAvailableLayers()` returns the set of layers that should exist in the DOM for the current state:
+
 - Always includes `global` layers.
 - Adds `scenario` layers when `app.currentScenario` is set and `app.view !== "home"`.
 - Adds `role` layers when `app.currentRole` is set.
@@ -331,6 +339,7 @@ When a `passed` end-screen is reached, `handleAction` calls `onFinish("passed")`
 ### Step lifecycle (`loadPoint`)
 
 Each call to `loadPoint(id)`:
+
 1. **Cleans up**: removes layers in `quizStepLayers` from `activeLayers`, releases slider locks, calls `abortLocationStep()` / `abortSelectionStep()`.
 2. **Applies exclusions**: removes any `excludeLayerIds` from `activeLayers`.
 3. **Activates new layers**: adds `activeLayerIds` to both `activeLayers` and `quizStepLayers`.
@@ -344,28 +353,29 @@ After a user action, `handleAction` resolves the next step:
 
 ```ts
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
-    // End-screen: retry on fail, exit on pass
-    if (point.type === "end-screen") {
-        if (point.result === "failed" && lastQuizPointId) {
-            loadPoint(lastQuizPointId);  // retry
-            return;
-        }
-        currentOnFinish("passed");
-        return;
-    }
+	// End-screen: retry on fail, exit on pass
+	if (point.type === "end-screen") {
+		if (point.result === "failed" && lastQuizPointId) {
+			loadPoint(lastQuizPointId); // retry
+			return;
+		}
+		currentOnFinish("passed");
+		return;
+	}
 
-    // Track last branching step for retry
-    if (typeof point.next !== "string") {
-        lastQuizPointId = point.id;
-    }
+	// Track last branching step for retry
+	if (typeof point.next !== "string") {
+		lastQuizPointId = point.id;
+	}
 
-    // Resolve outcome → next ID with fallback chain
-    const nextId = resolveNextId(point.next, outcome);
-    loadPoint(nextId);
+	// Resolve outcome → next ID with fallback chain
+	const nextId = resolveNextId(point.next, outcome);
+	loadPoint(nextId);
 }
 ```
 
 Outcome fallback chain:
+
 - `half-wrong` → falls back to `half` → falls back to `wrong`
 - `wrong-neutral` / `all-neutral` / `all-wrong` → fall back to `wrong`
 
@@ -375,10 +385,10 @@ When the language is switched during a quiz, `updateView()` calls `refreshCurren
 
 ### Renderer modules
 
-| Module | Handles |
-|---|---|
-| `render-text.ts` | `info`, `end-screen`, `quiz` (multiple choice) |
-| `render-map.ts` | `location-quiz`, `point-selection-quiz`, `area-selection-quiz` |
+| Module           | Handles                                                        |
+| ---------------- | -------------------------------------------------------------- |
+| `render-text.ts` | `info`, `end-screen`, `quiz` (multiple choice)                 |
+| `render-map.ts`  | `location-quiz`, `point-selection-quiz`, `area-selection-quiz` |
 
 Both modules receive `(content, controls, point, onAction)` and call `onAction(outcome)` when the user submits an answer.
 
@@ -397,7 +407,7 @@ import { t } from "./translater.js";
 
 button.innerText = t("challenges.common.start_button");
 // with fallback:
-button.innerText = t("challenges.common.submit", "Check Answer");
+button.innerText = t("challenges.common.submit");
 ```
 
 The key is a dot-separated path into the YAML structure. If the key is missing, the fallback string is returned (or the key itself if no fallback is provided).
@@ -409,7 +419,7 @@ Story point `text` objects carry `de` and `en` sub-objects. The engine reads the
 ```ts
 // challenge-normalizer.ts
 export function getStoryPointTitle(point: BaseStoryPoint): string {
-    return point.text?.[app.language]?.title ?? "";
+	return point.text?.[app.language]?.title ?? "";
 }
 ```
 
@@ -428,7 +438,7 @@ POI info overlays read text from the JSON file loaded by `renderPOILayer`. The o
 ```yaml
 my_new_type:
   class: layer-my-new-type
-  type: my-new-type         # internal type key used in layers.ts switch
+  type: my-new-type # internal type key used in layers.ts switch
   toggle: available
   interaction: none
   playback_control: false
@@ -561,7 +571,9 @@ The app is designed for a 3840×2160 pixel canvas on a 65-inch touch table. Perf
 - **Offline-first**: all dependencies (Lottie, js-yaml, zod) are bundled locally under `node_modules` and referenced via import maps in `index.html`. No CDN calls.
 
 ---
+
 **Project Documentation:**
+
 - **[README.md](../README.md):** Installation and quick start.
 - **[concept.md](./concept.md):** Vision, storytelling, and UI/UX goals.
 - **[authoring-guide.md](./authoring-guide.md):** How to create scenarios, challenges, and POI content.

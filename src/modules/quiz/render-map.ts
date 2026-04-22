@@ -19,7 +19,7 @@ import {
 // ── Drone speed ───────────────────────────────────────────────────────────────
 // Adjust this value to change how fast the drone flies (native pixels / second).
 const DRONE_SPEED_PX_PER_SEC = 350;
-const DRONE_MIN_DURATION_MS  = 600; // minimum travel time for very short moves
+const DRONE_MIN_DURATION_MS = 600; // minimum travel time for very short moves
 
 // ── Location-step cleanup ─────────────────────────────────────────────────────
 // Held across calls so any entry point (new step, language switch, …) can clean up.
@@ -89,12 +89,10 @@ export function refreshLocationTranslations(): void {
 		);
 	// Only update status if no coordinates have been locationPlaced yet
 	if (locationStatusEl && !locationPlaced)
-		locationStatusEl.innerText = t(
-			"challenges.common.click_to_place",
-			"Click to place a point.",
-		);
+		locationStatusEl.innerText = t("challenges.common.click_to_place");
 	if (locationSubmitBtnEl)
-		locationSubmitBtnEl.innerText = getLocationSubmitLabel(locationCurrentPoint);
+		locationSubmitBtnEl.innerText =
+			getLocationSubmitLabel(locationCurrentPoint);
 }
 
 /**
@@ -128,16 +126,11 @@ export function renderLocation(
 	locationQuestionEl = question;
 	const status = create("p");
 	status.className = "quiz-status";
-	status.innerText = t(
-		"challenges.common.click_to_place",
-		"Click to place a point.",
-	);
+	status.innerText = t("challenges.common.click_to_place");
 	locationStatusEl = status;
 	content.append(question);
 
-	const target = document.querySelector<HTMLElement>(
-		point.target,
-	);
+	const target = document.querySelector<HTMLElement>(point.target);
 	if (target) target.classList.add("quiz-location-pulse");
 
 	let marker: HTMLDivElement | null = null;
@@ -162,7 +155,9 @@ export function renderLocation(
 			locationDroneEl = marker; // track for cleanup in abortLocationStep()
 
 			loadTEXT<string>("assets/icons/drone.svg")
-				.then((svgText) => { if (marker) marker.innerHTML = svgText; })
+				.then((svgText) => {
+					if (marker) marker.innerHTML = svgText;
+				})
 				.catch(() => {});
 
 			radiusMarker = create("div");
@@ -179,8 +174,8 @@ export function renderLocation(
 
 		// Calculate travel duration based on distance and configured speed
 		const currX = parseFloat(marker.style.left) || 0;
-		const currY = parseFloat(marker.style.top)  || 0;
-		const dist  = Math.sqrt((x - currX) ** 2 + (y - currY) ** 2);
+		const currY = parseFloat(marker.style.top) || 0;
+		const dist = Math.sqrt((x - currX) ** 2 + (y - currY) ** 2);
 		const durationMs = Math.max(
 			DRONE_MIN_DURATION_MS,
 			Math.round((dist / DRONE_SPEED_PX_PER_SEC) * 1000),
@@ -190,11 +185,11 @@ export function renderLocation(
 		if (radiusMarker) radiusMarker.style.transitionDuration = `${dur}, ${dur}`;
 
 		marker.style.left = `${x}px`;
-		marker.style.top  = `${y}px`;
+		marker.style.top = `${y}px`;
 
 		if (radiusMarker) {
 			radiusMarker.style.left = `${x}px`;
-			radiusMarker.style.top  = `${y}px`;
+			radiusMarker.style.top = `${y}px`;
 		}
 
 		status.innerText = `(${Math.round(x)}, ${Math.round(y)})`;
@@ -211,10 +206,10 @@ export function renderLocation(
 		if ((e.target as Element).closest(".poi-overlay")) return;
 
 		const scale = getAppScale();
-		const rect  = target.getBoundingClientRect();
+		const rect = target.getBoundingClientRect();
 
 		const rawX = (e.clientX - rect.left) / scale;
-		const rawY = (e.clientY - rect.top)  / scale;
+		const rawY = (e.clientY - rect.top) / scale;
 
 		// Place or move the crosshair at the exact tap position
 		if (!locationCrosshairEl) {
@@ -223,7 +218,7 @@ export function renderLocation(
 			target.append(locationCrosshairEl);
 		}
 		locationCrosshairEl.style.left = `${rawX}px`;
-		locationCrosshairEl.style.top  = `${rawY}px`;
+		locationCrosshairEl.style.top = `${rawY}px`;
 
 		// If the tap landed on a POI marker, prevent the overlay from opening
 		// and nudge the drone to the left so it isn't hidden under the icon.
@@ -234,7 +229,10 @@ export function renderLocation(
 	};
 
 	// AbortController signal auto-removes this listener when the step ends
-	target?.addEventListener("pointerup", clickHandler, { capture: true, signal });
+	target?.addEventListener("pointerup", clickHandler, {
+		capture: true,
+		signal,
+	});
 
 	// Place drone at the configured initial position (flies in from top-left)
 	if (point.initial_position) {
@@ -258,15 +256,15 @@ export function renderLocation(
 		const solRadius = create("div");
 		solRadius.className = "quiz-solution-radius";
 		solRadius.style.left = `${point.solution.x}px`;
-		solRadius.style.top  = `${point.solution.y}px`;
-		solRadius.style.width  = `${point.maxDistance * 2}px`;
+		solRadius.style.top = `${point.solution.y}px`;
+		solRadius.style.width = `${point.maxDistance * 2}px`;
 		solRadius.style.height = `${point.maxDistance * 2}px`;
 		target?.append(solRadius);
 
 		const solCrosshair = create("div");
 		solCrosshair.className = "quiz-location-crosshair quiz-solution-crosshair";
 		solCrosshair.style.left = `${point.solution.x}px`;
-		solCrosshair.style.top  = `${point.solution.y}px`;
+		solCrosshair.style.top = `${point.solution.y}px`;
 		target?.append(solCrosshair);
 
 		// Cleanup: abort listener + remove edge guard
@@ -299,9 +297,7 @@ export function renderSelection(
 	document.documentElement.dataset.quizPoiSelect =
 		point.type === "point-selection-quiz" ? "1" : "0";
 	document.documentElement.dataset.quizPoiSelectTarget =
-		point.type === "point-selection-quiz"
-			? point.target?.trim() ?? ""
-			: "";
+		point.type === "point-selection-quiz" ? (point.target?.trim() ?? "") : "";
 
 	const titleText = getStoryPointTitle(point);
 	if (titleText) {
@@ -316,20 +312,18 @@ export function renderSelection(
 	status.className = "quiz-status";
 	content.append(question, status);
 
-	const target = document.querySelector<HTMLElement>(
-		point.target,
-	);
+	const target = document.querySelector<HTMLElement>(point.target);
 	if (!target) {
 		console.error(`[Quiz] Target container not found: ${point.target}`);
 	}
 	clearQuizAnswers();
 
-
-
 	// Intelligent Default Selector Logic
 	const effectiveSelector =
 		point.selector ||
-		(point.type === "area-selection-quiz" ? "polygon, path, .interactive-area" : ".poi-marker");
+		(point.type === "area-selection-quiz"
+			? "polygon, path, .interactive-area"
+			: ".poi-marker");
 
 	// Track selection order for FIFO logic
 	const selectedIds: string[] = [];
@@ -341,7 +335,7 @@ export function renderSelection(
 	const { signal } = selectionStepAbort;
 
 	const btn = create("button");
-	btn.innerText = t("challenges.common.submit", "Check Selection");
+	btn.innerText = t("challenges.common.submit");
 	controls.append(btn);
 
 	const selectionTarget = point.maxSelection ?? point.solution.length;
@@ -349,10 +343,7 @@ export function renderSelection(
 	/** Updates the status text and submit button state. */
 	const refreshStatus = () => {
 		const count = selectedIds.length;
-		status.innerHTML = t(
-			"challenges.common.selected_count",
-			`Selected: {count}`,
-		).replace(
+		status.innerHTML = t("challenges.common.selected_count").replace(
 			"{count}",
 			`<span class="quiz-count">${count} / ${selectionTarget}</span>`,
 		);
@@ -405,10 +396,10 @@ export function renderSelection(
 	if (target) {
 		target.classList.add("is-interactive");
 		target.style.pointerEvents = "auto";
-		
+
 		// Ensure the SVG container itself is interactable
-		target.querySelectorAll('svg, .area-wrapper').forEach(el => {
-			(el as HTMLElement).style.pointerEvents = 'auto';
+		target.querySelectorAll("svg, .area-wrapper").forEach((el) => {
+			(el as HTMLElement).style.pointerEvents = "auto";
 		});
 
 		target.querySelectorAll<HTMLElement>(effectiveSelector).forEach((el) => {
@@ -477,9 +468,15 @@ export function renderSelection(
 
 		// Calculate Status: right, half, half-wrong, wrong-neutral, all-neutral, all-wrong
 		let outcome: QuizOutcome = "wrong";
-		const numCorrect = selectedIds.filter((id) => point.solution.includes(id)).length;
-		const numWrong = selectedIds.filter((id) => (point.wrong_options ?? []).includes(id)).length;
-		const allCorrect = numCorrect === point.solution.length && selectedIds.length === point.solution.length;
+		const numCorrect = selectedIds.filter((id) =>
+			point.solution.includes(id),
+		).length;
+		const numWrong = selectedIds.filter((id) =>
+			(point.wrong_options ?? []).includes(id),
+		).length;
+		const allCorrect =
+			numCorrect === point.solution.length &&
+			selectedIds.length === point.solution.length;
 
 		if (allCorrect) {
 			outcome = "right";

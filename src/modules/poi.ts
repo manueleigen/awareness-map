@@ -10,71 +10,84 @@ const markerLocMap = new WeakMap<HTMLDivElement, any>();
 const containerPoiSizeMap = new WeakMap<HTMLDivElement, number>();
 
 function parseTimeH(t: string): number {
-    const [h, m] = t.split(':').map(Number);
-    return h + (m || 0) / 60;
+	const [h, m] = t.split(":").map(Number);
+	return h + (m || 0) / 60;
 }
 
-function updateOverlayText(overlay: HTMLElement, loc: any, status: string): void {
-    const lang = app.language;
-    const statusTrans = status ? loc.status_translations?.[status] : undefined;
+function updateOverlayText(
+	overlay: HTMLElement,
+	loc: any,
+	status: string,
+): void {
+	const lang = app.language;
+	const statusTrans = status ? loc.status_translations?.[status] : undefined;
 
-    const titleEl = overlay.querySelector<HTMLElement>('.poi-overlay-head h3');
-    const titleText = statusTrans?.title?.[lang] ?? loc.translations?.title?.[lang];
-    if (titleEl && titleText) {
-        titleEl.innerHTML = '';
-        renderInlineText(titleEl, titleText);
-    }
+	const titleEl = overlay.querySelector<HTMLElement>(".poi-overlay-head h3");
+	const titleText =
+		statusTrans?.title?.[lang] ?? loc.translations?.title?.[lang];
+	if (titleEl && titleText) {
+		titleEl.innerHTML = "";
+		renderInlineText(titleEl, titleText);
+	}
 
-    const descEl = overlay.querySelector<HTMLElement>('.poi-description');
-    const descText = statusTrans?.description?.[lang] ?? loc.translations?.description?.[lang];
-    if (descEl && descText) {
-        descEl.innerHTML = '';
-        renderBlockText(descEl, descText);
-    }
+	const descEl = overlay.querySelector<HTMLElement>(".poi-description");
+	const descText =
+		statusTrans?.description?.[lang] ?? loc.translations?.description?.[lang];
+	if (descEl && descText) {
+		descEl.innerHTML = "";
+		renderBlockText(descEl, descText);
+	}
 }
 
 function applyMarkerStatus(
-    marker: HTMLElement,
-    status: string,
-    statusPOIIcons: Record<string, string>,
-    defaultIcon: string,
-    loc?: any,
+	marker: HTMLElement,
+	status: string,
+	statusPOIIcons: Record<string, string>,
+	defaultIcon: string,
+	loc?: any,
 ): void {
-    if (marker.dataset.currentStatus === status) return;
-    marker.dataset.currentStatus = status;
-    Array.from(marker.classList)
-        .filter(c => c.startsWith('poi-status--'))
-        .forEach(c => marker.classList.remove(c));
-    if (status) marker.classList.add(`poi-status--${status}`);
-    const iconWrapper = marker.querySelector<HTMLElement>('.poi-icon');
-    if (iconWrapper) {
-        const iconSrc = (status && statusPOIIcons[status]) || defaultIcon;
-        if (iconSrc) loadTEXT<string>(iconSrc).then(s => { iconWrapper.innerHTML = s; }).catch(() => {});
-    }
-    if (loc) {
-        const openOverlay = document.querySelector<HTMLElement>(`.poi-overlay[data-marker-id="${marker.id}"]`);
-        if (openOverlay) updateOverlayText(openOverlay, loc, status);
-    }
+	if (marker.dataset.currentStatus === status) return;
+	marker.dataset.currentStatus = status;
+	Array.from(marker.classList)
+		.filter((c) => c.startsWith("poi-status--"))
+		.forEach((c) => marker.classList.remove(c));
+	if (status) marker.classList.add(`poi-status--${status}`);
+	const iconWrapper = marker.querySelector<HTMLElement>(".poi-icon");
+	if (iconWrapper) {
+		const iconSrc = (status && statusPOIIcons[status]) || defaultIcon;
+		if (iconSrc)
+			loadTEXT<string>(iconSrc)
+				.then((s) => {
+					iconWrapper.innerHTML = s;
+				})
+				.catch(() => {});
+	}
+	if (loc) {
+		const openOverlay = document.querySelector<HTMLElement>(
+			`.poi-overlay[data-marker-id="${marker.id}"]`,
+		);
+		if (openOverlay) updateOverlayText(openOverlay, loc, status);
+	}
 }
 
 function updateMarkersForTime(
-    container: HTMLElement,
-    timeStr: string,
-    statusPOIIcons: Record<string, string>,
-    defaultIcon: string,
+	container: HTMLElement,
+	timeStr: string,
+	statusPOIIcons: Record<string, string>,
+	defaultIcon: string,
 ): void {
-    const currentH = parseTimeH(timeStr);
-    container.querySelectorAll<HTMLElement>('.poi-marker').forEach(marker => {
-        const raw = marker.dataset.statusTimeline;
-        if (!raw) return;
-        const timeline: Array<{ time: string; status: string }> = JSON.parse(raw);
-        let status = marker.dataset.initialStatus || '';
-        for (const entry of timeline) {
-            if (parseTimeH(entry.time) <= currentH) status = entry.status;
-        }
-        const loc = markerLocMap.get(marker as HTMLDivElement);
-        applyMarkerStatus(marker, status, statusPOIIcons, defaultIcon, loc);
-    });
+	const currentH = parseTimeH(timeStr);
+	container.querySelectorAll<HTMLElement>(".poi-marker").forEach((marker) => {
+		const raw = marker.dataset.statusTimeline;
+		if (!raw) return;
+		const timeline: Array<{ time: string; status: string }> = JSON.parse(raw);
+		let status = marker.dataset.initialStatus || "";
+		for (const entry of timeline) {
+			if (parseTimeH(entry.time) <= currentH) status = entry.status;
+		}
+		const loc = markerLocMap.get(marker as HTMLDivElement);
+		applyMarkerStatus(marker, status, statusPOIIcons, defaultIcon, loc);
+	});
 }
 
 // Timer for the 3-second auto-close after layer preview
@@ -106,8 +119,9 @@ export async function renderPOILayer(
 		if (effectiveLayerId) poiContainer.dataset.layerId = effectiveLayerId;
 		containerPoiSizeMap.set(poiContainer, poiSize);
 
-		const statusPOIIcons: Record<string, string> = ctxLayer?.status_poi_icons || {};
-		const defaultIcon = ctxLayer?.poi_icon || '';
+		const statusPOIIcons: Record<string, string> =
+			ctxLayer?.status_poi_icons || {};
+		const defaultIcon = ctxLayer?.poi_icon || "";
 		let hasTimeline = false;
 
 		data.locations.forEach((loc, index) => {
@@ -134,23 +148,31 @@ export async function renderPOILayer(
 			marker.style.height = `${poiSize}px`;
 
 			// Initial status (optional)
-			const initialStatus: string = loc.status || '';
+			const initialStatus: string = loc.status || "";
 			if (initialStatus) marker.classList.add(`poi-status--${initialStatus}`);
 			marker.dataset.currentStatus = initialStatus;
 
 			// Status timeline (optional)
-			if (Array.isArray(loc.status_timeline) && loc.status_timeline.length > 0) {
+			if (
+				Array.isArray(loc.status_timeline) &&
+				loc.status_timeline.length > 0
+			) {
 				marker.dataset.statusTimeline = JSON.stringify(loc.status_timeline);
 				marker.dataset.initialStatus = initialStatus;
 				hasTimeline = true;
 			}
 
 			// Inject SVG icon — use status-specific icon if available, else default
-			const initialIconSrc = (initialStatus && statusPOIIcons[initialStatus]) || defaultIcon;
+			const initialIconSrc =
+				(initialStatus && statusPOIIcons[initialStatus]) || defaultIcon;
 			if (initialIconSrc) {
 				const iconWrapper = create("div");
 				iconWrapper.className = "poi-icon";
-				loadTEXT<string>(initialIconSrc).then(s => { iconWrapper.innerHTML = s; }).catch(() => {});
+				loadTEXT<string>(initialIconSrc)
+					.then((s) => {
+						iconWrapper.innerHTML = s;
+					})
+					.catch(() => {});
 				marker.append(iconWrapper);
 			}
 
@@ -170,12 +192,17 @@ export async function renderPOILayer(
 		if (hasTimeline) {
 			const onSliderTime = (e: Event) => {
 				if (!poiContainer.isConnected) {
-					document.removeEventListener('slidertime', onSliderTime);
+					document.removeEventListener("slidertime", onSliderTime);
 					return;
 				}
-				updateMarkersForTime(poiContainer, (e as CustomEvent<{ time: string }>).detail.time, statusPOIIcons, defaultIcon);
+				updateMarkersForTime(
+					poiContainer,
+					(e as CustomEvent<{ time: string }>).detail.time,
+					statusPOIIcons,
+					defaultIcon,
+				);
 			};
-			document.addEventListener('slidertime', onSliderTime);
+			document.addEventListener("slidertime", onSliderTime);
 		}
 	}
 
@@ -220,10 +247,14 @@ export async function showPOIOverlay(
 	const head = create("div");
 	head.className = "poi-overlay-head";
 
-	const currentStatus = marker.dataset.currentStatus || '';
-	const statusTrans = currentStatus ? loc.status_translations?.[currentStatus] : undefined;
+	const currentStatus = marker.dataset.currentStatus || "";
+	const statusTrans = currentStatus
+		? loc.status_translations?.[currentStatus]
+		: undefined;
 
-	const titleText = statusTrans?.title?.[app.language] ?? loc.translations?.title?.[app.language];
+	const titleText =
+		statusTrans?.title?.[app.language] ??
+		loc.translations?.title?.[app.language];
 	if (titleText) {
 		const title = create("h3");
 		renderInlineText(title, titleText);
@@ -265,18 +296,21 @@ export async function showPOIOverlay(
 	content.append(head);
 
 	// Body section (optional Status Text / Description)
-		const descriptionText = statusTrans?.description?.[app.language] ?? loc.translations?.description?.[app.language];
-		if (descriptionText) {
-			const bodyText = create("div");
-			bodyText.className = "poi-description";
-			renderBlockText(bodyText, descriptionText);
-			content.append(bodyText);
-		}
+	const descriptionText =
+		statusTrans?.description?.[app.language] ??
+		loc.translations?.description?.[app.language];
+	if (descriptionText) {
+		const bodyText = create("div");
+		bodyText.className = "poi-description";
+		renderBlockText(bodyText, descriptionText);
+		content.append(bodyText);
+	}
 
 	// Show "Select" button only during the active POI-selection quiz step
 	// and only for the targeted layer.
-	const quizPoiSelectTarget =
-		(document.documentElement.dataset.quizPoiSelectTarget ?? "").trim();
+	const quizPoiSelectTarget = (
+		document.documentElement.dataset.quizPoiSelectTarget ?? ""
+	).trim();
 	const layerId = poiContainer.dataset.layerId ?? "";
 	if (layerId) poiOverlay.classList.add(`poi-overlay--${layerId}`);
 	const isInTargetLayer =
@@ -291,8 +325,8 @@ export async function showPOIOverlay(
 		const updateLabel = () => {
 			const isSelected = marker.classList.contains("quiz-answer");
 			selectBtn.innerText = isSelected
-				? t("challenges.common.deselect_poi", "Deselect")
-				: t("challenges.common.select_poi", "Select");
+				? t("challenges.common.deselect_poi")
+				: t("challenges.common.select_poi");
 			selectBtn.classList.toggle("active", isSelected);
 		};
 		updateLabel();
@@ -377,10 +411,15 @@ function closeOverlayWithAnimation(overlay: HTMLElement): void {
 	overlay.classList.add("is-closing");
 	// Resume pulse on the linked marker once the overlay is gone
 	const markerId = overlay.dataset.markerId;
-	overlay.addEventListener("animationend", () => {
-		overlay.remove();
-		if (markerId) document.getElementById(markerId)?.classList.remove("overlay-open");
-	}, { once: true });
+	overlay.addEventListener(
+		"animationend",
+		() => {
+			overlay.remove();
+			if (markerId)
+				document.getElementById(markerId)?.classList.remove("overlay-open");
+		},
+		{ once: true },
+	);
 	if (app.ui.poiOverlay === overlay) app.ui.poiOverlay = null;
 }
 
@@ -388,7 +427,8 @@ function closeOverlayWithAnimation(overlay: HTMLElement): void {
 function closeAllOverlaysNow(): void {
 	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => {
 		const markerId = el.dataset.markerId;
-		if (markerId) document.getElementById(markerId)?.classList.remove("overlay-open");
+		if (markerId)
+			document.getElementById(markerId)?.classList.remove("overlay-open");
 		el.remove();
 	});
 	app.ui.poiOverlay = null;
