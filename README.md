@@ -4,8 +4,8 @@ This interactive PWA is designed for a 65" 4K touch-table, simulating a disaster
 
 ## Quick Start
 1. **Install dependencies:** `npm install`
-2. **start SASS compiler:** `npm run sass:watch`
-3. **Start TypeScript compiler:** `npx tsc -w`
+2. **Generate YAML schemas:** `npm run generate-schemas`
+3. **Start dev watchers:** `npm run dev` (TypeScript + SASS + schema watch in parallel)
 
 ## Option A: Kiosk-Browser
 4. **Run command:** `kiosk-browser -f -s /path/to/folder index.html` 
@@ -22,6 +22,8 @@ https://github.com/IMAGINARY/kiosk-browser/releases/tag/v0.19.0-alpha.1
 - **/config/**: Global YAML files (`layers.yaml`, `context.yaml`, `content.*.yaml`).
 - **/css/**: 4K-optimized stylesheets using `vw` and `rem` units.
 - **/src/modules/**: TypeScript source code.
+- **/schemas/**: Generated JSON Schemas for YAML validation (do not edit manually — run `npm run generate-schemas`).
+- **/scripts/**: Build utilities (`generate-schemas.mjs`, `validate.mjs`).
 - **/docs/**: Project documentation (see below).
 
 ---
