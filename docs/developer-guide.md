@@ -205,7 +205,7 @@ To maintain stability, the project uses a tiered validation system. Authoring er
 
 ### Tier 0 — IDE validation (JSON Schema + VS Code)
 
-`scripts/generate-schemas.mjs` reads `src/modules/schemas.ts` via `typescript-json-schema` and emits a JSON Schema file for each YAML type into `schemas/`. `.vscode/settings.json` maps these schemas to their corresponding YAML globs. The `redhat.vscode-yaml` extension (recommended in `.vscode/extensions.json`) consumes them and shows live red underlines in the editor for unknown keys, wrong types, and missing required fields.
+`scripts/generate-schemas.mjs` reads `src/modules/schemas.ts` via `typescript-json-schema` and emits a JSON Schema file for each YAML type into `schemas/`. Every YAML file has a `# yaml-language-server: $schema=...` directive on its first line pointing to the correct schema — this is the editor-agnostic mechanism that works in VS Code (`redhat.vscode-yaml`, recommended via `.vscode/extensions.json`), JetBrains IDEs (built-in), and any other editor with LSP support.
 
 Schemas regenerate automatically on `schemas.ts` save during `npm run dev`. To regenerate manually:
 

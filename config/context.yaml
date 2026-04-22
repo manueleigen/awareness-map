@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../schemas/context.schema.json
 global:
   layers:
     base_layer_river:

@@ -828,13 +828,19 @@ options:
 
 The project uses three validation layers: live IDE feedback while you type, a runtime Zod check when files are loaded, and a CLI deep validator for cross-file integrity.
 
-### IDE Validation (VS Code)
+### IDE Validation
 
-Install the **YAML extension** (`redhat.vscode-yaml`) — VS Code will prompt you automatically when you open the project. Once installed, all YAML files show red underlines for:
+Every YAML file in this project has a `# yaml-language-server: $schema=...` comment on its first line. Any editor with `yaml-language-server` support reads this and shows live red underlines for:
 
 - Unknown or extra keys (e.g. a typo like `layor_type` instead of `layer_type`)
 - Wrong value types (e.g. a string where a boolean is expected)
 - Missing required fields
+
+**VS Code:** Install the **YAML extension** (`redhat.vscode-yaml`) — VS Code will prompt you automatically when you open the project (via `.vscode/extensions.json`).
+
+**JetBrains IDEs (WebStorm, IntelliJ):** YAML + JSON Schema support is built in — no plugin needed. The inline directive is picked up automatically.
+
+**Neovim / other editors:** Configure `yaml-language-server` via your LSP setup — the inline directive is read automatically.
 
 Schemas are generated from `src/modules/schemas.ts` and live in `schemas/`. They regenerate automatically whenever `schemas.ts` is saved during `npm run dev`. To regenerate manually:
 
