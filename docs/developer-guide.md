@@ -24,12 +24,13 @@ This is an open-source interactive exhibit built for 65-inch 4K touch tables. It
 
 ## 1. Tech Stack
 
-| Layer    | Technology                               |
-| -------- | ---------------------------------------- |
-| Language | TypeScript (target: ESNext, module: ESM) |
-| Styles   | SCSS → CSS (direct `<link>` in HTML)     |
-| Config   | `js-yaml` + `zod` (runtime validation)   |
-| Build    | `tsc --watch` only; no bundler           |
+| Layer          | Technology                                          |
+| -------------- | --------------------------------------------------- |
+| Language       | TypeScript (target: ESNext, module: ESM)            |
+| Styles         | SCSS → CSS (direct `<link>` in HTML)                |
+| Config         | `js-yaml` + `zod` (runtime validation)              |
+| Schema tooling | `typescript-json-schema` (design-time YAML schemas) |
+| Build          | `tsc --watch` only; no bundler                      |
 
 There is intentionally no framework (no React, no Vue). All DOM manipulation is done with a thin `create()` helper. The lack of a bundler means every `.ts` file compiles to a `.js` file at the same path — imports must include the `.js` extension even when importing TypeScript sources.
 
@@ -75,6 +76,14 @@ config/
 assets/scenarios/          ← content files (YAML, JSON, SVG, images)
 scripts/
   validate.mjs             ← CLI deep validator
+  generate-schemas.mjs     ← generates schemas/ from schemas.ts
+
+schemas/                   ← generated JSON Schema files (committed)
+  context.schema.json
+  layers.schema.json
+  scenario.schema.json
+  challenge.schema.json
+  content.schema.json
 ```
 
 ---
@@ -193,6 +202,18 @@ await updateView();
 ## 5. Deep Validation System
 
 To maintain stability, the project uses a tiered validation system. Authoring errors are caught at multiple levels before they can crash the exhibit.
+
+### Tier 0 — IDE validation (JSON Schema + VS Code)
+
+`scripts/generate-schemas.mjs` reads `src/modules/schemas.ts` via `typescript-json-schema` and emits a JSON Schema file for each YAML type into `schemas/`. `.vscode/settings.json` maps these schemas to their corresponding YAML globs. The `redhat.vscode-yaml` extension (recommended in `.vscode/extensions.json`) consumes them and shows live red underlines in the editor for unknown keys, wrong types, and missing required fields.
+
+Schemas regenerate automatically on `schemas.ts` save during `npm run dev`. To regenerate manually:
+
+```bash
+npm run generate-schemas
+```
+
+`src/modules/schemas.ts` is the single source of truth — the JSON Schema files are derived artifacts and should not be edited directly.
 
 ### Tier 1 — Schema validation (`schemas.ts` + Zod)
 
@@ -541,12 +562,15 @@ else if (point.type === "my-new-type")
 
 ```bash
 npm install
-npm run dev     # runs tsc --watch and sass --watch in parallel
+npm run dev     # runs tsc --watch, sass --watch, and schemas:watch in parallel
 ```
 
 Open `index.html` directly in a browser (no dev server needed — all imports are ESM relative paths).
 
 ```bash
+# Regenerate JSON Schema files (VS Code YAML validation)
+npm run generate-schemas
+
 # Type-check only
 npx tsc --noEmit
 

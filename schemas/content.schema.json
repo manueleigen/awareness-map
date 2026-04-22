@@ -1,0 +1,122 @@
+{
+  "type": "object",
+  "properties": {
+    "navigation": {
+      "$ref": "#/definitions/%7Blanguages%3ARecord%3Cstring%2Cstring%3E%3Bescape%3Astring%3Bback%3Astring%3Bnext%3Astring%3B%7D"
+    },
+    "home": {
+      "$ref": "#/definitions/%7Btitle%3Astring%3Bdescription%3Astring%3B%7D"
+    },
+    "challenges": {
+      "$ref": "#/definitions/%7Bcommon%3A%7Bpassed_msg%3Astring%3Bstart_button%3Astring%3Bback_to_start%3Astring%3Btry_again%3Astring%3Bsubmit%3Astring%3Bselected_count%3Astring%3Bclick_to_place%3Astring%3Bselect_poi%3Astring%3Bdeselect_poi%3Astring%3B%7D%3B%7D"
+    }
+  },
+  "required": [
+    "challenges",
+    "home",
+    "navigation"
+  ],
+  "definitions": {
+    "{languages:Record<string,string>;escape:string;back:string;next:string;}": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "$ref": "#/definitions/Record%3Cstring%2Cstring%3E"
+        },
+        "escape": {
+          "type": "string"
+        },
+        "back": {
+          "type": "string"
+        },
+        "next": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "back",
+        "escape",
+        "languages",
+        "next"
+      ],
+      "additionalProperties": false
+    },
+    "Record<string,string>": {
+      "type": "object"
+    },
+    "{title:string;description:string;}": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "title"
+      ],
+      "additionalProperties": false
+    },
+    "{common:{passed_msg:string;start_button:string;back_to_start:string;try_again:string;submit:string;selected_count:string;click_to_place:string;select_poi:string;deselect_poi:string;};}": {
+      "type": "object",
+      "properties": {
+        "common": {
+          "$ref": "#/definitions/%7Bpassed_msg%3Astring%3Bstart_button%3Astring%3Bback_to_start%3Astring%3Btry_again%3Astring%3Bsubmit%3Astring%3Bselected_count%3Astring%3Bclick_to_place%3Astring%3Bselect_poi%3Astring%3Bdeselect_poi%3Astring%3B%7D"
+        }
+      },
+      "required": [
+        "common"
+      ],
+      "additionalProperties": false
+    },
+    "{passed_msg:string;start_button:string;back_to_start:string;try_again:string;submit:string;selected_count:string;click_to_place:string;select_poi:string;deselect_poi:string;}": {
+      "type": "object",
+      "properties": {
+        "passed_msg": {
+          "type": "string"
+        },
+        "start_button": {
+          "type": "string"
+        },
+        "back_to_start": {
+          "type": "string"
+        },
+        "try_again": {
+          "type": "string"
+        },
+        "submit": {
+          "type": "string"
+        },
+        "selected_count": {
+          "type": "string"
+        },
+        "click_to_place": {
+          "type": "string"
+        },
+        "select_poi": {
+          "type": "string"
+        },
+        "deselect_poi": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "back_to_start",
+        "click_to_place",
+        "deselect_poi",
+        "passed_msg",
+        "select_poi",
+        "selected_count",
+        "start_button",
+        "submit",
+        "try_again"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false
+}

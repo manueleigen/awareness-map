@@ -784,6 +784,8 @@ challenges:
     selected_count: "Ausgewählt: {count}"
 ```
 
+> **Adding a new content key:** The structure of content files is defined by `ContentYamlSchema` in `src/modules/schemas.ts`. To add a new key, add it to the schema first, then add the corresponding value to both `content.de.yaml` and `content.en.yaml`. The validator will catch missing keys between the two language files.
+
 **2. Challenge content** — titles, questions, descriptions — lives inline in `challenge.yaml` under each story point's `text` block:
 
 ```yaml
@@ -824,7 +826,21 @@ options:
 
 ## 12. Validation & Quality Assurance
 
-A deep validator catches authoring errors before they reach the exhibit. Always run it after making structural changes.
+The project uses three validation layers: live IDE feedback while you type, a runtime Zod check when files are loaded, and a CLI deep validator for cross-file integrity.
+
+### IDE Validation (VS Code)
+
+Install the **YAML extension** (`redhat.vscode-yaml`) — VS Code will prompt you automatically when you open the project. Once installed, all YAML files show red underlines for:
+
+- Unknown or extra keys (e.g. a typo like `layor_type` instead of `layer_type`)
+- Wrong value types (e.g. a string where a boolean is expected)
+- Missing required fields
+
+Schemas are generated from `src/modules/schemas.ts` and live in `schemas/`. They regenerate automatically whenever `schemas.ts` is saved during `npm run dev`. To regenerate manually:
+
+```bash
+npm run generate-schemas
+```
 
 ### Running the CLI Validator
 

@@ -30,3 +30,4 @@ layer_types:
     type: svg-sequence
     interaction: timeline
     playback_control: true
+  

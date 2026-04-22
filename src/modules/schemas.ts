@@ -259,6 +259,34 @@ export const LocationJsonSchema = z.object({
 	locations: z.array(LocationSchema),
 });
 
+// ─── content.yaml ─────────────────────────────────────────────────────────────
+
+export const ContentYamlSchema = z.object({
+	navigation: z.object({
+		languages: z.record(z.string(), z.string()),
+		escape: z.string(),
+		back: z.string(),
+		next: z.string(),
+	}),
+	home: z.object({
+		title: z.string(),
+		description: z.string(),
+	}),
+	challenges: z.object({
+		common: z.object({
+			passed_msg: z.string(),
+			start_button: z.string(),
+			back_to_start: z.string(),
+			try_again: z.string(),
+			submit: z.string(),
+			selected_count: z.string(),
+			click_to_place: z.string(),
+			select_poi: z.string(),
+			deselect_poi: z.string(),
+		}),
+	}),
+});
+
 // ─── Derived TypeScript types (single source of truth) ───────────────────────
 
 export type ContextLayerDefinition = z.infer<typeof ContextLayerDefinitionSchema>;
@@ -274,3 +302,4 @@ export type StoryPoint = z.infer<typeof StoryPointSchema>;
 export type ChallengeYaml = z.infer<typeof ChallengeYamlSchema>;
 export type LocationEntry = z.infer<typeof LocationSchema>;
 export type LocationJson = z.infer<typeof LocationJsonSchema>;
+export type ContentYaml = z.infer<typeof ContentYamlSchema>;

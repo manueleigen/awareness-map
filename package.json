@@ -11,7 +11,9 @@
     "sass:watch": "sass css/style.scss css/style.css --watch --poll",
     "sass:build": "sass css/style.scss css/style.css --no-source-map --style=compressed",
     "build:all": "npm run build && npm run sass:build",
-    "dev": "npm run build:watch & npm run sass:watch"
+    "generate-schemas": "node scripts/generate-schemas.mjs",
+    "schemas:watch": "node scripts/generate-schemas.mjs --watch",
+    "dev": "npm run build:watch & npm run sass:watch & npm run schemas:watch"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +21,8 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "sass": "^1.83.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-json-schema": "^0.67.1"
   },
   "dependencies": {
     "@lottiefiles/dotlottie-wc": "^0.9.7",
