@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=../schemas/context.schema.json
 global:
-  validator_overlay: false
+  validator_overlay: true
   layers:
     - id: base_layer_river
       layer_type: static_image
@@ -33,7 +33,7 @@ global:
       class: glow-layer
       initially_visible: true
       z_index: 40
-      src: /assets/scenarios/global/glow.webp
+      src: /assets/scenarios/global/dark_glow.webp
 
     - id: critical_sites
       layer_type: locations
@@ -149,7 +149,7 @@ scenarios:
     roles:
       - id: thw
         layers:
-          - id: critical_sites_THW
+          - id: blackout_THW_critical_sites
             layer_type: locations
             available_from: role
             toggle: available
@@ -161,7 +161,13 @@ scenarios:
             toggle_order: 4
             src: /assets/scenarios/blackout/THW/critical_sites.json
             icon: /assets/icons/critical_sites.svg
-            poi_icon: /assets/icons/marker_poi.svg
+            playback_control: false
+            start_time: "10:00"
+            end_time: "22:00"
+            status_poi_icons:
+              stable: /assets/icons/marker_poi_stable.svg
+              limited: /assets/icons/marker_poi_limited.svg
+              critical: /assets/icons/marker_poi_critical.svg
 
   - id: mass_event
     layers: []

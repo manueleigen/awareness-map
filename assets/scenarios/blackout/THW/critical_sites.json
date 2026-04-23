@@ -1,215 +1,89 @@
 {
-	"layer_id": "critical_sites_THW",
-	"locations": [
-		{
-		"id": "blackout_thw_poi_01",
-		"x": 860,
-		"y": 620,
-		"class": "right-opening",
-		"status": "warning",
-		"status_timeline": [
-			{ "time": "10:00", "status": "normal" },
-			{ "time": "18:00", "status": "warning" },
-			{ "time": "16:00", "status": "critical" }
-		],
-		"translations": {
-			"title": { "de": "Pumpwerk Nord", "en": "Northern Pumping Station" },
-			"description": {
-			"de": "Das Pumpwerk hält Teile des Abwassersystems in Betrieb. Die Notstromreserve ist fast aufgebraucht. Ein Ausfall würde mehrere dicht bewohnte Quartiere betreffen.",
-			"en": "This pumping station keeps parts of the wastewater system running. Its backup power reserve is nearly depleted. A failure would affect several densely populated neighborhoods."
-			}
-		},
-		"status_translations": {
-			"warning": {
-			"title": { "de": "Notstrom knapp", "en": "Backup Power Running Low" },
-			"description": {
-				"de": "Die vorhandene Reserve reicht nur noch kurze Zeit.",
-				"en": "The remaining reserve will only last a short while."
-			}
-			},
-			"critical": {
-			"title": { "de": "Ausfall droht", "en": "Failure Imminent" },
-			"description": {
-				"de": "Ohne mobile Versorgung droht der Ausfall des Pumpwerks.",
-				"en": "Without mobile support, the pumping station is at risk of failing."
-			}
-			}
-		}
-		},
-		{
-		"id": "blackout_thw_poi_02",
-		"x": 2780,
-		"y": 740,
-		"class": "left-opening",
-		"status": "warning",
-		"status_timeline": [
-			{ "time": "10:00", "status": "normal" },
-			{ "time": "20:00", "status": "warning" },
-			{ "time": "15:00", "status": "critical" }
-		],
-		"translations": {
-			"title": { "de": "Mobilfunkknoten Ost", "en": "Eastern Mobile Network Hub" },
-			"description": {
-			"de": "Ein zentraler Kommunikationsknoten für mehrere Stadtteile. Die Anlage läuft noch auf Notstrom, die Kapazität geht jedoch bald zur Neige. Ein Ausfall würde große Bereiche weiter von Information und Koordination abschneiden.",
-			"en": "A key communications hub for several districts. The site is still running on backup power, but capacity is running low. A failure would cut large areas off from information and coordination even further."
-			}
-		},
-		"status_translations": {
-			"warning": {
-			"title": { "de": "Versorgung instabil", "en": "Supply Unstable" },
-			"description": {
-				"de": "Die Notstromreserve wird knapp, Funkdienste sind gefährdet.",
-				"en": "Backup power is running low and communications services are at risk."
-			}
-			},
-			"critical": {
-			"title": { "de": "Kommunikationsausfall droht", "en": "Communications Failure Imminent" },
-			"description": {
-				"de": "Ohne externe Versorgung kann der Standort bald ausfallen.",
-				"en": "Without external support, the site may fail soon."
-			}
-			}
-		}
-		},
-		{
-		"id": "blackout_thw_poi_03",
-		"x": 1580,
-		"y": 470,
-		"class": "right-opening",
-		"status": "normal",
-		"status_timeline": [
-			{ "time": "10:00", "status": "normal" },
-			{ "time": "14:00", "status": "normal" },
-			{ "time": "18:00", "status": "warning" }
-		],
-		"translations": {
-			"title": { "de": "Städtisches Klinikum Mitte", "en": "Central Municipal Hospital" },
-			"description": {
-			"de": "Das Krankenhaus arbeitet im Notbetrieb. Die interne Notstromversorgung ist derzeit noch stabil, die Lage wird laufend überwacht.",
-			"en": "The hospital is operating in emergency mode. Its internal backup power is currently stable, though the situation is being closely monitored."
-			}
-		},
-		"status_translations": {
-			"warning": {
-			"title": { "de": "Belastet", "en": "Under Strain" },
-			"description": {
-				"de": "Die Anlage läuft weiter, Reserven und Betrieb stehen aber unter Druck.",
-				"en": "Operations continue, but reserves and systems are under strain."
-			}
-			},
-			"critical": {
-			"title": { "de": "Kritischer Betrieb", "en": "Critical Operations" },
-			"description": {
-				"de": "Die medizinische Versorgung wäre ohne zusätzliche Unterstützung gefährdet.",
-				"en": "Medical operations would be at risk without additional support."
-			}
-			}
-		}
-		},
-		{
-		"id": "blackout_thw_poi_04",
-		"x": 3230,
-		"y": 1320,
-		"class": "left-opening",
-		"status": "normal",
-		"status_timeline": [
-			{ "time": "10:00", "status": "normal" },
-			{ "time": "14:00", "status": "normal" },
-			{ "time": "22:00", "status": "warning" }
-		],
-		"translations": {
-			"title": { "de": "Wasserwerk Süd", "en": "Southern Waterworks" },
-			"description": {
-			"de": "Das Wasserwerk versorgt große Teile des Südens. Die Notversorgung ist aktuell gesichert, aber die Abhängigkeit von externem Diesel-Nachschub bleibt hoch.",
-			"en": "The waterworks supplies large parts of the southern city. Backup operations are currently secured, but dependence on external diesel deliveries remains high."
-			}
-		},
-		"status_translations": {
-			"warning": {
-			"title": { "de": "Reserve sinkt", "en": "Reserve Declining" },
-			"description": {
-				"de": "Die Versorgung ist noch stabil, benötigt aber bald Nachschub.",
-				"en": "Supply is still stable, but resupply will soon be needed."
-			}
-			},
-			"critical": {
-			"title": { "de": "Wasserversorgung gefährdet", "en": "Water Supply at Risk" },
-			"description": {
-				"de": "Ein Ausfall würde die Wasserversorgung in mehreren Stadtteilen gefährden.",
-				"en": "A failure would threaten water supply in multiple districts."
-			}
-			}
-		}
-		},
-		{
-		"id": "blackout_thw_poi_05",
-		"x": 1220,
-		"y": 1550,
-		"class": "right-opening",
-		"status": "normal",
-		"status_timeline": [
-			{ "time": "10:00", "status": "normal" },
-			{ "time": "14:00", "status": "normal" },
-			{ "time": "20:00", "status": "warning" }
-		],
-		"translations": {
-			"title": { "de": "Pflegezentrum Westpark", "en": "Westpark Care Facility" },
-			"description": {
-			"de": "Im Pflegezentrum leben viele hochbetagte Menschen. Die Einrichtung ist weiterhin in Betrieb, meldet aber steigenden Unterstützungsbedarf.",
-			"en": "Many very elderly people live in this care facility. Operations continue, but the site reports increasing support needs."
-			}
-		},
-		"status_translations": {
-			"warning": {
-			"title": { "de": "Belastung steigt", "en": "Pressure Increasing" },
-			"description": {
-				"de": "Die Einrichtung funktioniert noch, benötigt aber bald zusätzliche Unterstützung.",
-				"en": "The facility is still functioning, but will soon require additional support."
-			}
-			},
-			"critical": {
-			"title": { "de": "Versorgung kritisch", "en": "Care Supply Critical" },
-			"description": {
-				"de": "Ohne zusätzliche Unterstützung ist die Versorgung der Bewohner gefährdet.",
-				"en": "Without additional support, resident care is at risk."
-			}
-			}
-		}
-		},
-		{
-		"id": "blackout_thw_poi_06",
-		"x": 2280,
-		"y": 1710,
-		"class": "left-opening",
-		"status": "normal",
-		"status_timeline": [
-			{ "time": "10:00", "status": "normal" },
-			{ "time": "14:00", "status": "normal" },
-			{ "time": "21:00", "status": "warning" }
-		],
-		"translations": {
-			"title": { "de": "Logistikzentrum Kühlverbund", "en": "Cold Chain Logistics Hub" },
-			"description": {
-			"de": "Hier lagern temperaturempfindliche Waren und medizinische Lieferungen. Erste Kühlkettenprobleme werden gemeldet, ein unmittelbarer Systemausfall ist aber noch nicht absehbar.",
-			"en": "Temperature-sensitive goods and medical supplies are stored here. Initial cold-chain problems are being reported, but an immediate system failure is not yet expected."
-			}
-		},
-		"status_translations": {
-			"warning": {
-			"title": { "de": "Kühlkette unter Druck", "en": "Cold Chain Under Pressure" },
-			"description": {
-				"de": "Die Kühlleistung sinkt, längere Ausfälle würden Verluste verursachen.",
-				"en": "Cooling performance is declining, and a prolonged outage would cause losses."
-			}
-			},
-			"critical": {
-			"title": { "de": "Kühlkette fällt aus", "en": "Cold Chain Failing" },
-			"description": {
-				"de": "Ein weiterer Ausfall würde die gelagerten Güter gefährden.",
-				"en": "Further failure would put stored goods at risk."
-			}
-			}
-		}
-		}
-	]
+  "layer_id": "critical_sites_THW",
+  "locations": [
+    {
+      "id": "blackout_thw_poi_01",
+      "x": 860,
+      "y": 620,
+      "class": "right-opening",
+      "status": "limited",
+      "translations": {
+        "title": { "de": "Abwasserpumpwerk", "en": "Wastewater Pumping Station" },
+        "description": {
+          "de": "Begrenzte Stromreserven bedrohen die Abwasserentsorgung in dicht besiedelten Stadtvierteln.",
+          "en": "Limited power reserves threaten wastewater management in densely populated neighborhoods."
+        }
+      }
+    },
+    {
+      "id": "blackout_thw_poi_02",
+      "x": 2780,
+      "y": 740,
+      "class": "left-opening",
+      "status": "critical",
+      "translations": {
+        "title": { "de": "Koordinationszentrum", "en": "Coordination Center" },
+        "description": {
+          "de": "Kritischer Stromausfall droht und gefährdet die Kommunikation in mehreren Stadtteilen.",
+          "en": "Critical power failure risks communication breakdown across multiple districts."
+        }
+      }
+    },
+    {
+      "id": "blackout_thw_poi_03",
+      "x": 1580,
+      "y": 470,
+      "class": "right-opening",
+      "status": "stable",
+      "translations": {
+        "title": { "de": "Klinikum", "en": "Hospital" },
+        "description": {
+          "de": "Stabile Notstromversorgung sichert die medizinische Versorgung der Gemeinschaft.",
+          "en": "Stable backup power maintains essential medical services for the community."
+        }
+      }
+    },
+    {
+      "id": "blackout_thw_poi_04",
+      "x": 3230,
+      "y": 1320,
+      "class": "left-opening",
+      "status": "critical",
+      "translations": {
+        "title": { "de": "Trinkwasserwerk", "en": "Drinking Water Works" },
+        "description": {
+          "de": "Kritische Stromsituation gefährdet die Wasserversorgung in großen südlichen Gebieten.",
+          "en": "Critical power situation endangers water supply to large southern areas."
+        }
+      }
+    },
+    {
+      "id": "blackout_thw_poi_05",
+      "x": 1220,
+      "y": 1550,
+      "class": "right-opening",
+      "status": "limited",
+      "translations": {
+        "title": { "de": "Kraftstoffdepot", "en": "Fuel Depot" },
+        "description": {
+          "de": "Begrenzte Kraftstoffreserven behindern Einsatzfahrzeuge und Reaktionsfähigkeiten.",
+          "en": "Limited fuel reserves constrain emergency vehicle operations and response capabilities."
+        }
+      }
+    },
+    {
+      "id": "blackout_thw_poi_06",
+      "x": 2280,
+      "y": 1710,
+      "class": "left-opening",
+      "status": "stable",
+      "translations": {
+        "title": { "de": "Kühlzentrum", "en": "Cold Storage Center" },
+        "description": {
+          "de": "Stabile Kühlung bewahrt temperaturempfindliche medizinische Vorräte und Lebensmittel.",
+          "en": "Stable refrigeration preserves temperature-sensitive medical supplies and food."
+        }
+      }
+    }
+  ]
 }

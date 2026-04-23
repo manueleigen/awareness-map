@@ -1,55 +1,96 @@
 # yaml-language-server: $schema=../../../../schemas/challenge.schema.json
 story_points:
   - id: intro
-    type: info
-    slider_time: "14:00"
+    type: quiz
     text:
       de:
-        title: "THW Challenge"
-        description: |
-          Beschreibung hier
+        title: "THW Quiz"
+        question: "Wofür steht die Abkürzung THW?"
       en:
-        title: "Prioritize Emergency Calls"
+        title: "THW Quiz"
+        question: "What does the abbreviation THW stand for?"
+    options:
+      - value: "A"
+        text:
+          de: "Technische Hauptwache"
+          en: "Technical Main Guard"
+      - value: "B"
+        text:
+          de: "Trupp für Heimatschutz und Wiederaufbau"
+          en: "Troop for Homeland Protection and Reconstruction"
+      - value: "C"
+        text:
+          de: "Technisches Hilfswerk"
+          en: "Technical Relief Organization"
+    solution: ["C"]
+    next:
+      right: intro2
+      wrong: quiz-wrong-screen
+  
+  - id: quiz-wrong-screen
+    type: info
+    text:
+      de:
+        title: "Falsche Antwort"
         description: |
-          **It is 2:00 PM**, and the water is rising relentlessly.
+          Das Technische Hilfswerk (THW) ist eine Organisation, die bei Katastrophen und Notlagen hilft.
 
-          Numerous emergency calls are coming in, but the fire department's resources are limited: **You can only respond to two emergency calls.**
+          **Versuche es nochmal!**
+      en:
+        title: "Wrong Answer"
+        description: |
+          The Technical Relief Organization (THW) is an organization that helps during disasters and emergencies.
 
-          Consider how many people are affected, how quickly the locations will be flooded, and whether emergency responders can still reach them without being overtaken by the flood themselves.
+          **Try again!**
+    next: intro
+  - id: intro2
+    type: info
+    text:
+      de:
+        title: "Kritische Infrastruktur braucht Notstrom"
+        description: |
+          In diesem Szenario bist du als Einsatzleiter:in des THW verantwortlich für die Koordination von Notstromversorgung und die Aufrechterhaltung kritischer Infrastruktur während eines großflächigen Stromausfalls.
+
+          **Deine Aufgabe ist es, die verfügbaren Ressourcen effektiv einzusetzen, um die wichtigsten Einrichtungen zu schützen und die Auswirkungen auf die Bevölkerung zu minimieren.**
+      en:
+        title: "Critical Infrastructure Needs Backup Power"
+        description: |
+          In this scenario, you are the THW operations manager responsible for coordinating backup power and maintaining critical infrastructure during a widespread blackout.
+
+          **Your task is to deploy available resources effectively to protect key facilities and minimize impacts on the population.**
+        
     next: challenge_core
 
   - id: challenge_core
     type: point-selection-quiz
-    target: "#layer-flood_fire_brigade_emergency_calls"
-    activeLayerIds: [flood_fire_brigade_emergency_calls]
-    slider_time: "14:00"
-    slider_time_layer: flood_simulation
-    slider_time_fixed: false
-    solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
-    wrong_options: ["flood_emergency_call_03"]
-    minSelection: 2
-    maxSelection: 2
+
+    target: "#layer-blackout_THW_critical_sites"
+    activeLayerIds: [blackout_THW_critical_sites]
+    solution: ["blackout_thw_poi_01", "blackout_thw_poi_02", "blackout_thw_poi_04"]
+    wrong_options: ["blackout_thw_poi_05"]
+    minSelection: 3
+    maxSelection: 3
     text:
       de:
-        title: Einsatzkräfte entsenden
+        title: Notstromversorgung stabilisieren
         question: |
-          **Es ist 14:00 Uhr. Wähle genau zwei Notrufe aus.**
+          **Wähle die drei kritischsten Infrastrukturen aus, die deine begrenzten Notstromaggregate erhalten sollen.**
 
           Berücksichtige:
 
-          - wie viele Menschen betroffen sind
-          - wie schnell die Orte überflutet werden
-          - ob die Rettungswagen sie noch sicher erreichen können
+          - den aktuellen Status jeder Einrichtung
+          - die Auswirkungen auf die Bevölkerung
+          - welche Einrichtungen die höchste Priorität haben
       en:
-        title: Dispatch Emergency Responders
+        title: Stabilize Backup Power
         question: |
-          **It is 2:00 PM. Select exactly two emergency calls.**
+          **Select the three most critical infrastructure facilities that should receive your limited backup power generators.**
 
-          Take into account:
+          Consider:
 
-          - how many people are affected
-          - how quickly the locations will be flooded
-          - whether ambulances can still reach them safely
+          - the current status of each facility
+          - the impact on the population
+          - which facilities have the highest priority
     next:
       right: win-screen
       half: half-fail-screen
@@ -61,20 +102,24 @@ story_points:
   - id: win-screen
     type: end-screen
     result: passed
-    activeLayerIds: [flood_fire_brigade_emergency_calls]
+    activeLayerIds: [blackout_THW_critical_sites]
     text:
       de:
-        title: Challenge gelöst!
+        title: Einsatz erfolgreich!
         description: |
-          Du hast die beiden kritischsten Notrufe priorisiert und damit die meisten Menschen gerettet, ohne Einsatzkräfte in Gefahr zu bringen.
+          Du hast die begrenzten Notstromaggregate dort eingesetzt, wo ein Ausfall die größten Folgen hätte.
 
-          **Gut gemacht!**
+          Abwasserpumpwerk, Koordinationszentrum und Trinkwasserwerk bleiben stabil. Damit sind Entsorgung, Einsatzkoordination und Trinkwasserversorgung auch während des Blackouts abgesichert.
+
+          **Ausgezeichnet!**
       en:
-        title: Challenge Solved!
+        title: Operation Successful!
         description: |
-          You prioritized the two most critical emergency calls and thereby saved the greatest number of people, without putting emergency responders at risk.
+          You deployed the limited backup generators where a failure would have the greatest consequences.
 
-          **Well done!**
+          The wastewater pumping station, coordination center, and drinking water works remain stable. This keeps sanitation, response coordination, and drinking water supply secured during the blackout.
+
+          **Excellent work!**
 
   - id: half-fail-screen
     type: end-screen
@@ -83,74 +128,82 @@ story_points:
       de:
         title: Teilweise richtig
         description: |
-          Du hast einen der beiden kritischen Notrufe richtig priorisiert, aber der andere Notruf, den du gewählt hast, ist nicht so dringend, wie du denkst.
+          Du hast mindestens eine kritische Infrastruktur richtig priorisiert, aber nicht alle verfügbaren Aggregate erreichen die Standorte mit der höchsten Dringlichkeit.
 
-          **Achte darauf, welche Bereiche schon bald überflutet werden!**
+          Einige deiner gewählten Einrichtungen sind aktuell noch stabiler als Abwasserpumpwerk, Koordinationszentrum oder Trinkwasserwerk.
+
+          **Prüfe Status und Auswirkungen jeder Einrichtung noch einmal.**
       en:
         title: Partly Correct
         description: |
-          You correctly prioritized one of the two critical emergency calls, but the other call you selected is not as urgent as you think.
+          You correctly prioritized at least one critical infrastructure site, but not all available generators are going to the most urgent locations.
 
-          **Pay attention to which areas will be flooded very soon!**
+          Some of the facilities you selected are currently more stable than the wastewater pumping station, coordination center, or drinking water works.
+
+          **Review each facility's status and impact again.**
 
   - id: half-wrong-screen
     type: end-screen
     result: failed
     text:
       de:
-        title: Einsatzkräfte in Gefahr
+        title: Kritische Versorgungslücke
         description: |
-          Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf gewählt hast, der schon überflutet ist.
+          Du hast mindestens eine zentrale Infrastruktur richtig erkannt, aber ein Aggregat an das Kraftstoffdepot gebunden.
 
-          Deine andere Wahl hast du richtig getroffen und damit einen Notruf in einem Bereich priorisiert, der bald überflutet wird.
+          Das Depot ist wichtig für den weiteren Einsatz, löst aber nicht die akut drohenden Ausfälle bei Entsorgung, Koordination oder Trinkwasserversorgung.
 
-          **Wähle einen anderen Notruf.**
+          **Setze das Aggregat zuerst an einem unmittelbar kritischen Standort ein.**
       en:
-        title: Emergency Responders at Risk
+        title: Critical Supply Gap
         description: |
-          You put your responders at risk by selecting an emergency call in an area that is already flooded.
+          You correctly identified at least one key infrastructure site, but tied one generator to the fuel depot.
 
-          Your other choice was correct, and you successfully prioritized a call in an area that will be flooded soon.
+          The depot matters for continued operations, but it does not solve the imminent failures in sanitation, coordination, or drinking water supply.
 
-          **Select a different emergency call.**
+          **Deploy that generator to an immediately critical site first.**
 
   - id: fail-screen-wrong-neutral
     type: end-screen
     result: failed
     text:
       de:
-        title: Einsatzkräfte in Gefahr
+        title: Falsche Priorität
         description: |
-          Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf in einem Bereich gewählt hast, der schon überflutet ist.
+          Deine Auswahl enthält das Kraftstoffdepot, aber keinen der unmittelbar kritischen Standorte.
 
-          Deine andere Wahl war ein Notruf, der nicht kritisch ist, da er nicht bald überflutet wird und nur wenige Menschen betrifft.
+          Gleichzeitig bleiben Einrichtungen unversorgt, deren Ausfall viele Menschen direkt treffen würde: Abwasserpumpwerk, Koordinationszentrum und Trinkwasserwerk.
 
-          **Wähle zwei andere Notrufe.**
+          **Priorisiere zuerst die Standorte mit kritischem oder stark begrenztem Status und hoher Auswirkung auf die Bevölkerung.**
       en:
-        title: Emergency Responders at Risk
+        title: Wrong Priority
         description: |
-          You put your responders at risk by selecting an emergency call in an area that is already flooded.
+          Your selection includes the fuel depot, but none of the immediately critical sites.
 
-          Your other choice was an emergency call that is not critical, because the area will not be flooded soon and only a small number of people are affected.
+          At the same time, facilities whose failure would directly affect many people remain unsupported: the wastewater pumping station, coordination center, and drinking water works.
 
-          **Select two different emergency calls.**
+          **Prioritize sites with critical or heavily limited status and high public impact first.**
 
   - id: fail-screen-all-neutral
     type: end-screen
     result: failed
     text:
       de:
-        title: Vergeudete Ressourcen
+        title: Zu geringe Dringlichkeit
         description: |
-          Deine gewählten Notrufe waren nicht kritisch, da sie nicht bald überflutet werden und nur wenige Menschen betreffen.
+          Deine Auswahl konzentriert sich auf Einrichtungen, die derzeit noch stabiler laufen.
 
-          **Wähle zwei andere Notrufe, die viele Menschen betreffen und bald überflutet werden.**
+          Währenddessen drohen beim Abwasserpumpwerk, beim Koordinationszentrum und beim Trinkwasserwerk gravierende Ausfälle mit direkter Wirkung auf viele Menschen.
+
+          **Nutze die Aggregate für die Standorte mit der höchsten Dringlichkeit.**
       en:
-        title: Resources Wasted
+        title: Not Urgent Enough
         description: |
-          The emergency calls you selected were not critical, because the areas will not be flooded soon and only a small number of people are affected.
+          Your selection focuses on facilities that are currently still more stable.
 
-          **Select two different emergency calls that affect many people and will be flooded soon.**
+          Meanwhile, the wastewater pumping station, coordination center, and drinking water works are at risk of severe failures with direct impact on many people.
+
+          **Use the generators for the sites with the highest urgency.**
 
   - id: fail-screen-1
     type: end-screen
@@ -159,12 +212,12 @@ story_points:
       de:
         title: Fehlgeschlagen
         description: |
-          Deine Auswahl war nicht optimal.
+          Deine Auswahl war nicht optimal für die Lage im Blackout.
 
-          **Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.**
+          **Kritische Infrastruktur blieb unversorgt, während begrenzte Notstromressourcen an weniger dringenden Standorten gebunden waren.**
       en:
         title: Failed
         description: |
-          Your selection was not optimal.
+          Your selection was not optimal for the blackout situation.
 
-          **Critical emergency calls were overlooked while resources were tied up in less urgent areas.**
+          **Critical infrastructure remained unsupported while limited backup power resources were tied up at less urgent sites.**
