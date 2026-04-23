@@ -1,34 +1,33 @@
 # yaml-language-server: $schema=../schemas/layers.schema.json
 layer_types:
-  static_image:
+  - id: static_image
     type: static-image
     interaction: none
 
-  locations:
+  - id: locations
     type: locations
     interaction: inspect-location
     icon_mode: per-location
 
-  area_overlay:
+  - id: area_overlay
     type: areas
     interaction: inspect-area
 
-  lottie_sequence:
+  - id: lottie_sequence
     type: lottie-sequence
     interaction: timeline
     playback_control: true
 
-  pulsing_overlay:
+  - id: pulsing_overlay
     type: pulsing-image
     interaction: inspect-area
 
-  png_sequence:
+  - id: png_sequence
     type: png-sequence
     interaction: timeline
     playback_control: true
 
-  svg_sequence:
+  - id: svg_sequence
     type: svg-sequence
     interaction: timeline
     playback_control: true
-  

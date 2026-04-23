@@ -4,6 +4,7 @@ import {
 	Language,
 	LocalizedScenarioText,
 	ScenarioDefinition,
+	ScenarioDefinitionInput,
 } from "./types.js";
 import { getChallengeIntroText, normalizeChallengeDefinition } from "./quiz/challenge-normalizer.js";
 import { getLoadedContext } from "./context-loader.js";
@@ -42,15 +43,15 @@ function getScenarioPath(scenarioId: string): string {
 
 function resolveScenarioDefinition(
 	scenarioId: string,
-	data: ScenarioDefinition,
+	data: ScenarioDefinitionInput,
 ): ScenarioDefinition {
 	const roles = Object.fromEntries(
-		Object.entries(data.roles ?? {}).map(([roleId, role]) => {
+		(data.roles ?? []).map((role) => {
 			const challengePath = role.challenge?.startsWith("./")
 				? `/assets/scenarios/${scenarioId}/${role.challenge.slice(2)}`
 				: role.challenge;
 			return [
-				roleId,
+				role.id,
 				{
 					...role,
 					challenge: challengePath,
@@ -74,7 +75,7 @@ export async function loadScenarioDefinition(
 	}
 
 	try {
-		const data = await loadYAML<ScenarioDefinition>(
+		const data = await loadYAML<ScenarioDefinitionInput>(
 			getScenarioPath(scenarioId),
 		);
 		if (!data) {
@@ -134,8 +135,8 @@ export async function initScenarios(): Promise<void> {
 	const contextDefinition = getLoadedContext();
 
 	const scenarioIds = new Set<string>();
-	Object.keys(contextDefinition?.scenarios ?? {}).forEach((scenarioId) => {
-		scenarioIds.add(scenarioId);
+	(contextDefinition?.scenarios ?? []).forEach((scenario) => {
+		scenarioIds.add(scenario.id);
 	});
 
 	await Promise.all(

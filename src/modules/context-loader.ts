@@ -25,36 +25,24 @@ function normalizeLayer(layer: ContextLayerDefinition) {
 }
 
 function normalizeContext(definition: ProjectContextDefinition): ProjectContext {
+	const normalizeLayers = (layers: ContextLayerDefinition[] | undefined) =>
+		Object.fromEntries((layers ?? []).map((layer) => [layer.id, normalizeLayer(layer)]));
+
 	return {
 		global: {
-			layers: Object.fromEntries(
-				Object.entries(definition.global?.layers ?? {}).map(([id, layer]) => [
-					id,
-					normalizeLayer(layer),
-				]),
-			),
+			layers: normalizeLayers(definition.global?.layers),
 		},
 		scenarios: Object.fromEntries(
-			Object.entries(definition.scenarios ?? {}).map(([scenarioId, scenario]) => [
-				scenarioId,
+			(definition.scenarios ?? []).map((scenario) => [
+				scenario.id,
 				{
-					layers: Object.fromEntries(
-						Object.entries(scenario.layers ?? {}).map(([id, layer]) => [
-							id,
-							normalizeLayer(layer),
-						]),
-					),
+					layers: normalizeLayers(scenario.layers),
 					roles: Object.fromEntries(
-						Object.entries(scenario.roles ?? {}).map(([roleId, role]) => [
-							roleId,
+						(scenario.roles ?? []).map((role) => [
+							role.id,
 							{
 								exclude_layers: role.exclude_layers ?? [],
-								layers: Object.fromEntries(
-									Object.entries(role.layers ?? {}).map(([id, layer]) => [
-										id,
-										normalizeLayer(layer),
-									]),
-								),
+								layers: normalizeLayers(role.layers),
 							},
 						]),
 					),

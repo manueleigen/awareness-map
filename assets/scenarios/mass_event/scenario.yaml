@@ -4,10 +4,14 @@ active: false
 
 text:
   de:
-    short_title: Massen-Event
-    title: Großveranstaltung
-    description: ""
+    title: Großveranstaltung im Stadion
+    short_title: Massenevent
+    description: |
+      **Ein Fußballspiel mit 50.000 Zuschauern** erfordert höchste Aufmerksamkeit der Sicherheitskräfte.
   en:
+    title: Large-scale Event at the Stadium
     short_title: Mass Event
-    title: Major Event
-    description: ""
+    description: |
+      **A football match with 50,000 spectators** requires maximum attention from security forces.
+
+roles: []

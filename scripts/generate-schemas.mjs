@@ -13,9 +13,11 @@ const TARGETS = {
 // typescript-json-schema collapses Record<string, T> to { type: "object" } with no
 // value schema. For files where all Record values share one type, inject that type
 // as additionalProperties so unknown keys inside each entry are caught.
-const RECORD_VALUE_TYPES = {
-  "layers.schema.json": "LayerTypeDefinition",
-};
+// typescript-json-schema collapses Record<string, T> to { type: "object" } with no
+// value schema. nameFilter (optional) restricts injection to Record defs whose
+// encoded definition name contains the given substring — needed when a schema has
+// multiple Record types at different levels (e.g. context.schema.json).
+const RECORD_VALUE_TYPES = {};
 
 const SCHEMA_SOURCE = resolve("src/modules/schemas.ts");
 
@@ -36,13 +38,16 @@ function generateAll() {
   const generator = TJS.buildGenerator(program, { required: true, skipLibCheck: true });
   for (const [file, typeName] of Object.entries(TARGETS)) {
     const schema = generator.getSchemaForSymbol(typeName);
-    const valueTypeName = RECORD_VALUE_TYPES[file];
-    if (valueTypeName) {
-      const { $schema, ...valueSchema } = generator.getSchemaForSymbol(valueTypeName);
+    const recordValueConfig = RECORD_VALUE_TYPES[file];
+    if (recordValueConfig) {
+      const { typeName, nameFilter } = recordValueConfig;
+      const { $schema, ...valueSchema } = generator.getSchemaForSymbol(typeName);
       strictifyObjects(valueSchema);
-      for (const def of Object.values(schema.definitions || {})) {
+      for (const [defName, def] of Object.entries(schema.definitions || {})) {
         if (def.type === "object" && (!def.properties || Object.keys(def.properties).length === 0)) {
-          def.additionalProperties = valueSchema;
+          if (!nameFilter || defName.includes(nameFilter)) {
+            def.additionalProperties = valueSchema;
+          }
         }
       }
     }

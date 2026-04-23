@@ -9,22 +9,16 @@ import { getLoadedContext } from "./context-loader.js";
 
 let normalizedLayerDefinitions: LayerConfig[] | null = null;
 
-function collectContextLayers(context: ReturnType<typeof getLoadedContext>): Array<[string, ContextLayerDefinition]> {
-	const layers: Array<[string, ContextLayerDefinition]> = [];
+function collectContextLayers(context: ReturnType<typeof getLoadedContext>): ContextLayerDefinition[] {
+	const layers: ContextLayerDefinition[] = [];
 	if (!context) return layers;
 
-	Object.entries(context.global?.layers ?? {}).forEach(([id, layer]) => {
-		layers.push([id, layer]);
-	});
+	(context.global?.layers ?? []).forEach((layer) => layers.push(layer));
 
-	Object.values(context.scenarios ?? {}).forEach((scenario) => {
-		Object.entries(scenario.layers ?? {}).forEach(([id, layer]) => {
-			layers.push([id, layer]);
-		});
-		Object.values(scenario.roles ?? {}).forEach((role) => {
-			Object.entries(role.layers ?? {}).forEach(([id, layer]) => {
-				layers.push([id, layer]);
-			});
+	(context.scenarios ?? []).forEach((scenario) => {
+		(scenario.layers ?? []).forEach((layer) => layers.push(layer));
+		(scenario.roles ?? []).forEach((role) => {
+			(role.layers ?? []).forEach((layer) => layers.push(layer));
 		});
 	});
 
@@ -62,11 +56,11 @@ export async function initLayerLoader(): Promise<void> {
 		if (!data?.layer_types) return;
 
 		normalizedLayerDefinitions = collectContextLayers(loadedContext)
-			.map(([layerId, layer]) => {
-			const typeConfig = data.layer_types[layer.layer_type];
-			if (!typeConfig) return null;
-			return buildLayerConfig(layerId, layer, typeConfig);
-		})
+			.map((layer) => {
+				const typeConfig = data.layer_types.find((t) => t.id === layer.layer_type);
+				if (!typeConfig) return null;
+				return buildLayerConfig(layer.id, layer, typeConfig);
+			})
 			.filter((layer): layer is LayerConfig => layer !== null);
 	} catch {
 		// Layer config is optional during startup.

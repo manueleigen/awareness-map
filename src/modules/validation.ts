@@ -7,8 +7,9 @@ import {
 	LocationJsonSchema,
 	type ProjectContextDefinition,
 	type ChallengeYaml,
-	type ScenarioDefinition,
+	type ScenarioDefinitionInput,
 } from "./schemas.js";
+import type { ScenarioDefinition } from "./types.js";
 import type { ValidationError } from "./error-overlay.js";
 
 // ─── Structural validation (Zod) ──────────────────────────────────────────────
@@ -46,14 +47,14 @@ export function validateChallengeYaml(file: string, data: unknown): ValidationEr
 /** All layer IDs and their definitions declared in context.yaml. */
 export function collectLayerMap(context: ProjectContextDefinition): Map<string, any> {
 	const layers = new Map<string, any>();
-	const addLayers = (l: Record<string, any> | undefined) => {
-		if (l) Object.entries(l).forEach(([id, def]) => layers.set(id, def));
+	const addLayers = (l: any[] | undefined) => {
+		if (l) l.forEach((def) => layers.set(def.id, def));
 	};
 
 	addLayers(context.global?.layers);
-	Object.values(context.scenarios ?? {}).forEach((scenario) => {
+	(context.scenarios ?? []).forEach((scenario) => {
 		addLayers(scenario.layers);
-		Object.values(scenario.roles ?? {}).forEach((role) => addLayers(role.layers));
+		(scenario.roles ?? []).forEach((role) => addLayers(role.layers));
 	});
 	return layers;
 }
@@ -157,24 +158,24 @@ export function validateChallengeRelations(
 
 export function validateScenarioRelations(
 	file: string,
-	scenario: ScenarioDefinition,
+	scenario: ScenarioDefinitionInput,
 	_scenarioId: string,
 	_context: ProjectContextDefinition,
 ): ValidationError[] {
 	const errors: ValidationError[] = [];
 
 	const roles = scenario.roles;
-	if (!roles || typeof roles !== "object" || Array.isArray(roles)) return errors;
+	if (!roles || !Array.isArray(roles)) return errors;
 
-	for (const [roleId, role] of Object.entries(roles)) {
+	roles.forEach((role) => {
 		if (!role.challenge) {
 			errors.push({
 				file,
-				path: `roles.${roleId}`,
-				message: `Role "${roleId}" has no challenge path`,
+				path: `roles.${role.id}`,
+				message: `Role "${role.id}" has no challenge path`,
 			});
 		}
-	}
+	});
 
 	return errors;
 }
@@ -204,29 +205,29 @@ export function validateContextRelations(
 	};
 
 	if (context.global?.layers) {
-		Object.entries(context.global.layers).forEach(([id, def]) => checkLayer(id, def));
+		context.global.layers.forEach((def) => checkLayer(def.id, def));
 	}
 
-	for (const [scenarioId, scenario] of Object.entries(context.scenarios ?? {})) {
-		if (scenario.active === false) continue;
+	(context.scenarios ?? []).forEach((scenario) => {
+		if (scenario.active === false) return;
 		if (scenario.layers) {
-			Object.entries(scenario.layers).forEach(([id, def]) => checkLayer(id, def));
+			scenario.layers.forEach((def) => checkLayer(def.id, def));
 		}
-		for (const [roleId, role] of Object.entries(scenario.roles ?? {})) {
+		(scenario.roles ?? []).forEach((role) => {
 			if (role.layers) {
-				Object.entries(role.layers).forEach(([id, def]) => checkLayer(id, def));
+				role.layers.forEach((def) => checkLayer(def.id, def));
 			}
 			for (const excludedId of role.exclude_layers ?? []) {
 				if (!layerIds.has(excludedId)) {
 					errors.push({
 						file,
-						path: `scenarios.${scenarioId}.roles.${roleId}.exclude_layers`,
+						path: `scenarios.${scenario.id}.roles.${role.id}.exclude_layers`,
 						message: `exclude_layers references unknown layer "${excludedId}"`,
 					});
 				}
 			}
-		}
-	}
+		});
+	});
 
 	return errors;
 }

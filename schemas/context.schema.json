@@ -2,27 +2,178 @@
   "type": "object",
   "properties": {
     "global": {
-      "$ref": "#/definitions/%7Blayers%3F%3ARecord%3Cstring%2C%7Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%3E%7Cundefined%3B%7D"
+      "$ref": "#/definitions/%7Bvalidator_overlay%3F%3Aboolean%7Cundefined%3Blayers%3F%3A%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%5B%5D%7Cundefined%3B%7D"
     },
     "scenarios": {
-      "$ref": "#/definitions/Record%3Cstring%2C%7Bactive%3F%3Aboolean%7Cundefined%3Blayers%3F%3ARecord%3Cstring%2C%7Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%3E%7Cundefined%3Broles%3F%3ARecord%3Cstring%2C%7Bexclude_layers%3F%3Astring%5B%5D%7Cundefined%3Blayers%3F%3ARecord%3Cstring%2C%7Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%3E%7Cundefined%3B%7D%3E%7Cundefined%3B%7D%3E"
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/%7Bid%3Astring%3Bactive%3F%3Aboolean%7Cundefined%3Blayers%3F%3A%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%5B%5D%7Cundefined%3Broles%3F%3A%7Bid%3Astring%3Bexclude_layers%3F%3Astring%5B%5D%7Cundefined%3Blayers%3F%3A%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%5B%5D%7Cundefined%3B%7D%5B%5D%7Cundefined%3B%7D"
+      }
     }
   },
   "definitions": {
-    "{layers?:Record<string,{layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}>|undefined;}": {
+    "{validator_overlay?:boolean|undefined;layers?:{id:string;layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}[]|undefined;}": {
       "type": "object",
       "properties": {
+        "validator_overlay": {
+          "type": "boolean"
+        },
         "layers": {
-          "$ref": "#/definitions/Record%3Cstring%2C%7Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%3E"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D"
+          }
         }
       },
       "additionalProperties": false
     },
-    "Record<string,{layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}>": {
+    "{id:string;layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "layer_type": {
+          "enum": [
+            "area_overlay",
+            "locations",
+            "lottie_sequence",
+            "png_sequence",
+            "pulsing_overlay",
+            "static_image",
+            "svg_sequence"
+          ],
+          "type": "string"
+        },
+        "src": {
+          "type": "string"
+        },
+        "available_from": {
+          "enum": [
+            "global",
+            "role",
+            "scenario"
+          ],
+          "type": "string"
+        },
+        "toggle": {
+          "enum": [
+            "available",
+            "deactivated",
+            "hidden",
+            "none"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/definitions/Record%3Cstring%2Cstring%3E"
+        },
+        "class": {
+          "type": "string"
+        },
+        "opacity_control": {
+          "type": "boolean"
+        },
+        "playback_control": {
+          "type": "boolean"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "src_overlay": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "slider_icon": {
+          "type": "string"
+        },
+        "poi_icon": {
+          "type": "string"
+        },
+        "status_poi_icons": {
+          "$ref": "#/definitions/Record%3Cstring%2Cstring%3E"
+        },
+        "initially_visible": {
+          "type": "boolean"
+        },
+        "quiz_only": {
+          "type": "boolean"
+        },
+        "map_only": {
+          "type": "boolean"
+        },
+        "z_index": {
+          "type": "number"
+        },
+        "toggle_order": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "layer_type",
+        "src"
+      ],
+      "additionalProperties": false
+    },
+    "Record<string,string>": {
       "type": "object"
     },
-    "Record<string,{active?:boolean|undefined;layers?:Record<string,{layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}>|undefined;roles?:Record<string,{exclude_layers?:string[]|undefined;layers?:Record<string,{layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}>|undefined;}>|undefined;}>": {
-      "type": "object"
+    "{id:string;active?:boolean|undefined;layers?:{id:string;layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}[]|undefined;roles?:{id:string;exclude_layers?:string[]|undefined;layers?:{id:string;layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}[]|undefined;}[]|undefined;}": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D"
+          }
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/%7Bid%3Astring%3Bexclude_layers%3F%3Astring%5B%5D%7Cundefined%3Blayers%3F%3A%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D%5B%5D%7Cundefined%3B%7D"
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "{id:string;exclude_layers?:string[]|undefined;layers?:{id:string;layer_type:\"static_image\"|\"locations\"|\"area_overlay\"|\"lottie_sequence\"|\"pulsing_overlay\"|\"png_sequence\"|\"svg_sequence\";src:string;available_from?:\"scenario\"|\"role\"|\"global\"|undefined;toggle?:\"available\"|\"deactivated\"|\"hidden\"|\"none\"|undefined;label?:Record<string,string>|undefined;class?:string|undefined;opacity_control?:boolean|undefined;playback_control?:boolean|undefined;start_time?:string|undefined;end_time?:string|undefined;src_overlay?:string|undefined;icon?:string|undefined;slider_icon?:string|undefined;poi_icon?:string|undefined;status_poi_icons?:Record<string,string>|undefined;initially_visible?:boolean|undefined;quiz_only?:boolean|undefined;map_only?:boolean|undefined;z_index?:number|undefined;toggle_order?:number|undefined;}[]|undefined;}": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "exclude_layers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/%7Bid%3Astring%3Blayer_type%3A%22static_image%22%7C%22locations%22%7C%22area_overlay%22%7C%22lottie_sequence%22%7C%22pulsing_overlay%22%7C%22png_sequence%22%7C%22svg_sequence%22%3Bsrc%3Astring%3Bavailable_from%3F%3A%22scenario%22%7C%22role%22%7C%22global%22%7Cundefined%3Btoggle%3F%3A%22available%22%7C%22deactivated%22%7C%22hidden%22%7C%22none%22%7Cundefined%3Blabel%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bclass%3F%3Astring%7Cundefined%3Bopacity_control%3F%3Aboolean%7Cundefined%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bstart_time%3F%3Astring%7Cundefined%3Bend_time%3F%3Astring%7Cundefined%3Bsrc_overlay%3F%3Astring%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bslider_icon%3F%3Astring%7Cundefined%3Bpoi_icon%3F%3Astring%7Cundefined%3Bstatus_poi_icons%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Binitially_visible%3F%3Aboolean%7Cundefined%3Bquiz_only%3F%3Aboolean%7Cundefined%3Bmap_only%3F%3Aboolean%7Cundefined%3Bz_index%3F%3Anumber%7Cundefined%3Btoggle_order%3F%3Anumber%7Cundefined%3B%7D"
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",

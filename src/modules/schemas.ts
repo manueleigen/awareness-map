@@ -19,6 +19,7 @@ const ContextLayerTypeSchema = z.enum([
 ]);
 
 export const ContextLayerDefinitionSchema = z.object({
+	id: z.string(),
 	layer_type: ContextLayerTypeSchema,
 	available_from: z.enum(["scenario", "role", "global"]).optional(),
 	toggle: z.enum(["available", "deactivated", "hidden", "none"]).optional(),
@@ -42,25 +43,26 @@ export const ContextLayerDefinitionSchema = z.object({
 });
 
 export const ContextRoleDefinitionSchema = z.object({
+	id: z.string(),
 	exclude_layers: z.array(z.string()).optional(),
-	layers: z.record(z.string(), ContextLayerDefinitionSchema).optional(),
+	layers: z.array(ContextLayerDefinitionSchema).optional(),
 });
 
 export const ContextScenarioDefinitionSchema = z.object({
+	id: z.string(),
 	active: z.boolean().optional(),
-	layers: z.record(z.string(), ContextLayerDefinitionSchema).optional(),
-	roles: z.record(z.string(), ContextRoleDefinitionSchema).optional(),
+	layers: z.array(ContextLayerDefinitionSchema).optional(),
+	roles: z.array(ContextRoleDefinitionSchema).optional(),
 });
 
 export const ProjectContextDefinitionSchema = z.object({
 	global: z
 		.object({
-			layers: z.record(z.string(), ContextLayerDefinitionSchema).optional(),
+			validator_overlay: z.boolean().optional(),
+			layers: z.array(ContextLayerDefinitionSchema).optional(),
 		})
 		.optional(),
-	scenarios: z
-		.record(z.string(), ContextScenarioDefinitionSchema)
-		.optional(),
+	scenarios: z.array(ContextScenarioDefinitionSchema).optional(),
 });
 
 // ─── layers.yaml ──────────────────────────────────────────────────────────────
@@ -76,6 +78,7 @@ const LayerTypeSchema = z.enum([
 ]);
 
 export const LayerTypeDefinitionSchema = z.object({
+	id: z.string(),
 	type: LayerTypeSchema,
 	interaction: z.string(),
 	playback_control: z.boolean().optional(),
@@ -83,7 +86,7 @@ export const LayerTypeDefinitionSchema = z.object({
 });
 
 export const LayersYamlSchema = z.object({
-	layer_types: z.record(z.string(), LayerTypeDefinitionSchema),
+	layer_types: z.array(LayerTypeDefinitionSchema),
 });
 
 // ─── scenario.yaml ────────────────────────────────────────────────────────────
@@ -95,6 +98,7 @@ const LocalizedScenarioTextSchema = z.object({
 });
 
 export const ScenarioRoleDefinitionSchema = z.object({
+	id: z.string(),
 	text: z
 		.record(z.string(), z.object({ title: z.string() }))
 		.optional(),
@@ -105,7 +109,7 @@ export const ScenarioDefinitionSchema = z.object({
 	id: z.string(),
 	active: z.boolean().optional(),
 	text: z.record(z.string(), LocalizedScenarioTextSchema).optional(),
-	roles: z.record(z.string(), ScenarioRoleDefinitionSchema),
+	roles: z.array(ScenarioRoleDefinitionSchema),
 });
 
 // ─── challenge.yaml ───────────────────────────────────────────────────────────
@@ -297,7 +301,7 @@ export type LayerTypeDefinition = z.infer<typeof LayerTypeDefinitionSchema>;
 export type LayersYamlFile = z.infer<typeof LayersYamlSchema>;
 export type LocalizedScenarioText = z.infer<typeof LocalizedScenarioTextSchema>;
 export type ScenarioRoleDefinition = z.infer<typeof ScenarioRoleDefinitionSchema>;
-export type ScenarioDefinition = z.infer<typeof ScenarioDefinitionSchema>;
+export type ScenarioDefinitionInput = z.infer<typeof ScenarioDefinitionSchema>;
 export type StoryPoint = z.infer<typeof StoryPointSchema>;
 export type ChallengeYaml = z.infer<typeof ChallengeYamlSchema>;
 export type LocationEntry = z.infer<typeof LocationSchema>;

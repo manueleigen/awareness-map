@@ -868,7 +868,18 @@ The TypeScript compile step (`npx tsc`) catches YAML schema violations. The vali
 
 ### In-app validation
 
-When running in development, `preloader.ts` runs the same checks in the background and shows an overlay with errors. Check the browser console for `[Validator]` messages.
+`preloader.ts` runs the same checks in the background after the app starts. Errors always appear in the browser console as `[Validation]` messages.
+
+The on-screen error panel is opt-in. Set `validator_overlay: true` in `config/context.yaml` to show it:
+
+```yaml
+global:
+  validator_overlay: true   # ← shows red error panel in the browser
+  layers:
+    ...
+```
+
+Set it to `false` or omit it for production — the overlay will stay hidden while console errors remain available.
 
 ---
 

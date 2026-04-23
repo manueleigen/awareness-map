@@ -211,9 +211,10 @@ async function runDeepValidation(): Promise<void> {
 
     // Validate each scenario + challenge
     const knownLayers = rawContext ? collectLayerMap(rawContext) : new Map<string, any>();
-    const scenarioIds = Object.keys(rawContext?.scenarios ?? {});
+    const scenarios = rawContext?.scenarios ?? [];
 
-    for (const scenarioId of scenarioIds) {
+    for (const scenarioDef of scenarios) {
+        const scenarioId = scenarioDef.id;
         const scenarioFile = `assets/scenarios/${scenarioId}/scenario.yaml`;
         try {
             const rawScenario = await loadYAML<any>(`/${scenarioFile}`);
@@ -237,8 +238,8 @@ async function runDeepValidation(): Promise<void> {
                 }
 
                 const roles = (rawScenario as any).roles;
-                if (!roles || typeof roles !== "object" || Array.isArray(roles)) continue;
-                for (const [_roleId, role] of Object.entries(roles) as [string, any][]) {
+                if (!roles || !Array.isArray(roles)) continue;
+                for (const role of roles) {
                     if (!role.challenge) continue;
                     const challengePath = role.challenge.startsWith("./")
                         ? `/assets/scenarios/${scenarioId}/${role.challenge.slice(2)}`
@@ -276,7 +277,9 @@ async function runDeepValidation(): Promise<void> {
 
     if (errors.length > 0) {
         console.warn(`[Validator] Found ${errors.length} issue(s).`);
-        reportValidationErrors(errors);
+        if (rawContext?.global?.validator_overlay) {
+            reportValidationErrors(errors);
+        }
     } else {
         console.log("[Validator] All files valid.");
     }

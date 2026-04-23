@@ -7,42 +7,30 @@ text:
     title: Der Fluss tritt über die Ufer
     short_title: Flut
     description: |
-      **Nach tagelangen Regenfällen steigt der Wasserpegel weiter an.**
+      **Nach tagelangen Regenfällen** hat der Pegel kritische Werte erreicht. Das Hochwasserschutzsystem steht vor einer Zerreißprobe.
 
-      Die Lage verändert sich schnell, und die Flutsimulation zeigt, dass in den nächsten Stunden mehrere Teile der Stadt überflutet werden.
-
-      Im Krisenfall haben verschiedene Akteure unterschiedliche Aufgaben und Informationen. **Wessen Rolle möchtest du übernehmen?**
+      Übernimm eine Rolle und hilf dabei, die Situation unter Kontrolle zu bringen.
   en:
     title: The River Overflows Its Banks
     short_title: Flood
     description: |
-      **After days of heavy rainfall, the water level continues to rise.**
+      **After days of heavy rainfall**, water levels have reached critical values. The flood protection system is facing a severe test.
 
-      The situation is changing rapidly, and the flood simulation shows that several parts of the city will be inundated over the next few hours.
-
-      In a crisis, different actors have different responsibilities and access to different information. **Which role would you like to take on?**
+      Take on a role and help bring the situation under control.
 
 roles:
-  fire_brigade:
+  - id: fire_brigade
     text:
-      de:
-        title: Feuerwehr
-      en:
-        title: Fire Brigade
+      de: { title: Feuerwehr }
+      en: { title: Fire Brigade }
     challenge: ./fire_brigade/challenge.yaml
-
-  police:
+  - id: police
     text:
-      de:
-        title: Polizei
-      en:
-        title: Police
+      de: { title: Polizei }
+      en: { title: Police }
     challenge: ./police/challenge.yaml
-
-  crisis_unit:
+  - id: crisis_unit
     text:
-      de:
-        title: Krisenstab
-      en:
-        title: Crisis Unit
+      de: { title: Krisenstab }
+      en: { title: Crisis Unit }
     challenge: ./crisis_unit/challenge.yaml

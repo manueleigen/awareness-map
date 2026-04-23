@@ -263,7 +263,7 @@ node scripts/validate.mjs
 
 ### In-app integration
 
-`preloader.ts` runs tiers 1–3 in the background after the app initialises. If any errors are found, a red developer overlay appears on screen listing them. This surfaces authoring mistakes immediately during content work without requiring a terminal.
+`preloader.ts` runs tiers 1–3 in the background after the app initialises. Errors are always logged to the browser console as `[Validation]` messages. The on-screen overlay is opt-in: set `global.validator_overlay: true` in `config/context.yaml` to show a red panel listing all errors directly in the app. Set it to `false` (or omit it) to keep the overlay hidden on production displays.
 
 ---
 

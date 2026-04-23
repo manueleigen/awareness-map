@@ -4,35 +4,19 @@ active: true
 
 text:
   de:
+    title: Stromausfall in der Stadt
     short_title: Blackout
-    title: Der Strom fällt aus
-    description: Hier ist Test Text
+    description: |
+      **Ein großflächiger Stromausfall** hat die Stadt lahmgelegt. Kritische Infrastrukturen sind gefährdet.
   en:
+    title: Power Outage in the City
     short_title: Blackout
-    title: The Power Goes Out
-    description: This is a test description
+    description: |
+      **A large-scale power outage** has paralyzed the city. Critical infrastructures are at risk.
 
 roles:
-  thw:
+  - id: thw
     text:
-      de:
-        title: THW
-      en:
-        title: THW
-    challenge: ./THW/challenge.yaml
-
-  crisis_unit:
-    text:
-      de:
-        title: Krisenstab
-      en:
-        title: Crisis Unit
-    challenge: ./THW/challenge.yaml
-
-  police:
-    text:
-      de:
-        title: PSNV
-      en:
-        title: PSNV
+      de: { title: THW }
+      en: { title: THW }
     challenge: ./THW/challenge.yaml

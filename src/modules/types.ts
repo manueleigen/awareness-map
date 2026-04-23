@@ -3,6 +3,11 @@ export type Language = "de" | "en";
 
 // Types derived from YAML/JSON file schemas live in schemas.ts.
 // Re-exported here for backwards-compatible imports across the codebase.
+import {
+	LocalizedScenarioText,
+	ScenarioRoleDefinition,
+} from "./schemas.js";
+
 export type {
 	ContextLayerDefinition,
 	ContextRoleDefinition,
@@ -12,12 +17,21 @@ export type {
 	LayersYamlFile as LayerTypesFile,
 	LocalizedScenarioText,
 	ScenarioRoleDefinition,
-	ScenarioDefinition,
+	ScenarioDefinitionInput,
 	StoryPoint,
 	ChallengeYaml,
 	LocationEntry,
 	LocationJson,
+	ContentYaml,
 } from "./schemas.js";
+
+/** Scenario metadata after normalization. */
+export interface ScenarioDefinition {
+	id: string;
+	active?: boolean;
+	text?: Record<string, LocalizedScenarioText>;
+	roles: Record<string, ScenarioRoleDefinition>;
+}
 
 /** Configuration for a single data layer as defined in layers.yaml. */
 export interface LayerConfig {

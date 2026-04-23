@@ -1,7 +1,8 @@
 # yaml-language-server: $schema=../schemas/context.schema.json
 global:
+  validator_overlay: false
   layers:
-    base_layer_river:
+    - id: base_layer_river
       layer_type: static_image
       available_from: global
       toggle: hidden
@@ -9,7 +10,7 @@ global:
       z_index: 10
       src: /assets/scenarios/global/base-layer_river.webp
 
-    base_layer_buildings:
+    - id: base_layer_buildings
       layer_type: static_image
       available_from: global
       toggle: hidden
@@ -17,7 +18,7 @@ global:
       z_index: 71
       src: /assets/scenarios/global/buildings.webp
 
-    base_layer_streets:
+    - id: base_layer_streets
       layer_type: static_image
       available_from: global
       toggle: hidden
@@ -25,7 +26,7 @@ global:
       z_index: 60
       src: /assets/scenarios/global/streets.webp
 
-    base_layer_glow:
+    - id: base_layer_glow
       layer_type: static_image
       available_from: global
       toggle: hidden
@@ -34,7 +35,7 @@ global:
       z_index: 40
       src: /assets/scenarios/global/glow.webp
 
-    critical_sites:
+    - id: critical_sites
       layer_type: locations
       available_from: global
       toggle: available
@@ -48,7 +49,7 @@ global:
       icon: /assets/icons/critical_sites.svg
       poi_icon: /assets/icons/marker_poi.svg
 
-    population_density:
+    - id: population_density
       layer_type: static_image
       available_from: global
       toggle: available
@@ -63,9 +64,9 @@ global:
       icon: /assets/icons/population_density.svg
 
 scenarios:
-  flood:
+  - id: flood
     layers:
-      flood_simulation:
+      - id: flood_simulation
         layer_type: svg_sequence
         available_from: scenario
         toggle: available
@@ -82,10 +83,10 @@ scenarios:
         slider_icon: /assets/icons/flood-slider.svg
 
     roles:
-      fire_brigade:
+      - id: fire_brigade
         exclude_layers: [flood_police_evacuation_zones]
         layers:
-          flood_fire_brigade_emergency_calls:
+          - id: flood_fire_brigade_emergency_calls
             layer_type: locations
             available_from: role
             toggle: available
@@ -99,9 +100,9 @@ scenarios:
             icon: /assets/icons/emergency_calls.svg
             poi_icon: /assets/icons/marker_emergency_call.svg
 
-      police:
+      - id: police
         layers:
-          flood_police_evacuation_zones:
+          - id: flood_police_evacuation_zones
             layer_type: area_overlay
             available_from: role
             toggle: available
@@ -115,10 +116,10 @@ scenarios:
             src: /assets/scenarios/flood/police/evacuation_zones.svg
             icon: /assets/icons/evacuation_zones.svg
 
-      crisis_unit:
+      - id: crisis_unit
         exclude_layers: [flood_police_evacuation_zones]
         layers:
-          flood_crisis_unit_social_media:
+          - id: flood_crisis_unit_social_media
             layer_type: locations
             available_from: role
             toggle: available
@@ -132,7 +133,7 @@ scenarios:
             icon: /assets/icons/social_media.svg
             poi_icon: /assets/icons/marker_social_media.svg
 
-          flood_crisis_unit_drone_feed:
+          - id: flood_crisis_unit_drone_feed
             layer_type: pulsing_overlay
             available_from: role
             toggle: hidden
@@ -143,12 +144,12 @@ scenarios:
             src: /assets/scenarios/flood/crisis_unit/drone_unten.webp
             src_overlay: /assets/scenarios/flood/crisis_unit/drone_oben.webp
 
-  blackout:
-    layers: {}
+  - id: blackout
+    layers: []
     roles:
-      thw:
+      - id: thw
         layers:
-          critical_sites_THW:
+          - id: critical_sites_THW
             layer_type: locations
             available_from: role
             toggle: available
@@ -162,6 +163,6 @@ scenarios:
             icon: /assets/icons/critical_sites.svg
             poi_icon: /assets/icons/marker_poi.svg
 
-  mass_event:
-    layers: {}
-    roles: {}
+  - id: mass_event
+    layers: []
+    roles: []
