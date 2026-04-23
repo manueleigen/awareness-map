@@ -20,3 +20,8 @@ roles:
       de: { title: THW }
       en: { title: THW }
     challenge: ./THW/challenge.yaml
+  - id: crisis_unit
+    text:
+      de: { title: Krisenstab }
+      en: { title: Crisis Unit }
+    challenge: ./crisis_unit/challenge.yaml

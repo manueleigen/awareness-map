@@ -1,0 +1,136 @@
+# yaml-language-server: $schema=../../../../schemas/challenge.schema.json
+story_points:
+  - id: intro
+    type: info
+    activeLayerIds: [critical_sites]
+    text:
+      de:
+        title: Kommunikationsknoten priorisieren
+        description: |
+          Im Blackout ist Kommunikation eine **knappe Ressource**.
+
+          Der Krisenstab muss entscheiden, in welchen drei Bezirken zuerst lokale Kommunikations- und Informationsknoten gestärkt werden sollen.
+      en:
+        title: Prioritize Communication Nodes
+        description: |
+          In a blackout, communication is a **scarce resource**.
+
+          The crisis unit must decide which three districts should first receive local communication and information nodes.
+    next: challenge_core
+
+  - id: challenge_core
+    type: area-selection-quiz
+    target: "#layer-blackout_crisis_unit_districts"
+    activeLayerIds: [blackout_crisis_unit_districts]
+    solution: ["area-19", "area-20", "area-21"]
+    wrong_options: ["area-22", "area-31", "area-33"]
+    minSelection: 3
+    maxSelection: 3
+    text:
+      de:
+        title: Drei Bezirke zuerst absichern
+        question: |
+          **Wähle drei Bezirke aus, in denen lokale Kommunikations- und Informationsknoten zuerst gestärkt werden sollen.**
+
+          Berücksichtige dabei:
+
+          - kritische Kommunikationslage
+          - hohe Bevölkerungsdichte
+          - wenige erreichbare Anlaufstellen
+          - kritische Orte in der Nähe
+      en:
+        title: Secure Three Districts First
+        question: |
+          **Select three districts where local communication and information nodes should be reinforced first.**
+
+          Take into account:
+
+          - critical communication conditions
+          - high population density
+          - few reachable support points
+          - critical sites nearby
+    next:
+      right: win-screen
+      half: half-fail-screen
+      half-wrong: half-wrong-screen
+      wrong-neutral: fail-screen-wrong-neutral
+      all-neutral: fail-screen-all-neutral
+      all-wrong: fail-screen-all-wrong
+
+  - id: win-screen
+    type: end-screen
+    result: passed
+    text:
+      de:
+        title: Strategisch richtig priorisiert
+        description: |
+          Du hast die Bezirke ausgewählt, in denen **kritische Kommunikation, hohe Dichte und geringe Erreichbarkeit** zusammenfallen.
+      en:
+        title: Strategically Prioritized
+        description: |
+          You selected the districts where **critical communication, high density, and poor accessibility** overlap.
+
+  - id: half-fail-screen
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Teilweise tragfähige Priorisierung
+        description: |
+          Ein Teil deiner Auswahl war richtig, aber nicht alle gewählten Bezirke haben die größte strategische Wirkung.
+      en:
+        title: Partly Effective Prioritization
+        description: |
+          Part of your selection was correct, but not all chosen districts create the greatest strategic effect.
+
+  - id: half-wrong-screen
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Gemischte Prioritäten
+        description: |
+          Du hast einen stark belasteten Bezirk erkannt, aber auch einen Bereich priorisiert, der strategisch weniger Wirkung entfaltet.
+      en:
+        title: Mixed Priorities
+        description: |
+          You identified one highly stressed district, but also prioritized an area with less strategic impact.
+
+  - id: fail-screen-wrong-neutral
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Strategisch zu schwach
+        description: |
+          Deine Auswahl enthält einen Bezirk, der bereits besser angebunden ist oder das Lagebild nur wenig verbessert.
+      en:
+        title: Strategically Too Weak
+        description: |
+          Your selection includes a district that is already better connected or would only marginally improve the overall situation.
+
+  - id: fail-screen-all-neutral
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Wirkung unterschätzt
+        description: |
+          Du hast belastete Bereiche gewählt, aber nicht die Bezirke mit der höchsten Wirkung.
+      en:
+        title: Impact Underestimated
+        description: |
+          You selected affected areas, but not the districts with the strongest combined impact.
+
+  - id: fail-screen-all-wrong
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Ressourcen falsch gebunden
+        description: |
+          Du hast Bezirke priorisiert, in denen zusätzliche Kommunikationsknoten **nicht die größte Entlastung** erzeugen.
+      en:
+        title: Resources Misallocated
+        description: |
+          You prioritized districts where additional communication nodes **do not create the greatest relief**.

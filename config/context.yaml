@@ -33,7 +33,7 @@ global:
       class: glow-layer
       initially_visible: true
       z_index: 40
-      src: /assets/scenarios/global/dark_glow.webp
+      src: /assets/scenarios/global/glow.webp
 
     - id: critical_sites
       layer_type: locations
@@ -158,7 +158,7 @@ scenarios:
               en: "Critical\nSites"
             initially_visible: true
             z_index: 101
-            toggle_order: 4
+            toggle_order: 3
             src: /assets/scenarios/blackout/THW/critical_sites.json
             icon: /assets/icons/critical_sites.svg
             playback_control: false
@@ -168,6 +168,21 @@ scenarios:
               stable: /assets/icons/marker_poi_stable.svg
               limited: /assets/icons/marker_poi_limited.svg
               critical: /assets/icons/marker_poi_critical.svg
+      - id: crisis_unit
+        layers:
+          - id: blackout_crisis_unit_districts
+            layer_type: area_overlay
+            available_from: role
+            toggle: available
+            quiz_only: true
+            label:
+              de: "Bezirke"
+              en: "Districts"
+            initially_visible: false
+            z_index: 79
+            toggle_order: 3
+            src: /assets/scenarios/blackout/crisis_unit/districts.svg
+            icon: /assets/icons/evacuation_zones.svg
 
   - id: mass_event
     layers: []
