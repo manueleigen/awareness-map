@@ -1,0 +1,80 @@
+{
+  "layer_id": "blackout_psnv_support_sites",
+  "locations": [
+    {
+      "id": "blackout_psnv_site_01",
+      "x": 980,
+      "y": 760,
+      "translations": {
+        "title": {
+          "de": "Sporthalle Nord",
+          "en": "Northern Sports Hall"
+        },
+        "description": {
+          "de": "Gut erreichbar und groß genug für viele betroffene Menschen aus mehreren Wohnquartieren.",
+          "en": "Easy to reach and large enough for many affected people from several residential districts."
+        }
+      }
+    },
+    {
+      "id": "blackout_psnv_site_02",
+      "x": 2910,
+      "y": 900,
+      "translations": {
+        "title": {
+          "de": "Veranstaltungszentrum Ost",
+          "en": "Eastern Event Center"
+        },
+        "description": {
+          "de": "Viele Menschen halten sich bereits in der Umgebung auf, mehrere kritische Orte liegen in der Nähe.",
+          "en": "Many people are already gathered nearby, and several critical sites are close."
+        }
+      }
+    },
+    {
+      "id": "blackout_psnv_site_03",
+      "x": 1580,
+      "y": 440,
+      "translations": {
+        "title": {
+          "de": "Messeparkplatz",
+          "en": "Trade Fair Parking Lot"
+        },
+        "description": {
+          "de": "Große Fläche, aber wenig Schutz und derzeit nur geringe unmittelbare Aufenthaltsdichte.",
+          "en": "Large open area, but with little shelter and currently low immediate crowd density."
+        }
+      }
+    },
+    {
+      "id": "blackout_psnv_site_04",
+      "x": 1220,
+      "y": 1540,
+      "translations": {
+        "title": {
+          "de": "Bürgerhaus West",
+          "en": "Western Community Center"
+        },
+        "description": {
+          "de": "Kleiner Standort, bereits teilweise durch andere lokale Angebote entlastet.",
+          "en": "Smaller site, already partly relieved by other local support options."
+        }
+      }
+    },
+    {
+      "id": "blackout_psnv_site_05",
+      "x": 3240,
+      "y": 1320,
+      "translations": {
+        "title": {
+          "de": "Schulcampus Süd",
+          "en": "Southern School Campus"
+        },
+        "description": {
+          "de": "Geeignet als Sammel- und Versorgungsort für größere südliche Wohnbereiche.",
+          "en": "Suitable as a gathering and support site for larger southern residential areas."
+        }
+      }
+    }
+  ]
+}

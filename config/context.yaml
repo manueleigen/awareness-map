@@ -168,8 +168,32 @@ scenarios:
               stable: /assets/icons/marker_poi_stable.svg
               limited: /assets/icons/marker_poi_limited.svg
               critical: /assets/icons/marker_poi_critical.svg
+      - id: psnv
+        layers:
+          - id: blackout_psnv_support_sites
+            layer_type: locations
+            available_from: role
+            toggle: available
+            quiz_only: false
+            initially_visible: true
+            z_index: 103
+            toggle_order: 3
+            src: /assets/scenarios/blackout/psnv/support_sites.json
+            icon: /assets/icons/critical_sites.svg
+            poi_icon: /assets/icons/marker_poi.svg
       - id: crisis_unit
         layers:
+          - id: blackout_crisis_unit_info_points
+            layer_type: locations
+            available_from: role
+            toggle: hidden
+            quiz_only: true
+            initially_visible: false
+            z_index: 102
+            toggle_order: 4
+            src: /assets/scenarios/blackout/crisis_unit/info_points.json
+            icon: /assets/icons/critical_sites.svg
+            poi_icon: /assets/icons/marker_poi.svg
           - id: blackout_crisis_unit_districts
             layer_type: area_overlay
             available_from: role

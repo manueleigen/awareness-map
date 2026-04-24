@@ -20,6 +20,11 @@ roles:
       de: { title: THW }
       en: { title: THW }
     challenge: ./THW/challenge.yaml
+  - id: psnv
+    text:
+      de: { title: PSNV }
+      en: { title: PSNV }
+    challenge: ./psnv/challenge.yaml
   - id: crisis_unit
     text:
       de: { title: Krisenstab }

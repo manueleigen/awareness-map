@@ -2,12 +2,13 @@
 story_points:
   - id: intro
     type: info
-    activeLayerIds: [critical_sites]
     text:
       de:
-        title: Kommunikationsknoten priorisieren
+        title: Bezirke priorisieren
         description: |
-          Im Blackout ist Kommunikation eine **knappe Ressource**.
+          
+          Der Krisenstab muss dafür sorgen, die wichtigesten Aufgaben trotz knapper Ressourcen zu bewältigen.
+           Blackout ist Kommunikation eine **knappe Ressource**.
 
           Der Krisenstab muss entscheiden, in welchen drei Bezirken zuerst lokale Kommunikations- und Informationsknoten gestärkt werden sollen.
       en:
@@ -18,10 +19,48 @@ story_points:
           The crisis unit must decide which three districts should first receive local communication and information nodes.
     next: challenge_core
 
+  - id: wifi-placement
+    type: location-quiz
+    activeLayerIds: [blackout_crisis_unit_info_points]
+    excludeLayerIds: [critical_sites]
+    target: "#layers"
+    initial_position:
+      x: 1920
+      y: 1080
+    solution: ["{x: 1920, y: 1080}"]
+    maxDistance: 320
+    submit:
+      de: WLAN-Punkt platzieren
+      en: Place Wi-Fi Point
+    text:
+      de:
+        title: Mobilen WLAN-Punkt setzen
+        question: |
+          **Setze den mobilen WLAN-Punkt dort, wo bestehende Info-Anlaufstationen die geringste Abdeckung erzeugen.**
+
+          Berücksichtige dabei:
+
+          - vorhandene Anlaufstationen
+          - schlecht versorgte Bereiche
+          - kritische Orte in der Nähe
+      en:
+        title: Place Mobile Wi-Fi Point
+        question: |
+          **Place the mobile Wi-Fi point where existing information stations leave the largest coverage gap.**
+
+          Take into account:
+
+          - existing support stations
+          - poorly covered areas
+          - nearby critical sites
+    next:
+      right: win-screen
+      wrong: wifi-fail-screen
+
   - id: challenge_core
     type: area-selection-quiz
     target: "#layer-blackout_crisis_unit_districts"
-    activeLayerIds: [blackout_crisis_unit_districts]
+    activeLayerIds: [blackout_crisis_unit_districts, critical_sites]
     solution: ["area-19", "area-20", "area-21"]
     wrong_options: ["area-22", "area-31", "area-33"]
     minSelection: 3
@@ -36,7 +75,6 @@ story_points:
 
           - kritische Kommunikationslage
           - hohe Bevölkerungsdichte
-          - wenige erreichbare Anlaufstellen
           - kritische Orte in der Nähe
       en:
         title: Secure Three Districts First
@@ -47,15 +85,31 @@ story_points:
 
           - critical communication conditions
           - high population density
-          - few reachable support points
           - critical sites nearby
     next:
-      right: win-screen
+      right: wifi-placement
       half: half-fail-screen
       half-wrong: half-wrong-screen
       wrong-neutral: fail-screen-wrong-neutral
       all-neutral: fail-screen-all-neutral
       all-wrong: fail-screen-all-wrong
+
+  - id: wifi-fail-screen
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Nicht optimal platziert
+        description: |
+          Dort gibt es bereits vergleichsweise mehr Abdeckung.
+
+          Suche den Bereich, der von bestehenden Anlaufstationen am wenigsten erreicht wird.
+      en:
+        title: Not Optimally Placed
+        description: |
+          That area already has comparatively more coverage.
+
+          Look for the area least reached by the existing support stations.
 
   - id: win-screen
     type: end-screen
