@@ -130,6 +130,7 @@ const StoryPointTextSchema = z.object({
 			title: z.string().optional(),
 			description: z.string().optional(),
 			question: z.string().optional(),
+			button: z.string().optional(),
 		})
 		.optional(),
 	en: z
@@ -137,6 +138,7 @@ const StoryPointTextSchema = z.object({
 			title: z.string().optional(),
 			description: z.string().optional(),
 			question: z.string().optional(),
+			button: z.string().optional(),
 		})
 		.optional(),
 });
@@ -149,8 +151,11 @@ const QuizOptionSchema = z.object({
 // Fields shared across all story point types
 const storyPointBase = {
 	id: z.string(),
-	activeLayerIds: z.array(z.string()).optional(),
-	excludeLayerIds: z.array(z.string()).optional(),
+	showLayersById: z.array(z.string()).optional(),
+	hideLayersById: z.array(z.string()).optional(),
+	pulseLayersById: z.array(z.string()).optional(),
+	hintLayerOverlaysById: z.array(z.string()).optional(),
+	hintLayerOverlayDuration: z.number().optional(),
 	slider_time: z.string().optional(),
 	slider_time_layer: z.string().optional(),
 	slider_time_fixed: z.boolean().optional(),
@@ -254,7 +259,7 @@ export const LocationSchema = z.object({
 	translations: z.object({
 		title: LocalizedTextSchema.optional(),
 		description: LocalizedTextSchema.optional(),
-	}),
+	}).optional(),
 	status_translations: StatusTranslationSchema.optional(),
 });
 

@@ -29,6 +29,7 @@ function normalizeLocalizedInlineText(
 					title: value.de.title,
 					question: value.de.question,
 					description: value.de.description,
+					button: value.de.button,
 				}
 			: undefined,
 		en: value.en
@@ -36,6 +37,7 @@ function normalizeLocalizedInlineText(
 					title: value.en.title,
 					question: value.en.question,
 					description: value.en.description,
+					button: value.en.button,
 				}
 			: undefined,
 	};
@@ -94,9 +96,13 @@ export function getLocalizedInlineText(
 
 export function getStoryPointText(
 	point: BaseStoryPoint,
-	field: "title" | "question" | "description",
+	field: "title" | "question" | "description" | "button",
 ): string | null {
 	return getLocalizedInlineText(point.text)?.[field] ?? null;
+}
+
+export function getStoryPointButtonText(point: BaseStoryPoint): string | null {
+	return getStoryPointText(point, "button");
 }
 
 export function getStoryPointDescription(point: BaseStoryPoint): string {

@@ -170,8 +170,8 @@ export async function getRoleActiveLayerIds(): Promise<string[]> {
 	const intro = challenge?.story_points?.find(
 		(point: any) => point?.id === "intro" && point?.type === "info",
 	);
-	if (intro?.activeLayerIds?.length) {
-		return intro.activeLayerIds;
+	if (intro?.showLayersById?.length) {
+		return intro.showLayersById;
 	}
 	return [];
 }

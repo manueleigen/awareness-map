@@ -192,7 +192,7 @@ await updateView();
 `activeLayers` is the merged result of:
 
 1. Layers with `initially_visible: true` and `quiz_only: false` in `context.yaml` — set by `syncActiveLayers()` on each reset.
-2. Layers added by the current quiz step (`activeLayerIds` in the story point) — tracked in `quizStepLayers`.
+2. Layers added by the current quiz step (`showLayersById` in the story point) — tracked in `quizStepLayers`.
 3. User toggle actions — add/remove individual IDs directly.
 
 `quizStepLayers` is a subset of `activeLayers`. On step transition, `loadPoint()` removes all IDs in `quizStepLayers` from `activeLayers` before adding the new step's layers.
@@ -235,7 +235,7 @@ const EndScreenStoryPointSchema = z.object({
 Checks cross-file consistency after parsing. Examples:
 
 - Every `next` target ID must exist as a story point in the same challenge.
-- Every `activeLayerIds` entry must exist as a layer key in `context.yaml`.
+- Every entry in `showLayersById`, `hideLayersById`, `pulseLayersById`, and `hintLayerOverlaysById` must exist as a layer key in `context.yaml`.
 - Every role ID in `scenario.yaml` must have a corresponding entry in `context.yaml`.
 - POI locations with a `status` must have a matching icon in `status_poi_icons` (warning only).
 
@@ -362,11 +362,13 @@ When a `passed` end-screen is reached, `handleAction` calls `onFinish("passed")`
 Each call to `loadPoint(id)`:
 
 1. **Cleans up**: removes layers in `quizStepLayers` from `activeLayers`, releases slider locks, calls `abortLocationStep()` / `abortSelectionStep()`.
-2. **Applies exclusions**: removes any `excludeLayerIds` from `activeLayers`.
-3. **Activates new layers**: adds `activeLayerIds` to both `activeLayers` and `quizStepLayers`.
+2. **Applies exclusions**: removes any `hideLayersById` from `activeLayers`.
+3. **Activates new layers**: adds `showLayersById` to both `activeLayers` and `quizStepLayers`.
 4. **Syncs the view**: fires `app-request-view-update` and waits for the `app-view-updated` event.
 5. **Animates the slider**: calls `animateSliderToTime()` if `slider_time` is set.
-6. **Delegates rendering**: calls the appropriate renderer based on `point.type`.
+6. **Pulses POI markers**: adds `quiz-pulse` class to `.poi-marker` elements in `pulseLayersById` layers.
+7. **Shows hint overlays**: calls `previewPOILayer()` for each layer in `hintLayerOverlaysById` with `hintLayerOverlayDuration` (default 3000 ms).
+8. **Delegates rendering**: calls the appropriate renderer based on `point.type`.
 
 ### Outcome resolution (`handleAction`)
 

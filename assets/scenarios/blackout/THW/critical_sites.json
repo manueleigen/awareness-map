@@ -1,89 +1,104 @@
 {
-  "layer_id": "critical_sites_THW",
-  "locations": [
-    {
-      "id": "blackout_thw_poi_01",
-      "x": 860,
-      "y": 620,
-      "class": "right-opening",
-      "status": "limited",
-      "translations": {
-        "title": { "de": "Abwasserpumpwerk", "en": "Wastewater Pumping Station" },
-        "description": {
-          "de": "Begrenzte Stromreserven bedrohen die Abwasserentsorgung in dicht besiedelten Stadtvierteln.",
-          "en": "Limited power reserves threaten wastewater management in densely populated neighborhoods."
-        }
-      }
-    },
-    {
-      "id": "blackout_thw_poi_02",
-      "x": 2780,
-      "y": 740,
-      "class": "left-opening",
-      "status": "critical",
-      "translations": {
-        "title": { "de": "Koordinationszentrum", "en": "Coordination Center" },
-        "description": {
-          "de": "Kritischer Stromausfall droht und gefährdet die Kommunikation in mehreren Stadtteilen.",
-          "en": "Critical power failure risks communication breakdown across multiple districts."
-        }
-      }
-    },
-    {
-      "id": "blackout_thw_poi_03",
-      "x": 1580,
-      "y": 470,
-      "class": "right-opening",
-      "status": "stable",
-      "translations": {
-        "title": { "de": "Klinikum", "en": "Hospital" },
-        "description": {
-          "de": "Stabile Notstromversorgung sichert die medizinische Versorgung der Gemeinschaft.",
-          "en": "Stable backup power maintains essential medical services for the community."
-        }
-      }
-    },
-    {
-      "id": "blackout_thw_poi_04",
-      "x": 3230,
-      "y": 1320,
-      "class": "left-opening",
-      "status": "critical",
-      "translations": {
-        "title": { "de": "Trinkwasserwerk", "en": "Drinking Water Works" },
-        "description": {
-          "de": "Kritische Stromsituation gefährdet die Wasserversorgung in großen südlichen Gebieten.",
-          "en": "Critical power situation endangers water supply to large southern areas."
-        }
-      }
-    },
-    {
-      "id": "blackout_thw_poi_05",
-      "x": 1220,
-      "y": 1550,
-      "class": "right-opening",
-      "status": "limited",
-      "translations": {
-        "title": { "de": "Kraftstoffdepot", "en": "Fuel Depot" },
-        "description": {
-          "de": "Begrenzte Kraftstoffreserven behindern Einsatzfahrzeuge und Reaktionsfähigkeiten.",
-          "en": "Limited fuel reserves constrain emergency vehicle operations and response capabilities."
-        }
-      }
-    },
-    {
-      "id": "blackout_thw_poi_06",
-      "x": 2280,
-      "y": 1710,
-      "class": "left-opening",
-      "status": "stable",
-      "translations": {
-        "title": { "de": "Kühlzentrum", "en": "Cold Storage Center" },
-        "description": {
-          "de": "Stabile Kühlung bewahrt temperaturempfindliche medizinische Vorräte und Lebensmittel.",
-          "en": "Stable refrigeration preserves temperature-sensitive medical supplies and food."
-        }
-      }
-    }
-  ]
+	"layer_id": "critical_sites_THW",
+	"locations": [
+		{
+			"id": "blackout_thw_poi_01",
+			"x": 860,
+			"y": 620,
+			"class": "right-opening",
+			"status": "limited",
+			"translations": {
+				"title": {
+					"de": "Abwasserpumpwerk",
+					"en": "Wastewater Pumping Station"
+				},
+				"description": {
+					"de": "Begrenzte Stromreserven bedrohen die Abwasserentsorgung in dicht besiedelten Stadtvierteln.",
+					"en": "Limited power reserves threaten wastewater management in densely populated neighborhoods."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_02",
+			"x": 2780,
+			"y": 740,
+			"class": "left-opening",
+			"status": "critical",
+			"translations": {
+				"title": {
+					"de": "Koordinationszentrum",
+					"en": "Coordination Center"
+				},
+				"description": {
+					"de": "Kritischer Stromausfall droht und gefährdet die Kommunikation in mehreren Stadtteilen.",
+					"en": "Critical power failure risks communication breakdown across multiple districts."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_03",
+			"x": 1580,
+			"y": 470,
+			"class": "right-opening",
+			"status": "stable",
+			"translations": {
+				"title": { "de": "Klinikum", "en": "Hospital" },
+				"description": {
+					"de": "Stabile Notstromversorgung sichert die medizinische Versorgung der Gemeinschaft.",
+					"en": "Stable backup power maintains essential medical services for the community."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_04",
+			"x": 3230,
+			"y": 1320,
+			"class": "left-opening",
+			"status": "critical",
+			"translations": {
+				"title": {
+					"de": "Trinkwasserwerk",
+					"en": "Drinking Water Works"
+				},
+				"description": {
+					"de": "Kritische Stromsituation gefährdet die Wasserversorgung in großen südlichen Gebieten.",
+					"en": "Critical power situation endangers water supply to large southern areas."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_05",
+			"x": 1220,
+			"y": 1550,
+			"class": "right-opening",
+			"status": "limited",
+			"translations": {
+				"title": {
+					"de": "Kraftstoffdepot",
+					"en": "Fuel Depot"
+				},
+				"description": {
+					"de": "Begrenzte Kraftstoffreserven behindern Einsatzfahrzeuge und Reaktionsfähigkeiten.",
+					"en": "Limited fuel reserves constrain emergency vehicle operations and response capabilities."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_06",
+			"x": 2280,
+			"y": 1710,
+			"class": "left-opening",
+			"status": "stable",
+			"translations": {
+				"title": {
+					"de": "Kühlzentrum",
+					"en": "Cold Storage Center"
+				},
+				"description": {
+					"de": "Stabile Kühlung bewahrt temperaturempfindliche medizinische Vorräte und Lebensmittel.",
+					"en": "Stable refrigeration preserves temperature-sensitive medical supplies and food."
+				}
+			}
+		}
+	]
 }

@@ -1,18 +1,20 @@
 {
-  "description": "Scenario metadata after normalization.",
   "type": "object",
   "properties": {
     "id": {
       "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/%7Bid%3Astring%3Btext%3F%3ARecord%3Cstring%2C%7Btitle%3Astring%3B%7D%3E%7Cundefined%3Bchallenge%3F%3Astring%7Cundefined%3B%7D"
+      }
     },
     "active": {
       "type": "boolean"
     },
     "text": {
       "$ref": "#/definitions/Record%3Cstring%2C%7Btitle%3Astring%3Bshort_title%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3B%7D%3E"
-    },
-    "roles": {
-      "$ref": "#/definitions/Record%3Cstring%2C%7Bid%3Astring%3Btext%3F%3ARecord%3Cstring%2C%7Btitle%3Astring%3B%7D%3E%7Cundefined%3Bchallenge%3F%3Astring%7Cundefined%3B%7D%3E"
     }
   },
   "required": [
@@ -20,10 +22,28 @@
     "roles"
   ],
   "definitions": {
-    "Record<string,{title:string;short_title?:string|undefined;description?:string|undefined;}>": {
+    "{id:string;text?:Record<string,{title:string;}>|undefined;challenge?:string|undefined;}": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/definitions/Record%3Cstring%2C%7Btitle%3Astring%3B%7D%3E"
+        },
+        "challenge": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "Record<string,{title:string;}>": {
       "type": "object"
     },
-    "Record<string,{id:string;text?:Record<string,{title:string;}>|undefined;challenge?:string|undefined;}>": {
+    "Record<string,{title:string;short_title?:string|undefined;description?:string|undefined;}>": {
       "type": "object"
     }
   },

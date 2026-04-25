@@ -9,6 +9,7 @@ import {
 } from "./types.js";
 import {
 	getQuizOptionLabel,
+	getStoryPointButtonText,
 	getStoryPointDescription,
 	getStoryPointQuestion,
 	getStoryPointTitle,
@@ -54,14 +55,8 @@ export function renderInfo(
 		);
 		controls.append(backBtn);
 	} else {
-		// Determine the button key based on the step type
-		let buttonKey = "navigation.next";
-		if (point.id === "intro") {
-			buttonKey = "challenges.common.start_button";
-		}
-
 		const btn = create("button");
-		btn.innerText = t(buttonKey);
+		btn.innerText = getStoryPointButtonText(point) ?? t("navigation.next");
 		addDelayedPointerClick(btn, () => onAction(true));
 		controls.append(btn);
 	}

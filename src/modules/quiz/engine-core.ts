@@ -4,9 +4,16 @@ import { resetLayers } from "../layers.js";
 import { StoryPoint, QuizOutcome } from "./types.js";
 import { clearQuizAnswers } from "./ui.js";
 import { renderInfo, renderChoice } from "./render-text.js";
-import { renderLocation, renderSelection, abortLocationStep, refreshLocationTranslations, abortSelectionStep } from "./render-map.js";
+import {
+	renderLocation,
+	renderSelection,
+	abortLocationStep,
+	refreshLocationTranslations,
+	abortSelectionStep,
+} from "./render-map.js";
 import { animateSliderToTime } from "../time-slider.js";
 import { getRoleActiveLayerIds } from "../scenarios.js";
+import { previewPOILayer } from "../poi.js";
 import { normalizeChallengeDefinition } from "./challenge-normalizer.js";
 
 /** Local storage for the active quiz run. */
@@ -44,8 +51,7 @@ export function refreshCurrentPoint(): void {
 			currentPoint,
 			currentOnAction,
 		);
-	else if (currentPoint.type === "location-quiz")
-		refreshLocationTranslations();
+	else if (currentPoint.type === "location-quiz") refreshLocationTranslations();
 	else if (
 		currentPoint.type === "area-selection-quiz" ||
 		currentPoint.type === "point-selection-quiz"
@@ -91,13 +97,7 @@ export async function runQuiz(
 
 	clearQuizAnswers();
 
-	// The intro step's text is already shown in renderMapUI (map view), so skip re-rendering
-	// it as the first quiz step. Jump directly to intro's next step.
-	const introPoint = currentStoryPoints.find(
-		(p) => p.id === "intro" && p.type === "info",
-	);
-	const firstStepId =
-		introPoint && typeof introPoint.next === "string" ? introPoint.next : "intro";
+	const firstStepId = currentStoryPoints[0]?.id ?? "intro";
 	await loadPoint(firstStepId);
 }
 
@@ -132,17 +132,17 @@ async function loadPoint(id: string): Promise<void> {
 	clearQuizAnswers();
 
 	// 3. Explicitly deactivate layers that should be hidden for THIS step
-	if (point.excludeLayerIds && point.excludeLayerIds.length > 0) {
-		point.excludeLayerIds.forEach((layerId) => {
+	if (point.hideLayersById && point.hideLayersById.length > 0) {
+		point.hideLayersById.forEach((layerId) => {
 			app.activeLayers.delete(layerId);
 		});
 	}
 
 	// 4. Handle automatic layer activation for THIS specific step
-	const layersToActivate = point.activeLayerIds ?? [];
+	const layersToShow = point.showLayersById ?? [];
 
-	if (layersToActivate.length > 0) {
-		layersToActivate.forEach((layerId) => {
+	if (layersToShow.length > 0) {
+		layersToShow.forEach((layerId) => {
 			if (!app.activeLayers.has(layerId)) {
 				app.activeLayers.add(layerId);
 				app.quizStepLayers.add(layerId); // Track so we can remove it later
@@ -164,7 +164,7 @@ async function loadPoint(id: string): Promise<void> {
 	if (point.slider_time) {
 		const targetLayers = point.slider_time_layer
 			? [point.slider_time_layer]
-			: layersToActivate;
+			: layersToShow;
 		targetLayers.forEach((layerId) => {
 			animateSliderToTime(
 				layerId,
@@ -172,6 +172,23 @@ async function loadPoint(id: string): Promise<void> {
 				point.slider_time_fixed ?? false,
 			);
 		});
+	}
+
+	// 7. Add quiz-pulse to POI markers in specified layers
+	for (const layerId of point.pulseLayersById ?? []) {
+		const layerEl = document.getElementById(`layer-${layerId}`);
+		layerEl
+			?.querySelectorAll<HTMLElement>(".poi-marker")
+			.forEach((el) => el.classList.add("quiz-pulse"));
+	}
+
+	// 8. Show hint overlays for specified layers
+	if (point.hintLayerOverlaysById?.length) {
+		const hintDuration = point.hintLayerOverlayDuration ?? 1500;
+		for (const layerId of point.hintLayerOverlaysById) {
+			const layerEl = document.getElementById(`layer-${layerId}`);
+			if (layerEl) await previewPOILayer(layerEl, hintDuration);
+		}
 	}
 
 	currentPoint = point;
@@ -208,7 +225,11 @@ async function loadPoint(id: string): Promise<void> {
 function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	// 1. Check if the point itself signals the end of the quiz
 	if (point.type === "end-screen" || !point.next) {
-		if (point.type === "end-screen" && (point as any).result === "failed" && lastQuizPointId) {
+		if (
+			point.type === "end-screen" &&
+			(point as any).result === "failed" &&
+			lastQuizPointId
+		) {
 			loadPoint(lastQuizPointId);
 			return;
 		}

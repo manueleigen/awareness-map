@@ -2,7 +2,7 @@
 story_points:
   - id: intro
     type: info
-    activeLayerIds: [critical_sites]
+    showLayersById: [critical_sites]
     slider_time: "13:30"
     text:
       de:
@@ -22,7 +22,7 @@ story_points:
   - id: challenge_core
     type: area-selection-quiz
     target: "#layer-flood_police_evacuation_zones"
-    activeLayerIds: [flood_police_evacuation_zones]
+    showLayersById: [flood_police_evacuation_zones]
     solution: ["area-19", "area-20", "area-21"]
     wrong_options: []
     minSelection: 3
@@ -59,7 +59,7 @@ story_points:
   - id: win-screen
     type: end-screen
     result: passed
-    activeLayerIds: [flood_police_evacuation_zones]
+    showLayersById: [flood_police_evacuation_zones]
     text:
       de:
         title: Challenge gelöst!

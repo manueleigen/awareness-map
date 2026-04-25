@@ -46,7 +46,7 @@ story_points:
 
   - id: intro2
     type: info
-    activeLayerIds: [blackout_psnv_support_sites]
+    showLayersById: [blackout_psnv_support_sites]
     text:
       de:
         title: Versorgungspunkte auswählen
@@ -65,7 +65,7 @@ story_points:
   - id: challenge_core
     type: point-selection-quiz
     target: "#layer-blackout_psnv_support_sites"
-    activeLayerIds: [blackout_psnv_support_sites]
+    showLayersById: [blackout_psnv_support_sites]
     solution: ["blackout_psnv_site_01", "blackout_psnv_site_05"]
     wrong_options: ["blackout_psnv_site_03"]
     minSelection: 2
@@ -101,7 +101,7 @@ story_points:
 
   - id: psnv-general-quiz
     type: quiz
-    activeLayerIds: [blackout_psnv_support_sites]
+    showLayersById: [blackout_psnv_support_sites]
     options:
       - value: "A"
         text:
@@ -149,7 +149,7 @@ story_points:
   - id: win-screen
     type: end-screen
     result: passed
-    activeLayerIds: [blackout_psnv_support_sites]
+    showLayersById: [blackout_psnv_support_sites]
     text:
       de:
         title: Challenge gelöst!

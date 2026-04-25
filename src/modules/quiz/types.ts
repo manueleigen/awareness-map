@@ -18,6 +18,7 @@ export interface LocalizedInlineText {
     title?: string;
     question?: string;
     description?: string;
+    button?: string;
 }
 
 export interface QuizOption {
@@ -36,8 +37,11 @@ export interface BaseStoryPoint {
         en?: LocalizedInlineText;
     };
     next?: NextConfig;
-    activeLayerIds?: string[];
-    excludeLayerIds?: string[];
+    showLayersById?: string[];
+    hideLayersById?: string[];
+    pulseLayersById?: string[];
+    hintLayerOverlaysById?: string[];
+    hintLayerOverlayDuration?: number;
     slider_time?: string;
     slider_time_layer?: string;
     slider_time_fixed?: boolean;

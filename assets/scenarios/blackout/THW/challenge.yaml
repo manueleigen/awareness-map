@@ -65,7 +65,7 @@ story_points:
     type: point-selection-quiz
 
     target: "#layer-blackout_THW_critical_sites"
-    activeLayerIds: [blackout_THW_critical_sites]
+    showLayersById: [blackout_THW_critical_sites]
     solution: ["blackout_thw_poi_01", "blackout_thw_poi_02", "blackout_thw_poi_04"]
     wrong_options: ["blackout_thw_poi_05"]
     minSelection: 3
@@ -102,7 +102,7 @@ story_points:
   - id: win-screen
     type: end-screen
     result: passed
-    activeLayerIds: [blackout_THW_critical_sites]
+    showLayersById: [blackout_THW_critical_sites]
     text:
       de:
         title: Einsatz erfolgreich!

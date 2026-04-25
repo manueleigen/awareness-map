@@ -25,7 +25,8 @@ story_points:
   - id: challenge_core
     type: point-selection-quiz
     target: "#layer-flood_fire_brigade_emergency_calls"
-    activeLayerIds: [flood_fire_brigade_emergency_calls]
+    showLayersById: [flood_fire_brigade_emergency_calls]
+    hideLayersById: [flood_fire_brigade_emergency_calls]
     slider_time: "14:00"
     slider_time_layer: flood_simulation
     slider_time_fixed: false
@@ -65,7 +66,7 @@ story_points:
   - id: win-screen
     type: end-screen
     result: passed
-    activeLayerIds: [flood_fire_brigade_emergency_calls]
+    showLayersById: [flood_fire_brigade_emergency_calls]
     text:
       de:
         title: Challenge gelöst!

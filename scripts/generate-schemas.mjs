@@ -5,7 +5,7 @@ import { resolve } from "path";
 const TARGETS = {
   "context.schema.json": "ProjectContextDefinition",
   "layers.schema.json": "LayersYamlFile",
-  "scenario.schema.json": "ScenarioDefinition",
+  "scenario.schema.json": "ScenarioDefinitionInput",
   "challenge.schema.json": "ChallengeYaml",
   "content.schema.json": "ContentYaml",
 };

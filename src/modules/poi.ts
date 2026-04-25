@@ -179,11 +179,42 @@ export async function renderPOILayer(
 			// Store loc data for use by previewPOILayer
 			markerLocMap.set(marker, loc);
 
-			// Handle click to open detail overlay
-			addPointerClick(marker, (e) => {
-				e.stopPropagation();
-				showPOIOverlay(poiContainer, loc, poiSize, marker);
-			});
+			// Handle click to open detail overlay — only if translations are available
+			const hasTranslations =
+				(!!loc.translations && Object.keys(loc.translations).length > 0) ||
+				(!!loc.status_translations && Object.keys(loc.status_translations).length > 0);
+			if (hasTranslations) {
+				addPointerClick(marker, (e) => {
+					e.stopPropagation();
+					showPOIOverlay(poiContainer, loc, poiSize, marker);
+				});
+			} else {
+				marker.classList.add("no-overlay");
+				addPointerClick(marker, (e) => {
+					e.stopPropagation();
+					const quizPoiSelectTarget = (
+						document.documentElement.dataset.quizPoiSelectTarget ?? ""
+					).trim();
+					const layerId = poiContainer.dataset.layerId ?? "";
+					const isInTargetLayer =
+						!quizPoiSelectTarget ||
+						quizPoiSelectTarget === `#layer-${layerId}`;
+					if (
+						document.documentElement.dataset.quizPoiSelect !== "1" ||
+						!isInTargetLayer
+					)
+						return;
+					marker.classList.toggle("quiz-answer");
+					document.dispatchEvent(
+						new CustomEvent("quiz-answer-changed", {
+							detail: {
+								id: marker.id,
+								isSelected: marker.classList.contains("quiz-answer"),
+							},
+						}),
+					);
+				});
+			}
 
 			poiContainer.append(marker);
 		});
@@ -364,7 +395,7 @@ export async function showPOIOverlay(
  * Opens all POI overlays of a layer simultaneously as a brief 3-second preview.
  * Called automatically whenever a POI layer becomes visible.
  */
-export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
+export async function previewPOILayer(layerEl: HTMLElement, duration = 3000): Promise<void> {
 	const poiContainer = layerEl.querySelector<HTMLDivElement>(".poi-container");
 	if (!poiContainer) return;
 
@@ -387,7 +418,8 @@ export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
 		markers.map((marker) => {
 			if (previewGeneration !== myGeneration) return Promise.resolve();
 			const loc = markerLocMap.get(marker);
-			if (loc) return showPOIOverlay(poiContainer, loc, poiSize, marker, true);
+			if (loc && ((!!loc.translations && Object.keys(loc.translations).length > 0) || (!!loc.status_translations && Object.keys(loc.status_translations).length > 0)))
+				return showPOIOverlay(poiContainer, loc, poiSize, marker, true);
 			return Promise.resolve();
 		}),
 	);
@@ -402,7 +434,7 @@ export async function previewPOILayer(layerEl: HTMLElement): Promise<void> {
 			.forEach((el) => closeOverlayWithAnimation(el));
 		app.ui.poiOverlay = null;
 		previewTimeout = null;
-	}, 3000);
+	}, duration);
 }
 
 /** Closes a single overlay with the pop-out animation. */

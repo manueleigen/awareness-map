@@ -21,16 +21,22 @@ text:
 roles:
   - id: fire_brigade
     text:
-      de: { title: Feuerwehr }
-      en: { title: Fire Brigade }
+      de:
+        title: Feuerwehr
+      en:
+        title: Fire Brigade
     challenge: ./fire_brigade/challenge.yaml
   - id: police
     text:
-      de: { title: Polizei }
-      en: { title: Police }
+      de:
+        title: Polizei
+      en:
+        title: Police
     challenge: ./police/challenge.yaml
   - id: crisis_unit
     text:
-      de: { title: Krisenstab }
-      en: { title: Crisis Unit }
+      de:
+        title: Krisenstab
+      en:
+        title: Crisis Unit
     challenge: ./crisis_unit/challenge.yaml

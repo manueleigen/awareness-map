@@ -7,7 +7,6 @@ import {
 	renderLayers,
 	resetLayers,
 	resetSliders,
-	previewActivePOILayers,
 } from "./layers.js";
 import { create } from "./lib.js";
 import { renderBlockText, renderInlineText } from "./rich-text.js";
@@ -18,14 +17,11 @@ import {
 	getCurrentScenarioDefinition,
 	getCurrentScenarioText,
 	getQuizPath,
-	getRoleSliderConfig,
-	getRoleActiveLayerIds,
 	getScenarioDefinition,
 	getScenarioText,
 } from "./scenarios.js";
 import { refreshCurrentPoint } from "./quiz/engine-core.js";
 import { abortLocationStep, abortSelectionStep } from "./quiz/render-map.js";
-import { animateSliderToTime } from "./time-slider.js";
 /**
  * Updates the entire application view based on app.view state.
  * Refreshes both the UI overlays and the map layers.
@@ -197,24 +193,7 @@ export function renderRoleSelection(): void {
 		if (hasQuiz && roleCTX) {
 			addDelayedPointerClick(btn, async () => {
 				app.currentRole = roleId;
-				app.view = "map";
-				await resetLayers();
-				(await getRoleActiveLayerIds()).forEach((id) =>
-					app.activeLayers.add(id),
-				);
-				await updateView();
-				previewActivePOILayers();
-				const sliderCfg = await getRoleSliderConfig();
-				if (sliderCfg) {
-					const targetLayers = sliderCfg.layer
-						? [sliderCfg.layer]
-						: Object.keys(
-								context?.scenarios[app.currentScenario!]?.layers ?? {},
-							);
-					targetLayers.forEach((id) =>
-						animateSliderToTime(id, sliderCfg.time, sliderCfg.fixed),
-					);
-				}
+				await startQuiz(scenarioRole!.challenge!);
 			});
 		} else {
 			btn.classList.add("is-inactive");

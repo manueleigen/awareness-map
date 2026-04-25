@@ -1,29 +1,29 @@
 {
-  "layer_id": "blackout_crisis_unit_info_points",
-  "locations": [
-    {
-      "id": "blackout_info_point_01",
-      "x": 760,
-      "y": 900,
-      "translations": {}
-    },
-    {
-      "id": "blackout_info_point_02",
-      "x": 1440,
-      "y": 960,
-      "translations": {}
-    },
-    {
-      "id": "blackout_info_point_03",
-      "x": 1100,
-      "y": 1810,
-      "translations": {}
-    },
-    {
-      "id": "blackout_info_point_04",
-      "x": 3150,
-      "y": 1810,
-      "translations": {}
-    }
-  ]
+	"layer_id": "blackout_crisis_unit_info_points",
+	"locations": [
+		{
+			"id": "blackout_info_point_01",
+			"x": 760,
+			"y": 900,
+			"translations": {}
+		},
+		{
+			"id": "blackout_info_point_02",
+			"x": 1440,
+			"y": 960,
+			"translations": {}
+		},
+		{
+			"id": "blackout_info_point_03",
+			"x": 1100,
+			"y": 1810,
+			"translations": {}
+		},
+		{
+			"id": "blackout_info_point_04",
+			"x": 3150,
+			"y": 1810,
+			"translations": {}
+		}
+	]
 }

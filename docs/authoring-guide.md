@@ -102,20 +102,26 @@ text:
       **After days of heavy rainfall**, water levels have reached critical values.
 
 roles:
-  fire_brigade:
+  - id: fire_brigade
     text:
-      de: { title: Feuerwehr }
-      en: { title: Fire Brigade }
+      de:
+        title: Feuerwehr
+      en:
+        title: Fire Brigade
     challenge: ./fire_brigade/challenge.yaml
-  police:
+  - id: police
     text:
-      de: { title: Polizei }
-      en: { title: Police }
+      de:
+        title: Polizei
+      en:
+        title: Police
     challenge: ./police/challenge.yaml
-  crisis_unit:
+  - id: crisis_unit
     text:
-      de: { title: Krisenstab }
-      en: { title: Crisis Unit }
+      de:
+        title: Krisenstab
+      en:
+        title: Crisis Unit
     challenge: ./crisis_unit/challenge.yaml
 ```
 
@@ -123,7 +129,7 @@ roles:
 - `id` is used as the key for everything in `context.yaml`, so a typo here breaks all layer visibility.
 - `short_title` appears in compact UI elements. Keep it under ~8 characters.
 - `description` supports Markdown (`**bold**`, line breaks via blank lines).
-- Each role key (e.g. `fire_brigade`) must have a matching entry in `config/context.yaml` under `scenarios: flood: roles:`.
+- Each role `id` (e.g. `fire_brigade`) must have a matching entry in `config/context.yaml` under `scenarios: flood: roles:`.
 
 ---
 
@@ -287,12 +293,15 @@ story_points:
 |---|---|
 | `id` | Unique ID within the challenge. Used as `next` target. |
 | `type` | The story point type (see §7). |
-| `activeLayerIds` | List of layer IDs to activate when entering this step. |
-| `excludeLayerIds` | List of layer IDs to hide when entering this step. |
+| `showLayersById` | List of layer IDs to activate when entering this step. Removed automatically when leaving the step. |
+| `hideLayersById` | List of layer IDs to force-hide when entering this step. |
+| `pulseLayersById` | List of POI layer IDs whose markers should pulse while this step is active. Non-POI layers are ignored. |
+| `hintLayerOverlaysById` | List of POI layer IDs whose overlays are shown briefly as a hint when the step loads. |
+| `hintLayerOverlayDuration` | How long (in ms) the hint overlays stay visible. Default: `3000`. |
 | `slider_time` | Animate the time slider to this value on entry (e.g. `"14:00"`). |
 | `slider_time_layer` | Which layer's slider to animate (e.g. `flood_simulation`). Required if `slider_time` is set and there are multiple animated layers. |
 | `slider_time_fixed` | `true` locks the slider so the user cannot drag it during this step. |
-| `text` | Display text — always an object with `de` and `en` sub-keys. |
+| `text` | Display text — always an object with `de` and `en` sub-keys. Each locale supports `title`, `description`, `question`, and `button` (optional custom label for the continue button on `info` steps). |
 | `next` | ID of the next step (string), or an outcome map (see §8). |
 
 ---
@@ -301,14 +310,16 @@ story_points:
 
 ### `info`
 
-A text screen with a single "Continue" button. Used for introductions, explanations between quiz steps, and informational screens that reveal a result.
+A text screen with a single continue button. Used for introductions, explanations between quiz steps, and informational screens that reveal a result.
 
 **Must have a `next` field** (to an `end-screen` or the next quiz step).
+
+The engine starts at the **first story point** in the list — role selection leads directly here with no intermediate screen. The continue button label defaults to "Weiter" / "Next", but can be overridden per-locale via `text.de.button` / `text.en.button`.
 
 ```yaml
 - id: intro
   type: info
-  activeLayerIds: [flood_crisis_unit_social_media]
+  showLayersById: [flood_crisis_unit_social_media]
   slider_time: "11:30"
   slider_time_layer: flood_simulation
   text:
@@ -320,6 +331,7 @@ A text screen with a single "Continue" button. Used for introductions, explanati
 
         Prüfe die Informationen und **überlege, ob du sofort handeln
         oder zunächst weitere Informationen sammeln möchtest.**
+      button: Herausforderung starten   # optional — overrides default "Weiter"
     en:
       title: "Decision-Making Under Uncertainty"
       description: |
@@ -328,6 +340,7 @@ A text screen with a single "Continue" button. Used for introductions, explanati
 
         Assess the information and **consider whether to act
         immediately or gather additional information first.**
+      button: Start Challenge
   next: challenge_core
 ```
 
@@ -348,7 +361,7 @@ On `result: failed`, the engine tracks the last answerable quiz step (`lastQuizP
 - id: win-screen
   type: end-screen
   result: passed
-  activeLayerIds: [flood_fire_brigade_emergency_calls]
+  showLayersById: [flood_fire_brigade_emergency_calls]
   text:
     de:
       title: Challenge gelöst!
@@ -394,7 +407,7 @@ A multiple-choice question with text answers. The player selects one or more opt
 ```yaml
 - id: challenge_core
   type: quiz
-  activeLayerIds: [flood_crisis_unit_social_media]
+  showLayersById: [flood_crisis_unit_social_media]
   slider_time: "11:30"
   slider_time_layer: flood_simulation
   options:
@@ -477,7 +490,7 @@ The player taps one or more POI markers on the map. Correct answers are defined 
 - id: challenge_core
   type: point-selection-quiz
   target: "#layer-flood_fire_brigade_emergency_calls"  # layer containing the markers
-  activeLayerIds: [flood_fire_brigade_emergency_calls]
+  showLayersById: [flood_fire_brigade_emergency_calls]
   slider_time: "14:00"
   slider_time_layer: flood_simulation
   slider_time_fixed: false
@@ -524,7 +537,7 @@ The player taps polygon zones in an SVG overlay. Works like `point-selection-qui
 - id: challenge_core
   type: area-selection-quiz
   target: "#layer-flood_police_evacuation_zones"
-  activeLayerIds: [flood_police_evacuation_zones]
+  showLayersById: [flood_police_evacuation_zones]
   solution: ["area-19", "area-20", "area-21"]
   wrong_options: []
   minSelection: 3
@@ -859,7 +872,7 @@ The TypeScript compile step (`npx tsc`) catches YAML schema violations. The vali
 ### What the validator checks
 
 - **Broken `next` links**: every `next` target must exist as a story point `id` in the same challenge.
-- **Broken `activeLayerIds`**: every layer ID listed must exist in `context.yaml`.
+- **Broken layer ID lists**: every ID in `showLayersById`, `hideLayersById`, `pulseLayersById`, and `hintLayerOverlaysById` must exist in `context.yaml`.
 - **Missing assets**: every `src` path (images, JSONs, SVGs) must resolve to an actual file.
 - **Translation completeness**: all interactive layers with `toggle: available` must have both `de` and `en` labels.
 - **Dead ends**: `info` and quiz steps with no `next` field (only `end-screen` is allowed to omit it).
@@ -887,7 +900,7 @@ Set it to `false` or omit it for production — the overlay will stay hidden whi
 
 | Problem | Cause | Fix |
 |---|---|---|
-| Layer never appears | Layer ID in `activeLayerIds` doesn't exist in `context.yaml` | Check spelling — IDs are case-sensitive. |
+| Layer never appears | Layer ID in `showLayersById` doesn't exist in `context.yaml` | Check spelling — IDs are case-sensitive. |
 | Dead End Error on load | `info` point has no `next` field | Only `end-screen` can omit `next`. Add `next: <id>`. |
 | Missing Asset error | Typo in `src` path | Paths are case-sensitive and must start with `/assets/`. |
 | Translations not updating on language switch | `de` / `en` YAMLs out of sync | Always update `content.de.yaml` and `content.en.yaml` together. |

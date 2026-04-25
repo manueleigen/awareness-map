@@ -21,8 +21,9 @@ story_points:
 
   - id: wifi-placement
     type: location-quiz
-    activeLayerIds: [blackout_crisis_unit_info_points]
-    excludeLayerIds: [critical_sites]
+    showLayersById: [blackout_crisis_unit_info_points]
+    hintLayerOverlaysById: [blackout_crisis_unit_info_points]
+    hideLayersById: [critical_sites]
     target: "#layers"
     initial_position:
       x: 1920
@@ -60,7 +61,7 @@ story_points:
   - id: challenge_core
     type: area-selection-quiz
     target: "#layer-blackout_crisis_unit_districts"
-    activeLayerIds: [blackout_crisis_unit_districts, critical_sites]
+    showLayersById: [blackout_crisis_unit_districts, critical_sites]
     solution: ["area-19", "area-20", "area-21"]
     wrong_options: ["area-22", "area-31", "area-33"]
     minSelection: 3

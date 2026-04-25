@@ -79,13 +79,20 @@ export function validateChallengeRelations(
 				message: `Layer "${point.slider_time_layer}" is not defined in context.yaml`,
 			});
 		}
-		for (const layerId of point.activeLayerIds ?? []) {
-			if (!knownLayerIds.has(layerId)) {
-				errors.push({
-					file,
-					path: `${at}.activeLayerIds`,
-					message: `Layer "${layerId}" is not defined in context.yaml`,
-				});
+		for (const [field, ids] of [
+			["showLayersById", point.showLayersById ?? []],
+			["hideLayersById", point.hideLayersById ?? []],
+			["pulseLayersById", point.pulseLayersById ?? []],
+			["hintLayerOverlaysById", point.hintLayerOverlaysById ?? []],
+		] as [string, string[]][]) {
+			for (const layerId of ids) {
+				if (!knownLayerIds.has(layerId)) {
+					errors.push({
+						file,
+						path: `${at}.${field}`,
+						message: `Layer "${layerId}" is not defined in context.yaml`,
+					});
+				}
 			}
 		}
 
