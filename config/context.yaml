@@ -183,31 +183,32 @@ scenarios:
             poi_icon: /assets/icons/marker_poi.svg
       - id: crisis_unit
         layers:
+          - id: blackout_crisis_unit_districts
+            layer_type: area_overlay
+            available_from: role
+            toggle: available
+            quiz_only: false
+            label:
+              de: "Kommunikations\nlage"
+              en: "Communication\nStatus"
+            initially_visible: false
+            z_index: 79
+            toggle_order: 3
+            src: /assets/scenarios/blackout/crisis_unit/districts.svg
+            icon: /assets/icons/evacuation_zones.svg
           - id: blackout_crisis_unit_info_points
             layer_type: locations
             available_from: role
             toggle: hidden
             quiz_only: true
+            label:
+              de: "Informations\npunkte"
+              en: "Info\nPoints"
             initially_visible: false
             z_index: 102
             toggle_order: 4
             src: /assets/scenarios/blackout/crisis_unit/info_points.json
             icon: /assets/icons/critical_sites.svg
             poi_icon: /assets/icons/marker_poi.svg
-          - id: blackout_crisis_unit_districts
-            layer_type: area_overlay
-            available_from: role
-            toggle: available
-            quiz_only: true
-            label:
-              de: "Bezirke"
-              en: "Districts"
-            initially_visible: false
-            z_index: 79
-            toggle_order: 3
-            src: /assets/scenarios/blackout/crisis_unit/districts.svg
-            icon: /assets/icons/evacuation_zones.svg
 
-  - id: mass_event
-    layers: []
-    roles: []
+

@@ -15,26 +15,26 @@
 		},
 		{
 			"id": "critical_site_2",
-			"x": 1800,
-			"y": 540,
+			"x": 1280,
+			"y": 570,
 			"translations": {
-				"title": { "de": "Rechenzentrum", "en": "Data Center" },
+				"title": { "de": "Lokaler Radiosender", "en": "Local Radio Station" },
 				"description": {
-					"de": "Hier laufen wichtige digitale Dienste der Stadt zusammen.",
-					"en": "Important digital services of the city are centralized here."
+					"de": "Wichtige Informationsquelle in Krisenlagen.",
+					"en": "Important source of information during crises."
 				}
 			}
 		},
 		{
 			"id": "critical_site_3",
 			"class": "left-opening",
-			"x": 3144,
-			"y": 979,
+			"x": 3300,
+			"y": 935,
 			"translations": {
-				"title": { "de": "Polizeihauptwache", "en": "Main Police Station" },
+				"title": { "de": "Notruf-Leitstelle", "en": "Emergency Dispatch Center" },
 				"description": {
-					"de": "Wichtig für Sicherheit und Einsatzkoordination im Krisenfall.",
-					"en": "Important for security and emergency coordination in a crisis."
+					"de": "Hier kommen Notrufe an und Einsatzkräfte werden koordiniert.",
+					"en": "Emergency calls arrive here and response units are coordinated."
 				}
 			}
 		},
@@ -53,8 +53,8 @@
 		{
 			"id": "critical_site_5",
 			"class": "left-opening",
-			"x": 1930,
-			"y": 1440,
+			"x": 2100,
+			"y": 1380,
 			"translations": {
 				"title": { "de": "Krankenhaus", "en": "Hospital" },
 				"description": {

@@ -4,16 +4,22 @@ active: true
 
 text:
   de:
-    title: Stromausfall in der Stadt
+    title: "Mehr als ein Stromausfall: Blackout"
     short_title: Blackout
     description: |
-      **Ein großflächiger Stromausfall** hat die Stadt lahmgelegt. Kritische Infrastrukturen sind gefährdet.
-  en:
-    title: Power Outage in the City
-    short_title: Blackout
-    description: |
-      **A large-scale power outage** has paralyzed the city. Critical infrastructures are at risk.
+      **Ein großflächiger Stromausfall** legt seit Montag, 10:00 Uhr die Stadt lahm.
+      Inzwischen ist es Dienstag, 14:00 Uhr. 
+      Nach rund **28 Stunden ohne Strom** wird die Lage vor allem durch **Folgeprobleme wie Notstomverfügbarkeit, Wasserversorgung und Kommunikation** bestimmt.
 
+      Übernimm eine Rolle und hilf dabei, die Situation zu bewältigen!
+  en:
+    title: "More than a Power Outage: Blackout"
+    short_title: Blackout
+    description: |
+      **A large-scale power outage** has paralyzed the city since Monday, 10:00 AM.
+      It is now Tuesday, 2:00 PM. 
+      After about 28 hours without regular power supply, the initial shock phase is over;
+      the situation is now mainly determined by follow-up problems such as the interruption of water supply, limited communication, and the overload of emergency services.
 roles:
   - id: thw
     text:

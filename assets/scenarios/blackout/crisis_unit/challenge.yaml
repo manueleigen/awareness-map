@@ -4,59 +4,24 @@ story_points:
     type: info
     text:
       de:
-        title: Bezirke priorisieren
+        title: "Kommunikation aufrecherhalten"
         description: |
           
-          Der Krisenstab muss dafür sorgen, die wichtigesten Aufgaben trotz knapper Ressourcen zu bewältigen.
-           Blackout ist Kommunikation eine **knappe Ressource**.
-
-          Der Krisenstab muss entscheiden, in welchen drei Bezirken zuerst lokale Kommunikations- und Informationsknoten gestärkt werden sollen.
+          Der **Krisenstab** muss im Katastrophenfall dafür sorgen, dass Prioritäten geklärt sind und Ressourcen sinnvoll verteilt werden. 
+          Ein wichtiger Aspekt bei einem Blackout ist **Information und Kommunikation**.
+          
+          Prüfe den Status der Kommunikation in der Stadt und achte dabei auf kritische Orte, die besonders auf Kommunikation angewiesen sind.
+        button: "Herausforderung starten"
       en:
-        title: Prioritize Communication Nodes
+        title: "Maintaining Communication"
         description: |
-          In a blackout, communication is a **scarce resource**.
+          The **crisis unit** is responsible for clarifying priorities and allocating resources in a sensible way during a disaster. 
+          An important aspect during a blackout is **information and communication**.
+          
+          Check the status of communication in the city, paying special attention to critical sites that are particularly dependent on communication.
 
-          The crisis unit must decide which three districts should first receive local communication and information nodes.
+        button: "Start Challenge"
     next: challenge_core
-
-  - id: wifi-placement
-    type: location-quiz
-    showLayersById: [blackout_crisis_unit_info_points]
-    hintLayerOverlaysById: [blackout_crisis_unit_info_points]
-    hideLayersById: [critical_sites]
-    target: "#layers"
-    initial_position:
-      x: 1920
-      y: 1080
-    solution: ["{x: 1920, y: 1080}"]
-    maxDistance: 320
-    submit:
-      de: WLAN-Punkt platzieren
-      en: Place Wi-Fi Point
-    text:
-      de:
-        title: Mobilen WLAN-Punkt setzen
-        question: |
-          **Setze den mobilen WLAN-Punkt dort, wo bestehende Info-Anlaufstationen die geringste Abdeckung erzeugen.**
-
-          Berücksichtige dabei:
-
-          - vorhandene Anlaufstationen
-          - schlecht versorgte Bereiche
-          - kritische Orte in der Nähe
-      en:
-        title: Place Mobile Wi-Fi Point
-        question: |
-          **Place the mobile Wi-Fi point where existing information stations leave the largest coverage gap.**
-
-          Take into account:
-
-          - existing support stations
-          - poorly covered areas
-          - nearby critical sites
-    next:
-      right: win-screen
-      wrong: wifi-fail-screen
 
   - id: challenge_core
     type: area-selection-quiz
@@ -68,11 +33,10 @@ story_points:
     maxSelection: 3
     text:
       de:
-        title: Drei Bezirke zuerst absichern
+        title: Bezirke priorisieren
         question: |
-          **Wähle drei Bezirke aus, in denen lokale Kommunikations- und Informationsknoten zuerst gestärkt werden sollen.**
-
-          Berücksichtige dabei:
+          **Wähle drei Bezirke aus**, in denen lokale Informationsknoten und Kommunikation gestärkt werden sollen.
+          **Berücksichtige dabei**:
 
           - kritische Kommunikationslage
           - hohe Bevölkerungsdichte
@@ -94,6 +58,46 @@ story_points:
       wrong-neutral: fail-screen-wrong-neutral
       all-neutral: fail-screen-all-neutral
       all-wrong: fail-screen-all-wrong
+
+
+  - id: wifi-placement
+    type: location-quiz
+    showLayersById: [blackout_crisis_unit_info_points]
+    hintLayerOverlaysById: [blackout_crisis_unit_info_points]
+    hideLayersById: [critical_sites]
+    target: "#layers"
+    initial_position:
+      x: 1920
+      y: 1080
+    solution: ["{x: 1920, y: 1080}"]
+    maxDistance: 320
+    submit:
+      de: WLAN-Punkt platzieren
+      en: Place Wi-Fi Point
+    text:
+      de:
+        title: Mobilen Informationspunkt platzieren
+        question: |
+          **Setze den mobilen WLAN-Punkt dort, wo bestehende Info-Anlaufstationen die geringste Abdeckung erzeugen.**
+
+          Berücksichtige dabei:
+
+          - vorhandene Anlaufstationen
+          - schlecht versorgte Bereiche
+          - kritische Orte in der Nähe
+      en:
+        title: Place Mobile Wi-Fi Point
+        question: |
+          **Place the mobile Wi-Fi point where existing information stations leave the largest coverage gap.**
+
+          Take into account:
+
+          - existing support stations
+          - poorly covered areas
+          - nearby critical sites
+    next:
+      right: win-screen
+      wrong: wifi-fail-screen
 
   - id: wifi-fail-screen
     type: end-screen
