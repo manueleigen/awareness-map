@@ -165,9 +165,9 @@ scenarios:
             start_time: "10:00"
             end_time: "22:00"
             status_poi_icons:
-              stable: /assets/icons/marker_poi_stable.svg
-              limited: /assets/icons/marker_poi_limited.svg
-              critical: /assets/icons/marker_poi_critical.svg
+              stable: /assets/icons/thw_marker_poi_stable.svg
+              limited: /assets/icons/thw_marker_poi_limited.svg
+              critical: /assets/icons/thw_marker_poi_critical.svg
       - id: psnv
         layers:
           - id: blackout_psnv_support_sites

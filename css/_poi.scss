@@ -76,6 +76,10 @@
 
 		@include drop-shadow-svg;
 	}
+
+	&.marker-social-media {
+		transform: translateY(0) translateX(46px);
+	}
 }
 
 .poi-overlay {
@@ -103,6 +107,10 @@
 	&--social_media_police,
 	&--social_media_crises {
 		margin: 45px 0 0 150px;
+	}
+
+	&.marker-social-media {
+		transform: translateY(0) translateX(26px);
 	}
 
 	p {

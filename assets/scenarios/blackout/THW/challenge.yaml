@@ -23,6 +23,7 @@ story_points:
           de: "Technisches Hilfswerk"
           en: "Technical Relief Organization"
     solution: ["C"]
+    optionsLayout: rows
     next:
       right: intro2
       wrong: quiz-wrong-screen

@@ -61,14 +61,15 @@ story_points:
 
 
   - id: wifi-placement
-    type: location-quiz
+    type: coordinates-quiz
+    icon: "assets/icons/wifi-router.svg"
     showLayersById: [blackout_crisis_unit_info_points]
     hintLayerOverlaysById: [blackout_crisis_unit_info_points]
     hideLayersById: [critical_sites]
     target: "#layers"
     initial_position:
-      x: 1920
-      y: 1080
+      x: 500
+      y: 500
     solution: ["{x: 1920, y: 1080}"]
     maxDistance: 320
     submit:

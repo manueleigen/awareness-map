@@ -183,17 +183,19 @@ const QuizStoryPointSchema = z.object({
 	options: z.array(QuizOptionSchema),
 	solution: z.array(z.string()),
 	next: z.union([z.string(), QuizOutcomeMapSchema]).optional(),
+	optionsLayout: z.enum(["columns", "rows"]).optional(),
 }).strict();
 
 const LocationQuizStoryPointSchema = z.object({
 	...storyPointBase,
-	type: z.literal("location-quiz"),
+	type: z.literal("coordinates-quiz"),
 	text: StoryPointTextSchema,
 	target: z.string(),
 	initial_position: z.object({ x: z.number(), y: z.number() }).optional(),
 	solution: z.array(z.string()),
 	maxDistance: z.number(),
 	submit: z.record(z.string(), z.string()).optional(),
+	icon: z.string().optional(),
 	next: QuizOutcomeMapSchema.optional(),
 }).strict();
 

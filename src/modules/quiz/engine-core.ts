@@ -51,7 +51,7 @@ export function refreshCurrentPoint(): void {
 			currentPoint,
 			currentOnAction,
 		);
-	else if (currentPoint.type === "location-quiz") refreshLocationTranslations();
+	else if (currentPoint.type === "coordinates-quiz") refreshLocationTranslations();
 	else if (
 		currentPoint.type === "area-selection-quiz" ||
 		currentPoint.type === "point-selection-quiz"
@@ -198,7 +198,7 @@ async function loadPoint(id: string): Promise<void> {
 	 */
 	const onAction = (outcome: boolean | QuizOutcome, resultData?: any) => {
 		// Persist data if this was a location selection
-		if (point.type === "location-quiz" && resultData) {
+		if (point.type === "coordinates-quiz" && resultData) {
 			lastLocationResult = { ...resultData, maxDistance: point.maxDistance };
 		}
 		handleAction(point, outcome);
@@ -210,7 +210,7 @@ async function loadPoint(id: string): Promise<void> {
 		renderInfo(currentContent, currentControls, point, onAction);
 	else if (point.type === "quiz")
 		renderChoice(currentContent, currentControls, point, onAction);
-	else if (point.type === "location-quiz")
+	else if (point.type === "coordinates-quiz")
 		renderLocation(currentContent, currentControls, point, onAction);
 	else if (
 		point.type === "area-selection-quiz" ||

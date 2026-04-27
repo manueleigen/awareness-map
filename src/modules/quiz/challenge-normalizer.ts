@@ -72,7 +72,7 @@ function normalizeStoryPoint(point: any): StoryPoint {
 			: point.options,
 		submit: normalizeLocalizedValue<string>(point.submit),
 	};
-	if (point.type === "location-quiz") {
+	if (point.type === "coordinates-quiz") {
 		normalized.solution = parseLocationSolution(point.solution);
 	}
 	return normalized;

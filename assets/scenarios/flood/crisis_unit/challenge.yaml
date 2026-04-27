@@ -48,7 +48,7 @@ story_points:
       wrong: fail-screen-1
 
   - id: coord-selection
-    type: location-quiz
+    type: coordinates-quiz
     showLayersById: [flood_crisis_unit_social_media]
     slider_time: "11:30"
     slider_time_layer: flood_simulation

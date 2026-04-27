@@ -62,7 +62,7 @@ src/
     quiz/
       engine-core.ts       ← story point navigator and handleAction()
       render-text.ts       ← renders info / end-screen / quiz steps
-      render-map.ts        ← renders location-quiz / selection steps
+      render-map.ts        ← renders coordinates-quiz / selection steps
       types.ts             ← StoryPoint, QuizOutcome, NextConfig types
       schemas.ts           ← Zod schemas for challenge.yaml
       challenge-normalizer.ts  ← normalizes legacy YAML shapes
@@ -411,7 +411,7 @@ When the language is switched during a quiz, `updateView()` calls `refreshCurren
 | Module           | Handles                                                        |
 | ---------------- | -------------------------------------------------------------- |
 | `render-text.ts` | `info`, `end-screen`, `quiz` (multiple choice)                 |
-| `render-map.ts`  | `location-quiz`, `point-selection-quiz`, `area-selection-quiz` |
+| `render-map.ts`  | `coordinates-quiz`, `point-selection-quiz`, `area-selection-quiz` |
 
 Both modules receive `(content, controls, point, onAction)` and call `onAction(outcome)` when the user submits an answer.
 
@@ -506,7 +506,7 @@ If the new type uses a `src` field, `scripts/validate.mjs` will automatically ch
 ```ts
 export type StoryPointType =
     | 'info' | 'end-screen' | 'quiz'
-    | 'location-quiz' | 'point-selection-quiz' | 'area-selection-quiz'
+    | 'coordinates-quiz' | 'point-selection-quiz' | 'area-selection-quiz'
     | 'my-new-type';    // ← add here
 
 export interface MyNewStoryPoint extends BaseStoryPoint {

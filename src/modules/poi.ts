@@ -168,6 +168,12 @@ export async function renderPOILayer(
 			if (initialIconSrc) {
 				const iconWrapper = create("div");
 				iconWrapper.className = "poi-icon";
+				const iconClass =
+					initialIconSrc.split("/").pop()?.replace(/\.svg$/i, "").replace(/_/g, "-") || "";
+				if (iconClass) {
+					iconWrapper.classList.add(iconClass);
+					marker.dataset.poiIconClass = iconClass;
+				}
 				loadTEXT<string>(initialIconSrc)
 					.then((s) => {
 						iconWrapper.innerHTML = s;
@@ -264,6 +270,8 @@ export async function showPOIOverlay(
 	const poiOverlay = create("div");
 	poiOverlay.className = "poi-overlay";
 	poiOverlay.dataset.markerId = marker.id;
+	const iconClass = marker.dataset.poiIconClass;
+	if (iconClass) poiOverlay.classList.add(iconClass);
 	if (loc.class) poiOverlay.classList.add(loc.class);
 
 	poiOverlay.style.left = `${loc.x - poiSize}px`;

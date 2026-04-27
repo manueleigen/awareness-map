@@ -193,7 +193,11 @@
 
 .quiz-options {
 	display: flex;
-	gap: 30px;
+	gap: 20px;
+
+	&--rows {
+		flex-direction: column;
+	}
 
 	.quiz-option-btn {
 		text-transform: unset;

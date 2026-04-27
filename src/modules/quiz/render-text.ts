@@ -87,7 +87,9 @@ export function renderChoice(
 	content.append(question);
 
 	const optionsWrapper = create("div");
-	optionsWrapper.className = "quiz-options";
+	optionsWrapper.className = point.optionsLayout === "rows"
+		? "quiz-options quiz-options--rows"
+		: "quiz-options";
 	const selected = new Set<string>();
 
 	// Build option buttons

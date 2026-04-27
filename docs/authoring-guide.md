@@ -442,18 +442,31 @@ maxAnswers: 2
 minAnswers: 1
 ```
 
+By default the answer buttons are arranged **side by side** (columns). Use `optionsLayout: rows` to stack them **vertically** instead — useful when option texts are longer:
+
+```yaml
+optionsLayout: rows   # optional; default: columns
+```
+
 ---
 
-### `location-quiz`
+### `coordinates-quiz`
 
-The player places a pin on the map by tapping. The answer is correct if the pin lands within `maxDistance` pixels of the target coordinates.
+The player places a marker on the map by tapping. The answer is correct if the final position lands within `maxDistance` pixels of the solution coordinates.
+
+**Active interaction mode — Tap-to-fly:** Tap anywhere on the map and the marker glides to that position. The handler uses `addPointerClick` for multi-touch-table robustness (500 ms double-fire guard).
+
+**Optional `icon` field:** Path to an SVG used as the marker icon. Defaults to `assets/icons/crosshair.svg` if omitted.
+
+> **Drag-to-place** (implemented, currently disabled via `DRAG_ENABLED = false` in `render-map.ts`): Press and hold the marker for 80 ms, then drag it to the target with spring-lag follow. Set the flag to `true` to re-enable.
 
 ```yaml
 - id: coord-selection
-  type: location-quiz
+  type: coordinates-quiz
   target: "#layers"             # CSS selector of the tappable surface
+  icon: assets/icons/drone.svg  # optional — defaults to assets/icons/crosshair.svg
   initial_position:
-    x: 500                      # starting position of the draggable pin
+    x: 500                      # starting position of the marker
     y: 500
   solution: ["{x: 2414, y: 757}"]   # correct target on the 3840×2160 canvas
   maxDistance: 400              # tolerance radius in canvas pixels

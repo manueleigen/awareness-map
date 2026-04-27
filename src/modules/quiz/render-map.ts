@@ -1,5 +1,5 @@
 import { create, loadTEXT } from "../lib.js";
-import { addDelayedPointerClick } from "../interactions.js";
+import { addDelayedPointerClick, addPointerClick } from "../interactions.js";
 import { t } from "../translater.js";
 import { renderBlockText, renderInlineText } from "../rich-text.js";
 import {
@@ -21,6 +21,12 @@ import {
 const DRONE_SPEED_PX_PER_SEC = 350;
 const DRONE_MIN_DURATION_MS = 600; // minimum travel time for very short moves
 
+// ── Drag interaction ──────────────────────────────────────────────────────────
+// Set to true to re-enable drag-to-place (feature complete, disabled for now)
+const DRAG_ENABLED = false;
+const DRAG_LAG_FACTOR = 0.12;   // spring follow speed (0=frozen, 1=instant)
+const DRAG_START_HOLD_MS = 80;  // min hold time before drag activates (ghost-touch guard)
+
 // ── Location-step cleanup ─────────────────────────────────────────────────────
 // Held across calls so any entry point (new step, language switch, …) can clean up.
 let locationStepAbort: AbortController | null = null;
@@ -35,6 +41,16 @@ let locationTitleEl: HTMLHeadingElement | null = null;
 let locationQuestionEl: HTMLElement | null = null;
 let locationStatusEl: HTMLElement | null = null;
 let locationSubmitBtnEl: HTMLButtonElement | null = null;
+
+// ── Drag state ────────────────────────────────────────────────────────────────
+let dragActive = false;
+let dragPointerId: number | null = null;
+let dragTargetX = 0;
+let dragTargetY = 0;
+let dragCurrentX = 0;
+let dragCurrentY = 0;
+let dragRafId: number | null = null;
+let dragShieldEl: HTMLDivElement | null = null;
 
 /**
  * Removes event listeners added by the active selection step.
@@ -68,6 +84,12 @@ export function abortLocationStep(): void {
 	locationStatusEl = null;
 	locationSubmitBtnEl = null;
 	document.getElementById("edge-guard")?.classList.add("hidden");
+	// Drag cleanup
+	dragActive = false;
+	dragPointerId = null;
+	if (dragRafId !== null) { cancelAnimationFrame(dragRafId); dragRafId = null; }
+	dragShieldEl?.remove(); dragShieldEl = null;
+	document.body.classList.remove("drone-drag-active");
 }
 
 /**
@@ -141,20 +163,37 @@ export function renderLocation(
 	locationStepAbort = new AbortController();
 	const { signal } = locationStepAbort;
 
+	// RAF spring-follow loop — runs every frame while dragActive is true
+	const tickDrag = () => {
+		dragCurrentX += (dragTargetX - dragCurrentX) * DRAG_LAG_FACTOR;
+		dragCurrentY += (dragTargetY - dragCurrentY) * DRAG_LAG_FACTOR;
+		if (marker) {
+			marker.style.left = `${dragCurrentX}px`;
+			marker.style.top = `${dragCurrentY}px`;
+		}
+		if (radiusMarker) {
+			radiusMarker.style.left = `${dragCurrentX}px`;
+			radiusMarker.style.top = `${dragCurrentY}px`;
+		}
+		if (dragActive) dragRafId = requestAnimationFrame(tickDrag);
+	};
+
 	/** Places or moves the drone to the given native-resolution coordinates. */
 	const placeMarkerAt = (x: number, y: number) => {
 		locationPlaced = { x, y };
 
 		if (!marker) {
 			marker = create("div");
-			marker.className = "quiz-location-marker";
+			const iconPath = point.icon ?? "assets/icons/crosshair.svg";
+			const iconClass = "marker-icon--" + iconPath.split("/").pop()!.replace(".svg", "");
+			marker.className = `quiz-location-marker ${iconClass}`;
 			// Start at top-left — CSS transition will fly it to the first target position
 			marker.style.left = "0px";
 			marker.style.top = "0px";
 			target!.append(marker);
 			locationDroneEl = marker; // track for cleanup in abortLocationStep()
 
-			loadTEXT<string>("assets/icons/drone.svg")
+			loadTEXT<string>(iconPath)
 				.then((svgText) => {
 					if (marker) marker.innerHTML = svgText;
 				})
@@ -170,6 +209,77 @@ export function renderLocation(
 
 			// Commit the 0,0 position to the browser before animating
 			void marker.offsetWidth;
+
+			if (DRAG_ENABLED) {
+			// Enable touch events so the drone can be grabbed and dragged
+			marker.style.pointerEvents = "auto";
+
+			// ── Drag handlers (ghost-touch guard: hold ≥ DRAG_START_HOLD_MS) ───────
+			let dragStartTimer: ReturnType<typeof setTimeout> | null = null;
+
+			marker.addEventListener(
+				"pointerdown",
+				(e: PointerEvent) => {
+					if (dragPointerId !== null) return; // another pointer already active
+					e.preventDefault();
+					e.stopPropagation();
+					dragPointerId = e.pointerId;
+					try { marker!.setPointerCapture(e.pointerId); } catch (_) {}
+					const scale = getAppScale();
+					const rect = target!.getBoundingClientRect();
+					dragTargetX = (e.clientX - rect.left) / scale;
+					dragTargetY = (e.clientY - rect.top) / scale;
+					// Ghost-touch guard: activate drag only after minimum hold time
+					dragStartTimer = setTimeout(() => {
+						dragActive = true;
+						marker!.classList.add("is-dragging");
+						document.body.classList.add("drone-drag-active");
+						dragShieldEl = create("div");
+						dragShieldEl.className = "drone-drag-shield";
+						document.body.appendChild(dragShieldEl);
+						// Spring starts from current visual position
+						dragCurrentX = parseFloat(marker!.style.left) || dragTargetX;
+						dragCurrentY = parseFloat(marker!.style.top) || dragTargetY;
+						dragRafId = requestAnimationFrame(tickDrag);
+					}, DRAG_START_HOLD_MS);
+				},
+				{ signal },
+			);
+
+			marker.addEventListener(
+				"pointermove",
+				(e: PointerEvent) => {
+					if (e.pointerId !== dragPointerId || !dragActive) return;
+					const scale = getAppScale();
+					const rect = target!.getBoundingClientRect();
+					dragTargetX = (e.clientX - rect.left) / scale;
+					dragTargetY = (e.clientY - rect.top) / scale;
+				},
+				{ signal },
+			);
+
+			const finalizeDrag = (e: PointerEvent) => {
+				if (e.pointerId !== dragPointerId) return;
+				if (dragStartTimer) { clearTimeout(dragStartTimer); dragStartTimer = null; }
+				dragPointerId = null;
+				// Always stop propagation: a touch on the drone (even a ghost-touch
+				// shorter than DRAG_START_HOLD_MS) must not trigger tap-to-fly.
+				e.stopPropagation();
+				if (!dragActive) return; // released before threshold — no-op (ghost-touch blocked)
+				if (dragRafId !== null) { cancelAnimationFrame(dragRafId); dragRafId = null; }
+				dragActive = false;
+				marker!.classList.remove("is-dragging");
+				document.body.classList.remove("drone-drag-active");
+				dragShieldEl?.remove(); dragShieldEl = null;
+				locationPlaced = { x: dragCurrentX, y: dragCurrentY };
+				status.innerText = `(${Math.round(dragCurrentX)}, ${Math.round(dragCurrentY)})`;
+				const dur = `${DRONE_MIN_DURATION_MS}ms`;
+				marker!.style.transitionDuration = `${dur}, ${dur}`;
+				if (radiusMarker) radiusMarker.style.transitionDuration = `${dur}, ${dur}`;
+			};
+			marker.addEventListener("pointerup", finalizeDrag, { signal });
+			marker.addEventListener("pointercancel", finalizeDrag, { signal });
+			} // DRAG_ENABLED
 		}
 
 		// Calculate travel duration based on distance and configured speed
@@ -195,44 +305,35 @@ export function renderLocation(
 		status.innerText = `(${Math.round(x)}, ${Math.round(y)})`;
 	};
 
-	/**
-	 * Unified pointer handler — runs in capture phase so it intercepts
-	 * clicks on POI markers (which call stopPropagation in bubble phase).
-	 */
-	const clickHandler = (e: PointerEvent) => {
-		if (!target) return;
+	// Tap-to-fly: uses addPointerClick for multi-touch-table robustness (500ms
+	// double-fire guard, setPointerCapture). Ignored during active drag.
+	if (target) {
+		addPointerClick(
+			target,
+			(e) => {
+				if (dragActive) return;
+				if ((e.target as Element).closest(".poi-overlay")) return;
 
-		// Clicks inside an open POI overlay should not move the drone
-		if ((e.target as Element).closest(".poi-overlay")) return;
+				const scale = getAppScale();
+				const rect = target.getBoundingClientRect();
+				const rawX = (e.clientX - rect.left) / scale;
+				const rawY = (e.clientY - rect.top) / scale;
 
-		const scale = getAppScale();
-		const rect = target.getBoundingClientRect();
+				if (!locationCrosshairEl) {
+					locationCrosshairEl = create("div");
+					locationCrosshairEl.className = "quiz-location-crosshair";
+					target.append(locationCrosshairEl);
+				}
+				locationCrosshairEl.style.left = `${rawX}px`;
+				locationCrosshairEl.style.top = `${rawY}px`;
 
-		const rawX = (e.clientX - rect.left) / scale;
-		const rawY = (e.clientY - rect.top) / scale;
-
-		// Place or move the crosshair at the exact tap position
-		if (!locationCrosshairEl) {
-			locationCrosshairEl = create("div");
-			locationCrosshairEl.className = "quiz-location-crosshair";
-			target.append(locationCrosshairEl);
-		}
-		locationCrosshairEl.style.left = `${rawX}px`;
-		locationCrosshairEl.style.top = `${rawY}px`;
-
-		// If the tap landed on a POI marker, prevent the overlay from opening
-		// and nudge the drone to the left so it isn't hidden under the icon.
-		const isPOI = !!(e.target as Element).closest(".poi-marker");
-		if (isPOI) e.stopPropagation();
-
-		placeMarkerAt(isPOI ? rawX - 200 : rawX, rawY);
-	};
-
-	// AbortController signal auto-removes this listener when the step ends
-	target?.addEventListener("pointerup", clickHandler, {
-		capture: true,
-		signal,
-	});
+				const isPOI = !!(e.target as Element).closest(".poi-marker");
+				if (isPOI) e.stopPropagation();
+				placeMarkerAt(isPOI ? rawX - 200 : rawX, rawY);
+			},
+			{ signal },
+		);
+	}
 
 	// Place drone at the configured initial position (flies in from top-left)
 	if (point.initial_position) {

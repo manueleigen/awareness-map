@@ -12,7 +12,12 @@ let lastBoostTime = 0;
 
 const boostTimes = new WeakMap<HTMLElement, number>();
 
-export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | MouseEvent) => void): void {
+export function addPointerClick(
+    el: HTMLElement,
+    callback: (e: PointerEvent | MouseEvent) => void,
+    options?: { signal?: AbortSignal },
+): void {
+    const signal = options?.signal;
     el.addEventListener('pointerup', (e) => {
         lastBoostTime = Date.now();     // ← global: schützt auch neu gerenderte Elemente
         boostTimes.set(el, lastBoostTime); // ← per-Element: verhindert Doppel-Fire auf demselben Button
@@ -24,7 +29,7 @@ export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | Mo
             clientY: e.clientY
         });
         el.dispatchEvent(clickEvent);
-    });
+    }, { signal });
 
     el.addEventListener('click', (e) => {
         const lastBoost = Math.max(boostTimes.get(el) ?? 0, lastBoostTime);
@@ -33,20 +38,20 @@ export function addPointerClick(el: HTMLElement, callback: (e: PointerEvent | Mo
             return;
         }
         callback(e as PointerEvent);
-    });
+    }, { signal });
     // 3. Visual "Active" states on pointerdown for responsiveness
     el.addEventListener('pointerdown', (e) => {
         // Technical Implementation Guide (v2.3): Component Hardening
         // Keeps the interaction attached to the element even if the finger drifts.
         try { el.setPointerCapture(e.pointerId); } catch(err) {}
         el.classList.add('is-pressing');
-    });
+    }, { signal });
 
     // Ensure feedback state is removed on release or cancel
     const removeFeedback = () => el.classList.remove('is-pressing');
-    el.addEventListener('pointerup', removeFeedback);
-    el.addEventListener('pointercancel', removeFeedback);
-    el.addEventListener('pointerleave', removeFeedback);
+    el.addEventListener('pointerup', removeFeedback, { signal });
+    el.addEventListener('pointercancel', removeFeedback, { signal });
+    el.addEventListener('pointerleave', removeFeedback, { signal });
 }
 
 /**

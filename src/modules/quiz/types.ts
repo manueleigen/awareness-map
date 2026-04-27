@@ -1,4 +1,4 @@
-export type StoryPointType = 'info' | 'end-screen' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'location-quiz';
+export type StoryPointType = 'info' | 'end-screen' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'coordinates-quiz';
 
 export type QuizOutcome = "right" | "wrong" | "half" | "half-wrong" | "wrong-neutral" | "all-neutral" | "all-wrong";
 
@@ -64,10 +64,11 @@ export interface QuizStoryPoint extends BaseStoryPoint {
     solution: string[];
     minAnswers?: number;
     maxAnswers?: number;
+    optionsLayout?: 'columns' | 'rows';
 }
 
 export interface LocationStoryPoint extends BaseStoryPoint {
-    type: 'location-quiz';
+    type: 'coordinates-quiz';
     next: NextConfig;
     submit?: {
         de?: string;
@@ -78,6 +79,7 @@ export interface LocationStoryPoint extends BaseStoryPoint {
     solution: { x: number; y: number };
     maxDistance: number;
     initial_position?: { x: number; y: number };
+    icon?: string;
 }
 
 export interface SelectionStoryPoint extends BaseStoryPoint {
