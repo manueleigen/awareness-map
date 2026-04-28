@@ -56,7 +56,7 @@
 			"x": 2100,
 			"y": 1380,
 			"translations": {
-				"title": { "de": "Krankenhaus", "en": "Hospital" },
+				"title": { "de": "Klinikum", "en": "Hospital" },
 				"description": {
 					"de": "Wichtig für die medizinische Versorgung im Notfall.",
 					"en": "Important for emergency medical care."

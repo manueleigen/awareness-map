@@ -152,12 +152,13 @@ scenarios:
           - id: blackout_THW_critical_sites
             layer_type: locations
             available_from: role
-            toggle: available
+            toggle: hidden
+            quiz_only: true
             label:
               de: "Kritische\nStandorte"
               en: "Critical\nSites"
             initially_visible: true
-            z_index: 101
+            z_index: 112
             toggle_order: 3
             src: /assets/scenarios/blackout/THW/critical_sites.json
             icon: /assets/icons/critical_sites.svg
@@ -173,9 +174,12 @@ scenarios:
           - id: blackout_psnv_support_sites
             layer_type: locations
             available_from: role
-            toggle: available
-            quiz_only: false
+            toggle: hidden
+            quiz_only: true
             initially_visible: true
+            label:
+              de: "Mögliche\nAnlaufstellen"
+              en: "Potential\nSupport Sites"
             z_index: 103
             toggle_order: 3
             src: /assets/scenarios/blackout/psnv/support_sites.json
@@ -196,6 +200,13 @@ scenarios:
             toggle_order: 3
             src: /assets/scenarios/blackout/crisis_unit/districts.svg
             icon: /assets/icons/communications.svg
+            area_colors:
+              - color: "#dff3d1"
+                areas: [area-1, area-2, area-7, area-8]
+              - color: "#ffe6a6"
+                areas: [area-10, area-11, area-14, area-15, area-20]
+              - color: "#f7b7b7"
+                areas: [area-22, area-23, area-34, area-35, area-40]
           - id: blackout_crisis_unit_info_points
             layer_type: locations
             available_from: role
@@ -208,7 +219,5 @@ scenarios:
             z_index: 102
             toggle_order: 4
             src: /assets/scenarios/blackout/crisis_unit/info_points.json
-            icon: /assets/icons/critical_sites.svg
-            poi_icon: /assets/icons/marker_poi.svg
-
+            poi_icon: /assets/icons/marker_cmmunications.svg
 
