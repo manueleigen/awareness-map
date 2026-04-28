@@ -62,7 +62,6 @@ story_points:
 
   - id: wifi-placement
     type: coordinates-quiz
-    icon: "assets/icons/wifi-router.svg"
     showLayersById: [blackout_crisis_unit_info_points]
     hintLayerOverlaysById: [blackout_crisis_unit_info_points]
     hideLayersById: [critical_sites]
