@@ -454,11 +454,15 @@ optionsLayout: rows   # optional; default: columns
 
 The player places a marker on the map by tapping. The answer is correct if the final position lands within `maxDistance` pixels of the solution coordinates.
 
-**Active interaction mode — Tap-to-fly:** Tap anywhere on the map and the marker glides to that position. The handler uses `addPointerClick` for multi-touch-table robustness (500 ms double-fire guard).
+**Tap interaction:** Tap anywhere on the map to place the marker. Uses `addPointerClick` for multi-touch-table robustness (500 ms double-fire guard).
 
 **Optional `icon` field:** Path to an SVG used as the marker icon. Defaults to `assets/icons/crosshair.svg` if omitted.
 
-> **Drag-to-place** (implemented, currently disabled via `DRAG_ENABLED = false` in `render-map.ts`): Press and hold the marker for 80 ms, then drag it to the target with spring-lag follow. Set the flag to `true` to re-enable.
+**Animation behaviour by icon:**
+- `drone.svg` — marker flies from current position to the tapped point (speed-based CSS transition) with a continuous hover wiggle.
+- All other icons — marker and radius circle pop in directly at the tapped position (700 ms spring pop, re-triggered on each tap). No fly animation.
+
+> **Drag-to-place** is a planned future feature (code exists behind `DRAG_ENABLED = false` in `render-map.ts`, currently unavailable).
 
 ```yaml
 - id: coord-selection

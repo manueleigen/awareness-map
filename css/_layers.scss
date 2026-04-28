@@ -91,8 +91,7 @@
 	transition-duration: 900ms; // fallback only
 
 	svg {
-		width: 300px;
-		height: 300px;
+		height: 275px;
 		transform-origin: center center;
 	}
 
@@ -109,6 +108,27 @@
 			animation-play-state: paused;
 		}
 	}
+}
+
+// Pop-in for non-drone coordinate markers (re-triggered on every tap)
+@keyframes coordinates-pop-in {
+	from {
+		scale: 0;
+		opacity: 0;
+	}
+	to {
+		scale: 1;
+		opacity: 1;
+	}
+}
+
+.quiz-location-marker:not(.marker-icon--drone) {
+	transition: none;
+}
+
+.quiz-location-marker.is-popping,
+.quiz-location-radius.is-popping {
+	animation: coordinates-pop-in 700ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
 
 // Full-screen shield during drone drag — blocks all background touches

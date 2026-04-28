@@ -49,6 +49,7 @@ story_points:
 
   - id: coord-selection
     type: coordinates-quiz
+    icon: 'assets/icons/drone.svg'
     showLayersById: [flood_crisis_unit_social_media]
     slider_time: "11:30"
     slider_time_layer: flood_simulation

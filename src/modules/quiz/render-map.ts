@@ -158,6 +158,11 @@ export function renderLocation(
 	let marker: HTMLDivElement | null = null;
 	let radiusMarker: HTMLDivElement | null = null;
 
+	const iconPath = point.icon ?? "assets/icons/crosshair.svg";
+	const iconSlug = iconPath.split("/").pop()!.replace(".svg", "");
+	const isDrone = iconSlug === "drone";
+	const iconClass = `marker-icon--${iconSlug}`;
+
 	// Inject edge guard and set up AbortController for the capture listener
 	document.getElementById("edge-guard")?.classList.remove("hidden");
 	locationStepAbort = new AbortController();
@@ -178,18 +183,18 @@ export function renderLocation(
 		if (dragActive) dragRafId = requestAnimationFrame(tickDrag);
 	};
 
-	/** Places or moves the drone to the given native-resolution coordinates. */
+	/** Places the marker at the given native-resolution coordinates.
+	 *  Drone: flies from current position with speed-based transition.
+	 *  Others: jumps to position and pops in. */
 	const placeMarkerAt = (x: number, y: number) => {
 		locationPlaced = { x, y };
 
 		if (!marker) {
 			marker = create("div");
-			const iconPath = point.icon ?? "assets/icons/crosshair.svg";
-			const iconClass = "marker-icon--" + iconPath.split("/").pop()!.replace(".svg", "");
 			marker.className = `quiz-location-marker ${iconClass}`;
-			// Start at top-left — CSS transition will fly it to the first target position
-			marker.style.left = "0px";
-			marker.style.top = "0px";
+			// Drone starts at 0,0 and flies to target; others start at target directly.
+			marker.style.left = isDrone ? "0px" : `${x}px`;
+			marker.style.top = isDrone ? "0px" : `${y}px`;
 			target!.append(marker);
 			locationDroneEl = marker; // track for cleanup in abortLocationStep()
 
@@ -203,86 +208,108 @@ export function renderLocation(
 			radiusMarker.className = "quiz-location-radius";
 			radiusMarker.style.width = `${point.maxDistance * 2}px`;
 			radiusMarker.style.height = `${point.maxDistance * 2}px`;
-			radiusMarker.style.left = "0px";
-			radiusMarker.style.top = "0px";
+			radiusMarker.style.left = isDrone ? "0px" : `${x}px`;
+			radiusMarker.style.top = isDrone ? "0px" : `${y}px`;
 			target!.append(radiusMarker);
 
-			// Commit the 0,0 position to the browser before animating
-			void marker.offsetWidth;
+			if (isDrone) {
+				// Commit the 0,0 position to the browser before animating
+				void marker.offsetWidth;
 
-			if (DRAG_ENABLED) {
-			// Enable touch events so the drone can be grabbed and dragged
-			marker.style.pointerEvents = "auto";
+				if (DRAG_ENABLED) {
+				// Enable touch events so the drone can be grabbed and dragged
+				marker.style.pointerEvents = "auto";
 
-			// ── Drag handlers (ghost-touch guard: hold ≥ DRAG_START_HOLD_MS) ───────
-			let dragStartTimer: ReturnType<typeof setTimeout> | null = null;
+				// ── Drag handlers (ghost-touch guard: hold ≥ DRAG_START_HOLD_MS) ───────
+				let dragStartTimer: ReturnType<typeof setTimeout> | null = null;
 
-			marker.addEventListener(
-				"pointerdown",
-				(e: PointerEvent) => {
-					if (dragPointerId !== null) return; // another pointer already active
-					e.preventDefault();
+				marker.addEventListener(
+					"pointerdown",
+					(e: PointerEvent) => {
+						if (dragPointerId !== null) return; // another pointer already active
+						e.preventDefault();
+						e.stopPropagation();
+						dragPointerId = e.pointerId;
+						try { marker!.setPointerCapture(e.pointerId); } catch (_) {}
+						const scale = getAppScale();
+						const rect = target!.getBoundingClientRect();
+						dragTargetX = (e.clientX - rect.left) / scale;
+						dragTargetY = (e.clientY - rect.top) / scale;
+						// Ghost-touch guard: activate drag only after minimum hold time
+						dragStartTimer = setTimeout(() => {
+							dragActive = true;
+							marker!.classList.add("is-dragging");
+							document.body.classList.add("drone-drag-active");
+							dragShieldEl = create("div");
+							dragShieldEl.className = "drone-drag-shield";
+							document.body.appendChild(dragShieldEl);
+							// Spring starts from current visual position
+							dragCurrentX = parseFloat(marker!.style.left) || dragTargetX;
+							dragCurrentY = parseFloat(marker!.style.top) || dragTargetY;
+							dragRafId = requestAnimationFrame(tickDrag);
+						}, DRAG_START_HOLD_MS);
+					},
+					{ signal },
+				);
+
+				marker.addEventListener(
+					"pointermove",
+					(e: PointerEvent) => {
+						if (e.pointerId !== dragPointerId || !dragActive) return;
+						const scale = getAppScale();
+						const rect = target!.getBoundingClientRect();
+						dragTargetX = (e.clientX - rect.left) / scale;
+						dragTargetY = (e.clientY - rect.top) / scale;
+					},
+					{ signal },
+				);
+
+				const finalizeDrag = (e: PointerEvent) => {
+					if (e.pointerId !== dragPointerId) return;
+					if (dragStartTimer) { clearTimeout(dragStartTimer); dragStartTimer = null; }
+					dragPointerId = null;
+					// Always stop propagation: a touch on the drone (even a ghost-touch
+					// shorter than DRAG_START_HOLD_MS) must not trigger tap-to-fly.
 					e.stopPropagation();
-					dragPointerId = e.pointerId;
-					try { marker!.setPointerCapture(e.pointerId); } catch (_) {}
-					const scale = getAppScale();
-					const rect = target!.getBoundingClientRect();
-					dragTargetX = (e.clientX - rect.left) / scale;
-					dragTargetY = (e.clientY - rect.top) / scale;
-					// Ghost-touch guard: activate drag only after minimum hold time
-					dragStartTimer = setTimeout(() => {
-						dragActive = true;
-						marker!.classList.add("is-dragging");
-						document.body.classList.add("drone-drag-active");
-						dragShieldEl = create("div");
-						dragShieldEl.className = "drone-drag-shield";
-						document.body.appendChild(dragShieldEl);
-						// Spring starts from current visual position
-						dragCurrentX = parseFloat(marker!.style.left) || dragTargetX;
-						dragCurrentY = parseFloat(marker!.style.top) || dragTargetY;
-						dragRafId = requestAnimationFrame(tickDrag);
-					}, DRAG_START_HOLD_MS);
-				},
-				{ signal },
-			);
-
-			marker.addEventListener(
-				"pointermove",
-				(e: PointerEvent) => {
-					if (e.pointerId !== dragPointerId || !dragActive) return;
-					const scale = getAppScale();
-					const rect = target!.getBoundingClientRect();
-					dragTargetX = (e.clientX - rect.left) / scale;
-					dragTargetY = (e.clientY - rect.top) / scale;
-				},
-				{ signal },
-			);
-
-			const finalizeDrag = (e: PointerEvent) => {
-				if (e.pointerId !== dragPointerId) return;
-				if (dragStartTimer) { clearTimeout(dragStartTimer); dragStartTimer = null; }
-				dragPointerId = null;
-				// Always stop propagation: a touch on the drone (even a ghost-touch
-				// shorter than DRAG_START_HOLD_MS) must not trigger tap-to-fly.
-				e.stopPropagation();
-				if (!dragActive) return; // released before threshold — no-op (ghost-touch blocked)
-				if (dragRafId !== null) { cancelAnimationFrame(dragRafId); dragRafId = null; }
-				dragActive = false;
-				marker!.classList.remove("is-dragging");
-				document.body.classList.remove("drone-drag-active");
-				dragShieldEl?.remove(); dragShieldEl = null;
-				locationPlaced = { x: dragCurrentX, y: dragCurrentY };
-				status.innerText = `(${Math.round(dragCurrentX)}, ${Math.round(dragCurrentY)})`;
-				const dur = `${DRONE_MIN_DURATION_MS}ms`;
-				marker!.style.transitionDuration = `${dur}, ${dur}`;
-				if (radiusMarker) radiusMarker.style.transitionDuration = `${dur}, ${dur}`;
-			};
-			marker.addEventListener("pointerup", finalizeDrag, { signal });
-			marker.addEventListener("pointercancel", finalizeDrag, { signal });
-			} // DRAG_ENABLED
+					if (!dragActive) return; // released before threshold — no-op (ghost-touch blocked)
+					if (dragRafId !== null) { cancelAnimationFrame(dragRafId); dragRafId = null; }
+					dragActive = false;
+					marker!.classList.remove("is-dragging");
+					document.body.classList.remove("drone-drag-active");
+					dragShieldEl?.remove(); dragShieldEl = null;
+					locationPlaced = { x: dragCurrentX, y: dragCurrentY };
+					status.innerText = `(${Math.round(dragCurrentX)}, ${Math.round(dragCurrentY)})`;
+					const dur = `${DRONE_MIN_DURATION_MS}ms`;
+					marker!.style.transitionDuration = `${dur}, ${dur}`;
+					if (radiusMarker) radiusMarker.style.transitionDuration = `${dur}, ${dur}`;
+				};
+				marker.addEventListener("pointerup", finalizeDrag, { signal });
+				marker.addEventListener("pointercancel", finalizeDrag, { signal });
+				} // DRAG_ENABLED
+			}
 		}
 
-		// Calculate travel duration based on distance and configured speed
+		if (!isDrone) {
+			// Jump to position and pop in (re-trigger animation on each tap)
+			marker.style.left = `${x}px`;
+			marker.style.top = `${y}px`;
+			if (radiusMarker) {
+				radiusMarker.style.left = `${x}px`;
+				radiusMarker.style.top = `${y}px`;
+			}
+			marker.classList.remove("is-popping");
+			void marker.offsetWidth;
+			marker.classList.add("is-popping");
+			if (radiusMarker) {
+				radiusMarker.classList.remove("is-popping");
+				void radiusMarker.offsetWidth;
+				radiusMarker.classList.add("is-popping");
+			}
+			status.innerText = `(${Math.round(x)}, ${Math.round(y)})`;
+			return;
+		}
+
+		// Drone: fly to position with speed-based transition
 		const currX = parseFloat(marker.style.left) || 0;
 		const currY = parseFloat(marker.style.top) || 0;
 		const dist = Math.sqrt((x - currX) ** 2 + (y - currY) ** 2);
@@ -296,12 +323,10 @@ export function renderLocation(
 
 		marker.style.left = `${x}px`;
 		marker.style.top = `${y}px`;
-
 		if (radiusMarker) {
 			radiusMarker.style.left = `${x}px`;
 			radiusMarker.style.top = `${y}px`;
 		}
-
 		status.innerText = `(${Math.round(x)}, ${Math.round(y)})`;
 	};
 
