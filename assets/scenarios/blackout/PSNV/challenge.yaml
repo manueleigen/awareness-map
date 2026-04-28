@@ -5,11 +5,9 @@ story_points:
     optionsLayout: rows
     text:
       de:
-        title: "PSNV Quiz"
-        question: "Wofür steht die Abkürzung PSNV?"
+        title: "Wofür steht die Abkürzung PSNV?"
       en:
-        title: "PSNV Quiz"
-        question: "What does the abbreviation PSNV stand for?"
+        title: "What does the abbreviation PSNV stand for?"
     options:
       - value: "A"
         text:
@@ -32,15 +30,15 @@ story_points:
     type: info
     text:
       de:
-        title: Falsche Antwort
+        title: Leider falsch
         description: |
-          PSNV steht für **Psychosoziale Notfallversorgung**.
+          Die PSNV unterstützt Menschen in Krisen und Notlagen psychosozial, zum Beispiel durch Betreuung, Orientierung und persönliche Ansprache.
 
           **Versuche es nochmal!**
       en:
         title: Wrong Answer
         description: |
-          PSNV stands for **Psychosocial Emergency Care**.
+          PSNV provides psychosocial support to people in crises and emergencies, for example through care, guidance, and personal support.
 
           **Try again!**
     next: intro
@@ -66,9 +64,11 @@ story_points:
   - id: challenge_core
     type: point-selection-quiz
     target: "#layer-blackout_psnv_support_sites"
+    hintLayerOverlaysById: [blackout_psnv_support_sites]
+    hintLayerOverlayDuration: 5000
     showLayersById: [blackout_psnv_support_sites]
     solution: ["blackout_psnv_site_01", "blackout_psnv_site_05"]
-    wrong_options: ["blackout_psnv_site_03"]
+    wrong_options: []
     minSelection: 2
     maxSelection: 2
     text:
@@ -79,9 +79,9 @@ story_points:
 
           Berücksichtige:
 
-          - wie viele Menschen dort erreicht werden
-          - ob der Ort Schutz und Orientierung bietet
-          - welche Bereiche bisher schlechter versorgt sind
+          - wie viele Menschen dort versorgt werden können
+          - die Einwohnerdichte und Erreichbarkeit
+          - ob der Standort geeignet ist, um Schutz und Orientierung zu bieten
       en:
         title: Set Up Support Points
         question: |

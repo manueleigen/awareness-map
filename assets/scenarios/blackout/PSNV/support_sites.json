@@ -3,76 +3,91 @@
   "locations": [
     {
       "id": "blackout_psnv_site_01",
-      "x": 980,
-      "y": 760,
+      "x": 2528,
+      "y": 850,
       "translations": {
         "title": {
-          "de": "Sporthalle Nord",
-          "en": "Northern Sports Hall"
+          "de": "Sporthalle",
+          "en": "Sports Hall"
         },
         "description": {
-          "de": "Gut erreichbar und groß genug für viele betroffene Menschen aus mehreren Wohnquartieren.",
-          "en": "Easy to reach and large enough for many affected people from several residential districts."
+          "de": "Hohe Kapazität mit Wärme und Sanitäranlagen für viele Menschen.",
+          "en": "High capacity, with warmth and sanitary facilities for many people."
         }
       }
     },
     {
       "id": "blackout_psnv_site_02",
-      "x": 2910,
-      "y": 900,
+      "x": 2995,
+      "y": 1516,
       "translations": {
         "title": {
-          "de": "Veranstaltungszentrum Ost",
-          "en": "Eastern Event Center"
+          "de": "Veranstaltungshalle",
+          "en": "Event Hall"
         },
         "description": {
-          "de": "Viele Menschen halten sich bereits in der Umgebung auf, mehrere kritische Orte liegen in der Nähe.",
-          "en": "Many people are already gathered nearby, and several critical sites are close."
+          "de": "Große Kapazität und Sanitäranlagen, aber ohne Heizung.",
+          "en": "Large capacity and sanitary facilities, but no heating."
         }
       }
     },
     {
       "id": "blackout_psnv_site_03",
-      "x": 1580,
-      "y": 440,
+      "x": 646,
+      "y": 1112,
       "translations": {
         "title": {
           "de": "Messeparkplatz",
           "en": "Trade Fair Parking Lot"
         },
         "description": {
-          "de": "Große Fläche, aber wenig Schutz und derzeit nur geringe unmittelbare Aufenthaltsdichte.",
-          "en": "Large open area, but with little shelter and currently low immediate crowd density."
+          "de": "Große Fläche, aber ohne Schutz vor Wetter, ohne Heizung und ohne Infrastruktur.",
+          "en": "Large area, but with no weather protection, no heating, and no infrastructure."
         }
       }
     },
     {
       "id": "blackout_psnv_site_04",
-      "x": 1220,
-      "y": 1540,
+      "x": 1675,
+      "y": 1817,
       "translations": {
         "title": {
-          "de": "Bürgerhaus West",
-          "en": "Western Community Center"
+          "de": "Bürgerhaus",
+          "en": "Community Center"
         },
         "description": {
-          "de": "Kleiner Standort, bereits teilweise durch andere lokale Angebote entlastet.",
-          "en": "Smaller site, already partly relieved by other local support options."
+          "de": "Mittlere Kapazität, aber ohne Sanitäranlagen vor Ort.",
+          "en": "Medium capacity, but with no sanitary facilities on site."
         }
       }
     },
     {
       "id": "blackout_psnv_site_05",
-      "x": 3240,
-      "y": 1320,
+      "x": 1306,
+      "y": 403,
       "translations": {
         "title": {
-          "de": "Schulcampus Süd",
-          "en": "Southern School Campus"
+          "de": "Schule",
+          "en": "School"
         },
         "description": {
-          "de": "Geeignet als Sammel- und Versorgungsort für größere südliche Wohnbereiche.",
-          "en": "Suitable as a gathering and support site for larger southern residential areas."
+          "de": "Mittlere Kapazität mit Wärme und Sanitäranlagen.",
+          "en": "Medium capacity, with warmth and sanitary facilities."
+        }
+      }
+    },
+    {
+      "id": "blackout_psnv_site_06",
+      "x": 2517,
+      "y": 1972,
+      "translations": {
+        "title": {
+          "de": "Kirchengemeinde",
+          "en": "Church Community Center"
+        },
+        "description": {
+          "de": "Wärme ist vorhanden, aber die Kapazität ist gering und Sanitäranlagen fehlen.",
+          "en": "Warmth is available, but capacity is low and there are no sanitary facilities."
         }
       }
     }
