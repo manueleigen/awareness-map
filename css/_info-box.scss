@@ -166,6 +166,15 @@
 
 .poi-marker.quiz-answer {
 	.poi-icon {
+		&--border-only {
+			stroke: var(--secondary);
+			stroke-width: 45px;
+			paint-order: stroke fill;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+
+			@include drop-shadow-svg-active;
+		}
 		&--outer {
 			stroke: var(--theyellow);
 			fill: var(--secondary);

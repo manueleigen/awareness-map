@@ -2,6 +2,7 @@
 story_points:
   - id: intro
     type: quiz
+    optionsLayout: rows
     text:
       de:
         title: "PSNV Quiz"

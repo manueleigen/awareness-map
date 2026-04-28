@@ -195,7 +195,7 @@ scenarios:
             z_index: 79
             toggle_order: 3
             src: /assets/scenarios/blackout/crisis_unit/districts.svg
-            icon: /assets/icons/evacuation_zones.svg
+            icon: /assets/icons/communications.svg
           - id: blackout_crisis_unit_info_points
             layer_type: locations
             available_from: role
