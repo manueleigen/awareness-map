@@ -4,7 +4,7 @@
     "layer_types": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/%7Bid%3Astring%3Btype%3A%22locations%22%7C%22static-image%22%7C%22pulsing-image%22%7C%22lottie-sequence%22%7C%22areas%22%7C%22png-sequence%22%7C%22svg-sequence%22%3Binteraction%3Astring%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bicon_mode%3F%3Astring%7Cundefined%3B%7D"
+        "$ref": "#/definitions/%7Bid%3Astring%3Btype%3A%22locations%22%7C%22areas%22%7C%22static-image%22%7C%22pulsing-image%22%7C%22lottie-sequence%22%7C%22png-sequence%22%7C%22svg-sequence%22%3Binteraction%3Astring%3Bplayback_control%3F%3Aboolean%7Cundefined%3Bicon_mode%3F%3Astring%7Cundefined%3B%7D"
       }
     }
   },
@@ -12,7 +12,7 @@
     "layer_types"
   ],
   "definitions": {
-    "{id:string;type:\"locations\"|\"static-image\"|\"pulsing-image\"|\"lottie-sequence\"|\"areas\"|\"png-sequence\"|\"svg-sequence\";interaction:string;playback_control?:boolean|undefined;icon_mode?:string|undefined;}": {
+    "{id:string;type:\"locations\"|\"areas\"|\"static-image\"|\"pulsing-image\"|\"lottie-sequence\"|\"png-sequence\"|\"svg-sequence\";interaction:string;playback_control?:boolean|undefined;icon_mode?:string|undefined;}": {
       "type": "object",
       "properties": {
         "id": {

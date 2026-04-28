@@ -154,6 +154,18 @@ export async function ensureLayerBuilt(
 								obj.classList.add("interactive-area");
 							}
 						});
+
+						if (ctxLayer?.area_colors?.length) {
+							const rules = ctxLayer.area_colors.map(({ color, areas }) => {
+								const selectors = areas
+									.map((areaId) => `#${wrapper.id} #${areaId}:not(.quiz-answer):not(.active)`)
+									.join(", ");
+								return `${selectors} { fill: ${color}; fill-opacity: 0.6; }`;
+							}).join("\n");
+							const styleEl = document.createElement("style");
+							styleEl.textContent = rules;
+							wrapper.append(styleEl);
+						}
 					}
 					break;
 

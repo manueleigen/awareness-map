@@ -21,6 +21,7 @@ function normalizeLayer(layer: ContextLayerDefinition) {
 		map_only: layer.map_only,
 		z_index: layer.z_index,
 		toggle_order: layer.toggle_order,
+		area_colors: layer.area_colors,
 	};
 }
 

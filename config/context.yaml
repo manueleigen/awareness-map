@@ -103,6 +103,9 @@ scenarios:
       - id: police
         layers:
           - id: flood_police_evacuation_zones
+            area_colors:
+              - color: pink
+                areas: [area-1, area-22]
             layer_type: area_overlay
             available_from: role
             toggle: available

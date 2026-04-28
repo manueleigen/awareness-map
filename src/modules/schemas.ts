@@ -40,6 +40,12 @@ export const ContextLayerDefinitionSchema = z.object({
 	map_only: z.boolean().optional(),
 	z_index: z.number().optional(),
 	toggle_order: z.number().optional(),
+	area_colors: z.array(
+		z.object({
+			color: z.string(),
+			areas: z.array(z.string()),
+		}),
+	).optional(),
 });
 
 export const ContextRoleDefinitionSchema = z.object({

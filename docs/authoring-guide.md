@@ -227,6 +227,23 @@ flood_police_evacuation_zones:
   icon: /assets/icons/evacuation_zones.svg
 ```
 
+**`area_colors`** — Optional. Applies fill colors to specific SVG areas via injected CSS. Each entry maps a CSS color value to one or more area IDs. The color is **not** applied to areas that currently have the class `quiz-answer` or `active` (i.e. selected/highlighted areas always override the static color).
+
+```yaml
+blackout_crisis_unit_districts:
+  layer_type: area_overlay
+  src: /assets/scenarios/blackout/crisis_unit/districts.svg
+  area_colors:
+    - color: "#e8f4d9"
+      areas: [area-1, area-2, area-5]
+    - color: "#fce3e3"
+      areas: [area-3, area-4]
+    - color: rgba(255, 200, 0, 0.4)
+      areas: [area-6]
+```
+
+The `areas` values must match the `id` attributes of the polygon/path elements in the SVG (e.g. `id="area-1"`). Any CSS-valid fill value is accepted (`#hex`, `rgb()`, `rgba()`, named colors, etc.). Without `area_colors`, coloring is handled entirely via SCSS.
+
 ### `svg_sequence` / `png_sequence`
 
 Frame-based animation tied to the time slider. The slider moves through the frames as the user drags it. `svg_sequence` uses a `manifest.json`; `png_sequence` uses a folder of numbered images.

@@ -72,6 +72,7 @@ export interface ContextLayer {
 	map_only?: boolean;
 	z_index?: number;
 	toggle_order?: number;
+	area_colors?: Array<{ color: string; areas: string[] }>;
 }
 
 /** A role within a scenario, containing its specific layers and an optional quiz. */
