@@ -1,0 +1,104 @@
+{
+	"layer_id": "critical_sites_THW",
+	"locations": [
+		{
+			"id": "blackout_thw_poi_01",
+			"x": 1769,
+			"y": 1865,
+			"class": "right-opening",
+			"status": "limited",
+			"translations": {
+				"title": {
+					"de": "Abwasserpumpwerk",
+					"en": "Wastewater Pumping Station"
+				},
+				"description": {
+					"de": "Begrenzte Stromreserven bedrohen die Abwasserentsorgung.",
+					"en": "Limited power reserves threaten wastewater management."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_02",
+			"x": 3300,
+			"y": 935,
+			"class": "left-opening",
+			"status": "critical",
+			"translations": {
+				"title": {
+					"de": "Lagezentrum",
+					"en": "Crisis Coordination Center"
+				},
+				"description": {
+					"de": "Akute Stromprobleme gefährden die Arbeit des Krisenstabs.",
+					"en": "Acute power problems threaten the work of the crisis unit."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_03",
+			"x": 2100,
+			"y": 1380,
+			"class": "right-opening",
+			"status": "stable",
+			"translations": {
+				"title": { "de": "Klinikum", "en": "Hospital" },
+				"description": {
+					"de": "Stabile Notstromversorgung sichert die medizinische Versorgung.",
+					"en": "Stable backup power maintains medical care."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_04",
+			"x": 823,
+			"y": 400,
+			"class": "right-opening",
+			"status": "critical",
+			"translations": {
+				"title": {
+					"de": "Trinkwasserwerk",
+					"en": "Drinking Water Works"
+				},
+				"description": {
+					"de": "Akute Stromprobleme gefährden die Trinkwasserversorgung.",
+					"en": "Acute power problems threaten drinking water supply."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_05",
+			"x": 821,
+			"y": 797,
+			"class": "right-opening",
+			"status": "limited",
+			"translations": {
+				"title": {
+					"de": "Kraftstoffdepot",
+					"en": "Fuel Depot"
+				},
+				"description": {
+					"de": "Begrenzte Stromreserven gefährden die Kraftstoffversorgung für Einsatzfahrzeuge.",
+					"en": "Limited power reserves threaten fuel supply for emergency vehicles."
+				}
+			}
+		},
+		{
+			"id": "blackout_thw_poi_06",
+			"x": 1822,
+			"y": 393,
+			"class": "right-opening",
+			"status": "stable",
+			"translations": {
+				"title": {
+					"de": "Kühlzentrum",
+					"en": "Cold Storage Center"
+				},
+				"description": {
+					"de": "Stabile Kühlung schützt medizinische Vorräte und Lebensmittel.",
+					"en": "Stable refrigeration protects medical supplies and food."
+				}
+			}
+		}
+	]
+}

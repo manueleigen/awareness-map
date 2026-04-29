@@ -36,7 +36,7 @@ story_points:
 
           - wann die Bereiche überflutet werden
           - die Bevölkerungsdichte
-          - wichtige Infrastruktur, die evakuiert werden muss
+          - wichtige Orte, die evakuiert werden muss
       en:
         title: Select Evacuation Zones
         question: |
@@ -46,7 +46,7 @@ story_points:
 
           - when the areas will be flooded
           - population density
-          - critical infrastructure that must be evacuated
+          - key locations that must be evacuated
     next:
       right: win-screen
       half: half-fail-screen

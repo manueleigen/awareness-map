@@ -10,7 +10,7 @@ story_points:
           Der **Krisenstab** muss im Katastrophenfall dafür sorgen, dass Prioritäten geklärt sind und Ressourcen sinnvoll verteilt werden. 
           Ein wichtiger Aspekt bei einem Blackout ist **Information und Kommunikation**.
           
-          Prüfe den Status der Kommunikation in der Stadt und achte dabei auf kritische Orte, die besonders auf Kommunikation angewiesen sind.
+          Prüfe den Status der Kommunikation in der Stadt und achte dabei auf kritische Orte, die besonders auf Informationen angewiesen sind.
         button: "Herausforderung starten"
       en:
         title: "Maintaining Communication"
@@ -18,7 +18,7 @@ story_points:
           The **crisis unit** is responsible for clarifying priorities and allocating resources in a sensible way during a disaster. 
           An important aspect during a blackout is **information and communication**.
           
-          Check the status of communication in the city, paying special attention to critical sites that are particularly dependent on communication.
+          Check the status of communication in the city, paying special attention to critical sites that are particularly dependent on information.
 
         button: "Start Challenge"
     next: challenge_core
@@ -26,31 +26,23 @@ story_points:
   - id: challenge_core
     type: area-selection-quiz
     target: "#layer-blackout_crisis_unit_districts"
-    showLayersById: [blackout_crisis_unit_districts, critical_sites]
+    showLayersById: [blackout_crisis_unit_districts]
     solution: ["area-11", "area-21", "area-29"]
     wrong_options: ["area-1", "area-24", "area-36"]
     minSelection: 3
     maxSelection: 3
     text:
       de:
-        title: Bezirke priorisieren
+        title: Lage prüfen und Bezirke priorisieren
         question: |
-          **Wähle drei Bezirke aus**, in denen lokale Informationsknoten und Kommunikation gestärkt werden sollen.
-          **Berücksichtige dabei**:
-
-          - kritische Kommunikationslage
-          - hohe Bevölkerungsdichte
-          - kritische Orte in der Nähe
+          Identifiziere besonders kritische Bezirke (rot), in denen viele Menschen leben oder wichtige Orte liegen.
+          
+          **Du kannst drei Bezirke auswählen**, die in den nächsten Schritten priorisiert werden.
       en:
         title: Secure Three Districts First
         question: |
           **Select three districts where local communication and information nodes should be reinforced first.**
 
-          Take into account:
-
-          - critical communication conditions
-          - high population density
-          - critical sites nearby
     next:
       right: wifi-placement
       half: half-fail-screen
@@ -72,29 +64,22 @@ story_points:
     solution: ["{x: 2170, y: 1560}"]
     maxDistance: 300
     submit:
-      de: WLAN-Punkt platzieren
-      en: Place Wi-Fi Point
+      de: mobilen Kommunikationspunkt platzieren
+      en: place mobile communication point
     text:
       de:
-        title: Mobilen Informationspunkt platzieren
+        title: Krisen-Kommunikationsnetz aufbauen
         question: |
-          **Setze den mobilen WLAN-Punkt dort, wo bestehende Info-Anlaufstationen die geringste Abdeckung erzeugen.**
+          Ein unabhängiges Krisennetz verbindet wichtige Akteure und Infrastrukturen auch dann, wenn Strom und Telekommunikation ausfallen.
 
-          Berücksichtige dabei:
+          **Setze den mobilen Kommunikationspunkt dort, wo die Abdeckung am schlechtesten ist.**
 
-          - vorhandene Anlaufstationen
-          - schlecht versorgte Bereiche
-          - kritische Orte in der Nähe
       en:
-        title: Place Mobile Wi-Fi Point
+        title: Establish Crisis Communication Network
         question: |
-          **Place the mobile Wi-Fi point where existing information stations leave the largest coverage gap.**
+          An independent crisis communication network connects key actors and infrastructure even when power and telecommunications fail.
 
-          Take into account:
-
-          - existing support stations
-          - poorly covered areas
-          - nearby critical sites
+          **Place the mobile communication point where coverage is weakest.**
     next:
       right: win-screen
       wrong: wifi-fail-screen

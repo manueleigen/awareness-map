@@ -40,8 +40,8 @@ global:
       available_from: global
       toggle: available
       label:
-        de: "Kritische\nInfrastruktur"
-        en: "Critical\nInfrastructure"
+        de: "Wichtige\nOrte"
+        en: "Key\nLocations"
       initially_visible: false
       z_index: 110
       toggle_order: 1
@@ -152,19 +152,16 @@ scenarios:
           - id: blackout_THW_critical_sites
             layer_type: locations
             available_from: role
-            toggle: hidden
+            toggle: available
             quiz_only: true
             label:
-              de: "Kritische\nStandorte"
-              en: "Critical\nSites"
+              de: "Kritische\nInfrastruktur"
+              en: "Critical\nInfrastructure"
             initially_visible: true
             z_index: 112
             toggle_order: 3
             src: /assets/scenarios/blackout/THW/critical_sites.json
             icon: /assets/icons/critical_sites.svg
-            playback_control: false
-            start_time: "10:00"
-            end_time: "22:00"
             status_poi_icons:
               stable: /assets/icons/thw_marker_poi_stable.svg
               limited: /assets/icons/thw_marker_poi_limited.svg
