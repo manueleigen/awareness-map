@@ -113,6 +113,7 @@ export function renderHome(): void {
 					app.currentScenario = scenarioId;
 					app.currentRole = null;
 					app.view = "role-select";
+					updateAppContextClasses();
 					await resetLayers();
 					await updateView();
 				});
@@ -193,6 +194,7 @@ export function renderRoleSelection(): void {
 		if (hasQuiz && roleCTX) {
 			addDelayedPointerClick(btn, async () => {
 				app.currentRole = roleId;
+				updateAppContextClasses();
 				await startQuiz(scenarioRole!.challenge!);
 			});
 		} else {
@@ -276,12 +278,23 @@ export async function renderMapUI(): Promise<void> {
 /**
  * Resets the application state and returns to the home screen.
  */
+function updateAppContextClasses(): void {
+	const el = app.ui.app;
+	if (!el) return;
+	[...el.classList]
+		.filter((c) => c.startsWith("scenario-") || c.startsWith("challenge-"))
+		.forEach((c) => el.classList.remove(c));
+	if (app.currentScenario) el.classList.add(`scenario-${app.currentScenario}`);
+	if (app.currentRole) el.classList.add(`challenge-${app.currentRole}`);
+}
+
 export async function resetApp(): Promise<void> {
 	abortLocationStep();
 	abortSelectionStep();
 	app.currentScenario = null;
 	app.currentRole = null;
 	app.view = "home";
+	updateAppContextClasses();
 
 	// Comprehensive layer reset (clears areas, restores initial visibility)
 	await resetLayers();
@@ -298,6 +311,7 @@ export async function backToRoles(): Promise<void> {
 	abortSelectionStep();
 	app.currentRole = null;
 	app.view = "role-select";
+	updateAppContextClasses();
 
 	await resetLayers();
 	resetSliders();
