@@ -5,10 +5,8 @@ story_points:
     text:
       de:
         title: 'Wofür steht die Abkürzung "THW"?'
-        question: ""
       en:
-        title: 'What does the abbreviation "THW" stand for?'
-        question: ""
+        title: 'What does "THW" stand for?'
     options:
       - value: "A"
         text:
@@ -80,17 +78,17 @@ story_points:
       de:
         title: Notstromversorgung stabilisieren
         question: |
-          **Wähle die drei kritischsten Infrastrukturen aus**, die deine begrenzten Notstromaggregate erhalten sollen. Berücksichtige dabei:
+          **Wähle die drei kritischsten Infrastrukturen aus**, die zuerst mit den begrenzten Notstromaggregaten stabilisiert werden sollen. Berücksichtige dabei:
 
           - den aktuellen Status jeder Einrichtung
-          - die Auswirkungen auf die Bevölkerung
+          - die Folgen eines Ausfalls für die Bevölkerung
       en:
         title: Stabilize Backup Power
         question: |
-          **Select the three most critical infrastructure facilities** that should receive your limited backup power generators. Consider:
+          **Select the three most critical infrastructure facilities** that should be stabilized first with the limited emergency generators. Consider:
 
           - the current status of each facility
-          - the impact on the population
+          - the consequences of a failure for the population
     next:
       right: win-screen
       half: half-fail-screen
@@ -107,15 +105,15 @@ story_points:
         description: |
           Du hast die begrenzten Notstromaggregate dort eingesetzt, wo ein Ausfall die größten Folgen hätte.
 
-          Abwasserpumpwerk, Koordinationszentrum und Trinkwasserwerk bleiben stabil. Damit sind Entsorgung, Einsatzkoordination und Trinkwasserversorgung auch während des Blackouts abgesichert.
+          Abwasserpumpwerk, Lagezentrum und Trinkwasserwerk bleiben stabil. Damit sind Abwasserentsorgung, Einsatzkoordination und Trinkwasserversorgung auch während des Blackouts abgesichert.
 
           **Ausgezeichnet!**
       en:
         title: Operation Successful!
         description: |
-          You deployed the limited backup generators where a failure would have the greatest consequences.
+          You deployed the limited emergency generators where a failure would have the greatest consequences.
 
-          The wastewater pumping station, coordination center, and drinking water works remain stable. This keeps wastewater management, response coordination, and drinking water supply secured during the blackout.
+          The wastewater pumping station, crisis coordination center, and drinking water plant remain stable. This keeps wastewater management, response coordination, and drinking water supply secured during the blackout.
 
           **Excellent work!**
 
@@ -132,7 +130,7 @@ story_points:
       en:
         title: Partly Correct
         description: |
-          You correctly prioritized at least one critical infrastructure site, but not all available backup generators are being sent to the locations with the highest urgency.
+          You correctly prioritized at least one critical infrastructure site, but not all available emergency generators are being sent to the locations with the highest urgency.
 
           **Review the status and impact of each facility again.**
 
@@ -143,7 +141,7 @@ story_points:
       de:
         title: Kritische Versorgungslücke
         description: |
-          Du hast mindestens eine zentrale Infrastruktur richtig erkannt, aber ein Notstromaggregat an das Kraftstoffdepot gebunden.
+          Du hast mindestens eine zentrale Infrastruktur richtig erkannt, aber ein Notstromaggregat am Kraftstoffdepot gebunden.
 
           **Das Depot ist wichtig für den weiteren Einsatz, aber weniger dringlich als andere Standorte, bei denen unmittelbar Ausfälle drohen.**
 
@@ -151,8 +149,8 @@ story_points:
       en:
         title: Critical Supply Gap
         description: |
-          You correctly identified at least one key infrastructure site, but assigned one backup generator to the fuel depot.
+          You correctly identified at least one key infrastructure site, but assigned one emergency generator to the fuel depot.
 
           **The depot is important for continued operations, but it is less urgent than other locations where failures are imminent.**
 
-          Deploy the backup generator to a different site.
+          Deploy the emergency generator to a different site.

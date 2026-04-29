@@ -160,7 +160,7 @@ scenarios:
             initially_visible: true
             z_index: 112
             toggle_order: 3
-            src: /assets/scenarios/blackout/THW/critical_sites.json
+            src: /assets/scenarios/blackout/thw/critical_sites.json
             icon: /assets/icons/critical_sites.svg
             status_poi_icons:
               stable: /assets/icons/thw_marker_poi_stable.svg
