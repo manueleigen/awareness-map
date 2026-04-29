@@ -55,7 +55,7 @@ story_points:
           **Setze die verfügbaren Ressourcen gezielt ein, um wichtige Einrichtungen zu schützen und die Folgen für die Bevölkerung zu begrenzen.**
         button: "Challenge starten"
       en:
-        title: "Critical Infrastructure Needs Backup Power"
+        title: "Critical Infrastructure Needs Power"
         description: |
           The THW helps keep critical infrastructure functioning with backup power during emergencies.
 

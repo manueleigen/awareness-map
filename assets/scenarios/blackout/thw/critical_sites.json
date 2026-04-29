@@ -58,11 +58,11 @@
 			"translations": {
 				"title": {
 					"de": "Trinkwasserwerk",
-					"en": "Drinking Water Works"
+					"en": "Drinking Water Plant"
 				},
 				"description": {
 					"de": "Akute Stromprobleme gefährden die Trinkwasserversorgung.",
-					"en": "Acute power problems threaten drinking water supply."
+					"en": "Acute power problems threaten the drinking water supply."
 				}
 			}
 		},
@@ -78,8 +78,8 @@
 					"en": "Fuel Depot"
 				},
 				"description": {
-					"de": "Begrenzte Stromreserven gefährden die Kraftstoffversorgung für Einsatzfahrzeuge.",
-					"en": "Limited power reserves threaten fuel supply for emergency vehicles."
+					"de": "Die Ausgabe läuft eingeschränkt; für die nächsten Stunden reicht die vorhandene Reserve.",
+					"en": "Distribution is limited, but the available reserve is sufficient for the next few hours."
 				}
 			}
 		},

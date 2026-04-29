@@ -9,17 +9,18 @@ text:
     description: |
       **Ein großflächiger Stromausfall** legt seit Montag, 10:00 Uhr die Stadt lahm.
       Inzwischen ist es Dienstag, 14:00 Uhr. 
-      Nach rund **28 Stunden ohne Strom** wird die Lage vor allem durch **Folgeprobleme wie Notstomverfügbarkeit, Wasserversorgung und Kommunikation** bestimmt.
+      Nach rund **28 Stunden ohne Strom** wird die Lage vor allem durch **Folgeprobleme wie Notstromversorgung, Wasserversorgung und Kommunikation** bestimmt.
 
-      Übernimm eine Rolle und hilf dabei, die Situation zu bewältigen!
+      Übernimm eine Rolle und hilf dabei, die Situation unter Kontrolle zu bringen.
   en:
     title: "More than a Power Outage: Blackout"
     short_title: Blackout
     description: |
       **A large-scale power outage** has paralyzed the city since Monday, 10:00 AM.
       It is now Tuesday, 2:00 PM. 
-      After about 28 hours without regular power supply, the initial shock phase is over;
-      the situation is now mainly determined by follow-up problems such as the interruption of water supply, limited communication, and the overload of emergency services.
+      After about **28 hours without power**, the situation is mainly shaped by **secondary problems such as backup power, water supply, and communication**.
+
+      Take on a role and help bring the situation under control.
 roles:
   - id: thw
     text:
@@ -27,7 +28,7 @@ roles:
         title: THW
       en:
         title: THW
-    challenge: ./THW/challenge.yaml
+    challenge: ./thw/challenge.yaml
   - id: psnv
     text:
       de:

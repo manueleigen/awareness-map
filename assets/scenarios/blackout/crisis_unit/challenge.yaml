@@ -4,21 +4,21 @@ story_points:
     type: info
     text:
       de:
-        title: "Kommunikation aufrecherhalten"
+        title: "Kommunikation aufrechterhalten"
         description: |
           
-          Der **Krisenstab** muss im Katastrophenfall dafür sorgen, dass Prioritäten geklärt sind und Ressourcen sinnvoll verteilt werden. 
+          Der **Krisenstab** muss im Katastrophenfall dafür sorgen, dass Prioritäten geklärt sind und Ressourcen sinnvoll verteilt werden.
           Ein wichtiger Aspekt bei einem Blackout ist **Information und Kommunikation**.
           
-          Prüfe den Status der Kommunikation in der Stadt und achte dabei auf kritische Orte, die besonders auf Informationen angewiesen sind.
+          Prüfe die Kommunikationslage in der Stadt und achte dabei auf Bezirke, in denen schlechte Erreichbarkeit, hohe Belastung und wichtige Einrichtungen zusammenkommen.
         button: "Herausforderung starten"
       en:
         title: "Maintaining Communication"
         description: |
-          The **crisis unit** is responsible for clarifying priorities and allocating resources in a sensible way during a disaster. 
+          The **crisis unit** is responsible for clarifying priorities and allocating resources effectively during a disaster.
           An important aspect during a blackout is **information and communication**.
           
-          Check the status of communication in the city, paying special attention to critical sites that are particularly dependent on information.
+          Check the communication situation in the city, paying special attention to districts where poor accessibility, high pressure, and key facilities overlap.
 
         button: "Start Challenge"
     next: challenge_core
@@ -35,13 +35,15 @@ story_points:
       de:
         title: Lage prüfen und Bezirke priorisieren
         question: |
-          Identifiziere besonders kritische Bezirke (rot), in denen viele Menschen leben oder wichtige Orte liegen.
+          Identifiziere die Bezirke, in denen zusätzliche Kommunikationsknoten die größte Wirkung hätten.
           
-          **Du kannst drei Bezirke auswählen**, die in den nächsten Schritten priorisiert werden.
+          **Wähle drei Bezirke aus**, in denen schlechte Kommunikationslage, hohe Bevölkerungsdichte und wichtige Einrichtungen zusammenkommen.
       en:
-        title: Secure Three Districts First
+        title: Assess the Situation and Prioritize Districts
         question: |
-          **Select three districts where local communication and information nodes should be reinforced first.**
+          Identify the districts where additional communication nodes would have the greatest effect.
+
+          **Select three districts where poor communication, high population density, and key facilities overlap.**
 
     next:
       right: wifi-placement
@@ -54,8 +56,8 @@ story_points:
 
   - id: wifi-placement
     type: coordinates-quiz
+    icon: 'assets/icons/wifi-router.svg'
     showLayersById: [blackout_crisis_unit_info_points]
-    hintLayerOverlaysById: [blackout_crisis_unit_info_points]
     hideLayersById: [critical_sites]
     target: "#layers"
     initial_position:
@@ -64,22 +66,22 @@ story_points:
     solution: ["{x: 2170, y: 1560}"]
     maxDistance: 300
     submit:
-      de: mobilen Kommunikationspunkt platzieren
-      en: place mobile communication point
+      de: Mobilen Kommunikationspunkt platzieren
+      en: Place Mobile Communication Point
     text:
       de:
         title: Krisen-Kommunikationsnetz aufbauen
         question: |
           Ein unabhängiges Krisennetz verbindet wichtige Akteure und Infrastrukturen auch dann, wenn Strom und Telekommunikation ausfallen.
 
-          **Setze den mobilen Kommunikationspunkt dort, wo die Abdeckung am schlechtesten ist.**
+          **Setze den mobilen Kommunikationspunkt dort, wo bestehende Kommunikationspunkte die größte Lücke lassen.**
 
       en:
         title: Establish Crisis Communication Network
         question: |
           An independent crisis communication network connects key actors and infrastructure even when power and telecommunications fail.
 
-          **Place the mobile communication point where coverage is weakest.**
+          **Place the mobile communication point where the existing communication points leave the largest gap.**
     next:
       right: win-screen
       wrong: wifi-fail-screen
@@ -93,13 +95,13 @@ story_points:
         description: |
           Dort gibt es bereits vergleichsweise mehr Abdeckung.
 
-          Suche den Bereich, der von bestehenden Anlaufstationen am wenigsten erreicht wird.
+          Suche den Bereich, der von bestehenden Kommunikationspunkten am wenigsten erreicht wird.
       en:
         title: Not Optimally Placed
         description: |
           That area already has comparatively more coverage.
 
-          Look for the area least reached by the existing support stations.
+          Look for the area least reached by the existing communication points.
 
   - id: win-screen
     type: end-screen
@@ -108,18 +110,18 @@ story_points:
       de:
         title: Strategisch richtig priorisiert
         description: |
-          Du hast die Bezirke ausgewählt, in denen **kritische Kommunikation, hohe Dichte und geringe Erreichbarkeit** zusammenfallen.
+          Du hast die Bezirke mit der größten strategischen Wirkung priorisiert und den mobilen Kommunikationspunkt dort gesetzt, wo die bestehende Abdeckung am schwächsten war.
       en:
         title: Strategically Prioritized
         description: |
-          You selected the districts where **critical communication, high density, and poor accessibility** overlap.
+          You prioritized the districts with the greatest strategic effect and placed the mobile communication point where existing coverage was weakest.
 
   - id: half-fail-screen
     type: end-screen
     result: failed
     text:
       de:
-        title: Teilweise tragfähige Priorisierung
+        title: Teilweise richtige Priorisierung
         description: |
           Ein Teil deiner Auswahl war richtig, aber nicht alle gewählten Bezirke haben die größte strategische Wirkung.
       en:
@@ -134,7 +136,7 @@ story_points:
       de:
         title: Gemischte Prioritäten
         description: |
-          Du hast einen stark belasteten Bezirk erkannt, aber auch einen Bereich priorisiert, der strategisch weniger Wirkung entfaltet.
+          Du hast einen stark belasteten Bezirk erkannt, aber auch einen Bereich priorisiert, der strategisch weniger Wirkung hat.
       en:
         title: Mixed Priorities
         description: |
@@ -147,11 +149,11 @@ story_points:
       de:
         title: Strategisch zu schwach
         description: |
-          Deine Auswahl enthält einen Bezirk, der bereits besser angebunden ist oder das Lagebild nur wenig verbessert.
+          Deine Auswahl enthält einen Bezirk, der zwar belastet ist, aber wo wenige Menschen leben.
       en:
         title: Strategically Too Weak
         description: |
-          Your selection includes a district that is already better connected or would only marginally improve the overall situation.
+          Your selection includes a district that is affected but has a low population.
 
   - id: fail-screen-all-neutral
     type: end-screen

@@ -5,9 +5,9 @@ story_points:
     optionsLayout: rows
     text:
       de:
-        title: "Wofür steht die Abkürzung PSNV?"
+        title: 'Wofür steht die Abkürzung "PSNV"?'
       en:
-        title: "What does the abbreviation PSNV stand for?"
+        title: 'What does "PSNV" stand for?'
     options:
       - value: "A"
         text:
@@ -48,18 +48,18 @@ story_points:
     showLayersById: [blackout_psnv_support_sites]
     text:
       de:
-        title: Versorgungspunkte auswählen
+        title: Anlaufstellen auswählen
         description: |
           Im Blackout brauchen viele Menschen Orientierung, Ruhe und psychosoziale Unterstützung.
 
-          **Wähle zwei Orte aus, an denen Versorgungspunkte aufgebaut werden sollen.**
+          **Wähle zwei Orte aus, an denen psychosoziale Anlaufstellen aufgebaut werden sollen.**
         button: "Herausforderung starten"
       en:
         title: Select Support Sites
         description: |
           During a blackout, many people need orientation, calm, and psychosocial support.
 
-          **Select two locations where support points should be set up.**
+          **Select two locations where psychosocial support sites should be set up.**
         button: "Start Challenge"
     next: challenge_core
 
@@ -74,7 +74,7 @@ story_points:
     maxSelection: 2
     text:
       de:
-        title: Versorgungspunkte aufbauen
+        title: Anlaufstellen aufbauen
         question: |
           **Wähle genau zwei Orte aus.**
 
@@ -84,66 +84,66 @@ story_points:
           - die Einwohnerdichte und Erreichbarkeit
           - ob der Standort geeignet ist, um Schutz und Orientierung zu bieten
       en:
-        title: Set Up Support Points
+        title: Set Up Support Sites
         question: |
           **Select exactly two locations.**
 
           Take into account:
 
-          - how many people can be reached there
+          - how many people can be supported there
+          - population density and accessibility
           - whether the site offers shelter and orientation
-          - which areas are currently less well served
     next:
-      right: psnv-general-quiz
+      right: win-screen
       half: half-fail-screen
       half-wrong: half-wrong-screen
       wrong-neutral: fail-screen-wrong-neutral
       all-neutral: fail-screen-all-neutral
       all-wrong: fail-screen-1
 
-  - id: psnv-general-quiz
-    type: quiz
-    optionsLayout: rows
-    showLayersById: [blackout_psnv_support_sites]
-    text:
-      de:
-        title: Was leistet die PSNV?
-      en:
-        title: What Does PSNV Do?
-    options:
-      - value: "A"
-        text:
-          de: "Menschen stabilisieren, Orientierung geben und Betroffene begleiten"
-          en: "Stabilize people, provide orientation, and support those affected"
-      - value: "B"
-        text:
-          de: "Stromversorgung und mobile Funktechnik wiederherstellen"
-          en: "Restore power supply and mobile communications technology"
-      - value: "C"
-        text:
-          de: "Straßen sperren und Evakuierungen polizeilich durchsetzen"
-          en: "Block roads and enforce evacuations through police action"
-    solution: ["A"]
-    next:
-      right: win-screen
-      wrong: psnv-quiz-fail-screen
+  # - id: psnv-general-quiz
+  #   type: quiz
+  #   optionsLayout: rows
+  #   showLayersById: [blackout_psnv_support_sites]
+  #   text:
+  #     de:
+  #       title: Was leistet die PSNV?
+  #     en:
+  #       title: What Does PSNV Do?
+  #   options:
+  #     - value: "A"
+  #       text:
+  #         de: "Menschen stabilisieren, Orientierung geben und Betroffene begleiten"
+  #         en: "Stabilize people, provide orientation, and support those affected"
+  #     - value: "B"
+  #       text:
+  #         de: "Stromversorgung und mobile Funktechnik wiederherstellen"
+  #         en: "Restore power supply and mobile communications technology"
+  #     - value: "C"
+  #       text:
+  #         de: "Straßen sperren und Evakuierungen polizeilich durchsetzen"
+  #         en: "Block roads and enforce evacuations through police action"
+  #   solution: ["A"]
+  #   next:
+  #     right: win-screen
+  #     wrong: psnv-quiz-fail-screen
 
-  - id: psnv-quiz-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Leider falsch
-        description: |
-          PSNV unterstützt Menschen in akuten Belastungssituationen psychosozial.
+  # - id: psnv-quiz-fail-screen
+  #   type: end-screen
+  #   result: failed
+  #   text:
+  #     de:
+  #       title: Leider falsch
+  #       description: |
+  #         PSNV unterstützt Menschen in akuten Belastungssituationen psychosozial.
 
-          **Versuche es nochmal.**
-      en:
-        title: Not Quite
-        description: |
-          PSNV provides psychosocial support to people in acute stress situations.
+  #         **Versuche es nochmal.**
+  #     en:
+  #       title: Not Quite
+  #       description: |
+  #         PSNV provides psychosocial support to people in acute stress situations.
 
-          **Try again.**
+  #         **Try again.**
 
   - id: win-screen
     type: end-screen
@@ -153,11 +153,15 @@ story_points:
       de:
         title: Challenge gelöst!
         description: |
-          Du hast geeignete Versorgungspunkte ausgewählt und die Aufgabe der PSNV richtig erkannt.
+          Du hast geeignete Anlaufstellen ausgewählt!
+          
+          **Gut gemacht!**
       en:
         title: Challenge Solved!
         description: |
-          You selected suitable support sites and correctly identified the role of PSNV.
+          You selected suitable support sites!
+
+          **Well done!**
 
   - id: half-fail-screen
     type: end-screen
@@ -179,11 +183,11 @@ story_points:
       de:
         title: Ungünstige Kombination
         description: |
-          Du hast einen passenden Ort gewählt, aber auch einen Standort, der für Versorgungspunkte zu wenig geeignet ist.
+          Du hast einen passenden Ort gewählt, aber auch einen Standort, der für psychosoziale Anlaufstellen zu wenig geeignet ist.
       en:
         title: Weak Combination
         description: |
-          You chose one suitable site, but also one location that is not well suited for support points.
+          You chose one suitable site, but also one location that is not well suited for psychosocial support sites.
 
   - id: fail-screen-wrong-neutral
     type: end-screen
@@ -218,8 +222,8 @@ story_points:
       de:
         title: Fehlgeschlagen
         description: |
-          Deine Auswahl war nicht optimal für den Aufbau der Versorgungspunkte.
+          Deine Auswahl war nicht optimal für den Aufbau der Anlaufstellen.
       en:
         title: Failed
         description: |
-          Your selection was not optimal for setting up the support points.
+          Your selection was not optimal for setting up the support sites.

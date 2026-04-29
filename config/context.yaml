@@ -216,5 +216,4 @@ scenarios:
             z_index: 102
             toggle_order: 4
             src: /assets/scenarios/blackout/crisis_unit/info_points.json
-            poi_icon: /assets/icons/marker_cmmunications.svg
-
+            poi_icon: /assets/icons/marker_poi_wifi.svg
