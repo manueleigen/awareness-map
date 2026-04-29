@@ -67,7 +67,6 @@ story_points:
 
   - id: challenge_core
     type: point-selection-quiz
-
     target: "#layer-blackout_THW_critical_sites"
     showLayersById: [blackout_THW_critical_sites]
     solution: ["blackout_thw_poi_01", "blackout_thw_poi_02", "blackout_thw_poi_04"]

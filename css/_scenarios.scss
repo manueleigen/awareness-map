@@ -2,13 +2,23 @@
 // #app gets .scenario-{id} and .challenge-{roleId} at runtime (info-box.ts).
 
 // Smooth transitions on layers affected by scenario overrides
-#layer-base_layer_buildings { transition: filter 1s ease; }
+#layer-base_layer_buildings {
+	transition: filter 1s ease;
+}
 #layer-base_layer_glow,
-#layer-base_layer_river     { transition: opacity 1s ease; }
+#layer-base_layer_river {
+	transition: opacity 1s ease;
+}
 
 // ── Blackout ──────────────────────────────────────────────────────────────────
 #app.scenario-blackout {
-    #layer-base_layer_buildings { filter: brightness(0.2); }
-    #layer-base_layer_glow      { opacity: .7; }
-    #layer-base_layer_river     { opacity: .3; }
+	#layer-base_layer_buildings {
+		filter: brightness(0.5);
+	}
+	#layer-base_layer_glow {
+		opacity: 0;
+	}
+	#layer-base_layer_river {
+		opacity: 0.3;
+	}
 }
