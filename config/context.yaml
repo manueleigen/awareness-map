@@ -202,11 +202,11 @@ scenarios:
             icon: /assets/icons/communications.svg
             area_colors:
               - color: "#00BF7F"
-                areas: [area-2, area-3, area-4, area-5, area-6, area-7, area-8, area-9, area-10, area-12, area-13, area-14, area-15, area-16, area-17, area-18, area-19, area-20, area-21, area-22, area-23, area-24, area-25, area-26, area-27, area-28, area-29, area-30, area-31, area-32, area-33, area-34, area-35, area-36, area-37, area-38, area-39, area-40, area-41, area-42, area-43]
+                areas: [area-4, area-5, area-6, area-7, area-8, area-9, area-12, area-13, area-14, area-15, area-16, area-18, area-20, area-25, area-27, area-32, area-33, area-34, area-35, area-37, area-38, area-39, area-42, area-43]
               - color: "#FFFF00"
-                areas: []
+                areas: [area-2, area-3, area-10, area-17, area-19, area-22, area-23, area-26, area-28, area-30, area-31, area-40, area-41]
               - color: "#FF0000"
-                areas: [area-1, area-11]
+                areas: [area-1, area-11, area-21, area-24, area-29, area-36]
           - id: blackout_crisis_unit_info_points
             layer_type: locations
             available_from: role

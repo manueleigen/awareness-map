@@ -25,8 +25,8 @@ story_points:
   - id: challenge_core
     type: point-selection-quiz
     target: "#layer-flood_fire_brigade_emergency_calls"
-    showLayersById: [flood_fire_brigade_emergency_calls]
-    hideLayersById: [flood_fire_brigade_emergency_calls]
+    hintLayerOverlaysById: [flood_fire_brigade_emergency_calls]
+    hintLayerOverlayDuration: 99999999
     slider_time: "14:00"
     slider_time_layer: flood_simulation
     slider_time_fixed: false

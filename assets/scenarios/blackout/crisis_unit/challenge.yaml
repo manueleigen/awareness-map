@@ -27,8 +27,8 @@ story_points:
     type: area-selection-quiz
     target: "#layer-blackout_crisis_unit_districts"
     showLayersById: [blackout_crisis_unit_districts, critical_sites]
-    solution: ["area-19", "area-20", "area-21"]
-    wrong_options: ["area-22", "area-31", "area-33"]
+    solution: ["area-11", "area-21", "area-29"]
+    wrong_options: ["area-1", "area-24", "area-36"]
     minSelection: 3
     maxSelection: 3
     text:
@@ -69,8 +69,8 @@ story_points:
     initial_position:
       x: 500
       y: 500
-    solution: ["{x: 1920, y: 1080}"]
-    maxDistance: 320
+    solution: ["{x: 2170, y: 1560}"]
+    maxDistance: 300
     submit:
       de: WLAN-Punkt platzieren
       en: Place Wi-Fi Point
