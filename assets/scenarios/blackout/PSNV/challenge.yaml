@@ -53,19 +53,21 @@ story_points:
           Im Blackout brauchen viele Menschen Orientierung, Ruhe und psychosoziale Unterstützung.
 
           **Wähle zwei Orte aus, an denen Versorgungspunkte aufgebaut werden sollen.**
+        button: "Herausforderung starten"
       en:
         title: Select Support Sites
         description: |
           During a blackout, many people need orientation, calm, and psychosocial support.
 
           **Select two locations where support points should be set up.**
+        button: "Start Challenge"
     next: challenge_core
 
   - id: challenge_core
     type: point-selection-quiz
     target: "#layer-blackout_psnv_support_sites"
     hintLayerOverlaysById: [blackout_psnv_support_sites]
-    hintLayerOverlayDuration: 5000
+    hintLayerOverlayDuration: 99999999
     showLayersById: [blackout_psnv_support_sites]
     solution: ["blackout_psnv_site_01", "blackout_psnv_site_05"]
     minSelection: 2
@@ -101,7 +103,13 @@ story_points:
 
   - id: psnv-general-quiz
     type: quiz
+    optionsLayout: rows
     showLayersById: [blackout_psnv_support_sites]
+    text:
+      de:
+        title: Was leistet die PSNV?
+      en:
+        title: What Does PSNV Do?
     options:
       - value: "A"
         text:
@@ -116,15 +124,6 @@ story_points:
           de: "Straßen sperren und Evakuierungen polizeilich durchsetzen"
           en: "Block roads and enforce evacuations through police action"
     solution: ["A"]
-    text:
-      de:
-        title: Aufgaben der PSNV
-        question: |
-          **Welche Aufgabe gehört allgemein zur PSNV?**
-      en:
-        title: PSNV Responsibilities
-        question: |
-          **Which task generally belongs to PSNV?**
     next:
       right: win-screen
       wrong: psnv-quiz-fail-screen
@@ -134,7 +133,7 @@ story_points:
     result: failed
     text:
       de:
-        title: Nicht ganz
+        title: Leider falsch
         description: |
           PSNV unterstützt Menschen in akuten Belastungssituationen psychosozial.
 

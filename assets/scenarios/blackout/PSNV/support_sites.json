@@ -79,15 +79,15 @@
     {
       "id": "blackout_psnv_site_06",
       "x": 2517,
-      "y": 1972,
+      "y": 1872,
       "translations": {
         "title": {
           "de": "Kirchengemeinde",
           "en": "Church Community Center"
         },
         "description": {
-          "de": "Wärme ist vorhanden, aber die Kapazität ist gering und Sanitäranlagen fehlen.",
-          "en": "Warmth is available, but capacity is low and there are no sanitary facilities."
+          "de": "Geringe Kapazität, Sanitäranlagen fehlen, Wärme ist vorhanden.",
+          "en": "Low capacity, no sanitary facilities, but warmth is available."
         }
       }
     }
