@@ -249,7 +249,16 @@ export async function renderPOILayer(
 
 	return poiContainer;
 }
-
+export const updatePoiSelectLabel = (
+	btn: HTMLElement,
+	isActive: boolean | undefined,
+) => {
+	const active = !!isActive;
+	btn.innerText = active
+		? t("challenges.common.deselect_poi")
+		: t("challenges.common.select_poi");
+	btn.classList.toggle("active", active);
+};
 /**
  * Displays a detail overlay next to a specific POI marker.
  * @param skipSingleMode When true, existing overlays are NOT closed first (used during layer preview).
@@ -390,20 +399,14 @@ export async function showPOIOverlay(
 		const selectBtn = create("button");
 		selectBtn.className = "poi-select-btn";
 
-		const updateLabel = () => {
-			const isSelected = marker.classList.contains("quiz-answer");
-			selectBtn.innerText = isSelected
-				? t("challenges.common.deselect_poi")
-				: t("challenges.common.select_poi");
-			selectBtn.classList.toggle("active", isSelected);
-		};
-		updateLabel();
+		const isSelected = marker.classList.contains("quiz-answer");
+		updatePoiSelectLabel(selectBtn, isSelected);
 
 		addPointerClick(selectBtn, (e) => {
 			e.stopPropagation();
 			marker.classList.toggle("quiz-answer");
-			selectBtn.classList.toggle("active");
 			const isSelected = marker.classList.contains("quiz-answer");
+			updatePoiSelectLabel(selectBtn, isSelected);
 			document.dispatchEvent(
 				new CustomEvent("quiz-answer-changed", {
 					detail: { id: marker.id, isSelected },

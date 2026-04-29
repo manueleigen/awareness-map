@@ -15,6 +15,7 @@ import {
 	getStoryPointQuestion,
 	getStoryPointTitle,
 } from "./challenge-normalizer.js";
+import { updatePoiSelectLabel } from "../poi.js";
 
 // ── Drone speed ───────────────────────────────────────────────────────────────
 // Adjust this value to change how fast the drone flies (native pixels / second).
@@ -581,12 +582,13 @@ export function renderSelection(
 				if (oldestId) {
 					const oldestEl = target?.querySelector(`#${oldestId}`);
 					oldestEl?.classList.remove("quiz-answer", "active");
-					document
-						.querySelector(
-							`.poi-overlay[data-marker-id=${oldestId}] .poi-select-btn`,
-						)
-						?.classList.remove("active");
-					console.log(oldestId);
+
+					const selectBtn = document.querySelector(
+						`.poi-overlay[data-marker-id="${oldestId}"] .poi-select-btn`,
+					) as HTMLElement;
+					if (selectBtn) {
+						updatePoiSelectLabel(selectBtn, false);
+					}
 				}
 			}
 			selectedIds.push(id);
