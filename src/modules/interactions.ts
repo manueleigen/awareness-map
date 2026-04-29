@@ -15,9 +15,10 @@ const boostTimes = new WeakMap<HTMLElement, number>();
 export function addPointerClick(
     el: HTMLElement,
     callback: (e: PointerEvent | MouseEvent) => void,
-    options?: { signal?: AbortSignal },
+    options?: { signal?: AbortSignal; capture?: boolean },
 ): void {
     const signal = options?.signal;
+    const shouldCapture = options?.capture !== false;
     el.addEventListener('pointerup', (e) => {
         lastBoostTime = Date.now();     // ← global: schützt auch neu gerenderte Elemente
         boostTimes.set(el, lastBoostTime); // ← per-Element: verhindert Doppel-Fire auf demselben Button
@@ -43,7 +44,9 @@ export function addPointerClick(
     el.addEventListener('pointerdown', (e) => {
         // Technical Implementation Guide (v2.3): Component Hardening
         // Keeps the interaction attached to the element even if the finger drifts.
-        try { el.setPointerCapture(e.pointerId); } catch(err) {}
+        // capture: false skips setPointerCapture so child elements (e.g. POI markers)
+        // can retain their own capture and handle their own click flow.
+        if (shouldCapture) try { el.setPointerCapture(e.pointerId); } catch(err) {}
         el.classList.add('is-pressing');
     }, { signal });
 

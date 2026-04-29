@@ -345,14 +345,43 @@ export function renderLocation(
 		status.innerText = `(${Math.round(x)}, ${Math.round(y)})`;
 	};
 
+	// POI tap (capture phase): poi.ts calls stopPropagation in its click callback, so we
+	// must intercept in the capture phase — before that fires — to place the marker at
+	// the POI position (offset left so the marker icon stays visible).
+	let lastPOIPlaceTime = 0;
+	if (target) {
+		target.addEventListener("click", (e: MouseEvent) => {
+			if (dragActive) return;
+			if (!(e.target as Element).closest(".poi-marker")) return;
+			const now = Date.now();
+			if (now - lastPOIPlaceTime < 500) return;
+			lastPOIPlaceTime = now;
+
+			const scale = getAppScale();
+			const rect = target.getBoundingClientRect();
+			const rawX = (e.clientX - rect.left) / scale;
+			const rawY = (e.clientY - rect.top) / scale;
+
+			if (!locationCrosshairEl) {
+				locationCrosshairEl = create("div");
+				locationCrosshairEl.className = "quiz-location-crosshair";
+				target.append(locationCrosshairEl);
+			}
+			locationCrosshairEl.style.left = `${rawX - 200}px`;
+			locationCrosshairEl.style.top = `${rawY}px`;
+			placeMarkerAt(rawX - 200, rawY);
+		}, { capture: true, signal });
+	}
+
 	// Tap-to-fly: uses addPointerClick for multi-touch-table robustness (500ms
-	// double-fire guard, setPointerCapture). Ignored during active drag.
+	// double-fire guard). POI taps are handled above via capture listener.
 	if (target) {
 		addPointerClick(
 			target,
 			(e) => {
 				if (dragActive) return;
 				if ((e.target as Element).closest(".poi-overlay")) return;
+				if ((e.target as Element).closest(".poi-marker")) return;
 
 				const scale = getAppScale();
 				const rect = target.getBoundingClientRect();
@@ -366,12 +395,9 @@ export function renderLocation(
 				}
 				locationCrosshairEl.style.left = `${rawX}px`;
 				locationCrosshairEl.style.top = `${rawY}px`;
-
-				const isPOI = !!(e.target as Element).closest(".poi-marker");
-				if (isPOI) e.stopPropagation();
-				placeMarkerAt(isPOI ? rawX - 200 : rawX, rawY);
+				placeMarkerAt(rawX, rawY);
 			},
-			{ signal },
+			{ signal, capture: false },
 		);
 	}
 
