@@ -68,7 +68,6 @@ story_points:
     hintLayerOverlayDuration: 5000
     showLayersById: [blackout_psnv_support_sites]
     solution: ["blackout_psnv_site_01", "blackout_psnv_site_05"]
-    wrong_options: []
     minSelection: 2
     maxSelection: 2
     text:

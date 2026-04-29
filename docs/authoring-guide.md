@@ -50,6 +50,7 @@ config/
 ```
 
 **Rule of thumb:**
+
 - New scenario content (images, JSON, SVG, animations) → `assets/scenarios/<id>/`
 - Which layers exist and how they look/toggle → `config/context.yaml`
 - The quiz flow and questions → `challenge.yaml` inside each role folder
@@ -86,8 +87,8 @@ One file per role. Define the sequence of story points — intro text, quiz step
 ## 3. scenario.yaml — Metadata & Roles
 
 ```yaml
-id: flood            # must match the folder name exactly
-active: true         # false = hidden from scenario selection screen
+id: flood # must match the folder name exactly
+active: true # false = hidden from scenario selection screen
 
 text:
   de:
@@ -126,6 +127,7 @@ roles:
 ```
 
 **Field notes:**
+
 - `id` is used as the key for everything in `context.yaml`, so a typo here breaks all layer visibility.
 - `short_title` appears in compact UI elements. Keep it under ~8 characters.
 - `description` supports Markdown (`**bold**`, line breaks via blank lines).
@@ -145,35 +147,35 @@ scenarios:
     roles:
       fire_brigade:
         layers:
-          flood_fire_brigade_emergency_calls:   # unique layer ID used everywhere
+          flood_fire_brigade_emergency_calls: # unique layer ID used everywhere
             layer_type: locations
-            available_from: role                # when does this layer become available?
-            toggle: available                   # user can toggle it on/off
+            available_from: role # when does this layer become available?
+            toggle: available # user can toggle it on/off
             label:
               de: "Aktuelle\nNotrufe"
               en: "Emergency\nCalls"
-            initially_visible: true             # shown by default when activated
-            z_index: 100                        # higher = closer to front
-            toggle_order: 4                     # position in the sidebar button list
+            initially_visible: true # shown by default when activated
+            z_index: 100 # higher = closer to front
+            toggle_order: 4 # position in the sidebar button list
             src: /assets/scenarios/flood/fire_brigade/emergency_calls.json
-            icon: /assets/icons/emergency_calls.svg      # sidebar toggle button icon
-            poi_icon: /assets/icons/marker_emergency_call.svg  # marker icon on map
+            icon: /assets/icons/emergency_calls.svg # sidebar toggle button icon
+            poi_icon: /assets/icons/marker_emergency_call.svg # marker icon on map
 ```
 
 ### Key fields
 
-| Field | Values | Description |
-|---|---|---|
-| `layer_type` | See §5 | Which rendering engine to use. |
-| `available_from` | `global`, `scenario`, `role` | When the layer first becomes available. `role` layers only appear after a role is selected. |
-| `toggle` | `available`, `deactivated`, `hidden` | `available` → user can toggle; `deactivated` → visible but greyed out; `hidden` → no toggle button shown. |
-| `label` | `de` / `en` | Required when `toggle` is `available` or `deactivated`. Shown on the sidebar button. Use `\n` for line breaks. |
-| `initially_visible` | `true` / `false` | Whether the layer is on when first activated. |
-| `z_index` | integer | Stacking order. Higher numbers render in front. |
-| `toggle_order` | integer | Sort order in the sidebar toggle list. |
-| `src` | path string | File path to the asset. Always start with `/assets/`. |
-| `icon` | path string | SVG shown on the sidebar toggle button. |
-| `quiz_only` | `true` | Layer only appears during a specific quiz step (not toggleable freely). |
+| Field               | Values                               | Description                                                                                                    |
+| ------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `layer_type`        | See §5                               | Which rendering engine to use.                                                                                 |
+| `available_from`    | `global`, `scenario`, `role`         | When the layer first becomes available. `role` layers only appear after a role is selected.                    |
+| `toggle`            | `available`, `deactivated`, `hidden` | `available` → user can toggle; `deactivated` → visible but greyed out; `hidden` → no toggle button shown.      |
+| `label`             | `de` / `en`                          | Required when `toggle` is `available` or `deactivated`. Shown on the sidebar button. Use `\n` for line breaks. |
+| `initially_visible` | `true` / `false`                     | Whether the layer is on when first activated.                                                                  |
+| `z_index`           | integer                              | Stacking order. Higher numbers render in front.                                                                |
+| `toggle_order`      | integer                              | Sort order in the sidebar toggle list.                                                                         |
+| `src`               | path string                          | File path to the asset. Always start with `/assets/`.                                                          |
+| `icon`              | path string                          | SVG shown on the sidebar toggle button.                                                                        |
+| `quiz_only`         | `true`                               | Layer only appears during a specific quiz step (not toggleable freely).                                        |
 
 ---
 
@@ -188,7 +190,7 @@ population_density:
   layer_type: static_image
   available_from: global
   toggle: available
-  opacity_control: true        # adds a slider so users can fade the layer
+  opacity_control: true # adds a slider so users can fade the layer
   initially_visible: false
   z_index: 74
   src: /assets/scenarios/global/density.webp
@@ -208,7 +210,7 @@ critical_sites:
   z_index: 110
   src: /assets/scenarios/global/critical_sites.json
   icon: /assets/icons/critical_sites.svg
-  poi_icon: /assets/icons/marker_poi.svg    # SVG icon rendered inside each marker
+  poi_icon: /assets/icons/marker_poi.svg # SVG icon rendered inside each marker
 ```
 
 ### `area_overlay`
@@ -220,7 +222,7 @@ flood_police_evacuation_zones:
   layer_type: area_overlay
   available_from: role
   toggle: available
-  quiz_only: true              # only active during the quiz step
+  quiz_only: true # only active during the quiz step
   initially_visible: false
   z_index: 77
   src: /assets/scenarios/flood/police/evacuation_zones.svg
@@ -253,13 +255,13 @@ flood_simulation:
   layer_type: svg_sequence
   available_from: scenario
   toggle: available
-  start_time: "08:00"          # slider start value
-  end_time: "18:00"            # slider end value
+  start_time: "08:00" # slider start value
+  end_time: "18:00" # slider end value
   initially_visible: true
   z_index: 78
   src: /assets/scenarios/flood/flood_sim_svg/manifest.json
   icon: /assets/icons/flood.svg
-  slider_icon: /assets/icons/flood-slider.svg   # icon shown on the slider handle
+  slider_icon: /assets/icons/flood-slider.svg # icon shown on the slider handle
 ```
 
 ### `lottie_sequence`
@@ -306,20 +308,20 @@ story_points:
 
 ### Fields shared by all story point types
 
-| Field | Description |
-|---|---|
-| `id` | Unique ID within the challenge. Used as `next` target. |
-| `type` | The story point type (see §7). |
-| `showLayersById` | List of layer IDs to activate when entering this step. Removed automatically when leaving the step. |
-| `hideLayersById` | List of layer IDs to force-hide when entering this step. |
-| `pulseLayersById` | List of POI layer IDs whose markers should pulse while this step is active. Non-POI layers are ignored. |
-| `hintLayerOverlaysById` | List of POI layer IDs whose overlays are shown briefly as a hint when the step loads. |
-| `hintLayerOverlayDuration` | How long (in ms) the hint overlays stay visible. Default: `3000`. |
-| `slider_time` | Animate the time slider to this value on entry (e.g. `"14:00"`). |
-| `slider_time_layer` | Which layer's slider to animate (e.g. `flood_simulation`). Required if `slider_time` is set and there are multiple animated layers. |
-| `slider_time_fixed` | `true` locks the slider so the user cannot drag it during this step. |
-| `text` | Display text — always an object with `de` and `en` sub-keys. Each locale supports `title`, `description`, `question`, and `button` (optional custom label for the continue button on `info` steps). |
-| `next` | ID of the next step (string), or an outcome map (see §8). |
+| Field                      | Description                                                                                                                                                                                         |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                       | Unique ID within the challenge. Used as `next` target.                                                                                                                                              |
+| `type`                     | The story point type (see §7).                                                                                                                                                                      |
+| `showLayersById`           | List of layer IDs to activate when entering this step. Removed automatically when leaving the step.                                                                                                 |
+| `hideLayersById`           | List of layer IDs to force-hide when entering this step.                                                                                                                                            |
+| `pulseLayersById`          | List of POI layer IDs whose markers should pulse while this step is active. Non-POI layers are ignored.                                                                                             |
+| `hintLayerOverlaysById`    | List of POI layer IDs whose overlays are shown briefly as a hint when the step loads.                                                                                                               |
+| `hintLayerOverlayDuration` | How long (in ms) the hint overlays stay visible. Default: `3000`.                                                                                                                                   |
+| `slider_time`              | Animate the time slider to this value on entry (e.g. `"14:00"`).                                                                                                                                    |
+| `slider_time_layer`        | Which layer's slider to animate (e.g. `flood_simulation`). Required if `slider_time` is set and there are multiple animated layers.                                                                 |
+| `slider_time_fixed`        | `true` locks the slider so the user cannot drag it during this step.                                                                                                                                |
+| `text`                     | Display text — always an object with `de` and `en` sub-keys. Each locale supports `title`, `description`, `question`, and `button` (optional custom label for the continue button on `info` steps). |
+| `next`                     | ID of the next step (string), or an outcome map (see §8).                                                                                                                                           |
 
 ---
 
@@ -348,7 +350,7 @@ The engine starts at the **first story point** in the list — role selection le
 
         Prüfe die Informationen und **überlege, ob du sofort handeln
         oder zunächst weitere Informationen sammeln möchtest.**
-      button: Herausforderung starten   # optional — overrides default "Weiter"
+      button: Herausforderung starten # optional — overrides default "Weiter"
     en:
       title: "Decision-Making Under Uncertainty"
       description: |
@@ -436,16 +438,16 @@ A multiple-choice question with text answers. The player selects one or more opt
       text:
         de: Drohne entsenden
         en: Deploy Drone
-  solution: ["b"]               # correct answer(s) — must match option values
+  solution: ["b"] # correct answer(s) — must match option values
   text:
     de:
       title: Wie reagierst du?
       question: "**Möchtest du die aktuelle Informationslage sofort teilen
-                  oder zunächst eine Drohne entsenden?**"
+        oder zunächst eine Drohne entsenden?**"
     en:
       title: How do you respond?
       question: "**Would you share the information immediately,
-                  or deploy a drone first?**"
+        or deploy a drone first?**"
   next:
     right: coord-selection
     wrong: fail-screen-1
@@ -462,7 +464,7 @@ minAnswers: 1
 By default the answer buttons are arranged **side by side** (columns). Use `optionsLayout: rows` to stack them **vertically** instead — useful when option texts are longer:
 
 ```yaml
-optionsLayout: rows   # optional; default: columns
+optionsLayout: rows # optional; default: columns
 ```
 
 ---
@@ -476,6 +478,7 @@ The player places a marker on the map by tapping. The answer is correct if the f
 **Optional `icon` field:** Path to an SVG used as the marker icon. Defaults to `assets/icons/crosshair.svg` if omitted.
 
 **Animation behaviour by icon:**
+
 - `drone.svg` — marker flies from current position to the tapped point (speed-based CSS transition) with a continuous hover wiggle.
 - All other icons — marker and radius circle pop in directly at the tapped position (700 ms spring pop, re-triggered on each tap). No fly animation.
 
@@ -484,13 +487,13 @@ The player places a marker on the map by tapping. The answer is correct if the f
 ```yaml
 - id: coord-selection
   type: coordinates-quiz
-  target: "#layers"             # CSS selector of the tappable surface
-  icon: assets/icons/drone.svg  # optional — defaults to assets/icons/crosshair.svg
+  target: "#layers" # CSS selector of the tappable surface
+  icon: assets/icons/drone.svg # optional — defaults to assets/icons/crosshair.svg
   initial_position:
-    x: 500                      # starting position of the marker
+    x: 500 # starting position of the marker
     y: 500
-  solution: ["{x: 2414, y: 757}"]   # correct target on the 3840×2160 canvas
-  maxDistance: 400              # tolerance radius in canvas pixels
+  solution: ["{x: 2414, y: 757}"] # correct target on the 3840×2160 canvas
+  maxDistance: 400 # tolerance radius in canvas pixels
   submit:
     de: Einsatzort prüfen
     en: Check Deployment Area
@@ -523,13 +526,13 @@ The player taps one or more POI markers on the map. Correct answers are defined 
 ```yaml
 - id: challenge_core
   type: point-selection-quiz
-  target: "#layer-flood_fire_brigade_emergency_calls"  # layer containing the markers
+  target: "#layer-flood_fire_brigade_emergency_calls" # layer containing the markers
   showLayersById: [flood_fire_brigade_emergency_calls]
   slider_time: "14:00"
   slider_time_layer: flood_simulation
   slider_time_fixed: false
   solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
-  wrong_options: ["flood_emergency_call_03"]   # actively wrong — not just neutral
+  wrong_options: ["flood_emergency_call_03"] # optional — actively wrong, not just neutral
   minSelection: 2
   maxSelection: 2
   text:
@@ -559,7 +562,11 @@ The player taps one or more POI markers on the map. Correct answers are defined 
     all-wrong: fail-screen-1
 ```
 
-The `wrong_options` field distinguishes between wrong markers (actively bad choices) and neutral ones (not part of the solution but not dangerous either). This enables fine-grained outcome branching — see §8.
+The `wrong_options` field is **optional**. It distinguishes between wrong markers (actively bad choices) and neutral ones (not part of the solution but not dangerous either). If omitted, all non-solution selections are treated as neutral. This enables fine-grained outcome branching — see §8.
+
+**POI overlay behavior:** In `point-selection-quiz`, opening a POI overlay does **not** auto-close other open overlays — multiple overlays can be visible at the same time so the player can compare POIs. This is unique to this step type; all other step types use single-overlay mode.
+
+**`hintLayerOverlaysById` with `point-selection-quiz`:** When hints are shown before the step starts, the "Select" button is already visible inside each overlay — the engine activates POI selection mode before the hints appear.
 
 ---
 
@@ -573,7 +580,6 @@ The player taps polygon zones in an SVG overlay. Works like `point-selection-qui
   target: "#layer-flood_police_evacuation_zones"
   showLayersById: [flood_police_evacuation_zones]
   solution: ["area-19", "area-20", "area-21"]
-  wrong_options: []
   minSelection: 3
   maxSelection: 3
   text:
@@ -608,15 +614,15 @@ When a quiz step has multiple possible outcomes, `next` is a map instead of a st
 
 ### Full outcome key reference
 
-| Key | Triggered when… |
-|---|---|
-| `right` | All correct answers selected, nothing wrong or neutral. |
-| `half` | Some correct answers, but also some neutral answers. |
-| `wrong` | Catch-all fallback if no more specific key matches. |
-| `half-wrong` | Some correct answers, but also at least one `wrong_option`. Falls back to `half`. |
-| `wrong-neutral` | At least one `wrong_option` selected, no correct answers. Falls back to `wrong`. |
-| `all-neutral` | Only neutral answers selected (not in solution or wrong_options). Falls back to `wrong`. |
-| `all-wrong` | Only `wrong_options` selected. Falls back to `wrong`. |
+| Key             | Triggered when…                                                                          |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| `right`         | All correct answers selected, nothing wrong or neutral.                                  |
+| `half`          | Some correct answers, but also some neutral answers.                                     |
+| `wrong`         | Catch-all fallback if no more specific key matches.                                      |
+| `half-wrong`    | Some correct answers, but also at least one `wrong_option`. Falls back to `half`.        |
+| `wrong-neutral` | At least one `wrong_option` selected, no correct answers. Falls back to `wrong`.         |
+| `all-neutral`   | Only neutral answers selected (not in solution or wrong_options). Falls back to `wrong`. |
+| `all-wrong`     | Only `wrong_options` selected. Falls back to `wrong`.                                    |
 
 Fallback chain: `half-wrong` → `half` → `wrong`; `wrong-neutral` / `all-neutral` / `all-wrong` → `wrong`.
 
@@ -627,8 +633,8 @@ You only need to define the keys that matter for your scenario. The engine falls
 ```yaml
 next:
   right: win-screen
-  half: half-fail-screen          # one right, one neutral
-  half-wrong: half-wrong-screen   # one right, one actively wrong
+  half: half-fail-screen # one right, one neutral
+  half-wrong: half-wrong-screen # one right, one actively wrong
   wrong-neutral: fail-screen-mixed
   all-neutral: fail-screen-neutral
   all-wrong: fail-screen-wrong
@@ -660,45 +666,48 @@ POI files live next to their `challenge.yaml` and are referenced from `config/co
 
 ```json
 {
-  "layer_id": "emergency_calls",
-  "locations": [
-    {
-      "id": "flood_emergency_call_01",
-      "x": 1230,
-      "y": 1085,
-      "translations": {
-        "title": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
-        "description": {
-          "de": "Mehrere verletzte Personen nach einem Verkehrsunfall.",
-          "en": "Several people injured in a traffic accident."
-        }
-      }
-    },
-    {
-      "id": "flood_emergency_call_02",
-      "x": 1920,
-      "y": 1320,
-      "translations": {
-        "title": { "de": "Stromausfall im Altenheim", "en": "Power Outage at Senior Center" },
-        "description": {
-          "de": "Mehrere Personen sind auf Beatmungsgeräte angewiesen.",
-          "en": "Several people are relying on ventilators."
-        }
-      }
-    }
-  ]
+	"layer_id": "emergency_calls",
+	"locations": [
+		{
+			"id": "flood_emergency_call_01",
+			"x": 1230,
+			"y": 1085,
+			"translations": {
+				"title": { "de": "Verkehrsunfall", "en": "Traffic Accident" },
+				"description": {
+					"de": "Mehrere verletzte Personen nach einem Verkehrsunfall.",
+					"en": "Several people injured in a traffic accident."
+				}
+			}
+		},
+		{
+			"id": "flood_emergency_call_02",
+			"x": 1920,
+			"y": 1320,
+			"translations": {
+				"title": {
+					"de": "Stromausfall im Altenheim",
+					"en": "Power Outage at Senior Center"
+				},
+				"description": {
+					"de": "Mehrere Personen sind auf Beatmungsgeräte angewiesen.",
+					"en": "Several people are relying on ventilators."
+				}
+			}
+		}
+	]
 }
 ```
 
-| Field | Required | Description |
-|---|---|---|
-| `layer_id` | yes | Must match the layer key in `context.yaml`. |
-| `id` | yes | Unique across all POI files. Referenced in quiz `solution` arrays. |
-| `x` / `y` | yes | Pixel coordinates on the 3840×2160 canvas. |
-| `translations` | yes | `title` and `description`, each with `de` and `en`. |
-| `status` | no | Initial status value (e.g. `available`, `active`, `unavailable`). |
-| `status_timeline` | no | Array of `{ time, status }` entries — see §9.2. |
-| `status_translations` | no | Text overrides per status value — see §9.3. |
+| Field                 | Required | Description                                                        |
+| --------------------- | -------- | ------------------------------------------------------------------ |
+| `layer_id`            | yes      | Must match the layer key in `context.yaml`.                        |
+| `id`                  | yes      | Unique across all POI files. Referenced in quiz `solution` arrays. |
+| `x` / `y`             | yes      | Pixel coordinates on the 3840×2160 canvas.                         |
+| `translations`        | yes      | `title` and `description`, each with `de` and `en`.                |
+| `status`              | no       | Initial status value (e.g. `available`, `active`, `unavailable`).  |
+| `status_timeline`     | no       | Array of `{ time, status }` entries — see §9.2.                    |
+| `status_translations` | no       | Text overrides per status value — see §9.3.                        |
 
 ---
 
@@ -708,17 +717,18 @@ Add a `status_timeline` array to make a POI's icon and text change as the user m
 
 ```json
 {
-  "id": "response_unit_01",
-  "x": 820, "y": 380,
-  "status": "available",
-  "status_timeline": [
-    { "time": "10:00", "status": "active" },
-    { "time": "13:30", "status": "unavailable" }
-  ],
-  "translations": {
-    "title": { "de": "Station Nord", "en": "Station North" },
-    "description": { "de": "Fahrzeuge verfügbar.", "en": "Vehicles available." }
-  }
+	"id": "response_unit_01",
+	"x": 820,
+	"y": 380,
+	"status": "available",
+	"status_timeline": [
+		{ "time": "10:00", "status": "active" },
+		{ "time": "13:30", "status": "unavailable" }
+	],
+	"translations": {
+		"title": { "de": "Station Nord", "en": "Station North" },
+		"description": { "de": "Fahrzeuge verfügbar.", "en": "Vehicles available." }
+	}
 }
 ```
 
@@ -736,25 +746,28 @@ Use `status_translations` to override the title or description shown in the info
 
 ```json
 {
-  "translations": {
-    "title": { "de": "Station Nord", "en": "Station North" },
-    "description": { "de": "Fahrzeuge verfügbar.", "en": "Vehicles available." }
-  },
-  "status_translations": {
-    "active": {
-      "description": {
-        "de": "Im Einsatz seit 10:00 Uhr.",
-        "en": "Deployed since 10:00."
-      }
-    },
-    "unavailable": {
-      "title": { "de": "Station Nord — Gesperrt", "en": "Station North — Blocked" },
-      "description": {
-        "de": "Bereich ab 13:30 Uhr durch Hochwasser unzugänglich.",
-        "en": "Area inaccessible due to flooding from 13:30."
-      }
-    }
-  }
+	"translations": {
+		"title": { "de": "Station Nord", "en": "Station North" },
+		"description": { "de": "Fahrzeuge verfügbar.", "en": "Vehicles available." }
+	},
+	"status_translations": {
+		"active": {
+			"description": {
+				"de": "Im Einsatz seit 10:00 Uhr.",
+				"en": "Deployed since 10:00."
+			}
+		},
+		"unavailable": {
+			"title": {
+				"de": "Station Nord — Gesperrt",
+				"en": "Station North — Blocked"
+			},
+			"description": {
+				"de": "Bereich ab 13:30 Uhr durch Hochwasser unzugänglich.",
+				"en": "Area inaccessible due to flooding from 13:30."
+			}
+		}
+	}
 }
 ```
 
@@ -775,11 +788,12 @@ flood_fire_brigade_response_units:
   src: /assets/scenarios/flood/fire_brigade/response_units.json
   poi_icon: /assets/icons/marker_available.svg
   status_poi_icons:
-    active:      /assets/icons/marker_active.svg
+    active: /assets/icons/marker_active.svg
     unavailable: /assets/icons/marker_blocked.svg
 ```
 
 Resolution order:
+
 1. `status_poi_icons[currentStatus]` — status-specific icon (if defined)
 2. `poi_icon` — layer default
 3. No icon rendered
@@ -921,9 +935,8 @@ The on-screen error panel is opt-in. Set `validator_overlay: true` in `config/co
 
 ```yaml
 global:
-  validator_overlay: true   # ← shows red error panel in the browser
-  layers:
-    ...
+  validator_overlay: true # ← shows red error panel in the browser
+  layers: ...
 ```
 
 Set it to `false` or omit it for production — the overlay will stay hidden while console errors remain available.
@@ -932,20 +945,22 @@ Set it to `false` or omit it for production — the overlay will stay hidden whi
 
 ## 13. Common Mistakes
 
-| Problem | Cause | Fix |
-|---|---|---|
-| Layer never appears | Layer ID in `showLayersById` doesn't exist in `context.yaml` | Check spelling — IDs are case-sensitive. |
-| Dead End Error on load | `info` point has no `next` field | Only `end-screen` can omit `next`. Add `next: <id>`. |
-| Missing Asset error | Typo in `src` path | Paths are case-sensitive and must start with `/assets/`. |
-| Translations not updating on language switch | `de` / `en` YAMLs out of sync | Always update `content.de.yaml` and `content.en.yaml` together. |
-| Quiz solution never matches | POI id in `solution` doesn't match the `id` in the JSON | Copy the `id` directly from the JSON file. |
-| SVG zones not selectable | Elements lack `id` attribute or `fill` / `st0` class | Every interactive polygon needs a unique `id` and a fill. |
-| Retry after fail goes to wrong step | Multiple quiz steps — engine redirects to the last one | Place your quiz `id` after the `intro`; keep the structure linear. |
-| Scenario not shown on selection screen | `active: false` in `scenario.yaml` | Change to `active: true`. |
-| Role button appears greyed out | Role key in `scenario.yaml` has no matching entry in `context.yaml` | Add the role under `scenarios: <id>: roles:` in `context.yaml`. |
+| Problem                                      | Cause                                                               | Fix                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Layer never appears                          | Layer ID in `showLayersById` doesn't exist in `context.yaml`        | Check spelling — IDs are case-sensitive.                           |
+| Dead End Error on load                       | `info` point has no `next` field                                    | Only `end-screen` can omit `next`. Add `next: <id>`.               |
+| Missing Asset error                          | Typo in `src` path                                                  | Paths are case-sensitive and must start with `/assets/`.           |
+| Translations not updating on language switch | `de` / `en` YAMLs out of sync                                       | Always update `content.de.yaml` and `content.en.yaml` together.    |
+| Quiz solution never matches                  | POI id in `solution` doesn't match the `id` in the JSON             | Copy the `id` directly from the JSON file.                         |
+| SVG zones not selectable                     | Elements lack `id` attribute or `fill` / `st0` class                | Every interactive polygon needs a unique `id` and a fill.          |
+| Retry after fail goes to wrong step          | Multiple quiz steps — engine redirects to the last one              | Place your quiz `id` after the `intro`; keep the structure linear. |
+| Scenario not shown on selection screen       | `active: false` in `scenario.yaml`                                  | Change to `active: true`.                                          |
+| Role button appears greyed out               | Role key in `scenario.yaml` has no matching entry in `context.yaml` | Add the role under `scenarios: <id>: roles:` in `context.yaml`.    |
 
 ---
+
 **Project Documentation:**
+
 - **[README.md](../README.md):** Installation and quick start.
 - **[concept.md](./concept.md):** Vision, storytelling, and UI/UX goals.
 - **[authoring-guide.md](./authoring-guide.md):** How to create scenarios, challenges, and POI content.

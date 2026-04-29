@@ -24,7 +24,6 @@ story_points:
     target: "#layer-flood_police_evacuation_zones"
     showLayersById: [flood_police_evacuation_zones]
     solution: ["area-19", "area-20", "area-21"]
-    wrong_options: []
     minSelection: 3
     maxSelection: 3
     text:

@@ -184,6 +184,12 @@ async function loadPoint(id: string): Promise<void> {
 
 	// 8. Show hint overlays for specified layers
 	if (point.hintLayerOverlaysById?.length) {
+		// For point-selection-quiz, activate POI selection mode before hinting so the
+		// "Select" button is already visible inside the overlay when it appears.
+		if (point.type === "point-selection-quiz") {
+			document.documentElement.dataset.quizPoiSelect = "1";
+			document.documentElement.dataset.quizPoiSelectTarget = point.target?.trim() ?? "";
+		}
 		const hintDuration = point.hintLayerOverlayDuration ?? 1500;
 		for (const layerId of point.hintLayerOverlaysById) {
 			const layerEl = document.getElementById(`layer-${layerId}`);

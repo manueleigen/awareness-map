@@ -263,8 +263,18 @@ export async function showPOIOverlay(
 			clearTimeout(previewTimeout);
 			previewTimeout = null;
 		}
-		// Single-at-a-time: close all currently open overlays immediately
-		closeAllOverlaysNow();
+		// Target layer (point-selection-quiz): fully independent — never close its overlays,
+		// and opening one there never closes anything else.
+		// Non-target layers: single-overlay among themselves, but never touch target-layer overlays.
+		const quizTarget = (document.documentElement.dataset.quizPoiSelectTarget ?? "").trim();
+		const thisLayerId = poiContainer.dataset.layerId ?? "";
+		const isSelectionTarget =
+			document.documentElement.dataset.quizPoiSelect === "1" &&
+			(!quizTarget || quizTarget === `#layer-${thisLayerId}`);
+		if (!isSelectionTarget) {
+			const excludeLayerId = quizTarget ? quizTarget.replace(/^#layer-/, "") : "";
+			closeNonTargetOverlaysNow(excludeLayerId);
+		}
 	}
 
 	const poiOverlay = create("div");
@@ -461,6 +471,18 @@ function closeOverlayWithAnimation(overlay: HTMLElement): void {
 		{ once: true },
 	);
 	if (app.ui.poiOverlay === overlay) app.ui.poiOverlay = null;
+}
+
+/** Immediately removes all open overlays without animation, optionally skipping one layer. */
+function closeNonTargetOverlaysNow(excludeLayerId: string): void {
+	document.querySelectorAll<HTMLElement>(".poi-overlay").forEach((el) => {
+		if (excludeLayerId && el.classList.contains(`poi-overlay--${excludeLayerId}`)) return;
+		const markerId = el.dataset.markerId;
+		if (markerId)
+			document.getElementById(markerId)?.classList.remove("overlay-open");
+		el.remove();
+	});
+	app.ui.poiOverlay = null;
 }
 
 /** Immediately removes all open overlays without animation. */
