@@ -78,7 +78,7 @@
 	}
 
 	&.marker-social-media {
-		transform: translateY(0) translateX(46px);
+		transform: translateY(62px) translateX(92px);
 	}
 }
 
@@ -147,9 +147,11 @@
 }
 
 .poi-overlay {
+	transform: translateY(68px) translateX(31px);
 	&.left-opening {
 		transform-origin: right top;
 		margin: 43px 0 0 -390px;
+		transform: translateY(63px) translateX(-39px);
 
 		&.poi-overlay--emergency_vehicles {
 			margin: 43px 0 0 -370px;
