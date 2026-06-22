@@ -26,6 +26,22 @@ https://github.com/IMAGINARY/kiosk-browser/releases/tag/v0.19.0-alpha.1
 - **/scripts/**: Build utilities (`generate-schemas.mjs`, `validate.mjs`).
 - **/docs/**: Project documentation (see below).
 
+## Credits
+- **Manuel Eigen**: Programming, design
+- **Aenias Fritsch**: UX/UI, design, concept
+- **Andrea Heilrath**: Project lead, concept, content, academic development
+- **Eric Londaits**: Exhibit concept
+
+## Funding and Project Context
+This exhibit is part of the [sicher oder?](https://www.sicher-oder.de) exhibition.
+
+Funded by the Federal Ministry of Research, Technology and Space (BMFTR) and its security research program SifoLIFE. Exhibition concept by IMAGINARY gGmbH as part of the SifoLIFE subproject BeLIFE.
+
+## License
+Copyright (c) 2026 Awareness Map contributors. Licensed under the MIT License (see [LICENSE](./LICENSE)).
+
+Some assets and third-party materials are distributed under different licenses or attribution requirements. See [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md).
+
 ---
 **Project Documentation:**
 - **[docs/concept.md](./docs/concept.md):** Vision, storytelling, and UI/UX goals.

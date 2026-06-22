@@ -16,8 +16,7 @@
     "dev": "npm run build:watch & npm run sass:watch & npm run schemas:watch"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "sass": "^1.83.0",
