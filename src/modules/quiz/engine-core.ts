@@ -249,7 +249,7 @@ function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	}
 
 	// 2. Resolve the next point ID based on outcome
-	// Track this as the last answerable quiz step (has right/wrong outcomes)
+	// Track this as the last answerable quiz step (has correct/wrong outcomes)
 	if (typeof point.next !== "string") {
 		lastQuizPointId = point.id;
 	}
@@ -260,17 +260,17 @@ function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 	} else {
 		// Convert boolean outcome to status if needed (legacy support)
 		const status: QuizOutcome =
-			typeof outcome === "boolean" ? (outcome ? "right" : "wrong") : outcome;
+			typeof outcome === "boolean" ? (outcome ? "correct" : "wrong") : outcome;
 
 		const next = point.next as Record<string, string | undefined>;
-		if (status === "right") {
-			nextId = point.next.right;
+		if (status === "correct") {
+			nextId = point.next.correct;
 		} else if (next[status]) {
 			nextId = next[status] as string;
-		} else if (status === "half-wrong") {
-			nextId = point.next.half ?? point.next.wrong;
+		} else if (status === "partly-critical") {
+			nextId = point.next["partly-correct"] ?? point.next.wrong;
 		} else {
-			nextId = point.next.wrong; // fallback for wrong-neutral, all-neutral, all-wrong
+			nextId = point.next.wrong; // fallback for weak-fail, all-noncritical-fail, all-critical-fail
 		}
 	}
 

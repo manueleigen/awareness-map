@@ -300,7 +300,7 @@ story_points:
   - id: challenge_core
     type: point-selection-quiz
     # ...
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     # ...
@@ -377,7 +377,7 @@ result: failed   # → "Try Again" button → engine reloads the last quiz step
 On `result: failed`, the engine tracks the last answerable quiz step (`lastQuizPointId`) and redirects the player there instead of exiting the challenge. This means you can have many outcome screens without the player losing their progress.
 
 ```yaml
-- id: win-screen
+- id: correct-screen
   type: end-screen
   result: passed
   showLayersById: [flood_fire_brigade_emergency_calls]
@@ -397,7 +397,7 @@ On `result: failed`, the engine tracks the last answerable quiz step (`lastQuizP
 
         **Well done!**
 
-- id: half-fail-screen
+- id: partly-correct-screen
   type: end-screen
   result: failed
   text:
@@ -513,7 +513,7 @@ The player places a marker on the map by tapping. The answer is correct if the f
 
         **Then tap a location on the map.**
   next:
-    right: drone-win-screen
+    right: drone-correct-screen
     wrong: fail-screen-2
 ```
 
@@ -555,10 +555,10 @@ The player taps one or more POI markers on the map. Correct answers are defined 
         - how quickly the locations will be flooded
         - whether ambulances can still reach them safely
   next:
-    right: win-screen
-    half: half-fail-screen
-    half-wrong: half-wrong-screen
-    wrong-neutral: fail-screen-wrong-neutral
+    right: correct-screen
+    half: partly-correct-screen
+    half-wrong: partly-critical-screen
+    wrong-neutral: weak-fail-screen
     all-wrong: fail-screen-1
 ```
 
@@ -598,10 +598,10 @@ The player taps polygon zones in an SVG overlay. Works like `point-selection-qui
         Consider: population density, flood timing,
         critical infrastructure.
   next:
-    right: win-screen
-    half: half-fail-screen
-    wrong-neutral: fail-screen-all-neutral
-    all-wrong: fail-screen-all-neutral
+    right: correct-screen
+    half: partly-correct-screen
+    wrong-neutral: all-noncritical-fail-screen
+    all-wrong: all-noncritical-fail-screen
 ```
 
 The zone IDs in `solution` must match the `id` attributes of the `<path>` or `<polygon>` elements in the SVG file.
@@ -614,17 +614,17 @@ When a quiz step has multiple possible outcomes, `next` is a map instead of a st
 
 ### Full outcome key reference
 
-| Key             | Triggered when…                                                                          |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| `right`         | All correct answers selected, nothing wrong or neutral.                                  |
-| `half`          | Some correct answers, but also some neutral answers.                                     |
-| `wrong`         | Catch-all fallback if no more specific key matches.                                      |
-| `half-wrong`    | Some correct answers, but also at least one `wrong_option`. Falls back to `half`.        |
-| `wrong-neutral` | At least one `wrong_option` selected, no correct answers. Falls back to `wrong`.         |
-| `all-neutral`   | Only neutral answers selected (not in solution or wrong_options). Falls back to `wrong`. |
-| `all-wrong`     | Only `wrong_options` selected. Falls back to `wrong`.                                    |
+| Key                    | Triggered when…                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------- |
+| `correct`              | All correct answers selected, nothing wrong or non-critical.                             |
+| `partly-correct`       | Some correct answers, but also some non-critical answers.                                |
+| `wrong`                | Catch-all fallback if no more specific key matches.                                      |
+| `partly-critical`      | Some correct answers, but also at least one `wrong_option`. Falls back to `partly-correct`. |
+| `weak-fail`            | At least one `wrong_option` selected, no correct answers. Falls back to `wrong`.         |
+| `all-noncritical-fail` | Only non-critical answers selected (not in solution or wrong_options). Falls back to `wrong`. |
+| `all-critical-fail`    | Only `wrong_options` selected. Falls back to `wrong`.                                    |
 
-Fallback chain: `half-wrong` → `half` → `wrong`; `wrong-neutral` / `all-neutral` / `all-wrong` → `wrong`.
+Fallback chain: `partly-critical` → `partly-correct` → `wrong`; `weak-fail` / `all-noncritical-fail` / `all-critical-fail` → `wrong`.
 
 You only need to define the keys that matter for your scenario. The engine falls back up the chain automatically.
 
@@ -632,19 +632,19 @@ You only need to define the keys that matter for your scenario. The engine falls
 
 ```yaml
 next:
-  right: win-screen
-  half: half-fail-screen # one right, one neutral
-  half-wrong: half-wrong-screen # one right, one actively wrong
-  wrong-neutral: fail-screen-mixed
-  all-neutral: fail-screen-neutral
-  all-wrong: fail-screen-wrong
+  correct: correct-screen
+  partly-correct: partly-correct-screen # one right, one non-critical
+  partly-critical: partly-critical-screen # one right, one critically wrong
+  weak-fail: fail-screen-mixed
+  all-noncritical-fail: fail-screen-neutral
+  all-critical-fail: fail-screen-wrong
 ```
 
-### Simple two-branch example (right/wrong only)
+### Simple two-branch example (correct/wrong only)
 
 ```yaml
 next:
-  right: drone-win-screen
+  correct: drone-correct-screen
   wrong: fail-screen-2
 ```
 

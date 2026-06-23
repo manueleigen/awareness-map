@@ -44,7 +44,7 @@ story_points:
         title: How do you respond?
         question: "**Would you share the current information immediately with the public, police, or fire department, or would you first deploy a drone** to gather more information and assess the situation more accurately?"
     next:
-      right: coord-selection
+      correct: coord-selection
       wrong: fail-screen-1
 
   - id: coord-selection
@@ -77,10 +77,10 @@ story_points:
 
           **Then tap a location on the map to send the drone there.**
     next:
-      right: drone-win-screen
+      correct: drone-correct-screen
       wrong: fail-screen-2
 
-  - id: drone-win-screen
+  - id: drone-correct-screen
     type: info
     showLayersById: [flood_crisis_unit_drone_feed]
     slider_time: "11:30"
@@ -100,7 +100,7 @@ story_points:
 
           **The rumors about the Old Harbor were indeed correct - the area is completely flooded!**
     next:
-      right: who-you-wanna-call
+      correct: who-you-wanna-call
 
   - id: who-you-wanna-call
     type: quiz
@@ -127,10 +127,10 @@ story_points:
         title: Pass On Information
         question: "**Who would you share the verified information with first?**"
     next:
-      right: win-screen
+      correct: correct-screen
       wrong: fail-screen-3
 
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     showLayersById: [flood_crisis_unit_drone_feed]

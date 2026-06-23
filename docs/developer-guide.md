@@ -399,8 +399,8 @@ function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 
 Outcome fallback chain:
 
-- `half-wrong` → falls back to `half` → falls back to `wrong`
-- `wrong-neutral` / `all-neutral` / `all-wrong` → fall back to `wrong`
+- `partly-critical` → falls back to `partly-correct` → falls back to `wrong`
+- `weak-fail` / `all-noncritical-fail` / `all-critical-fail` → fall back to `wrong`
 
 ### Language change mid-quiz
 

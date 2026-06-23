@@ -48,14 +48,14 @@ story_points:
           - population density
           - key locations that must be evacuated
     next:
-      right: win-screen
-      half: half-fail-screen
-      half-wrong: half-fail-screen
-      wrong-neutral: fail-screen-all-neutral
-      all-neutral: fail-screen-all-neutral
-      all-wrong: fail-screen-all-neutral
+      correct: correct-screen
+      partly-correct: partly-correct-screen
+      partly-critical: partly-correct-screen
+      weak-fail: all-noncritical-fail-screen
+      all-noncritical-fail: all-noncritical-fail-screen
+      all-critical-fail: all-noncritical-fail-screen
 
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     showLayersById: [flood_police_evacuation_zones]
@@ -69,7 +69,7 @@ story_points:
         description: |
           You prioritized the most severely threatened residential areas and took critical infrastructure into account.
 
-  - id: half-fail-screen
+  - id: partly-correct-screen
     type: end-screen
     result: failed
     text:
@@ -86,7 +86,7 @@ story_points:
 
           **Focus on densely populated areas that will be flooded soon.**
 
-  - id: fail-screen-all-neutral
+  - id: all-noncritical-fail-screen
     type: end-screen
     result: failed
     text:

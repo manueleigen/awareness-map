@@ -23,10 +23,10 @@ story_points:
     solution: ["C"]
     optionsLayout: rows
     next:
-      right: intro2
-      wrong: quiz-wrong-screen
+      correct: intro2
+      wrong: wrong-screen
   
-  - id: quiz-wrong-screen
+  - id: wrong-screen
     type: info
     text:
       de:
@@ -90,12 +90,16 @@ story_points:
           - the current status of each facility
           - the consequences of a failure for the population
     next:
-      right: win-screen
-      half: half-fail-screen
-      half-wrong: half-wrong-screen
+      correct: correct-screen
+      partly-correct: partly-correct-screen
+      partly-critical: partly-critical-screen
+      weak-fail: partly-critical-screen
+      all-noncritical-fail: partly-correct-screen
+      all-critical-fail: partly-critical-screen
+      wrong: partly-correct-screen
 
 
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     showLayersById: [blackout_THW_critical_sites]
@@ -117,7 +121,7 @@ story_points:
 
           **Excellent work!**
 
-  - id: half-fail-screen
+  - id: partly-correct-screen
     type: end-screen
     result: failed
     text:
@@ -134,7 +138,7 @@ story_points:
 
           **Review the status and impact of each facility again.**
 
-  - id: half-wrong-screen
+  - id: partly-critical-screen
     type: end-screen
     result: failed
     text:

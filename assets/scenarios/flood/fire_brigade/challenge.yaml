@@ -56,14 +56,14 @@ story_points:
           - how quickly the locations will be flooded
           - whether ambulances can still reach them safely
     next:
-      right: win-screen
-      half: half-fail-screen
-      half-wrong: half-wrong-screen
-      wrong-neutral: fail-screen-wrong-neutral
-      all-neutral: fail-screen-all-neutral
-      all-wrong: fail-screen-1
+      correct: correct-screen
+      partly-correct: partly-correct-screen
+      partly-critical: partly-critical-screen
+      weak-fail: weak-fail-screen
+      all-noncritical-fail: all-noncritical-fail-screen
+      all-critical-fail: fail-screen-1
 
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     showLayersById: [flood_fire_brigade_emergency_calls]
@@ -81,7 +81,7 @@ story_points:
 
           **Well done!**
 
-  - id: half-fail-screen
+  - id: partly-correct-screen
     type: end-screen
     result: failed
     text:
@@ -98,7 +98,7 @@ story_points:
 
           **Pay attention to which areas will be flooded very soon!**
 
-  - id: half-wrong-screen
+  - id: partly-critical-screen
     type: end-screen
     result: failed
     text:
@@ -119,7 +119,7 @@ story_points:
 
           **Select a different emergency call.**
 
-  - id: fail-screen-wrong-neutral
+  - id: weak-fail-screen
     type: end-screen
     result: failed
     text:
@@ -140,7 +140,7 @@ story_points:
 
           **Select two different emergency calls.**
 
-  - id: fail-screen-all-neutral
+  - id: all-noncritical-fail-screen
     type: end-screen
     result: failed
     text:

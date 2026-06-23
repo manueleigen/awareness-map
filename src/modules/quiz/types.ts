@@ -1,17 +1,17 @@
 export type StoryPointType = 'info' | 'end-screen' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'coordinates-quiz';
 
-export type QuizOutcome = "right" | "wrong" | "half" | "half-wrong" | "wrong-neutral" | "all-neutral" | "all-wrong";
+export type QuizOutcome = "correct" | "wrong" | "partly-correct" | "partly-critical" | "weak-fail" | "all-noncritical-fail" | "all-critical-fail";
 
 export type NextConfig =
 	| string
 	| {
-		right: string;
+		correct: string;
 		wrong: string;
-		half?: string;
-		"half-wrong"?: string;
-		"wrong-neutral"?: string;
-		"all-neutral"?: string;
-		"all-wrong"?: string;
+		"partly-correct"?: string;
+		"partly-critical"?: string;
+		"weak-fail"?: string;
+		"all-noncritical-fail"?: string;
+		"all-critical-fail"?: string;
 	};
 
 export interface LocalizedInlineText {

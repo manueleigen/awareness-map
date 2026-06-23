@@ -23,10 +23,10 @@ story_points:
           en: "Personal Safety in Emergency Situations"
     solution: ["B"]
     next:
-      right: intro2
-      wrong: quiz-wrong-screen
+      correct: intro2
+      wrong: wrong-screen
 
-  - id: quiz-wrong-screen
+  - id: wrong-screen
     type: info
     text:
       de:
@@ -94,12 +94,12 @@ story_points:
           - population density and accessibility
           - whether the site offers shelter and orientation
     next:
-      right: win-screen
-      half: half-fail-screen
-      half-wrong: half-wrong-screen
-      wrong-neutral: fail-screen-wrong-neutral
-      all-neutral: fail-screen-all-neutral
-      all-wrong: fail-screen-1
+      correct: correct-screen
+      partly-correct: partly-correct-screen
+      partly-critical: partly-critical-screen
+      weak-fail: weak-fail-screen
+      all-noncritical-fail: all-noncritical-fail-screen
+      all-critical-fail: fail-screen-1
 
   # - id: psnv-general-quiz
   #   type: quiz
@@ -125,7 +125,7 @@ story_points:
   #         en: "Block roads and enforce evacuations through police action"
   #   solution: ["A"]
   #   next:
-  #     right: win-screen
+  #     right: correct-screen
   #     wrong: psnv-quiz-fail-screen
 
   # - id: psnv-quiz-fail-screen
@@ -145,7 +145,7 @@ story_points:
 
   #         **Try again.**
 
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     showLayersById: [blackout_psnv_support_sites]
@@ -163,7 +163,7 @@ story_points:
 
           **Well done!**
 
-  - id: half-fail-screen
+  - id: partly-correct-screen
     type: end-screen
     result: failed
     text:
@@ -176,7 +176,7 @@ story_points:
         description: |
           One of your locations is suitable, but the other reaches too few people or offers too little shelter.
 
-  - id: half-wrong-screen
+  - id: partly-critical-screen
     type: end-screen
     result: failed
     text:
@@ -189,7 +189,7 @@ story_points:
         description: |
           You chose one suitable site, but also one location that is not well suited for psychosocial support sites.
 
-  - id: fail-screen-wrong-neutral
+  - id: weak-fail-screen
     type: end-screen
     result: failed
     text:
@@ -202,7 +202,7 @@ story_points:
         description: |
           One selected site is unsuitable, while the other adds only limited impact.
 
-  - id: fail-screen-all-neutral
+  - id: all-noncritical-fail-screen
     type: end-screen
     result: failed
     text:

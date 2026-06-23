@@ -438,7 +438,7 @@ export function renderLocation(
 		abortLocationStep();
 		radiusMarker?.remove();
 
-		onAction(isCorrect ? "right" : "wrong", locationPlaced);
+		onAction(isCorrect ? "correct" : "wrong", locationPlaced);
 	});
 	controls.append(btn);
 }
@@ -640,7 +640,7 @@ export function renderSelection(
 			});
 		}
 
-		// Calculate Status: right, half, half-wrong, wrong-neutral, all-neutral, all-wrong
+		// Calculate Status: correct, partly-correct, partly-critical, weak-fail, all-noncritical-fail, all-critical-fail
 		let outcome: QuizOutcome = "wrong";
 		const numCorrect = selectedIds.filter((id) =>
 			point.solution.includes(id),
@@ -653,17 +653,17 @@ export function renderSelection(
 			selectedIds.length === point.solution.length;
 
 		if (allCorrect) {
-			outcome = "right";
+			outcome = "correct";
 		} else if (numCorrect > 0 && numWrong === 0) {
-			outcome = "half";
+			outcome = "partly-correct";
 		} else if (numCorrect > 0 && numWrong > 0) {
-			outcome = "half-wrong";
+			outcome = "partly-critical";
 		} else if (numWrong > 0 && numWrong < selectedIds.length) {
-			outcome = "wrong-neutral";
+			outcome = "weak-fail";
 		} else if (numWrong === 0) {
-			outcome = "all-neutral";
+			outcome = "all-noncritical-fail";
 		} else {
-			outcome = "all-wrong";
+			outcome = "all-critical-fail";
 		}
 
 		onAction(outcome);

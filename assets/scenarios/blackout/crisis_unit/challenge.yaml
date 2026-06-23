@@ -46,12 +46,12 @@ story_points:
           **Select three districts where poor communication, high population density, and key facilities overlap.**
 
     next:
-      right: wifi-placement
-      half: half-fail-screen
-      half-wrong: half-wrong-screen
-      wrong-neutral: fail-screen-wrong-neutral
-      all-neutral: fail-screen-all-neutral
-      all-wrong: fail-screen-all-wrong
+      correct: wifi-placement
+      partly-correct: partly-correct-screen
+      partly-critical: partly-critical-screen
+      weak-fail: weak-fail-screen
+      all-noncritical-fail: all-noncritical-fail-screen
+      all-critical-fail: all-critical-fail-screen
 
 
   - id: wifi-placement
@@ -83,7 +83,7 @@ story_points:
 
           **Place the mobile communication point where the existing communication points leave the largest gap.**
     next:
-      right: win-screen
+      correct: correct-screen
       wrong: wifi-fail-screen
 
   - id: wifi-fail-screen
@@ -103,7 +103,7 @@ story_points:
 
           Look for the area least reached by the existing communication points.
 
-  - id: win-screen
+  - id: correct-screen
     type: end-screen
     result: passed
     text:
@@ -116,7 +116,7 @@ story_points:
         description: |
           You prioritized the districts with the greatest strategic effect and placed the mobile communication point where existing coverage was weakest.
 
-  - id: half-fail-screen
+  - id: partly-correct-screen
     type: end-screen
     result: failed
     text:
@@ -129,7 +129,7 @@ story_points:
         description: |
           Part of your selection was correct, but not all chosen districts create the greatest strategic effect.
 
-  - id: half-wrong-screen
+  - id: partly-critical-screen
     type: end-screen
     result: failed
     text:
@@ -142,7 +142,7 @@ story_points:
         description: |
           You identified one highly stressed district, but also prioritized an area with less strategic impact.
 
-  - id: fail-screen-wrong-neutral
+  - id: weak-fail-screen
     type: end-screen
     result: failed
     text:
@@ -155,7 +155,7 @@ story_points:
         description: |
           Your selection includes a district that is affected but has a low population.
 
-  - id: fail-screen-all-neutral
+  - id: all-noncritical-fail-screen
     type: end-screen
     result: failed
     text:
@@ -168,7 +168,7 @@ story_points:
         description: |
           You selected affected areas, but not the districts with the strongest combined impact.
 
-  - id: fail-screen-all-wrong
+  - id: all-critical-fail-screen
     type: end-screen
     result: failed
     text:

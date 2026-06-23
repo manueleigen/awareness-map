@@ -121,12 +121,12 @@ export const ScenarioDefinitionSchema = z.object({
 // ─── challenge.yaml ───────────────────────────────────────────────────────────
 
 const QuizOutcomeMapSchema = z.object({
-	right: z.string().optional(),
-	half: z.string().optional(),
-	"half-wrong": z.string().optional(),
-	"wrong-neutral": z.string().optional(),
-	"all-neutral": z.string().optional(),
-	"all-wrong": z.string().optional(),
+	correct: z.string().optional(),
+	"partly-correct": z.string().optional(),
+	"partly-critical": z.string().optional(),
+	"weak-fail": z.string().optional(),
+	"all-noncritical-fail": z.string().optional(),
+	"all-critical-fail": z.string().optional(),
 	wrong: z.string().optional(),
 });
 
