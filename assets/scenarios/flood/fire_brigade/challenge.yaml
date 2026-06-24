@@ -31,7 +31,7 @@ story_points:
     slider_time_layer: flood_simulation
     slider_time_fixed: false
     solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
-    wrong_options: ["flood_emergency_call_03"]
+    critical_items: ["flood_emergency_call_03"]
     minSelection: 2
     maxSelection: 2
     text:
@@ -58,10 +58,8 @@ story_points:
     next:
       correct: correct-screen
       partly-correct: partly-correct-screen
-      partly-critical: partly-critical-screen
-      weak-fail: weak-fail-screen
-      all-noncritical-fail: all-noncritical-fail-screen
-      all-critical-fail: fail-screen-1
+      critical: critical-screen
+      wrong: wrong-screen
 
   - id: correct-screen
     type: end-screen
@@ -98,7 +96,7 @@ story_points:
 
           **Pay attention to which areas will be flooded very soon!**
 
-  - id: partly-critical-screen
+  - id: critical-screen
     type: end-screen
     result: failed
     text:
@@ -119,28 +117,7 @@ story_points:
 
           **Select a different emergency call.**
 
-  - id: weak-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Einsatzkräfte in Gefahr
-        description: |
-          Du hast deine Einsatzkräfte in Gefahr gebracht, indem du einen Notruf in einem Bereich gewählt hast, der schon überflutet ist.
-
-          Deine andere Wahl war ein Notruf, der nicht kritisch ist, da er nicht bald überflutet wird und nur wenige Menschen betrifft.
-
-          **Wähle zwei andere Notrufe.**
-      en:
-        title: Emergency Responders at Risk
-        description: |
-          You put your responders at risk by selecting an emergency call in an area that is already flooded.
-
-          Your other choice was an emergency call that is not critical, because the area will not be flooded soon and only a small number of people are affected.
-
-          **Select two different emergency calls.**
-
-  - id: all-noncritical-fail-screen
+  - id: wrong-screen
     type: end-screen
     result: failed
     text:
@@ -156,20 +133,3 @@ story_points:
           The emergency calls you selected were not critical, because the areas will not be flooded soon and only a small number of people are affected.
 
           **Select two different emergency calls that affect many people and will be flooded soon.**
-
-  - id: fail-screen-1
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Fehlgeschlagen
-        description: |
-          Deine Auswahl war nicht optimal.
-
-          **Wichtige Notrufe wurden übersehen, während Ressourcen in weniger kritischen Bereichen gebunden waren.**
-      en:
-        title: Failed
-        description: |
-          Your selection was not optimal.
-
-          **Critical emergency calls were overlooked while resources were tied up in less urgent areas.**

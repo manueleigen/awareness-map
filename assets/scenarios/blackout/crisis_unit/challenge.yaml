@@ -28,7 +28,7 @@ story_points:
     target: "#layer-blackout_crisis_unit_districts"
     showLayersById: [blackout_crisis_unit_districts]
     solution: ["area-11", "area-21", "area-29"]
-    wrong_options: ["area-1", "area-24", "area-36"]
+    critical_items: ["area-1", "area-24", "area-36"]
     minSelection: 3
     maxSelection: 3
     text:
@@ -47,11 +47,79 @@ story_points:
 
     next:
       correct: wifi-placement
-      partly-correct: partly-correct-screen
-      partly-critical: partly-critical-screen
-      weak-fail: weak-fail-screen
-      all-noncritical-fail: all-noncritical-fail-screen
-      all-critical-fail: all-critical-fail-screen
+      partly-correct: partly-correct-screen-area-selection
+      critical: critical-screen-area-selection
+      wrong: wrong-screen-area-selection
+
+
+
+  - id: correct-screen-coordinates
+    type: end-screen
+    result: passed
+    text:
+      de:
+        title: Richtig priorisiert
+        description: |
+          Du hast die Bezirke mit der größten strategischen Wirkung erkannt.
+
+          **Gut gemacht!** 
+      en:
+        title: Strategically Prioritized
+        description: |
+          You prioritized the districts with the greatest strategic effect and placed the mobile communication point where existing coverage was weakest.
+
+  - id: partly-correct-screen-area-selection
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Teilweise richtige Priorisierung
+        description: |
+          Ein Teil deiner Auswahl war richtig, aber nicht alle gewählten Bezirke haben die größte strategische Wirkung.
+          Achte auf:
+
+          - kritische Kommunikationslage (in rot markiert)
+          - hohe Bevölkerungsdichte
+          - wichtige Einrichtungen
+      en:
+        title: Partly Effective Prioritization
+        description: |
+          Part of your selection was correct, but not all chosen districts create the greatest strategic effect.
+
+  - id: wrong-screen-area-selection
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Nicht optimal entschieden
+        description: |
+          Deine Entscheidung erzeugt **nicht die größtmögliche Entlastung** für die Kommunikationslage.
+
+          Prüfe noch einmal, wo schlechte Kommunikationslage, hohe Bevölkerungsdichte und wichtige Einrichtungen zusammenkommen.
+      en:
+        title: Not Optimally Decided
+        description: |
+          Your decision does **not create the greatest possible relief** for the communication situation.
+
+          Review where poor communication, high population density, and key facilities overlap.
+
+  - id: critical-screen-area-selection
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Kritische Fehlpriorisierung
+        description: |
+          Deine Auswahl enthält mindestens einen Bezirk, der trotz begrenzter Ressourcen nicht priorisiert werden sollte.
+
+          Achte auf die Kombination aus kritischer Kommunikationslage, hoher Bevölkerungsdichte und wichtigen Einrichtungen.
+      en:
+        title: Critical Misprioritization
+        description: |
+          Your selection includes at least one district that should not be prioritized while resources are limited.
+
+          Focus on the combination of poor communication, high population density, and key facilities.
+
 
 
   - id: wifi-placement
@@ -83,10 +151,10 @@ story_points:
 
           **Place the mobile communication point where the existing communication points leave the largest gap.**
     next:
-      correct: correct-screen
-      wrong: wifi-fail-screen
+      correct: correct-screen-coordinates
+      wrong: wrong-screen-coordinates
 
-  - id: wifi-fail-screen
+  - id: wrong-screen-coordinates
     type: end-screen
     result: failed
     text:
@@ -99,84 +167,6 @@ story_points:
       en:
         title: Not Optimally Placed
         description: |
-          That area already has comparatively more coverage.
+          That area already has comparatively more coverage or low population density.
 
-          Look for the area least reached by the existing communication points.
-
-  - id: correct-screen
-    type: end-screen
-    result: passed
-    text:
-      de:
-        title: Strategisch richtig priorisiert
-        description: |
-          Du hast die Bezirke mit der größten strategischen Wirkung priorisiert und den mobilen Kommunikationspunkt dort gesetzt, wo die bestehende Abdeckung am schwächsten war.
-      en:
-        title: Strategically Prioritized
-        description: |
-          You prioritized the districts with the greatest strategic effect and placed the mobile communication point where existing coverage was weakest.
-
-  - id: partly-correct-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Teilweise richtige Priorisierung
-        description: |
-          Ein Teil deiner Auswahl war richtig, aber nicht alle gewählten Bezirke haben die größte strategische Wirkung.
-      en:
-        title: Partly Effective Prioritization
-        description: |
-          Part of your selection was correct, but not all chosen districts create the greatest strategic effect.
-
-  - id: partly-critical-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Gemischte Prioritäten
-        description: |
-          Du hast einen stark belasteten Bezirk erkannt, aber auch einen Bereich priorisiert, der strategisch weniger Wirkung hat.
-      en:
-        title: Mixed Priorities
-        description: |
-          You identified one highly stressed district, but also prioritized an area with less strategic impact.
-
-  - id: weak-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Strategisch zu schwach
-        description: |
-          Deine Auswahl enthält einen Bezirk, der zwar belastet ist, aber wo wenige Menschen leben.
-      en:
-        title: Strategically Too Weak
-        description: |
-          Your selection includes a district that is affected but has a low population.
-
-  - id: all-noncritical-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Wirkung unterschätzt
-        description: |
-          Du hast belastete Bereiche gewählt, aber nicht die Bezirke mit der höchsten Wirkung.
-      en:
-        title: Impact Underestimated
-        description: |
-          You selected affected areas, but not the districts with the strongest combined impact.
-
-  - id: all-critical-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Ressourcen falsch gebunden
-        description: |
-          Du hast Bezirke priorisiert, in denen zusätzliche Kommunikationsknoten **nicht die größte Entlastung** erzeugen.
-      en:
-        title: Resources Misallocated
-        description: |
-          You prioritized districts where additional communication nodes **do not create the greatest relief**.
+          Look for a relevant area least reached by the existing communication points.

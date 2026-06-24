@@ -123,10 +123,7 @@ export const ScenarioDefinitionSchema = z.object({
 const QuizOutcomeMapSchema = z.object({
 	correct: z.string().optional(),
 	"partly-correct": z.string().optional(),
-	"partly-critical": z.string().optional(),
-	"weak-fail": z.string().optional(),
-	"all-noncritical-fail": z.string().optional(),
-	"all-critical-fail": z.string().optional(),
+	critical: z.string().optional(),
 	wrong: z.string().optional(),
 });
 
@@ -211,7 +208,7 @@ const AreaSelectionQuizStoryPointSchema = z.object({
 	text: StoryPointTextSchema,
 	target: z.string(),
 	solution: z.array(z.string()),
-	wrong_options: z.array(z.string()).optional(),
+	critical_items: z.array(z.string()).optional(),
 	minSelection: z.number(),
 	maxSelection: z.number(),
 	next: QuizOutcomeMapSchema.optional(),
@@ -223,7 +220,7 @@ const PointSelectionQuizStoryPointSchema = z.object({
 	text: StoryPointTextSchema,
 	target: z.string(),
 	solution: z.array(z.string()),
-	wrong_options: z.array(z.string()).optional(),
+	critical_items: z.array(z.string()).optional(),
 	minSelection: z.number(),
 	maxSelection: z.number(),
 	next: QuizOutcomeMapSchema.optional(),

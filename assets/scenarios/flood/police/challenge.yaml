@@ -50,10 +50,7 @@ story_points:
     next:
       correct: correct-screen
       partly-correct: partly-correct-screen
-      partly-critical: partly-correct-screen
-      weak-fail: all-noncritical-fail-screen
-      all-noncritical-fail: all-noncritical-fail-screen
-      all-critical-fail: all-noncritical-fail-screen
+      wrong: wrong-screen
 
   - id: correct-screen
     type: end-screen
@@ -86,7 +83,7 @@ story_points:
 
           **Focus on densely populated areas that will be flooded soon.**
 
-  - id: all-noncritical-fail-screen
+  - id: wrong-screen
     type: end-screen
     result: failed
     text:

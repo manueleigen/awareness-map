@@ -6,22 +6,22 @@
       "items": {
         "anyOf": [
           {
-            "$ref": "#/definitions/%7Btype%3A%22info%22%3Bid%3Astring%3Btext%3F%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%7Cundefined%3Bnext%3F%3Astring%7C%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
+            "$ref": "#/definitions/%7Btype%3A%22info%22%3Bid%3Astring%3Btext%3F%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%7Cundefined%3Bnext%3F%3Astring%7C%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
           },
           {
             "$ref": "#/definitions/%7Btype%3A%22end-screen%22%3Bresult%3A%22passed%22%7C%22failed%22%3Bid%3Astring%3Btext%3F%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
           },
           {
-            "$ref": "#/definitions/%7Btype%3A%22quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Boptions%3A%7Bvalue%3Astring%3Btext%3ARecord%3Cstring%2Cstring%3E%3B%7D%5B%5D%3Bsolution%3Astring%5B%5D%3Bid%3Astring%3Bnext%3F%3Astring%7C%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BoptionsLayout%3F%3A%22columns%22%7C%22rows%22%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
+            "$ref": "#/definitions/%7Btype%3A%22quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Boptions%3A%7Bvalue%3Astring%3Btext%3ARecord%3Cstring%2Cstring%3E%3B%7D%5B%5D%3Bsolution%3Astring%5B%5D%3Bid%3Astring%3Bnext%3F%3Astring%7C%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BoptionsLayout%3F%3A%22columns%22%7C%22rows%22%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
           },
           {
-            "$ref": "#/definitions/%7Btype%3A%22coordinates-quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Btarget%3Astring%3Bsolution%3Astring%5B%5D%3BmaxDistance%3Anumber%3Bid%3Astring%3Binitial_position%3F%3A%7Bx%3Anumber%3By%3Anumber%3B%7D%7Cundefined%3Bsubmit%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bnext%3F%3A%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
+            "$ref": "#/definitions/%7Btype%3A%22coordinates-quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Btarget%3Astring%3Bsolution%3Astring%5B%5D%3BmaxDistance%3Anumber%3Bid%3Astring%3Binitial_position%3F%3A%7Bx%3Anumber%3By%3Anumber%3B%7D%7Cundefined%3Bsubmit%3F%3ARecord%3Cstring%2Cstring%3E%7Cundefined%3Bicon%3F%3Astring%7Cundefined%3Bnext%3F%3A%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
           },
           {
-            "$ref": "#/definitions/%7Btype%3A%22area-selection-quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Btarget%3Astring%3Bsolution%3Astring%5B%5D%3BminSelection%3Anumber%3BmaxSelection%3Anumber%3Bid%3Astring%3Bwrong_options%3F%3Astring%5B%5D%7Cundefined%3Bnext%3F%3A%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
+            "$ref": "#/definitions/%7Btype%3A%22area-selection-quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Btarget%3Astring%3Bsolution%3Astring%5B%5D%3BminSelection%3Anumber%3BmaxSelection%3Anumber%3Bid%3Astring%3Bcritical_items%3F%3Astring%5B%5D%7Cundefined%3Bnext%3F%3A%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
           },
           {
-            "$ref": "#/definitions/%7Btype%3A%22point-selection-quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Btarget%3Astring%3Bsolution%3Astring%5B%5D%3BminSelection%3Anumber%3BmaxSelection%3Anumber%3Bid%3Astring%3Bwrong_options%3F%3Astring%5B%5D%7Cundefined%3Bnext%3F%3A%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
+            "$ref": "#/definitions/%7Btype%3A%22point-selection-quiz%22%3Btext%3A%7Bde%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3Ben%3F%3A%7Btitle%3F%3Astring%7Cundefined%3Bdescription%3F%3Astring%7Cundefined%3Bquestion%3F%3Astring%7Cundefined%3Bbutton%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3B%7D%3Btarget%3Astring%3Bsolution%3Astring%5B%5D%3BminSelection%3Anumber%3BmaxSelection%3Anumber%3Bid%3Astring%3Bcritical_items%3F%3Astring%5B%5D%7Cundefined%3Bnext%3F%3A%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D%7Cundefined%3BshowLayersById%3F%3Astring%5B%5D%7Cundefined%3BhideLayersById%3F%3Astring%5B%5D%7Cundefined%3BpulseLayersById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlaysById%3F%3Astring%5B%5D%7Cundefined%3BhintLayerOverlayDuration%3F%3Anumber%7Cundefined%3Bslider_time%3F%3Astring%7Cundefined%3Bslider_time_layer%3F%3Astring%7Cundefined%3Bslider_time_fixed%3F%3Aboolean%7Cundefined%3B%7D"
           }
         ]
       }
@@ -31,7 +31,7 @@
     "story_points"
   ],
   "definitions": {
-    "{type:\"info\";id:string;text?:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;}|undefined;next?:string|{correct?:string|undefined;\"partly-correct\"?:string|undefined;\"partly-critical\"?:string|undefined;\"weak-fail\"?:string|undefined;\"all-noncritical-fail\"?:string|undefined;\"all-critical-fail\"?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
+    "{type:\"info\";id:string;text?:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;}|undefined;next?:string|{correct?:string|undefined;\"partly-correct\"?:string|undefined;critical?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
       "type": "object",
       "properties": {
         "type": {
@@ -47,7 +47,7 @@
         "next": {
           "anyOf": [
             {
-              "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
+              "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
             },
             {
               "type": "string"
@@ -145,7 +145,7 @@
       },
       "additionalProperties": false
     },
-    "{correct?:string|undefined;\"partly-correct\"?:string|undefined;\"partly-critical\"?:string|undefined;\"weak-fail\"?:string|undefined;\"all-noncritical-fail\"?:string|undefined;\"all-critical-fail\"?:string|undefined;wrong?:string|undefined;}": {
+    "{correct?:string|undefined;\"partly-correct\"?:string|undefined;critical?:string|undefined;wrong?:string|undefined;}": {
       "type": "object",
       "properties": {
         "correct": {
@@ -154,16 +154,7 @@
         "partly-correct": {
           "type": "string"
         },
-        "partly-critical": {
-          "type": "string"
-        },
-        "weak-fail": {
-          "type": "string"
-        },
-        "all-noncritical-fail": {
-          "type": "string"
-        },
-        "all-critical-fail": {
+        "critical": {
           "type": "string"
         },
         "wrong": {
@@ -236,7 +227,7 @@
       ],
       "additionalProperties": false
     },
-    "{type:\"quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};options:{value:string;text:Record<string,string>;}[];solution:string[];id:string;next?:string|{correct?:string|undefined;\"partly-correct\"?:string|undefined;\"partly-critical\"?:string|undefined;\"weak-fail\"?:string|undefined;\"all-noncritical-fail\"?:string|undefined;\"all-critical-fail\"?:string|undefined;wrong?:string|undefined;}|undefined;optionsLayout?:\"columns\"|\"rows\"|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
+    "{type:\"quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};options:{value:string;text:Record<string,string>;}[];solution:string[];id:string;next?:string|{correct?:string|undefined;\"partly-correct\"?:string|undefined;critical?:string|undefined;wrong?:string|undefined;}|undefined;optionsLayout?:\"columns\"|\"rows\"|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
       "type": "object",
       "properties": {
         "type": {
@@ -264,7 +255,7 @@
         "next": {
           "anyOf": [
             {
-              "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
+              "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
             },
             {
               "type": "string"
@@ -343,7 +334,7 @@
     "Record<string,string>": {
       "type": "object"
     },
-    "{type:\"coordinates-quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};target:string;solution:string[];maxDistance:number;id:string;initial_position?:{x:number;y:number;}|undefined;submit?:Record<string,string>|undefined;icon?:string|undefined;next?:{correct?:string|undefined;\"partly-correct\"?:string|undefined;\"partly-critical\"?:string|undefined;\"weak-fail\"?:string|undefined;\"all-noncritical-fail\"?:string|undefined;\"all-critical-fail\"?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
+    "{type:\"coordinates-quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};target:string;solution:string[];maxDistance:number;id:string;initial_position?:{x:number;y:number;}|undefined;submit?:Record<string,string>|undefined;icon?:string|undefined;next?:{correct?:string|undefined;\"partly-correct\"?:string|undefined;critical?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
       "type": "object",
       "properties": {
         "type": {
@@ -378,7 +369,7 @@
           "type": "string"
         },
         "next": {
-          "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
+          "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
         },
         "showLayersById": {
           "type": "array",
@@ -443,7 +434,7 @@
       ],
       "additionalProperties": false
     },
-    "{type:\"area-selection-quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};target:string;solution:string[];minSelection:number;maxSelection:number;id:string;wrong_options?:string[]|undefined;next?:{correct?:string|undefined;\"partly-correct\"?:string|undefined;\"partly-critical\"?:string|undefined;\"weak-fail\"?:string|undefined;\"all-noncritical-fail\"?:string|undefined;\"all-critical-fail\"?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
+    "{type:\"area-selection-quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};target:string;solution:string[];minSelection:number;maxSelection:number;id:string;critical_items?:string[]|undefined;next?:{correct?:string|undefined;\"partly-correct\"?:string|undefined;critical?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
       "type": "object",
       "properties": {
         "type": {
@@ -471,14 +462,14 @@
         "id": {
           "type": "string"
         },
-        "wrong_options": {
+        "critical_items": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "next": {
-          "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
+          "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
         },
         "showLayersById": {
           "type": "array",
@@ -528,7 +519,7 @@
       ],
       "additionalProperties": false
     },
-    "{type:\"point-selection-quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};target:string;solution:string[];minSelection:number;maxSelection:number;id:string;wrong_options?:string[]|undefined;next?:{correct?:string|undefined;\"partly-correct\"?:string|undefined;\"partly-critical\"?:string|undefined;\"weak-fail\"?:string|undefined;\"all-noncritical-fail\"?:string|undefined;\"all-critical-fail\"?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
+    "{type:\"point-selection-quiz\";text:{de?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;en?:{title?:string|undefined;description?:string|undefined;question?:string|undefined;button?:string|undefined;}|undefined;};target:string;solution:string[];minSelection:number;maxSelection:number;id:string;critical_items?:string[]|undefined;next?:{correct?:string|undefined;\"partly-correct\"?:string|undefined;critical?:string|undefined;wrong?:string|undefined;}|undefined;showLayersById?:string[]|undefined;hideLayersById?:string[]|undefined;pulseLayersById?:string[]|undefined;hintLayerOverlaysById?:string[]|undefined;hintLayerOverlayDuration?:number|undefined;slider_time?:string|undefined;slider_time_layer?:string|undefined;slider_time_fixed?:boolean|undefined;}": {
       "type": "object",
       "properties": {
         "type": {
@@ -556,14 +547,14 @@
         "id": {
           "type": "string"
         },
-        "wrong_options": {
+        "critical_items": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
         "next": {
-          "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3B%22partly-critical%22%3F%3Astring%7Cundefined%3B%22weak-fail%22%3F%3Astring%7Cundefined%3B%22all-noncritical-fail%22%3F%3Astring%7Cundefined%3B%22all-critical-fail%22%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
+          "$ref": "#/definitions/%7Bcorrect%3F%3Astring%7Cundefined%3B%22partly-correct%22%3F%3Astring%7Cundefined%3Bcritical%3F%3Astring%7Cundefined%3Bwrong%3F%3Astring%7Cundefined%3B%7D"
         },
         "showLayersById": {
           "type": "array",

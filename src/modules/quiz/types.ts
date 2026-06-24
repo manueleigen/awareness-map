@@ -1,6 +1,6 @@
 export type StoryPointType = 'info' | 'end-screen' | 'quiz' | 'area-selection-quiz' | 'point-selection-quiz' | 'coordinates-quiz';
 
-export type QuizOutcome = "correct" | "wrong" | "partly-correct" | "partly-critical" | "weak-fail" | "all-noncritical-fail" | "all-critical-fail";
+export type QuizOutcome = "correct" | "wrong" | "partly-correct" | "critical";
 
 export type NextConfig =
 	| string
@@ -8,10 +8,7 @@ export type NextConfig =
 		correct: string;
 		wrong: string;
 		"partly-correct"?: string;
-		"partly-critical"?: string;
-		"weak-fail"?: string;
-		"all-noncritical-fail"?: string;
-		"all-critical-fail"?: string;
+		critical?: string;
 	};
 
 export interface LocalizedInlineText {
@@ -89,7 +86,7 @@ export interface SelectionStoryPoint extends BaseStoryPoint {
     selector?: string;
     interactionLayerId?: string;
     solution: string[];
-    wrong_options?: string[];
+    critical_items?: string[];
     minSelection?: number;
     maxSelection?: number;
 }

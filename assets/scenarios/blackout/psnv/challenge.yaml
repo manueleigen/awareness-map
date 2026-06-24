@@ -24,9 +24,9 @@ story_points:
     solution: ["B"]
     next:
       correct: intro2
-      wrong: wrong-screen
+      wrong: wrong-screen-quiz
 
-  - id: wrong-screen
+  - id: wrong-screen-quiz
     type: info
     text:
       de:
@@ -94,12 +94,9 @@ story_points:
           - population density and accessibility
           - whether the site offers shelter and orientation
     next:
-      correct: correct-screen
-      partly-correct: partly-correct-screen
-      partly-critical: partly-critical-screen
-      weak-fail: weak-fail-screen
-      all-noncritical-fail: all-noncritical-fail-screen
-      all-critical-fail: fail-screen-1
+      correct: correct-screen-point-selection
+      partly-correct: partly-correct-screen-point-selection
+      wrong: wrong-screen-point-selection
 
   # - id: psnv-general-quiz
   #   type: quiz
@@ -125,27 +122,10 @@ story_points:
   #         en: "Block roads and enforce evacuations through police action"
   #   solution: ["A"]
   #   next:
-  #     right: correct-screen
-  #     wrong: psnv-quiz-fail-screen
+  #     correct: correct-screen-quiz
+  #     wrong: wrong-screen-quiz
 
-  # - id: psnv-quiz-fail-screen
-  #   type: end-screen
-  #   result: failed
-  #   text:
-  #     de:
-  #       title: Leider falsch
-  #       description: |
-  #         PSNV unterstützt Menschen in akuten Belastungssituationen psychosozial.
-
-  #         **Versuche es nochmal.**
-  #     en:
-  #       title: Not Quite
-  #       description: |
-  #         PSNV provides psychosocial support to people in acute stress situations.
-
-  #         **Try again.**
-
-  - id: correct-screen
+  - id: correct-screen-point-selection
     type: end-screen
     result: passed
     showLayersById: [blackout_psnv_support_sites]
@@ -163,7 +143,7 @@ story_points:
 
           **Well done!**
 
-  - id: partly-correct-screen
+  - id: partly-correct-screen-point-selection
     type: end-screen
     result: failed
     text:
@@ -176,46 +156,7 @@ story_points:
         description: |
           One of your locations is suitable, but the other reaches too few people or offers too little shelter.
 
-  - id: partly-critical-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Ungünstige Kombination
-        description: |
-          Du hast einen passenden Ort gewählt, aber auch einen Standort, der für psychosoziale Anlaufstellen zu wenig geeignet ist.
-      en:
-        title: Weak Combination
-        description: |
-          You chose one suitable site, but also one location that is not well suited for psychosocial support sites.
-
-  - id: weak-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Schlechte Priorisierung
-        description: |
-          Ein gewählter Ort ist ungeeignet, der andere bringt nur wenig zusätzliche Wirkung.
-      en:
-        title: Poor Prioritization
-        description: |
-          One selected site is unsuitable, while the other adds only limited impact.
-
-  - id: all-noncritical-fail-screen
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Zu geringe Wirkung
-        description: |
-          Deine Auswahl nutzt die knappen PSNV-Ressourcen nicht dort, wo sie die meisten Menschen erreichen.
-      en:
-        title: Too Little Impact
-        description: |
-          Your selection does not use scarce PSNV resources where they would reach the most people.
-
-  - id: fail-screen-1
+  - id: wrong-screen-point-selection
     type: end-screen
     result: failed
     text:

@@ -24,9 +24,9 @@ story_points:
     optionsLayout: rows
     next:
       correct: intro2
-      wrong: wrong-screen
+      wrong: wrong-screen-quiz
   
-  - id: wrong-screen
+  - id: wrong-screen-quiz
     type: info
     text:
       de:
@@ -71,7 +71,7 @@ story_points:
     # hintLayerOverlaysById: [blackout_THW_critical_sites]
     # hintLayerOverlayDuration: 99999999
     solution: ["blackout_thw_poi_01", "blackout_thw_poi_02", "blackout_thw_poi_04"]
-    wrong_options: ["blackout_thw_poi_05"]
+    critical_items: ["blackout_thw_poi_05"]
     minSelection: 3
     maxSelection: 3
     text:
@@ -90,16 +90,13 @@ story_points:
           - the current status of each facility
           - the consequences of a failure for the population
     next:
-      correct: correct-screen
-      partly-correct: partly-correct-screen
-      partly-critical: partly-critical-screen
-      weak-fail: partly-critical-screen
-      all-noncritical-fail: partly-correct-screen
-      all-critical-fail: partly-critical-screen
-      wrong: partly-correct-screen
+      correct: correct-screen-point-selection
+      partly-correct: partly-correct-screen-point-selection
+      critical: critical-screen-point-selection
+      wrong: wrong-screen-point-selection
 
 
-  - id: correct-screen
+  - id: correct-screen-point-selection
     type: end-screen
     result: passed
     showLayersById: [blackout_THW_critical_sites]
@@ -121,7 +118,7 @@ story_points:
 
           **Excellent work!**
 
-  - id: partly-correct-screen
+  - id: partly-correct-screen-point-selection
     type: end-screen
     result: failed
     text:
@@ -138,7 +135,7 @@ story_points:
 
           **Review the status and impact of each facility again.**
 
-  - id: partly-critical-screen
+  - id: critical-screen-point-selection
     type: end-screen
     result: failed
     text:
@@ -158,3 +155,20 @@ story_points:
           **The depot is important for continued operations, but it is less urgent than other locations where failures are imminent.**
 
           Deploy the emergency generator to a different site.
+
+  - id: wrong-screen-point-selection
+    type: end-screen
+    result: failed
+    text:
+      de:
+        title: Falsch priorisiert
+        description: |
+          Deine Auswahl erreicht keine der Standorte, bei denen unmittelbar kritische Ausfälle drohen.
+
+          **Prüfe Status und Auswirkungen jeder Einrichtung noch einmal.**
+      en:
+        title: Wrong Prioritization
+        description: |
+          Your selection does not cover any of the sites where critical failures are imminent.
+
+          **Review the status and impact of each facility again.**

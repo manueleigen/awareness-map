@@ -45,7 +45,7 @@ story_points:
         question: "**Would you share the current information immediately with the public, police, or fire department, or would you first deploy a drone** to gather more information and assess the situation more accurately?"
     next:
       correct: coord-selection
-      wrong: fail-screen-1
+      wrong: wrong-screen-quiz-decision
 
   - id: coord-selection
     type: coordinates-quiz
@@ -77,10 +77,10 @@ story_points:
 
           **Then tap a location on the map to send the drone there.**
     next:
-      correct: drone-correct-screen
-      wrong: fail-screen-2
+      correct: drone-confirmation
+      wrong: wrong-screen-coordinates
 
-  - id: drone-correct-screen
+  - id: drone-confirmation
     type: info
     showLayersById: [flood_crisis_unit_drone_feed]
     slider_time: "11:30"
@@ -127,10 +127,10 @@ story_points:
         title: Pass On Information
         question: "**Who would you share the verified information with first?**"
     next:
-      correct: correct-screen
-      wrong: fail-screen-3
+      correct: correct-screen-quiz-sharing
+      wrong: wrong-screen-quiz-sharing
 
-  - id: correct-screen
+  - id: correct-screen-quiz-sharing
     type: end-screen
     result: passed
     showLayersById: [flood_crisis_unit_drone_feed]
@@ -148,53 +148,53 @@ story_points:
 
           Your decisions closed a critical information gap, **and emergency responders are now better able to act.**
 
-  - id: fail-screen-1
+  - id: wrong-screen-quiz-decision
     type: end-screen
     result: failed
     text:
       de:
-        title: Das war keine gute Entscheidung
+        title: Zu früh geteilt
         description: |
           **Die frühe Kommunikation ungesicherter Informationen verstärkt Panik.**
 
-          Auch das interne Teilen mit Feuerwehr und Polizei kann verfrühte oder fehlgeleitete Maßnahmen auslösen.
+          Sammle zunächst gesicherte Informationen, bevor du die Lage weitergibst.
       en:
-        title: That Was Not a Good Decision
+        title: Shared Too Early
         description: |
           **Communicating unverified information too early intensifies panic.**
 
-          Even sharing it internally with the fire department and police can trigger premature or misguided actions.
+          Gather verified information before passing the situation on.
 
-  - id: fail-screen-2
+  - id: wrong-screen-coordinates
     type: end-screen
     result: failed
     text:
       de:
-        title: Fehlgeschlagen
+        title: Drohne falsch eingesetzt
         description: |
           Du hast die Drohne in einem irrelevanten Gebiet eingesetzt und damit wertvolle Ressourcen vergeudet.
 
           **Prüfe die Social-Media-Posts**, um einzuschätzen, wo ein Bruch des Hochwasserschutzes besonders wahrscheinlich ist.
       en:
-        title: Failed
+        title: Drone Misallocated
         description: |
           You deployed the drone in an irrelevant area and thereby wasted valuable resources.
 
           **Review the social media posts** to assess where a breach in the flood protection system is most likely.
 
-  - id: fail-screen-3
+  - id: wrong-screen-quiz-sharing
     type: end-screen
     result: failed
     showLayersById: [flood_crisis_unit_drone_feed]
     text:
       de:
-        title: Fehlgeschlagen
+        title: Information falsch geteilt
         description: |
           Das zu frühe Teilen der Information mit der Öffentlichkeit verstärkt Panik.
 
           **Die Einsatzkräfte brauchen dringend präzise Informationen, um eine sinnvolle Reaktion zu initiieren.**
       en:
-        title: Failed
+        title: Information Shared Poorly
         description: |
           Sharing the information with the public too early intensifies panic.
 

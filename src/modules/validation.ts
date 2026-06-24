@@ -145,16 +145,16 @@ export function validateChallengeRelations(
 			}
 		}
 
-		// 5. Solution IDs must not overlap with wrong_options
+		// 5. Solution IDs must not overlap with critical_items
 		if (point.type === "area-selection-quiz" || point.type === "point-selection-quiz") {
 			const overlap = point.solution.filter((id) =>
-				point.wrong_options?.includes(id),
+				point.critical_items?.includes(id),
 			);
 			if (overlap.length > 0) {
 				errors.push({
 					file,
-					path: `${at}.wrong_options`,
-					message: `IDs appear in both solution and wrong_options: ${overlap.join(", ")}`,
+					path: `${at}.critical_items`,
+					message: `IDs appear in both solution and critical_items: ${overlap.join(", ")}`,
 				});
 			}
 		}

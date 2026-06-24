@@ -449,8 +449,8 @@ A multiple-choice question with text answers. The player selects one or more opt
       question: "**Would you share the information immediately,
         or deploy a drone first?**"
   next:
-    right: coord-selection
-    wrong: fail-screen-1
+    correct: coord-selection
+    wrong: wrong-screen
 ```
 
 For multi-select quizzes, list multiple values in `solution` and set `maxAnswers` to restrict how many the player can pick:
@@ -513,8 +513,8 @@ The player places a marker on the map by tapping. The answer is correct if the f
 
         **Then tap a location on the map.**
   next:
-    right: drone-correct-screen
-    wrong: fail-screen-2
+    correct: drone-confirmation
+    wrong: wrong-screen
 ```
 
 ---
@@ -532,7 +532,7 @@ The player taps one or more POI markers on the map. Correct answers are defined 
   slider_time_layer: flood_simulation
   slider_time_fixed: false
   solution: ["flood_emergency_call_01", "flood_emergency_call_02"]
-  wrong_options: ["flood_emergency_call_03"] # optional — actively wrong, not just neutral
+  critical_items: ["flood_emergency_call_03"] # optional — actively critical, selects lead to immediate `critical` outcome
   minSelection: 2
   maxSelection: 2
   text:
@@ -555,14 +555,13 @@ The player taps one or more POI markers on the map. Correct answers are defined 
         - how quickly the locations will be flooded
         - whether ambulances can still reach them safely
   next:
-    right: correct-screen
-    half: partly-correct-screen
-    half-wrong: partly-critical-screen
-    wrong-neutral: weak-fail-screen
-    all-wrong: fail-screen-1
+    correct: correct-screen
+    partly-correct: partly-correct-screen
+    critical: critical-screen
+    wrong: wrong-screen
 ```
 
-The `wrong_options` field is **optional**. It distinguishes between wrong markers (actively bad choices) and neutral ones (not part of the solution but not dangerous either). If omitted, all non-solution selections are treated as neutral. This enables fine-grained outcome branching — see §8.
+The `solution` field defines the correct items. The `critical_items` field is **optional** and defines items that should never be chosen. Any selected item that is neither in `solution` nor in `critical_items` is automatically wrong. The engine treats any selected `critical_items` as an immediate `critical` outcome.
 
 **POI overlay behavior:** In `point-selection-quiz`, opening a POI overlay does **not** auto-close other open overlays — multiple overlays can be visible at the same time so the player can compare POIs. This is unique to this step type; all other step types use single-overlay mode.
 
@@ -598,10 +597,10 @@ The player taps polygon zones in an SVG overlay. Works like `point-selection-qui
         Consider: population density, flood timing,
         critical infrastructure.
   next:
-    right: correct-screen
-    half: partly-correct-screen
-    wrong-neutral: all-noncritical-fail-screen
-    all-wrong: all-noncritical-fail-screen
+    correct: correct-screen
+    partly-correct: partly-correct-screen
+    critical: critical-screen
+    wrong: wrong-screen
 ```
 
 The zone IDs in `solution` must match the `id` attributes of the `<path>` or `<polygon>` elements in the SVG file.
@@ -610,21 +609,18 @@ The zone IDs in `solution` must match the `id` attributes of the `<path>` or `<p
 
 ## 8. Outcome Branching
 
-When a quiz step has multiple possible outcomes, `next` is a map instead of a string. The engine compares the player's selection against `solution` and `wrong_options`, then follows the matching key.
+When a selection quiz step has multiple possible outcomes, `next` is a map instead of a string. The engine compares the player's selection against `solution` and `critical_items`, then follows the matching key.
 
 ### Full outcome key reference
 
-| Key                    | Triggered when…                                                                          |
-| ---------------------- | ---------------------------------------------------------------------------------------- |
-| `correct`              | All correct answers selected, nothing wrong or non-critical.                             |
-| `partly-correct`       | Some correct answers, but also some non-critical answers.                                |
-| `wrong`                | Catch-all fallback if no more specific key matches.                                      |
-| `partly-critical`      | Some correct answers, but also at least one `wrong_option`. Falls back to `partly-correct`. |
-| `weak-fail`            | At least one `wrong_option` selected, no correct answers. Falls back to `wrong`.         |
-| `all-noncritical-fail` | Only non-critical answers selected (not in solution or wrong_options). Falls back to `wrong`. |
-| `all-critical-fail`    | Only `wrong_options` selected. Falls back to `wrong`.                                    |
+| Key              | Triggered when…                                                |
+| ---------------- | -------------------------------------------------------------- |
+| `correct`        | Only all items from `solution` are selected.                   |
+| `partly-correct` | At least one `solution` item is selected and no critical item is selected. |
+| `critical`       | At least one `critical_items` item is selected.                |
+| `wrong`          | Only wrong items are selected: no solution item and no critical item. |
 
-Fallback chain: `partly-critical` → `partly-correct` → `wrong`; `weak-fail` / `all-noncritical-fail` / `all-critical-fail` → `wrong`.
+Fallback chain: `critical` → `partly-correct` → `wrong`; `partly-correct` → `wrong`.
 
 You only need to define the keys that matter for your scenario. The engine falls back up the chain automatically.
 
@@ -633,20 +629,31 @@ You only need to define the keys that matter for your scenario. The engine falls
 ```yaml
 next:
   correct: correct-screen
-  partly-correct: partly-correct-screen # one right, one non-critical
-  partly-critical: partly-critical-screen # one right, one critically wrong
-  weak-fail: fail-screen-mixed
-  all-noncritical-fail: fail-screen-neutral
-  all-critical-fail: fail-screen-wrong
+  partly-correct: partly-correct-screen
+  critical: critical-screen
+  wrong: wrong-screen
 ```
 
 ### Simple two-branch example (correct/wrong only)
 
 ```yaml
 next:
-  correct: drone-correct-screen
-  wrong: fail-screen-2
+  correct: correct-screen
+  wrong: wrong-screen
 ```
+
+### Screen ID naming in multi-step challenges
+
+If a challenge has more than one answerable step, suffix terminal screen IDs with the step type or purpose so branches stay unambiguous:
+
+```yaml
+next:
+  correct: correct-screen-point-selection
+  partly-correct: partly-correct-screen-point-selection
+  wrong: wrong-screen-point-selection
+```
+
+For multiple steps of the same type, add a purpose suffix, for example `wrong-screen-quiz-decision` and `wrong-screen-quiz-sharing`.
 
 ### Single next step (no branching)
 

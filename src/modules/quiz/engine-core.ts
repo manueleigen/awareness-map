@@ -262,15 +262,14 @@ function handleAction(point: StoryPoint, outcome: boolean | QuizOutcome): void {
 		const status: QuizOutcome =
 			typeof outcome === "boolean" ? (outcome ? "correct" : "wrong") : outcome;
 
-		const next = point.next as Record<string, string | undefined>;
 		if (status === "correct") {
 			nextId = point.next.correct;
-		} else if (next[status]) {
-			nextId = next[status] as string;
-		} else if (status === "partly-critical") {
+		} else if (status === "critical") {
+			nextId = point.next.critical ?? point.next["partly-correct"] ?? point.next.wrong;
+		} else if (status === "partly-correct") {
 			nextId = point.next["partly-correct"] ?? point.next.wrong;
 		} else {
-			nextId = point.next.wrong; // fallback for weak-fail, all-noncritical-fail, all-critical-fail
+			nextId = point.next.wrong;
 		}
 	}
 

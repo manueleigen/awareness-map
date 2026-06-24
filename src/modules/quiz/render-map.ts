@@ -640,30 +640,27 @@ export function renderSelection(
 			});
 		}
 
-		// Calculate Status: correct, partly-correct, partly-critical, weak-fail, all-noncritical-fail, all-critical-fail
+		// Calculate Status: correct, partly-correct, critical, wrong
 		let outcome: QuizOutcome = "wrong";
-		const numCorrect = selectedIds.filter((id) =>
-			point.solution.includes(id),
-		).length;
-		const numWrong = selectedIds.filter((id) =>
-			(point.wrong_options ?? []).includes(id),
-		).length;
+		const criticalItems = point.critical_items ?? [];
+
+		const numCorrect = selectedIds.filter((id) => point.solution.includes(id)).length;
+		const numCritical = selectedIds.filter((id) => criticalItems.includes(id)).length;
 		const allCorrect =
+			point.solution.length > 0 &&
 			numCorrect === point.solution.length &&
 			selectedIds.length === point.solution.length;
 
-		if (allCorrect) {
+		// If any critical item is selected, treat result as `critical` regardless
+		// of other selections (user requirement).
+		if (numCritical > 0) {
+			outcome = "critical";
+		} else if (allCorrect) {
 			outcome = "correct";
-		} else if (numCorrect > 0 && numWrong === 0) {
+		} else if (numCorrect > 0) {
 			outcome = "partly-correct";
-		} else if (numCorrect > 0 && numWrong > 0) {
-			outcome = "partly-critical";
-		} else if (numWrong > 0 && numWrong < selectedIds.length) {
-			outcome = "weak-fail";
-		} else if (numWrong === 0) {
-			outcome = "all-noncritical-fail";
 		} else {
-			outcome = "all-critical-fail";
+			outcome = "wrong";
 		}
 
 		onAction(outcome);
