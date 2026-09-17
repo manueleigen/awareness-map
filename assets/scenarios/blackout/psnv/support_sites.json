@@ -27,8 +27,8 @@
           "en": "Event Hall"
         },
         "description": {
-          "de": "Große Kapazität und Sanitäranlagen, aber keine verlässliche Heizung.",
-          "en": "Large capacity and sanitary facilities, but no reliable heating."
+          "de": "Große Kapazität und Sanitäranlagen, keine verlässliche Heizung.",
+          "en": "Large capacity and sanitary facilities, no reliable heating."
         }
       }
     },
@@ -42,8 +42,8 @@
           "en": "Trade Fair Parking Lot"
         },
         "description": {
-          "de": "Große Fläche, aber ohne Wetterschutz, Heizung oder nutzbare Infrastruktur.",
-          "en": "Large area, but no weather protection, heating, or usable infrastructure."
+          "de": "Große Fläche ohne Wetterschutz, Heizung oder nutzbare Infrastruktur.",
+          "en": "Large area without weather protection, heating, or usable infrastructure."
         }
       }
     },
@@ -57,8 +57,8 @@
           "en": "Community Center"
         },
         "description": {
-          "de": "Mittlere Kapazität, aber keine Sanitäranlagen vor Ort.",
-          "en": "Medium capacity, but no sanitary facilities on site."
+          "de": "Mittlere Kapazität, keine Sanitäranlagen vor Ort.",
+          "en": "Medium capacity, no sanitary facilities on site."
         }
       }
     },
@@ -87,8 +87,8 @@
           "en": "Church Hall"
         },
         "description": {
-          "de": "Geringe Kapazität, beheizte Räume, aber keine Sanitäranlagen.",
-          "en": "Low capacity and no sanitary facilities, but heated rooms."
+          "de": "Geringe Kapazität, beheizte Räume, kaum Sanitäranlagen.",
+          "en": "Low capacity and few sanitary facilities, but heated rooms."
         }
       }
     }

@@ -32,7 +32,7 @@ story_points:
       de:
         title: Leider falsch
         description: |
-          Die PSNV unterstützt Menschen in Krisen und Notlagen psychosozial, zum Beispiel durch Betreuung, Orientierung und persönliche Ansprache.
+          Die PSNV unterstützt Menschen in Krisen und Notlagen psychosozial, zum Beispiel durch Betreuung, Orientierung und persönliche Gespräche.
 
           **Versuche es nochmal!**
       en:
@@ -80,8 +80,7 @@ story_points:
 
           Berücksichtige:
 
-          - wie viele Menschen dort versorgt werden können
-          - die Einwohnerdichte und Erreichbarkeit
+          - wie viele Menschen du dort versorgen kannst
           - ob der Standort geeignet ist, um Schutz und Orientierung zu bieten
       en:
         title: Set Up Support Sites
@@ -91,39 +90,11 @@ story_points:
           Take into account:
 
           - how many people can be supported there
-          - population density and accessibility
           - whether the site offers shelter and orientation
     next:
       correct: correct-screen-point-selection
       partly-correct: partly-correct-screen-point-selection
       wrong: wrong-screen-point-selection
-
-  # - id: psnv-general-quiz
-  #   type: quiz
-  #   optionsLayout: rows
-  #   showLayersById: [blackout_psnv_support_sites]
-  #   text:
-  #     de:
-  #       title: Was leistet die PSNV?
-  #     en:
-  #       title: What Does PSNV Do?
-  #   options:
-  #     - value: "A"
-  #       text:
-  #         de: "Menschen stabilisieren, Orientierung geben und Betroffene begleiten"
-  #         en: "Stabilize people, provide orientation, and support those affected"
-  #     - value: "B"
-  #       text:
-  #         de: "Stromversorgung und mobile Funktechnik wiederherstellen"
-  #         en: "Restore power supply and mobile communications technology"
-  #     - value: "C"
-  #       text:
-  #         de: "Straßen sperren und Evakuierungen polizeilich durchsetzen"
-  #         en: "Block roads and enforce evacuations through police action"
-  #   solution: ["A"]
-  #   next:
-  #     correct: correct-screen-quiz
-  #     wrong: wrong-screen-quiz
 
   - id: correct-screen-point-selection
     type: end-screen
@@ -150,21 +121,21 @@ story_points:
       de:
         title: Teilweise richtig
         description: |
-          Einer deiner Orte ist gut geeignet, der andere erreicht zu wenige Menschen oder bietet zu wenig Schutz.
+          Einer deiner Orte ist gut geeignet, der andere bietet nicht genug Platz oder zu wenig Schutz.
       en:
         title: Partly Correct
         description: |
-          One of your locations is suitable, but the other reaches too few people or offers too little shelter.
+          One of your locations is suitable, but the other does not provide enough space or protection.
 
   - id: wrong-screen-point-selection
     type: end-screen
     result: failed
     text:
       de:
-        title: Fehlgeschlagen
+        title: Leider falsch!
         description: |
-          Deine Auswahl war nicht optimal für den Aufbau der Anlaufstellen.
+          Deine Auswahl war nicht optimal für den Aufbau der Anlaufstellen. Beachte die Kapazität und Infrastruktur der Standorte, um die Menschen bestmöglich zu unterstützen.
       en:
         title: Failed
         description: |
-          Your selection was not optimal for setting up the support sites.
+          Your selection was not optimal for setting up the support sites. Consider the capacity and infrastructure of each site to support people as effectively as possible.

@@ -80,15 +80,15 @@ story_points:
         question: |
           **Wähle die drei kritischsten Infrastrukturen aus**, die zuerst mit den begrenzten Notstromaggregaten stabilisiert werden sollen. Berücksichtige dabei:
 
-          - den aktuellen Status jeder Einrichtung
-          - die Folgen eines Ausfalls für die Bevölkerung
+          - den **aktuellen Status jeder Einrichtung** (rot / gelb / grün)
+          - die **Folgen eines Ausfalls** für die Bevölkerung
       en:
         title: Stabilize Backup Power
         question: |
           **Select the three most critical infrastructure facilities** that should be stabilized first with the limited emergency generators. Consider:
 
-          - the current status of each facility
-          - the consequences of a failure for the population
+          - the **current status** of each facility (red / yellow / green)
+          - the **consequences of a failure** for the population
     next:
       correct: correct-screen-point-selection
       partly-correct: partly-correct-screen-point-selection
@@ -106,7 +106,7 @@ story_points:
         description: |
           Du hast die begrenzten Notstromaggregate dort eingesetzt, wo ein Ausfall die größten Folgen hätte.
 
-          Abwasserpumpwerk, Lagezentrum und Trinkwasserwerk bleiben stabil. Damit sind Abwasserentsorgung, Einsatzkoordination und Trinkwasserversorgung auch während des Blackouts abgesichert.
+          Damit sind Abwasserentsorgung, Einsatzkoordination und Trinkwasserversorgung auch während des Blackouts abgesichert.
 
           **Ausgezeichnet!**
       en:
@@ -114,7 +114,7 @@ story_points:
         description: |
           You deployed the limited emergency generators where a failure would have the greatest consequences.
 
-          The wastewater pumping station, crisis coordination center, and drinking water plant remain stable. This keeps wastewater management, response coordination, and drinking water supply secured during the blackout.
+          This keeps wastewater management, response coordination, and drinking water supply secured during the blackout.
 
           **Excellent work!**
 
@@ -125,13 +125,14 @@ story_points:
       de:
         title: Teilweise richtig
         description: |
-          Du hast mindestens eine kritische Infrastruktur richtig priorisiert, aber nicht alle verfügbaren Notstromaggregate erreichen die Standorte mit der höchsten Dringlichkeit.
+          Du hast mindestens eine kritische Infrastruktur richtig priorisiert,
+          aber du setzt nicht alle verfügbaren Notstromaggregate an den dringendsten Standorten ein.
 
           **Prüfe Status und Auswirkungen jeder Einrichtung noch einmal.**
       en:
         title: Partly Correct
         description: |
-          You correctly prioritized at least one critical infrastructure site, but not all available emergency generators are being sent to the locations with the highest urgency.
+          You correctly prioritized at least one critical infrastructure site, but you are not deploying all available emergency generators to the most urgent locations.
 
           **Review the status and impact of each facility again.**
 
@@ -142,15 +143,15 @@ story_points:
       de:
         title: Kritische Versorgungslücke
         description: |
-          Du hast mindestens eine zentrale Infrastruktur richtig erkannt, aber ein Notstromaggregat am Kraftstoffdepot gebunden.
+          Du hast ein Notstromaggregat am Kraftstoffdepot eingesetzt.
 
-          **Das Depot ist wichtig für den weiteren Einsatz, aber weniger dringlich als andere Standorte, bei denen unmittelbar Ausfälle drohen.**
+          Das Depot ist wichtig für den weiteren Einsatz, aber **weniger dringlich als andere Standorte, bei denen Ausfälle drohen.**
 
           Setze das Notstromaggregat an einem anderen Standort ein.
       en:
         title: Critical Supply Gap
         description: |
-          You correctly identified at least one key infrastructure site, but assigned one emergency generator to the fuel depot.
+          You deployed one emergency generator to the fuel depot.
 
           **The depot is important for continued operations, but it is less urgent than other locations where failures are imminent.**
 
@@ -165,7 +166,7 @@ story_points:
         description: |
           Deine Auswahl erreicht keine der Standorte, bei denen unmittelbar kritische Ausfälle drohen.
 
-          **Prüfe Status und Auswirkungen jeder Einrichtung noch einmal.**
+          **Prüfe Status (rot = kritisch, gelb = eingeschränkt, grün = stabil) und Auswirkungen jeder Einrichtung noch einmal.**
       en:
         title: Wrong Prioritization
         description: |

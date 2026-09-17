@@ -7,18 +7,18 @@ story_points:
         title: "Kommunikation aufrechterhalten"
         description: |
           
-          Der **Krisenstab** muss im Katastrophenfall dafür sorgen, dass Prioritäten geklärt sind und Ressourcen sinnvoll verteilt werden.
+          Der **Krisenstab** muss im Katastrophenfall Prioritäten klären und Ressourcen sinnvoll verteilen.
           Ein wichtiger Aspekt bei einem Blackout ist **Information und Kommunikation**.
-          
-          Prüfe die Kommunikationslage in der Stadt und achte dabei auf Bezirke, in denen schlechte Erreichbarkeit, hohe Belastung und wichtige Einrichtungen zusammenkommen.
+
+          Behalte dafür die Kommunikationslage im Blick und baue ein Notkommunikationsnetzwerk auf.
         button: "Herausforderung starten"
       en:
         title: "Maintaining Communication"
         description: |
           The **crisis unit** is responsible for clarifying priorities and allocating resources effectively during a disaster.
           An important aspect during a blackout is **information and communication**.
-          
-          Check the communication situation in the city, paying special attention to districts where poor accessibility, high pressure, and key facilities overlap.
+
+          Monitor the communication situation and establish an emergency communication network.
 
         button: "Start Challenge"
     next: challenge_core
@@ -27,28 +27,32 @@ story_points:
     type: area-selection-quiz
     target: "#layer-blackout_crisis_unit_districts"
     showLayersById: [blackout_crisis_unit_districts]
-    solution: ["area-11", "area-21", "area-29"]
-    critical_items: ["area-1", "area-24", "area-36"]
+    solution: ["area-11", "area-19", "area-21"]
     minSelection: 3
     maxSelection: 3
     text:
       de:
-        title: Lage prüfen und Bezirke priorisieren
+        title: Kritische Bezirke priorisieren
         question: |
-          Identifiziere die Bezirke, in denen zusätzliche Kommunikationsknoten die größte Wirkung hätten.
-          
-          **Wähle drei Bezirke aus**, in denen schlechte Kommunikationslage, hohe Bevölkerungsdichte und wichtige Einrichtungen zusammenkommen.
-      en:
-        title: Assess the Situation and Prioritize Districts
-        question: |
-          Identify the districts where additional communication nodes would have the greatest effect.
+          **Identifiziere drei Bezirke**, in denen eine Verbesserung der Kommunikationslage die größte Wirkung hätte.
+          Berücksichtige dabei:
 
-          **Select three districts where poor communication, high population density, and key facilities overlap.**
+          - kritische Kommunikationslage (rot)
+          - hohe Bevölkerungsdichte
+          - wichtige Einrichtungen
+      en:
+        title: Prioritize Critical Districts
+        question: |
+          **Identify three districts** where improving the communication situation would have the greatest effect.
+          Consider:
+
+          - critical communication situation (red)
+          - high population density
+          - key locations
 
     next:
       correct: wifi-placement
       partly-correct: partly-correct-screen-area-selection
-      critical: critical-screen-area-selection
       wrong: wrong-screen-area-selection
 
 
@@ -66,14 +70,16 @@ story_points:
       en:
         title: Strategically Prioritized
         description: |
-          You prioritized the districts with the greatest strategic effect and placed the mobile communication point where existing coverage was weakest.
+          You identified the districts with the greatest strategic effect.
+
+          **Well done!**
 
   - id: partly-correct-screen-area-selection
     type: end-screen
     result: failed
     text:
       de:
-        title: Teilweise richtige Priorisierung
+        title: Teilweise richtig
         description: |
           Ein Teil deiner Auswahl war richtig, aber nicht alle gewählten Bezirke haben die größte strategische Wirkung.
           Achte auf:
@@ -82,9 +88,14 @@ story_points:
           - hohe Bevölkerungsdichte
           - wichtige Einrichtungen
       en:
-        title: Partly Effective Prioritization
+        title: Partly Correct
         description: |
           Part of your selection was correct, but not all chosen districts create the greatest strategic effect.
+          Pay attention to:
+
+          - critical communication situation (marked in red)
+          - high population density
+          - key locations
 
   - id: wrong-screen-area-selection
     type: end-screen
@@ -99,27 +110,9 @@ story_points:
       en:
         title: Not Optimally Decided
         description: |
-          Your decision does **not create the greatest possible relief** for the communication situation.
+          Your decision does **not provide the greatest possible improvement** to the communication situation.
 
-          Review where poor communication, high population density, and key facilities overlap.
-
-  - id: critical-screen-area-selection
-    type: end-screen
-    result: failed
-    text:
-      de:
-        title: Kritische Fehlpriorisierung
-        description: |
-          Deine Auswahl enthält mindestens einen Bezirk, der trotz begrenzter Ressourcen nicht priorisiert werden sollte.
-
-          Achte auf die Kombination aus kritischer Kommunikationslage, hoher Bevölkerungsdichte und wichtigen Einrichtungen.
-      en:
-        title: Critical Misprioritization
-        description: |
-          Your selection includes at least one district that should not be prioritized while resources are limited.
-
-          Focus on the combination of poor communication, high population density, and key facilities.
-
+          Review where poor communication status (red), high population density, and key facilities overlap.
 
 
   - id: wifi-placement
@@ -145,7 +138,7 @@ story_points:
           **Setze den mobilen Kommunikationspunkt dort, wo bestehende Kommunikationspunkte die größte Lücke lassen.**
 
       en:
-        title: Establish Crisis Communication Network
+        title: Build Crisis Communication Network
         question: |
           An independent crisis communication network connects key actors and infrastructure even when power and telecommunications fail.
 
@@ -161,9 +154,9 @@ story_points:
       de:
         title: Nicht optimal platziert
         description: |
-          Dort gibt es bereits vergleichsweise mehr Abdeckung.
+          Dort, wo du den Kommunikationspunkt platziert hast, gibt es bereits vergleichsweise mehr Abdeckung oder die Bevölkerungsdichte ist gering.
 
-          Suche den Bereich, der von bestehenden Kommunikationspunkten am wenigsten erreicht wird.
+          Suche einen relevanten Bereich, der von bestehenden Kommunikationspunkten am wenigsten erreicht wird.
       en:
         title: Not Optimally Placed
         description: |
