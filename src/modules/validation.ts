@@ -67,6 +67,17 @@ export function validateChallengeRelations(
 	const errors: ValidationError[] = [];
 	const pointIds = new Set(challenge.story_points.map((p) => p.id));
 	const knownLayerIds = new Set(knownLayers.keys());
+	const duplicatePointIds = challenge.story_points
+		.map((p) => p.id)
+		.filter((id, index, ids) => ids.indexOf(id) !== index);
+
+	for (const id of [...new Set(duplicatePointIds)]) {
+		errors.push({
+			file,
+			path: `story_points[${id}]`,
+			message: `Duplicate story point id "${id}"`,
+		});
+	}
 
 	for (const point of challenge.story_points) {
 		const at = `story_points[${point.id}]`;
